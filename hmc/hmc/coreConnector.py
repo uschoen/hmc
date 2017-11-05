@@ -12,27 +12,31 @@ from hmc import socketServer
 from hmc import socketClient
 
 class coreConnector(object):
+    
+    
+    
+    
     def startCoreConnector(self,coreName,args):
-        self.log("info","try to start core lissener")
-        args['coreName']=coreName
-        if self.args['enable']:
-            try:
-                self.ConnectorServer= socketServer.server(self.args,self,self.logger)
+        self.log("info","try to start core sync server")
+        try:
+            args['coreName']=coreName
+            if args['enable']:
+                self.ConnectorServer= socketServer.server(args,self,self.logger)
                 self.ConnectorServer.daemon=True
                 self.ConnectorServer.start()
                 self.log("info","start core socket server success full")
-            except :
-                self.log("error",sys.exc_info())
-                tb = sys.exc_info()
-                for msg in tb:
-                    self.log("error","Traceback Info: %s"%(msg)) 
-                exc_type, exc_obj, exc_tb = sys.exc_info()
-                fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
-                self.log("error","%s %s %s "%(exc_type, fname, exc_tb.tb_lineno))
-        else:
-            self.log("info","core server connector disable")
-        self.coreClientsCFG[coreName]=args    
-        
+            else:
+                self.log("info","core sync server is disable")
+            self.coreClientsCFG[coreName]=args
+        except :
+            self.log("error",sys.exc_info())
+            tb = sys.exc_info()
+            for msg in tb:
+                self.log("error","Traceback Info: %s"%(msg)) 
+            exc_type, exc_obj, exc_tb = sys.exc_info()
+            fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
+            self.log("error","%s %s %s "%(exc_type, fname, exc_tb.tb_lineno))
+    
     def addCoreClient(self,coreName,args):
         try: 
             args['coreName']=coreName
