@@ -32,6 +32,10 @@ class coreConfiguration():
         gateways
         '''
         self.loadGatewayFile(path+self.args['confFile']['gateways'])
+        '''
+        coreClients
+        '''
+        self.loadCoreClientsFile(path+self.args['confFile']['remoteCore'])
             
     def loadGatewayFile(self,filename): 
         self.log("info","reading configuration database gateways %s"%(filename))      
@@ -50,7 +54,25 @@ class coreConfiguration():
             exc_type, exc_obj, exc_tb = sys.exc_info()
             fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
             self.log("error","%s %s %s "%(exc_type, fname, exc_tb.tb_lineno))
-    
+            
+    def loadCoreClientsFile(self,filename):
+        self.log("info","reading configuration database devices %s"%(filename)) 
+        try:
+            coreClientsCFG=self.loadJSON(filename)
+        except IOError:
+            self.log("warning","no Device file: %s , add new one"%(filename))
+            return
+        if len(coreClientsCFG)>0:
+            for coreClient in coreClientsCFG:
+                if coreClient==self.args['global']['host']:
+                    self.log("info","starting lissener for Core %s"%(coreClient))
+                    self.startCoreConnector(coreClient,coreClientsCFG[coreClient])
+                    continue
+                self.log("info","restore core client: %s"%(coreClient))
+                self.addCoreClient(coreClient,coreClientsCFG[coreClient])
+        else:
+            self.log("info","coreClient file is empty")
+        self.log("info","restore coreClient success")
     def loadDeviceFile(self,filename):
         self.log("info","reading configuration database devices %s"%(filename)) 
         try:
@@ -108,19 +130,38 @@ class coreConfiguration():
         self.writeGatewayFile(path+self.args['confFile']['gateways'])
         self.writeDefaultEventHandlerFile(path+self.args['confFile']['defaultEvent'])
         self.writeDevicesFile(path+self.args['confFile']['devices'])
+        self.CoreClientsFile(path+self.args['confFile']['remoteCore'])
         
-    def writeEventHandlerFile(self,filename):
+    def writeEventHandlerFile(self,filename=False):
+        if not filename:
+            path="%s%s/%s"%(self.args['confFile']['basePath'],self.args['global']['host'],self.args['confFile']['filePath'])
+            filename=path+self.args['confFile']['eventHandler']
         self.log("info","write event handler configuration to %s"%(filename))
         self.writeJSON(filename,self.eventHandlerCFG)
     
-    def writeGatewayFile(self,filename):
+    def writeGatewayFile(self,filename=False):
+        if not filename:
+            path="%s%s/%s"%(self.args['confFile']['basePath'],self.args['global']['host'],self.args['confFile']['filePath'])
+            filename=path+self.args['confFile']['gateways']
         self.log("info","write gateway configuration to %s"%(filename))
         self.writeJSON(filename,self.gatewaysCFG)
     
-    def writeDefaultEventHandlerFile(self,filename):
-        pass
+    def CoreClientsFile(self,filename=False):
+        if not filename:
+            path="%s%s/%s"%(self.args['confFile']['basePath'],self.args['global']['host'],self.args['confFile']['filePath'])
+            filename=path+self.args['confFile']['remoteCore']
+        self.log("info","write gateway configuration to %s"%(filename))
+        self.writeJSON(filename,self.gatewaysCFG)
     
-    def writeDevicesFile(self,filename):
+    def writeDefaultEventHandlerFile(self,filename=False):
+        if not filename:
+            path="%s%s/%s"%(self.args['confFile']['basePath'],self.args['global']['host'],self.args['confFile']['filePath'])
+            filename=path+self.args['confFile']['defaultEvent']
+    
+    def writeDevicesFile(self,filename=False):
+        if not filename:
+            path="%s%s/%s"%(self.args['confFile']['basePath'],self.args['global']['host'],self.args['confFile']['filePath'])
+            filename=path+self.args['confFile']['devices']
         self.log("info","write device configuration to %s"%(filename))
         configuration={}
         for deviceID in self.getAllDeviceId():

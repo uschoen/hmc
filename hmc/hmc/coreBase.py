@@ -35,8 +35,10 @@ class coreBase():
         self.devices={}                         # Device objects
         self.eventHandler={}
         self.eventHandlerCFG={}
-        self.ConnectorServer={}             
-        self.CoreConnections={}                  # CoreConnection to other Cores
+        
+        self.coreClientsCFG={}                  # Core Connection Configuration
+        self.ConnectorServer={}                 # Core Lissener Object
+        self.CoreClientsConnections={}          # CoreConnection to other Cores
         
         self.onboot_event()
         
