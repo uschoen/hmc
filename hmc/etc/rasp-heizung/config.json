@@ -1,25 +1,6 @@
  {
  "checkgatewaysintervall":40,
  "core":{
- 	"connector":{
- 		"enable":true,
- 		"ip":"192.168.3.70",
-		"port":5090,
-		"timeout":50,
-		"user":"user-heizung",
-		"password":"password12345",
- 		"syncCore":{
- 				"rasp-server01":{
-		 			"enable":true,
-		 			"user":"user-server01",
-		 			"password":"server1234",
-		 			"ip":"192.168.3.75"},
-		 		"rasp-demo":{
-		 			"enable":false,
-		 			"user":"user-demo",
-		 			"password":"demo1234",
-		 			"ip":"10.90.99.1"}
-		 			}},
    "confFile":{
  		"basePath":"etc/",
  		"filePath":"database/",
@@ -27,7 +8,7 @@
  		"devices":"devices.json",
  		"gateways":"gateways.json",
  		"eventHandler":"eventHandler.json",
- 		"remoteCore":"remoteCore.json"}},
+ 		"remoteCore":"coreServer.json"}},
  		
 "multilogger":{
  	"enable":true,
