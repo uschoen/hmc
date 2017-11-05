@@ -1,0 +1,17 @@
+{
+    "onewire@rasp-heizung": {
+        "class": "sensor", 
+        "config": {
+            "devices": {}, 
+            "gateway": "onewire", 
+            "host": "rasp-heizung", 
+            "intervall": 60, 
+            "path": "/sys/bus/w1/devices/", 
+            "tempDiv": 0.5, 
+            "typ": "ds1820"
+        }, 
+        "enable": true, 
+        "modul": "ds1820", 
+        "pakage": "raspberry.onewire"
+    }
+}

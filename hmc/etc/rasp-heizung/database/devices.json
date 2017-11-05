@@ -1,0 +1,458 @@
+{
+    "28-0115913432ff@onewire.rasp-heizung": {
+        "connected": {
+            "value": true
+        }, 
+        "create": {
+            "typ": "int", 
+            "value": "0"
+        }, 
+        "deviceID": {
+            "value": "28-0115913432ff@onewire.rasp-heizung"
+        }, 
+        "enable": {
+            "value": true
+        }, 
+        "gateway": {
+            "value": "onewire"
+        }, 
+        "host": {
+            "value": "rasp-heizung"
+        }, 
+        "lastchange": {
+            "typ": "int", 
+            "value": "0"
+        }, 
+        "lastupdate": {
+            "typ": "timestamp", 
+            "value": "0"
+        }, 
+        "name": {
+            "typ": "string", 
+            "value": "unkown"
+        }, 
+        "onboot_event": {
+            "hidden": true, 
+            "typ": "array", 
+            "value": []
+        }, 
+        "onchange_event": {
+            "hidden": true, 
+            "typ": "array", 
+            "value": []
+        }, 
+        "oncreate_event": {
+            "hidden": true, 
+            "typ": "array", 
+            "value": []
+        }, 
+        "ondelete_event": {
+            "hidden": true, 
+            "typ": "array", 
+            "value": []
+        }, 
+        "onrefresh_event": {
+            "hidden": true, 
+            "typ": "array", 
+            "value": []
+        }, 
+        "onshutdown_event": {
+            "hidden": true, 
+            "typ": "array", 
+            "value": []
+        }, 
+        "rssi": {
+            "typ": "int", 
+            "value": "0"
+        }, 
+        "sensor_id": {
+            "value": "28-0115913432ff"
+        }, 
+        "typ": {
+            "value": "ds1820"
+        }, 
+        "value": {
+            "value": 0
+        }
+    }, 
+    "28-011591355eff@onewire.rasp-heizung": {
+        "connected": {
+            "value": true
+        }, 
+        "create": {
+            "typ": "int", 
+            "value": "0"
+        }, 
+        "deviceID": {
+            "value": "28-011591355eff@onewire.rasp-heizung"
+        }, 
+        "enable": {
+            "value": true
+        }, 
+        "gateway": {
+            "value": "onewire"
+        }, 
+        "host": {
+            "value": "rasp-heizung"
+        }, 
+        "lastchange": {
+            "typ": "int", 
+            "value": "0"
+        }, 
+        "lastupdate": {
+            "typ": "timestamp", 
+            "value": "0"
+        }, 
+        "name": {
+            "typ": "string", 
+            "value": "unkown"
+        }, 
+        "onboot_event": {
+            "hidden": true, 
+            "typ": "array", 
+            "value": []
+        }, 
+        "onchange_event": {
+            "hidden": true, 
+            "typ": "array", 
+            "value": []
+        }, 
+        "oncreate_event": {
+            "hidden": true, 
+            "typ": "array", 
+            "value": []
+        }, 
+        "ondelete_event": {
+            "hidden": true, 
+            "typ": "array", 
+            "value": []
+        }, 
+        "onrefresh_event": {
+            "hidden": true, 
+            "typ": "array", 
+            "value": []
+        }, 
+        "onshutdown_event": {
+            "hidden": true, 
+            "typ": "array", 
+            "value": []
+        }, 
+        "rssi": {
+            "typ": "int", 
+            "value": "0"
+        }, 
+        "sensor_id": {
+            "value": "28-011591355eff"
+        }, 
+        "typ": {
+            "value": "ds1820"
+        }, 
+        "value": {
+            "value": 48.75
+        }
+    }, 
+    "28-011591363eff@onewire.rasp-heizung": {
+        "connected": {
+            "value": true
+        }, 
+        "create": {
+            "typ": "int", 
+            "value": "0"
+        }, 
+        "deviceID": {
+            "value": "28-011591363eff@onewire.rasp-heizung"
+        }, 
+        "enable": {
+            "value": true
+        }, 
+        "gateway": {
+            "value": "onewire"
+        }, 
+        "host": {
+            "value": "rasp-heizung"
+        }, 
+        "lastchange": {
+            "typ": "int", 
+            "value": "0"
+        }, 
+        "lastupdate": {
+            "typ": "timestamp", 
+            "value": "0"
+        }, 
+        "name": {
+            "typ": "string", 
+            "value": "unkown"
+        }, 
+        "onboot_event": {
+            "hidden": true, 
+            "typ": "array", 
+            "value": []
+        }, 
+        "onchange_event": {
+            "hidden": true, 
+            "typ": "array", 
+            "value": []
+        }, 
+        "oncreate_event": {
+            "hidden": true, 
+            "typ": "array", 
+            "value": []
+        }, 
+        "ondelete_event": {
+            "hidden": true, 
+            "typ": "array", 
+            "value": []
+        }, 
+        "onrefresh_event": {
+            "hidden": true, 
+            "typ": "array", 
+            "value": []
+        }, 
+        "onshutdown_event": {
+            "hidden": true, 
+            "typ": "array", 
+            "value": []
+        }, 
+        "rssi": {
+            "typ": "int", 
+            "value": "0"
+        }, 
+        "sensor_id": {
+            "value": "28-011591363eff"
+        }, 
+        "typ": {
+            "value": "ds1820"
+        }, 
+        "value": {
+            "value": 0
+        }
+    }, 
+    "28-0115913679ff@onewire.rasp-heizung": {
+        "connected": {
+            "value": true
+        }, 
+        "create": {
+            "typ": "int", 
+            "value": "0"
+        }, 
+        "deviceID": {
+            "value": "28-0115913679ff@onewire.rasp-heizung"
+        }, 
+        "enable": {
+            "value": true
+        }, 
+        "gateway": {
+            "value": "onewire"
+        }, 
+        "host": {
+            "value": "rasp-heizung"
+        }, 
+        "lastchange": {
+            "typ": "int", 
+            "value": "0"
+        }, 
+        "lastupdate": {
+            "typ": "timestamp", 
+            "value": "0"
+        }, 
+        "name": {
+            "typ": "string", 
+            "value": "unkown"
+        }, 
+        "onboot_event": {
+            "hidden": true, 
+            "typ": "array", 
+            "value": []
+        }, 
+        "onchange_event": {
+            "hidden": true, 
+            "typ": "array", 
+            "value": []
+        }, 
+        "oncreate_event": {
+            "hidden": true, 
+            "typ": "array", 
+            "value": []
+        }, 
+        "ondelete_event": {
+            "hidden": true, 
+            "typ": "array", 
+            "value": []
+        }, 
+        "onrefresh_event": {
+            "hidden": true, 
+            "typ": "array", 
+            "value": []
+        }, 
+        "onshutdown_event": {
+            "hidden": true, 
+            "typ": "array", 
+            "value": []
+        }, 
+        "rssi": {
+            "typ": "int", 
+            "value": "0"
+        }, 
+        "sensor_id": {
+            "value": "28-0115913679ff"
+        }, 
+        "typ": {
+            "value": "ds1820"
+        }, 
+        "value": {
+            "value": 0
+        }
+    }, 
+    "28-011591382fff@onewire.rasp-heizung": {
+        "connected": {
+            "value": true
+        }, 
+        "create": {
+            "typ": "int", 
+            "value": "0"
+        }, 
+        "deviceID": {
+            "value": "28-011591382fff@onewire.rasp-heizung"
+        }, 
+        "enable": {
+            "value": true
+        }, 
+        "gateway": {
+            "value": "onewire"
+        }, 
+        "host": {
+            "value": "rasp-heizung"
+        }, 
+        "lastchange": {
+            "typ": "int", 
+            "value": "0"
+        }, 
+        "lastupdate": {
+            "typ": "timestamp", 
+            "value": "0"
+        }, 
+        "name": {
+            "typ": "string", 
+            "value": "unkown"
+        }, 
+        "onboot_event": {
+            "hidden": true, 
+            "typ": "array", 
+            "value": []
+        }, 
+        "onchange_event": {
+            "hidden": true, 
+            "typ": "array", 
+            "value": []
+        }, 
+        "oncreate_event": {
+            "hidden": true, 
+            "typ": "array", 
+            "value": []
+        }, 
+        "ondelete_event": {
+            "hidden": true, 
+            "typ": "array", 
+            "value": []
+        }, 
+        "onrefresh_event": {
+            "hidden": true, 
+            "typ": "array", 
+            "value": []
+        }, 
+        "onshutdown_event": {
+            "hidden": true, 
+            "typ": "array", 
+            "value": []
+        }, 
+        "rssi": {
+            "typ": "int", 
+            "value": "0"
+        }, 
+        "sensor_id": {
+            "value": "28-011591382fff"
+        }, 
+        "typ": {
+            "value": "ds1820"
+        }, 
+        "value": {
+            "value": 43.75
+        }
+    }, 
+    "28-0315911b36ff@onewire.rasp-heizung": {
+        "connected": {
+            "value": true
+        }, 
+        "create": {
+            "typ": "int", 
+            "value": "0"
+        }, 
+        "deviceID": {
+            "value": "28-0315911b36ff@onewire.rasp-heizung"
+        }, 
+        "enable": {
+            "value": true
+        }, 
+        "gateway": {
+            "value": "onewire"
+        }, 
+        "host": {
+            "value": "rasp-heizung"
+        }, 
+        "lastchange": {
+            "typ": "int", 
+            "value": "0"
+        }, 
+        "lastupdate": {
+            "typ": "timestamp", 
+            "value": "0"
+        }, 
+        "name": {
+            "typ": "string", 
+            "value": "unkown"
+        }, 
+        "onboot_event": {
+            "hidden": true, 
+            "typ": "array", 
+            "value": []
+        }, 
+        "onchange_event": {
+            "hidden": true, 
+            "typ": "array", 
+            "value": []
+        }, 
+        "oncreate_event": {
+            "hidden": true, 
+            "typ": "array", 
+            "value": []
+        }, 
+        "ondelete_event": {
+            "hidden": true, 
+            "typ": "array", 
+            "value": []
+        }, 
+        "onrefresh_event": {
+            "hidden": true, 
+            "typ": "array", 
+            "value": []
+        }, 
+        "onshutdown_event": {
+            "hidden": true, 
+            "typ": "array", 
+            "value": []
+        }, 
+        "rssi": {
+            "typ": "int", 
+            "value": "0"
+        }, 
+        "sensor_id": {
+            "value": "28-0315911b36ff"
+        }, 
+        "typ": {
+            "value": "ds1820"
+        }, 
+        "value": {
+            "value": 53.13
+        }
+    }
+}
