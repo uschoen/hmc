@@ -11,13 +11,10 @@ import sys,os
 from hmc import socketServer
 from hmc import socketClient
 
-
-
-
-
 class coreConnector(object):
     def startCoreConnector(self,coreName,args):
         self.log("info","try to start core lissener")
+        args['coreName']=coreName
         if self.args['enable']:
             try:
                 self.ConnectorServer= socketServer.server(self.args,self,self.logger)
@@ -35,21 +32,22 @@ class coreConnector(object):
         else:
             self.log("info","core server connector disable")
         self.coreClientsCFG[coreName]=args    
-    
+        
     def addCoreClient(self,coreName,args):
         try: 
+            args['coreName']=coreName
             self.CoreClientsConnections[coreName]=socketClient.CoreConnection(args,self,self.logger)
         except:
             self.log("error","can not build coreClient %s"%(coreName))
         self.coreClientsCFG[coreName]=args   
-    
+        
     def updateRemoteCore(self,deviceID,calling,*args): 
         if not self.eventHome(deviceID):
             return               
-        for CoreName in self.CoreClientsConnections:
+        for coreName in self.CoreClientsConnections:
             try:
-                self.CoreClientsConnections[CoreName].updateCore(calling,*args)
+                self.CoreClientsConnections[coreName].updateCore(calling,*args)
             except:
-                self.log("error","can not update remote Core: %s"%(CoreName)) 
+                self.log("error","can not update remote Core: %s"%(coreName)) 
                 
 

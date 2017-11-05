@@ -17,7 +17,7 @@ class CoreConnection(object):
         self.logger=logs
         self.core=core
         self.arg=args     
-        self.blocked=0
+        self.blockedTime=0
         self.coreDataobj=coreProtokoll.code(self.arg['user'],self.arg['password'],self.logger)
         self.sync=False
         self.coreSocket=False
@@ -27,21 +27,23 @@ class CoreConnection(object):
     def syncAllCoreConfiguration(self):
         self.log("info","sync to core %s"%(self.arg['coreName']))
         try:
-            self.connectCore()
             self.__syncCoreEventHandler()
             self.__syncCoreDefaultEventHandler()
             self.__syncCoreDevices()
             self.__syncCoreGateways()
+            self.__syncCoreClients()
             self.sync=True
         except:
             self.log("error","can not sync to core %s"%(self.arg['coreName']))
             self.sync=False
-            
+        
     def __syncCoreDevices(self):
         try:
             self.log("info","sync Devices to core %s"%(self.arg['coreName']))
             for deviceID in self.core.getAllDeviceId():
-                self.core.updateRemoteCore(deviceID,'updateDevice',self.core.getAllDeviceAttribute(deviceID))
+                if not self.core.eventHome(deviceID):
+                    continue
+                self.updateCore('updateDevice',self.core.getAllDeviceAttribute(deviceID))
                 self.log("info","sync DevicesID %s to core %s"%(deviceID,self.arg['coreName']))
         except:
             self.log("error","can not sync Devices to core %s"%(self.arg['coreName']))
@@ -88,27 +90,30 @@ class CoreConnection(object):
             raise Exception
         
     def updateCore(self,calling,*args):
-        if self.blocked>time():
-            self.log("warning","Core is blocked for %i s"%(self.blocked-time()))
+        if self.blockedTime>time():
+            self.log("warning","Core is blocked for %i s"%(self.blockedTime-time()))
             raise Exception
         try:
-            if not self.sync:
-                self.syncAllCoreConfiguration()
             threading.Thread(target=self.sendData,args = (self.coreDataobj.decode(calling,args))).start()
             self.log("info","send data in new thread")
         except:
             self.log("error","can not send data")   
+            self.sync=False
             raise Exception
     
     def sendData(self,corData):
         try:
-            self.connectCore()
+            if not self.coreSocket:
+                self.connectCore()
             self.log("debug","send: %s"%(corData))
             self.coreSocket.sendall(corData)
             self.log("debug","send message to core")
             self.listenToClient(self.coreSocket)
             self.closeSocket()
             self.log("debug","socket close to core")
+            if not self.sync:
+                self.sync=True
+                self.syncAllCoreConfiguration()
         except:
             self.log("error","can not send message to core")
             self.log("error",sys.exc_info())
@@ -119,8 +124,9 @@ class CoreConnection(object):
             fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
             self.log("error","%s %s %s "%(exc_type, fname, exc_tb.tb_lineno))
             self.closeSocket()
+            self.sync=False
             raise Exception
-    
+        
     def closeSocket(self):
         try:
             self.coreSocket.close()    
@@ -174,7 +180,7 @@ class CoreConnection(object):
             exc_type, exc_obj, exc_tb = sys.exc_info()
             fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
             self.log("error","%s %s %s "%(exc_type, fname, exc_tb.tb_lineno))
-            self.blocked=time()+self.arg['timeout']
+            self.blockedTime=time()+self.arg['timeout']
             self.closeSocket()
             raise
         except:
@@ -185,7 +191,7 @@ class CoreConnection(object):
             exc_type, exc_obj, exc_tb = sys.exc_info()
             fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
             self.log("error","%s %s %s "%(exc_type, fname, exc_tb.tb_lineno))
-            self.blocked=time()+self.arg['timeout']
+            self.blockedTime=time()+self.arg['timeout']
             self.closeSocket()
             raise
         
