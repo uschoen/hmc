@@ -25,7 +25,7 @@ class server(threading.Thread):
         self.args=params
         self.running=1
         self.socket=False
-        self.clientCon={}
+        self.coreDataobj=coreProtokoll.code(self.args['user'],self.args['password'],self.logger)
         self.log("debug","starting socket Server")
         
     def log (self,level="unkown",messages="no messages"):
@@ -57,8 +57,8 @@ class server(threading.Thread):
                 exc_type, exc_obj, exc_tb = sys.exc_info()
                 fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
                 self.log("error","%s %s %s "%(exc_type, fname, exc_tb.tb_lineno))
-                self.log("error","socket error, wait 60 sec for new connection")
-                sleep(60)
+                self.log("error","socket error, wait %i sec for new connection"%(self.args['timeout']))
+                sleep(self.args['timeout'])
                 
     def listenToClient(self, client, address):
         size = 1024
@@ -67,13 +67,12 @@ class server(threading.Thread):
                 data = client.recv(size)
                 if data:
                     try:
-                        coreData=coreProtokoll.code(self.args['connector']['user'],self.args['connector']['user'],self.logger)
-                        (user,password,calling,args)=coreData.encode(data)
+                        (user,password,calling,args)=self.coreDataobj.encode(data)
                         self.log("debug","calling function:%s user:%s"%(calling,user))
                         self.log("debug","args %s"%(args))
                         method_to_call = getattr(self.core,calling)
                         method_to_call(*args)
-                        client.sendall(coreData.decode('result',{'result':"success"}))
+                        client.sendall(self.coreDataobj.decode('result',{'result':"success"}))
                         self.log("debug","send result success")
                     except:
                         tb = sys.exc_info()
@@ -82,7 +81,7 @@ class server(threading.Thread):
                         exc_type, exc_obj, exc_tb = sys.exc_info()
                         fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
                         self.log("error","%s %s %s "%(exc_type, fname, exc_tb.tb_lineno))
-                        client.sendall(client.sendall(coreData.decode('result',{'result':"error"})))
+                        client.sendall(client.sendall(self.coreDataobj.decode('result',{'result':"error"})))
                         self.log("debug","send result error")
                 else:
                     self.log("debug","client disconnected")
@@ -100,63 +99,23 @@ class server(threading.Thread):
                 return False
             
     def buildSocket(self):
-        host=""
-        #self.args['ip']
-        self.log("debug","try to build socket ip:%s:%s"%(host,self.args['port']))
+        self.log("debug","try to build socket ip:%s:%s"%(self.args['ip'],self.args['port']))
         try:
             self.socket=socket.socket (socket.AF_INET, socket.SOCK_STREAM)
-            self.socket.bind((host,int(self.args['port'])))
+            self.socket.bind((self.args['ip'],int(self.args['port'])))
             self.socket.listen(5)
-            self.log("info","socket ip:%s:%s is ready"%(host,self.args['port']))
+            self.log("info","socket ip:%s:%s is ready"%(self.args['ip'],self.args['port']))
         
         except :
             self.socket=False
-            self.log("error","can not build socket ip:%s:%s"%(host,self.args['port']))
+            self.log("error","can not build socket ip:%s:%s"%(self.args['ip'],self.args['port']))
             self.log("error",sys.exc_info())
             tb = sys.exc_info()
             for msg in tb:
-                self.log("error","Traceback Info:" + str(msg)) 
+                self.log("error","Traceback Info: %s"%(msg)) 
             exc_type, exc_obj, exc_tb = sys.exc_info()
             fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
             self.log("error","%s %s %s "%(exc_type, fname, exc_tb.tb_lineno))
             raise
         
         
-class handelClient(threading.Thread):
-    '''
-    classdocs
-    '''
-
-
-    def __init__(self,con,params,core,logger):
-        '''
-        Constructor
-        '''
-        threading.Thread.__init__(self)
-        self.core=core
-        self.logger=logger
-        self.args=params
-        self.running=1
-        self.con=con
-        self.log("debug","starting socket Server")
-    def run(self):
-        msg=""
-        while True:
-            data = self.con.recv(16) 
-            if data:
-                msg=msg+data
-            else:
-                print (msg)
-                print("end")
-                break 
-        self.con.close()
-    def log (self,level="unkown",messages="no messages"):
-        if self.logger:
-            dt = datetime.now()
-            conf={}
-            conf['package']=__name__
-            conf['level']=level
-            conf['messages']=str(messages)
-            conf['time']=strftime("%d.%b %H:%M:%S", localtime())
-            conf['microsecond']=dt.microsecond
-            self.logger.write(conf)  
