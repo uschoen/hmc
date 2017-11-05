@@ -16,7 +16,6 @@ class coreEvents():
     def onboot_event(self):
         self.log("info","core onboot_event is calling")
         self.loadAllConfiguration()
-        self.startCoreConnector()
         
     def onshutdown_event(self):
         self.log("info","core onshutdown_event is calling")
