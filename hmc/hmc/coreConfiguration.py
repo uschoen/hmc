@@ -151,7 +151,7 @@ class coreConfiguration():
             path="%s%s/%s"%(self.args['confFile']['basePath'],self.args['global']['host'],self.args['confFile']['filePath'])
             filename=path+self.args['confFile']['remoteCore']
         self.log("info","write gateway configuration to %s"%(filename))
-        self.writeJSON(filename,self.gatewaysCFG)
+        self.writeJSON(filename,self.coreClientsCFG)
     
     def writeDefaultEventHandlerFile(self,filename=False):
         if not filename:
