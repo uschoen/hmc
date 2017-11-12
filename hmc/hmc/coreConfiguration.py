@@ -64,11 +64,7 @@ class coreConfiguration():
             return
         if len(coreClientsCFG)>0:
             for coreClient in coreClientsCFG:
-                if coreClient==self.args['global']['host']:
-                    self.log("info","starting lissener for Core %s"%(coreClient))
-                    self.startCoreConnector(coreClient,coreClientsCFG[coreClient])
-                    continue
-                self.log("info","restore core client: %s"%(coreClient))
+                self.log("info","restore core sync client: %s"%(coreClientsCFG[coreClient]['hostName']))
                 self.addCoreClient(coreClient,coreClientsCFG[coreClient])
         else:
             self.log("info","coreClient file is empty")

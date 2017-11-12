@@ -16,19 +16,28 @@ class coreConnector(object):
     
     
     
-    def startCoreConnector(self,coreName,args):
-        self.log("info","try to start core sync server")
+    def addCoreClient(self,coreName,args):
+        self.log("info","try to add core sync server")
         try:
-            args['coreName']=coreName
             if args['enable']:
-                self.ConnectorServer= socketServer.server(args,self,self.logger)
-                self.ConnectorServer.daemon=True
-                self.ConnectorServer.start()
-                self.log("info","start core socket server success full")
+                if args['hostName']==self.args['global']['host']:
+                    '''
+                    start core Server
+                    '''
+                    self.ConnectorServer= socketServer.server(args,self,self.logger)
+                    self.ConnectorServer.daemon=True
+                    self.ConnectorServer.start()        
+                else:
+                    '''
+                    start core Client
+                    '''  
+                    self.CoreClientsConnections[coreName]=socketClient.CoreConnection(args,self,self.logger)
+                    self.CoreClientsConnections[coreName].daemon=True
+                    self.CoreClientsConnections[coreName].start()   
             else:
-                self.log("info","core sync server is disable")
-            self.coreClientsCFG[coreName]=args
-        except :
+                self.log("info","core Client %s is disable"%(args['hostName']))  
+        except:
+            self.log("error","can not start core %s"%(args['hostName']))
             self.log("error",sys.exc_info())
             tb = sys.exc_info()
             for msg in tb:
@@ -36,21 +45,15 @@ class coreConnector(object):
             exc_type, exc_obj, exc_tb = sys.exc_info()
             fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
             self.log("error","%s %s %s "%(exc_type, fname, exc_tb.tb_lineno))
-    
-    def addCoreClient(self,coreName,args):
-        try: 
-            args['coreName']=coreName
-            self.CoreClientsConnections[coreName]=socketClient.CoreConnection(args,self,self.logger)
-        except:
-            self.log("error","can not build coreClient %s"%(coreName))
-        self.coreClientsCFG[coreName]=args   
+        self.coreClientsCFG[coreName]=args  
         
     def updateRemoteCore(self,deviceID,calling,*args): 
         if not self.eventHome(deviceID):
             return               
         for coreName in self.CoreClientsConnections:
             try:
-                self.CoreClientsConnections[coreName].updateCore(calling,*args)
+                self.log("debug","try to update remote Core: %s"%(coreName)) 
+                self.CoreClientsConnections[coreName].updateCore(deviceID,calling,*args)
             except:
                 self.log("error","can not update remote Core: %s"%(coreName)) 
                 

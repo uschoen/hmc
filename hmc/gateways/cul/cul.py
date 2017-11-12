@@ -105,9 +105,10 @@ class sensor(threading.Thread):
             self.__log("debug","fs20 device code is %s"%(deviceID))
             if not deviceID in  self.__core.getAllDeviceId():
                 self.__log("debug","new fs20 device: %s"%(deviceID))
-                self.__core.addDevice(self.__deviceOBJ(deviceID,'fs20'))
-            self.__core.setValue(deviceID,msg[6:8])
-            self.__core.setDeviceAttribute(deviceID,"rssi",rssi)
+                self.__core.addDevice(self.__deviceOBJ(deviceID,'fs20',msg[6:8]))
+            else:
+                self.__core.setValue(deviceID,msg[6:8])
+            #self.__core.setDeviceAttribute(deviceID,"rssi",rssi)
         except :
                 self.__log("error","can not update fs20")
                 self.__log("error",sys.exc_info())
@@ -118,7 +119,7 @@ class sensor(threading.Thread):
                 fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
                 self.__log("error","%s %s %s "%(exc_type, fname, exc_tb.tb_lineno))
     
-    def __deviceOBJ(self,deviceID,typ):
+    def __deviceOBJ(self,deviceID,typ,value=0):
         tempSensor={
                     "gateway":{
                                "value":str (self.__config['gateway'])
@@ -130,7 +131,7 @@ class sensor(threading.Thread):
                                "value":True
                               },
                     "value":{
-                               "value":0
+                               "value":value
                               },
                     "typ":{
                                "value":typ
@@ -152,13 +153,14 @@ class sensor(threading.Thread):
     
             ''' tmperatur '''
             deviceID="ks300_temperatur@%s.%s"%(self.__config['gateway'],self.__config['host'])
-            if not deviceID in self.__core.getAllDeviceId():
-                self.__core.addDevice(self.__deviceOBJ(deviceID,'ks300_temperatur'))
             value=float(splitMsg[5]+splitMsg[2]+"."+splitMsg[3])
             if splitMsg[0] >="8":
                 value=value*(-1)
-            self.__core.setValue(deviceID,value)
-            self.__core.setDeviceAttribute(deviceID,"rssi",rssi)
+            if not deviceID in self.__core.getAllDeviceId():
+                self.__core.addDevice(self.__deviceOBJ(deviceID,'ks300_temperatur',value))
+            else:
+                self.__core.setValue(deviceID,value)
+            #self.__core.setDeviceAttribute(deviceID,"rssi",rssi)
             ''' humidity'''
             deviceID="ks300_humidity@%s.%s"%(self.__config['gateway'],self.__config['host'])
             if not deviceID in self.__core.getAllDeviceId():

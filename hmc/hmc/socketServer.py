@@ -26,13 +26,13 @@ class server(threading.Thread):
         self.running=1
         self.socket=False
         self.coreDataobj=coreProtokoll.code(self.args['user'],self.args['password'],self.logger)
-        self.log("debug","starting socket Server")
+        self.log("debug","build socket Server")
         
     def log (self,level="unkown",messages="no messages"):
         if self.logger:
             dt = datetime.now()
             conf={}
-            conf['package']=__name__
+            conf['package']="%s.%s"%(__name__,self.args['hostName'])
             conf['level']=level
             conf['messages']=str(messages)
             conf['time']=strftime("%d.%b %H:%M:%S", localtime())
@@ -61,12 +61,13 @@ class server(threading.Thread):
                 sleep(self.args['timeout'])
                 
     def listenToClient(self, client, address):
-        size = 1024
+        size = 8192
         while True:
             try:
                 data = client.recv(size)
                 if data:
                     try:
+                        self.log("debug","get message: %s"%(data))
                         (user,password,calling,args)=self.coreDataobj.encode(data)
                         self.log("debug","calling function:%s user:%s"%(calling,user))
                         self.log("debug","args %s"%(args))
@@ -81,7 +82,7 @@ class server(threading.Thread):
                         exc_type, exc_obj, exc_tb = sys.exc_info()
                         fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
                         self.log("error","%s %s %s "%(exc_type, fname, exc_tb.tb_lineno))
-                        client.sendall(client.sendall(self.coreDataobj.decode('result',{'result':"error"})))
+                        client.sendall(self.coreDataobj.decode('result',{'result':"error"}))
                         self.log("debug","send result error")
                 else:
                     self.log("debug","client disconnected")
