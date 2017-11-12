@@ -1,10 +1,10 @@
 {
-    "onewire@rasp-heizung": {
+    "onewire@hostname": {
         "class": "sensor", 
         "config": {
             "devices": {}, 
             "gateway": "onewire", 
-            "host": "rasp-heizung", 
+            "host": "hostname", 
             "intervall": 60, 
             "path": "/sys/bus/w1/devices/", 
             "tempDiv": 0.5, 
