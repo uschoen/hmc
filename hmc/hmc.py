@@ -187,7 +187,7 @@ if __name__ == '__main__':
         fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
         log("error","%s %s %s "%(exc_type, fname, exc_tb.tb_lineno))
     finally:
-        log("emergency","system goaing down !!")
+        log("emergency","system going down !!")
         if coreInstance:
             coreInstance.shutdown() 
         log("emergency","system is finally down !!")
