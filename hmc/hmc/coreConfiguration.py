@@ -19,11 +19,11 @@ class coreConfiguration():
         '''
         event handler
         '''
-        self.loadEventHandlerFile(path+self.args['confFile']['defaultEvent'])
+        self.loadEventHandlerFile(path+self.args['confFile']['eventHandler'])
         '''
         default events
         '''
-        self.loadDefaultEventFile(path+self.args['confFile']['eventHandler'])
+        self.loadDefaultEventFile(path+self.args['confFile']['defaultEvent'])
         ''' 
         devices
         '''
@@ -89,21 +89,19 @@ class coreConfiguration():
         self.log("info","restore devices success")
                    
     def loadDefaultEventFile(self,filename):
-        self.log("warning","loadDefaultEventFile not implement")
-        return
-        self.log("info","reading configuration database defaulteventhandler %s"%(self.args['confFile']['defaultEvent']))
+        self.log("info","reading configuration database default event handler %s"%(filename))
         try:    
-            self.defaultEventHandlerCFG=self.loadJSON(self.args['confFile']['defaultEvent'])
-        except IOError:
-            self.log("warning","no DefaultEvents file: %s , add new one"%(os.path.normpath(self.args['confFile']['defaultEvent'])))
+            self.defaultEventHandlerCFG=self.loadJSON(filename)
+            for eventTyp in self.defaultEventHandlerCFG:
+                for eventHandlerName in self.defaultEventHandlerCFG[eventTyp]:
+                    self.log("info","try to add default event handler %s for event %s"%(eventHandlerName,eventTyp))
+                    self.addDefaultEventhandler(eventTyp,eventHandlerName)
+        except:
+            self.log("error","can not reading configuration database eventHandler, no eventHandler add")  
             return
-        for eventTyp in self.defaultEventHandlerCFG:
-            for eventHandlerName in self.defaultEventHandlerCFG[eventTyp]:
-                self.log("info","try to add defaulteventhandler %s for event %s"%(eventHandlerName,eventTyp))
-                self.addDefaultEventhandler(eventTyp,eventHandlerName)
-    
+
     def loadEventHandlerFile(self,filename):
-        self.log("info","reading configuration database eventhandler %s"%(filename))
+        self.log("info","reading configuration database event handler %s"%(filename))
         try:
             eventHandlerCFG=self.loadJSON(filename)
             for eventhandler in eventHandlerCFG:
@@ -112,7 +110,7 @@ class coreConfiguration():
             self.log("error","can not reading configuration database eventHandler, no eventHandler add")  
             tb = sys.exc_info()
             for msg in tb:
-                self.log("error","Traceback Info:%s" %(msg)) 
+                self.log("error","Trace back Info:%s" %(msg)) 
             exc_type, exc_obj, exc_tb = sys.exc_info()
             fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
             self.log("error","%s %s %s "%(exc_type, fname, exc_tb.tb_lineno))
@@ -153,6 +151,8 @@ class coreConfiguration():
         if not filename:
             path="%s%s/%s"%(self.args['confFile']['basePath'],self.args['global']['host'],self.args['confFile']['filePath'])
             filename=path+self.args['confFile']['defaultEvent']
+        self.log("info","write default event hadnler configuration to %s"%(filename))
+        self.writeJSON(filename,self.defaultEventHandler)
     
     def writeDevicesFile(self,filename=False):
         if not filename:

@@ -1,1 +1,8 @@
-{}
+{
+    "onboot_event": [], 
+    "onchange_event": [], 
+    "oncreate_event": [], 
+    "ondelete_event": [], 
+    "onrefresh_event": [], 
+    "onshutdown_event": []
+}
