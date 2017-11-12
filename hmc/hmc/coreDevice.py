@@ -27,7 +27,7 @@ class coreDevices ():
         return self.getDeviceAttributeValue(deviceID, 'value')
     
     def setValue(self,deviceID,value):
-        self.setDeviceAttribute(deviceID, 'value', value)
+        self.setDeviceAttribute(deviceID,'value', value)
     
     def restoreDevice(self,device):
         try:
@@ -49,7 +49,6 @@ class coreDevices ():
             if not deviceID in self.devices:
                 self.log("error","device id %s not existing"%(deviceID))
                 raise Exception
-            
             self.devices[deviceID].setAttributeValue(attribute,value)
             self.updateRemoteCore(deviceID,'setDeviceAttribute',deviceID,attribute,value)
         except:
@@ -83,7 +82,7 @@ class coreDevices ():
             '''
         except:
             raise Exception
-        
+       
     def deviceExists(self,deviceID):   
         if deviceID in self.devices:
             self.log("debug","device %s is exists"%(deviceID))

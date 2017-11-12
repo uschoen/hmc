@@ -80,7 +80,7 @@ class coreGateways():
                 self.stopGateway(gatewayName)
     def stopGateway(self,gatewayName):
         self.gatewaysInstance[gatewayName]['instance'].running=0
-        self.gatewaysInstance[gatewayName]['instance'].stop()
+        self.gatewaysInstance[gatewayName]['instance'].shutdown()
         self.gatewaysInstance[gatewayName]['status']="stop"
         pass
     

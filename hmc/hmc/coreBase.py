@@ -39,7 +39,7 @@ class coreBase():
         self.coreClientsCFG={}                  # Core Connection Configuration
         self.ConnectorServer={}                 # Core Lissener Object
         self.CoreClientsConnections={}          # CoreConnection to other Cores
-        
+       
         self.onboot_event()
         
         self.log("info","build %s instance version %s"%(__name__,__version__))

@@ -217,11 +217,11 @@ class sensor(threading.Thread):
         else:
             rssi=rssi/2-74
         return rssi
-    def shutdown(self):
+    def stop(self):
         self.__log("emergency","shutdown cul")
         self.__closeUSB()
         self.running=0
-        self.__log("emergency","shutdown cul finish")
+        self.__log("emergency","shutdown cul finsh")
     def __readBudget(self):
         self.__sendCommand("X")
     def __openUSB(self):

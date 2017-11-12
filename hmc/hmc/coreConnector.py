@@ -49,12 +49,12 @@ class coreConnector(object):
         
     def updateRemoteCore(self,deviceID,calling,*args): 
         if not self.eventHome(deviceID):
-            return               
+            return           
         for coreName in self.CoreClientsConnections:
+            ("debug","try to update remote Core: %s"%(coreName))            
             try:
-                self.log("debug","try to update remote Core: %s"%(coreName)) 
                 self.CoreClientsConnections[coreName].updateCore(deviceID,calling,*args)
+                self.log("debug","update remote Core: %s success"%(coreName))
             except:
-                self.log("error","can not update remote Core: %s"%(coreName)) 
-                
+                self.log("error","can not update remote Core: %s"%(coreName))          
 
