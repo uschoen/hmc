@@ -33,8 +33,16 @@ class coreBase():
                                                 #                     }
         self.gatewaysCFG={}                     # gateway threads configuration
         self.devices={}                         # Device objects
-        self.eventHandler={}
-        self.eventHandlerCFG={}
+        self.eventHandler={}                    # hold the event handler object
+        self.eventHandlerCFG={}                 # hold the event handler configuration
+             
+        self.defaultEventHandler={              #list with default event handler and event typs
+                    "onboot_event": [], 
+                    "onchange_event": [], 
+                    "oncreate_event": [], 
+                    "ondelete_event": [], 
+                    "onrefresh_event": [], 
+                    "onshutdown_event": []}
         
         self.coreClientsCFG={}                  # Core Connection Configuration
         self.ConnectorServer={}                 # Core Lissener Object
