@@ -12,7 +12,7 @@ class coreEventHandler():
     '''
     classdocs
     '''
-
+ 
     def addDefaultEventhandler(self,eventTyp,eventHandlerName):
         if eventTyp not in self.defaultEventHandler:
             self.log("error","can not find event type %s"%(eventTyp))
