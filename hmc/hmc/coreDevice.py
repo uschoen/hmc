@@ -50,7 +50,7 @@ class coreDevices ():
                 self.log("error","device id %s not existing"%(deviceID))
                 raise Exception
             self.devices[deviceID].setAttributeValue(attribute,value)
-            self.updateRemoteCore(deviceID,'setDeviceAttribute',deviceID,attribute,value)
+            self.updateRemoteCore(False,deviceID,'setDeviceAttribute',deviceID,attribute,value)
         except:
             self.log("error","can not set attribute %s for device id %s value %s"%(attribute,deviceID,value))
             raise  
@@ -75,7 +75,7 @@ class coreDevices ():
                 raise Exception 
             self.log("info","add device with device id %s and typ:%s"%(device['deviceID']['value'],device['typ']['value']))
             self.__buildDevice(copy.deepcopy(device))
-            self.updateRemoteCore(device['deviceID']['value'],'addDevice',device)
+            self.updateRemoteCore(False,device['deviceID']['value'],'addDevice',device)
             '''
             # on events
             #todo
@@ -96,6 +96,7 @@ class coreDevices ():
             if device['deviceID']['value'] in self.devices:
                 del self.devices[device['deviceID']['value']]
             self.__buildDevice(copy.deepcopy(device))
+            self.updateRemoteCore(False,device['deviceID']['value'],'updateDevice',device)
         except:
             self.log("error","can not update device %s"%(device['deviceID']['value']))  
             raise Exception

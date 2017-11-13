@@ -54,7 +54,7 @@ class coreGateways():
                     self.startGateway(gatewayName)
                 else:
                     self.log("info","gateway %s is disable"%(gatewayName)) 
-                self.updateRemoteCore(gatewayName,'addGateway',gatewayName,config)
+                self.updateRemoteCore(False,gatewayName,'addGateway',gatewayName,config)
                 self.gatewaysCFG[gatewayName]=config 
             except :
                 self.log("error",sys.exc_info())
