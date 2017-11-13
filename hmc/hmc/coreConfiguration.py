@@ -17,6 +17,10 @@ class coreConfiguration():
         self.log("info","load core configuration file")
         path="%s%s/%s"%(self.args['confFile']['basePath'],self.args['global']['host'],self.args['confFile']['filePath'])
         '''
+        coreClients
+        '''
+        self.loadCoreClientsFile(path+self.args['confFile']['remoteCore'])
+        '''
         event handler
         '''
         self.loadEventHandlerFile(path+self.args['confFile']['eventHandler'])
@@ -32,10 +36,7 @@ class coreConfiguration():
         gateways
         '''
         self.loadGatewayFile(path+self.args['confFile']['gateways'])
-        '''
-        coreClients
-        '''
-        self.loadCoreClientsFile(path+self.args['confFile']['remoteCore'])
+        
             
     def loadGatewayFile(self,filename): 
         self.log("info","reading configuration database gateways %s"%(filename))      
