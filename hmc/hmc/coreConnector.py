@@ -48,8 +48,9 @@ class coreConnector(object):
         self.coreClientsCFG[coreName]=args  
         
     def updateRemoteCore(self,force,deviceID,calling,*args): 
-        if not self.eventHome(deviceID) and not force:
-            return           
+        if not force:
+            if not self.eventHome(deviceID):
+                return           
         for coreName in self.CoreClientsConnections:
             ("debug","try to update remote Core: %s"%(coreName))            
             try:
