@@ -6,11 +6,11 @@
  		"class":"server",
  		"config":{
  			"name":"hmc_rpc_rf",
-			"hm_ip":"192.168.3.90",
+			"hm_ip":"192.168.x.x",
 			"hm_port":"2000",
 			"hm_interface_id":"198",
 			"rpc_port":"5050",
-			"rpc_ip":"192.168.3.69",
+			"rpc_ip":"192.168.x.x",
 			"gateway":"hmc_rpc_rf"}
 },
 "hmc_rpc_wired":{
@@ -20,11 +20,11 @@
  		"class":"server",
  		"config":{
  			"name":"hmc_rpc_wired",
-			"hm_ip":"192.168.3.90",
+			"hm_ip":"192.168.x.x",
 			"hm_port":"2001",
 			"hm_interface_id":"154",
 			"rpc_port":"5051",
-			"rpc_ip":"192.168.3.69",
+			"rpc_ip":"192.168.x.x",
 			"gateway":"hmc_rpc_wired"}
 			}
 }

@@ -178,14 +178,17 @@ if __name__ == '__main__':
             time.sleep(configuration['checkgatewaysintervall'])    
     except KeyboardInterrupt:
         log("emergency","control C press!!,system going down !!")  
+    except SystemExit:
+        log("emergency","system Exit, going down !!")
     except :
         log("error",sys.exc_info())
         tb = sys.exc_info()
         for msg in tb:
-            log("error","Traceback Info:" + str(msg)) 
+            log("error","Trace back Info: %s" %(msg)) 
         exc_type, exc_obj, exc_tb = sys.exc_info()
         fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
         log("error","%s %s %s "%(exc_type, fname, exc_tb.tb_lineno))
+      
     finally:
         log("emergency","system going down !!")
         if coreInstance:
