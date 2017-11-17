@@ -12,7 +12,7 @@ class coreEventHandler():
     '''
     classdocs
     '''
-
+ 
     def addDefaultEventhandler(self,eventTyp,eventHandlerName):
         if eventTyp not in self.defaultEventHandler:
             self.log("error","can not find event type %s"%(eventTyp))
@@ -22,7 +22,7 @@ class coreEventHandler():
             return
         self.log("info","add event Handler %s for event: %s"%(eventHandlerName,eventTyp))
         self.defaultEventHandler[eventTyp].append(eventHandlerName)
-        
+        self.updateRemoteCore(False,eventHandlerName,'addDefaultEventhandler',eventTyp,eventHandlerName)
     
     def addEventHandler(self,eventhandlerName,eventhandlerCFG):
         '''
@@ -50,7 +50,7 @@ class coreEventHandler():
             self.eventHandler[eventhandlerName]=self.loadModul("eventhandler",eventhandlerName,eventhandlerCFG)
             self.log("info","add new eventhandlerName: %s successful"%(eventhandlerName)) 
             self.eventHandlerCFG[eventhandlerName]=eventhandlerCFG
-            self.updateRemoteCore(eventhandlerName,'addEventHandler',eventhandlerName,eventhandlerCFG)
+            self.updateRemoteCore(False,eventhandlerName,'addEventHandler',eventhandlerName,eventhandlerCFG)
         
         except:
             self.log("error","can not add event handler Name: %s"%(eventhandlerName))  
