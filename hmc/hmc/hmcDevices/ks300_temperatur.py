@@ -16,7 +16,7 @@ class device(defaultDevice):
         return "ks300_temperatur"    
     
     def setValue(self,Value):
-        self._log("debug","set sensor data to %s"%(Value))
+        self.logger.debug("set sensor data to %s"%(Value))
         self.__clearOldTemp()
         if Value==self._attribute['value']['value']:
             if len(self._attribute['lasttemp']['value'].keys()):
@@ -35,9 +35,9 @@ class device(defaultDevice):
     def __clearOldTemp(self):
         timebefor24=int(time())-86400
         temp_temperature=self._attribute['lasttemp']['value']
-        self._log("debug","clear last 24h temperatur data where older then %s"%(timebefor24))
+        self.logger.debug("clear last 24h temperatur data where older then %s"%(timebefor24))
         for rainTimeStamp in temp_temperature.copy():
-            self._log("data","time temperature %s < %s befor"%(rainTimeStamp,timebefor24))
+            self.logger.debug("time temperature %s < %s befor"%(rainTimeStamp,timebefor24))
             if rainTimeStamp<timebefor24:
                 del self._attribute['lasttemp']['value'][rainTimeStamp]      
                   

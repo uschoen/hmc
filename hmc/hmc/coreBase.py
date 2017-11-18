@@ -15,7 +15,7 @@ class coreBase():
     '''
 
 
-    def __init__(self,params,logger=False):
+    def __init__(self,params):
         '''
         Constructor
         '''

@@ -39,7 +39,7 @@ class coreGateways():
             self.logger.info("try to load gateway: %s  with pakage: %s"%(gatewayName,pakage))
             tempconfig=config['config']
             tempconfig.update(self.args['global'])
-            ARGUMENTS = (tempconfig,self,self.logger)  
+            ARGUMENTS = (tempconfig,self)  
             try:
                 module = importlib.import_module(pakage)
                 CLASS_NAME = config['class']
@@ -57,13 +57,7 @@ class coreGateways():
                 self.updateRemoteCore(False,gatewayName,'addGateway',gatewayName,config)
                 self.gatewaysCFG[gatewayName]=config 
             except :
-                self.logger.error(sys.exc_info())
-                tb = sys.exc_info()
-                for msg in tb:
-                    self.logger.error("Traceback Info:" + str(msg)) 
-                exc_type, exc_obj, exc_tb = sys.exc_info()
-                fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
-                self.logger.error("%s %s %s "%(exc_type, fname, exc_tb.tb_lineno)) 
+                self.logger.critical("can not build gateways %s"%(gatewayName),exc_info=True)
                 self.gatewaysCFG[gatewayName]=config
                 raise Exception
         
@@ -72,11 +66,11 @@ class coreGateways():
             self.gatewaysInstance[gatewayName]['instance'].start()
             self.gatewaysInstance[gatewayName]['status']="start"
         except:
-            self.logger.error("can not start ateways%s "%(gatewayName))
+            self.logger.error("can not start gateways%s "%(gatewayName),exc_info=True)
             self.gatewaysInstance[gatewayName]['status']="stop"
     def shutdownAllGateways(self):
         for gatewayName in self.gatewaysInstance:   
-                self.logger.emergency("shutdown gateways %s"%(gatewayName))
+                self.logger.critical("shutdown gateways %s"%(gatewayName))
                 self.stopGateway(gatewayName)
     def stopGateway(self,gatewayName):
         self.gatewaysInstance[gatewayName]['instance'].running=0

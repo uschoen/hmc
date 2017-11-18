@@ -20,7 +20,7 @@ class device(defaultDevice):
     '''
     def setValue(self,Value):
         windchill=self.__WeatherWindChill(Value)
-        self._log("debug","set sensor data to %s"%(windchill))
+        self.logger.debug("set sensor data to %s"%(windchill))
         if windchill==self._attribute['value']['value']:
             self._onrefresh_event()
         else:
@@ -31,7 +31,7 @@ class device(defaultDevice):
     calculate windchill
     '''    
     def __WeatherWindChill(self,wind): 
-        self._log("debug","calc windchill, wind is:%s"%(wind))  
+        self.logger.debug("calc windchill, wind is:%s"%(wind))  
         if wind == 0:
             return "0"
         elif wind in range(1,6):
@@ -59,7 +59,7 @@ class device(defaultDevice):
         elif wind >116:
             return 12
         else:
-            self._log("error","wind  can not macht from 0 - >116 ")  
+            self.logger.error("wind  can not macht from 0 - >116 ")  
             return "0" 
 if __name__ == "__main__":
 

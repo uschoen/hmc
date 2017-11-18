@@ -74,7 +74,7 @@ def loadConfigurationFile(file):
         
 def signal_handler(signum, frame):
     logging.critical("Signal handler called with signal %s"%(signum))
-    exit()
+    sys.exit()
     
 '''
 ##################################################################################
