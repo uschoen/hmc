@@ -60,12 +60,10 @@ class coreBase():
                 json.dump(data, outfile,sort_keys=True, indent=4)
                 outfile.close()
         except IOError:
-            self.logger.error("can not find file: %s "%(os.path.normpath(filename)))
+            self.logger.error("can not find file: %s "%(os.path.normpath(filename)), exc_info=True)
             raise
         except ValueError:
-            e = sys.exc_info()[1]
-            self.logger.error("error in find file: %s "%(os.path.normpath(filename)))
-            self.logger.error("json: %s "%(e))
+            self.logger.error("error in find file: %s "%(os.path.normpath(filename)), exc_info=True)
             raise
         except Exception,e:
             self.logger.error("unkown error:", exc_info=True)
