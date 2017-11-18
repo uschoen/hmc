@@ -5,11 +5,10 @@ Created on 23.09.2017
 '''
 __version__=0.1
 import sys,getopt,time,json,os,getpass,signal
-from datetime import datetime
-from multilogger import dispatcher as LogDispatcher
-from hmc.core import maganer as coreManager
+from hmc.core import manager as coreManager
 import socket
-
+import logging
+import logging.config
 
 
 '''
@@ -52,26 +51,9 @@ def getOptions():
         print "please use:"
         usageCMD()
         sys.exit() 
-"""
-Logging
-"""
-def log (level="unkown",messages="no messages"):
-    '''
-    logger converter
-    '''
-    global logger
-    if logger:
-        dt = datetime.now()
-        meassage={}
-        meassage['package']=__name__
-        meassage['level']=level
-        meassage['messages']=messages
-        meassage['time']=time.strftime("%d.%b %H:%M:%S", time.localtime())
-        meassage['microsecond']=dt.microsecond
-        logger.write(meassage) 
-"""
+'''
 load configuratin file
-"""
+'''
 def loadConfigurationFile(file):
     '''
     loading configuration file
@@ -97,7 +79,7 @@ def loadConfigurationFile(file):
         sys.exit()
         
 def signal_handler(signum, frame):
-    log("emergency","Signal handler called with signal %s"%(signum))
+    logging.critical("Signal handler called with signal %s"%(signum))
     exit()
     
 """
@@ -147,53 +129,51 @@ if __name__ == '__main__':
         exit()
     
     """
-    add multilogger 
+    add logger 
     """
     try:
-        if 'multilogger' in configuration:
-            if configuration['multilogger']['enable']:
-                logger=LogDispatcher.core(getConfiguration('multilogger'))
+        logger=logging.getLogger(__name__)  
+        logging.config.dictConfig(configuration['logging'])
     except:
-        print ("warning can not bulid logger, start without logging")
+        print ("can not build logger, starting without logging !")
+    
         
-    log("info", "startup and run under user:%s"%(getpass.getuser())) 
-    log("info", "EasyHMC Version: %s"%(__version__)) 
-    log("info", "EasyHMC configuration file: %s"%(configuration['configfile'])) 
+    logging.info("startup and run under user:%s"%(getpass.getuser())) 
+    logging.info("EasyHMC Version: %s"%(__version__)) 
+    logging.info("EasyHMC configuration file: %s"%(configuration['configfile'])) 
     
     try:
         coreInstance=coreManager(getConfiguration('core'),logger)
         while 1:
             for gatewayName in coreInstance.getGatewaysName():
-                log("info", "check gateway %s"%(gatewayName['name']))
+                logging.info("check gateway %s"%(gatewayName['name']))
                 gatewayobj=coreInstance.getGatewaysInstance(gatewayName['name'])
                 if not gatewayName['enable']:
-                    log("info", "gateway %s is disable"%(gatewayName['name']))
+                    logging.info("gateway %s is disable"%(gatewayName['name']))
                     continue
                 if gatewayobj.isAlive():
-                    log("info", "gateway %s is alive"%(gatewayName['name']))
+                    logging.info("gateway %s is alive"%(gatewayName['name']))
                 else:
-                    log("error", "gateway %s is not alive"%(gatewayName['name'])) 
+                    logging.error("gateway %s is not alive"%(gatewayName['name'])) 
                     coreInstance.startGateway(gatewayName['instance'])
-            log("info", "EasyHMC wait %s sec for next check"%(configuration['checkgatewaysintervall']))
+            logging.info("EasyHMC wait %s sec for next check"%(configuration['checkgatewaysintervall']))
             time.sleep(configuration['checkgatewaysintervall'])    
-    except KeyboardInterrupt:
-        log("emergency","control C press!!,system going down !!")  
-    except SystemExit:
-        log("emergency","system Exit, going down !!")
+    except (SystemExit, KeyboardInterrupt):
+        logging.critical("control C press!!,system going down !!")  
     except :
-        log("error",sys.exc_info())
+        logging.error(sys.exc_info())
         tb = sys.exc_info()
         for msg in tb:
-            log("error","Trace back Info: %s" %(msg)) 
+            logging.error("Trace back Info: %s" %(msg)) 
         exc_type, exc_obj, exc_tb = sys.exc_info()
         fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
-        log("error","%s %s %s "%(exc_type, fname, exc_tb.tb_lineno))
+        logging.error("%s %s %s "%(exc_type, fname, exc_tb.tb_lineno))
       
     finally:
-        log("emergency","system going down !!")
+        logging.critical("system going down !!")
         if coreInstance:
             coreInstance.shutdown() 
-        log("emergency","system is finally down !!")
+        logging.critical("system is finally down !!")
         sys.exit()
     
     

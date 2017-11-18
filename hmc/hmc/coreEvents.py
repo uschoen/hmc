@@ -14,11 +14,11 @@ class coreEvents():
 
 
     def onboot_event(self):
-        self.log("info","core onboot_event is calling")
+        self.logger.info("core onboot_event is calling")
         self.loadAllConfiguration()
         
     def onshutdown_event(self):
-        self.log("info","core onshutdown_event is calling")
+        self.logger.info("core onshutdown_event is calling")
         self.shutdownAllGateways()
         self.writeAllConfiguration()
     

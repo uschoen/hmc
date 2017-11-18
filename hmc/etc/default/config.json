@@ -9,59 +9,56 @@
  		"gateways":"gateways.json",
  		"eventHandler":"eventHandler.json",
  		"remoteCore":"coreServer.json"}},
- "multilogger":{
- 	"enable":true,
- 	"filter":{
- 		"loglevel":{
- 			"unkown":true
- 			},
- 		"package":{
- 			"unkown":true
- 			}
- 		},
- 	"outputs":{
- 		"console":{
- 			"enable":true,
- 			"package":"console",
- 			"config":{
- 				"color":{
- 						"debug":"32m",
- 						"info":"33m",
- 						"error":"31m",
- 						"warning":"31m",
- 						"emergency":"31m",
- 						"data":"34m" 						
- 					},
- 				"filter":{
- 					"loglevel":{
- 						"unkown":true,
- 						"data":false
- 						},
- 					"package":{
- 						"unkown":true
- 						}
- 					}
- 				}
- 			},
- 		"debug":{
- 			"enable":true,
- 			"package":"file",
- 			"config":{
- 				"dir":"log/",
- 				"filename":"rasp_server01_debug.log",
- 				"filesize":10,
- 				"maxfiles":5,
- 				"append":false,
- 				"filter":{
- 					"loglevel":{
- 						"unkown":true
- 								},
- 					"package":{
- 						"unkown":true
- 						}
- 					}
- 				}
- 			}
- 		}
- 	}
+ "logging":
+ 	{
+    "version": 1,
+    "disable_existing_loggers": false,
+    "formatters": {
+        "simple": {
+            "format": "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+        }
+    },
+
+    "handlers": {
+        "console": {
+            "class": "logging.StreamHandler",
+            "level": "DEBUG",
+            "formatter": "simple",
+            "stream": "ext://sys.stdout"
+        },
+
+        "debug_file_handler": {
+            "class": "logging.handlers.RotatingFileHandler",
+            "level": "DEBUG",
+            "formatter": "simple",
+            "filename": "log/debug.log",
+            "maxBytes": 10485760,
+            "backupCount": 20,
+            "encoding": "utf8"
+        },
+
+        "error_file_handler": {
+            "class": "logging.handlers.RotatingFileHandler",
+            "level": "ERROR",
+            "formatter": "simple",
+            "filename": "log/errors.log",
+            "maxBytes": 10485760,
+            "backupCount": 20,
+            "encoding": "utf8"
+        }
+    },
+
+    "loggers": {
+        "my_module": {
+            "level": "DEBUG",
+            "handlers": ["console"],
+            "propagate": "no"
+        }
+    },
+
+    "root": {
+        "level": "DEBUG",
+        "handlers": ["console", "debug_file_handler", "error_file_handler"]
+    }
+}
 }

@@ -17,7 +17,7 @@ class coreConnector(object):
     
     
     def addCoreClient(self,coreName,args):
-        self.log("info","try to add core sync server")
+        self.logger.info("try to add core sync server")
         try:
             if args['enable']:
                 if args['hostName']==self.args['global']['host']:
@@ -35,16 +35,16 @@ class coreConnector(object):
                     self.CoreClientsConnections[coreName].daemon=True
                     self.CoreClientsConnections[coreName].start()   
             else:
-                self.log("info","core Client %s is disable"%(args['hostName']))  
+                self.logger.info("core Client %s is disable"%(args['hostName']))  
         except:
-            self.log("error","can not start core %s"%(args['hostName']))
-            self.log("error",sys.exc_info())
+            self.logger.error("can not start core %s"%(args['hostName']))
+            self.logger.error(sys.exc_info())
             tb = sys.exc_info()
             for msg in tb:
-                self.log("error","Trace back Info: %s"%(msg)) 
+                self.logger.error("Trace back Info: %s"%(msg)) 
             exc_type, exc_obj, exc_tb = sys.exc_info()
             fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
-            self.log("error","%s %s %s "%(exc_type, fname, exc_tb.tb_lineno))
+            self.logger.error("%s %s %s "%(exc_type, fname, exc_tb.tb_lineno))
         self.coreClientsCFG[coreName]=args  
         
     def updateRemoteCore(self,force,deviceID,calling,*args): 
@@ -55,7 +55,7 @@ class coreConnector(object):
             ("debug","try to update remote Core: %s"%(coreName))            
             try:
                 self.CoreClientsConnections[coreName].updateCore(deviceID,calling,*args)
-                self.log("debug","update remote Core: %s success"%(coreName))
+                self.logger.debug("update remote Core: %s success"%(coreName))
             except:
-                self.log("error","can not update remote Core: %s"%(coreName))          
+                self.logger.error("can not update remote Core: %s"%(coreName))          
 

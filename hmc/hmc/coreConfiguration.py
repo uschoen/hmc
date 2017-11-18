@@ -11,10 +11,10 @@ class coreConfiguration():
     
     
     def saveCoreConfiguration(self):
-        self.log("warning","not implement")
+        self.logger.warning("not implement")
         return
     def loadAllConfiguration(self):
-        self.log("info","load core configuration file")
+        self.logger.info("load core configuration file")
         path="%s%s/%s"%(self.args['confFile']['basePath'],self.args['global']['host'],self.args['confFile']['filePath'])
         '''
         coreClients
@@ -39,88 +39,82 @@ class coreConfiguration():
         
             
     def loadGatewayFile(self,filename): 
-        self.log("info","reading configuration database gateways %s"%(filename))      
+        self.logger.info("reading configuration database gateways %s"%(filename))      
         try:
             gatewaysCFG=self.loadJSON(filename)
             for gatewayName in gatewaysCFG:
                 try:
                     self.addGateway(gatewayName,gatewaysCFG[gatewayName])
                 except:
-                    self.log("error","can not add gateway: %s"%(gatewayName))
+                    self.logger.error("can not add gateway: %s"%(gatewayName), exc_info=True)
         except:
-            self.log("error","can not reading configuration database gateways, no gateways add")  
-            tb = sys.exc_info()
-            for msg in tb:
-                self.log("error","Traceback Info:%s" %(msg)) 
-            exc_type, exc_obj, exc_tb = sys.exc_info()
-            fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
-            self.log("error","%s %s %s "%(exc_type, fname, exc_tb.tb_lineno))
+            self.logger.error("can not reading configuration database gateways, no gateways add", exc_info=True)
+            
             
     def loadCoreClientsFile(self,filename):
-        self.log("info","reading configuration database devices %s"%(filename)) 
+        self.logger.info("reading configuration database devices %s"%(filename)) 
         try:
             coreClientsCFG=self.loadJSON(filename)
         except IOError:
-            self.log("warning","no Device file: %s , add new one"%(filename))
+            self.logger.warning("no core clients file: %s , add new one"%(filename), exc_info=True)
             return
+        except:
+            self.logger.error("can not reading core clients file", exc_info=True)
         if len(coreClientsCFG)>0:
             for coreClient in coreClientsCFG:
-                self.log("info","restore core sync client: %s"%(coreClientsCFG[coreClient]['hostName']))
+                self.logger.info("restore core sync client: %s"%(coreClientsCFG[coreClient]['hostName']))
                 self.addCoreClient(coreClient,coreClientsCFG[coreClient])
         else:
-            self.log("info","coreClient file is empty")
-        self.log("info","restore coreClient success")
+            self.logger.info("coreClient file is empty")
+        self.logger.info("restore coreClient success")
+        
     def loadDeviceFile(self,filename):
-        self.log("info","reading configuration database devices %s"%(filename)) 
+        self.logger.info("reading configuration database devices %s"%(filename)) 
         try:
             devicesCFG=self.loadJSON(filename)
         except IOError:
-            self.log("warning","no Device file: %s , add new one"%(filename))
+            self.logger.warning("no Device file: %s , add new one"%(filename), exc_info=True)
             return
+        except:
+            self.logger.error("can not reading device configuration file", exc_info=True)
         
         if len(devicesCFG)>0:
             for deviceID in devicesCFG:
                 try:
-                    self.log("info","restore deviceID: %s with typ %s  "%(deviceID,devicesCFG[deviceID]['typ']['value']))
+                    self.logger.info("restore deviceID: %s with typ %s  "%(deviceID,devicesCFG[deviceID]['typ']['value']))
                     self.restoreDevice(devicesCFG[deviceID])
                 except:
-                    self.log("error","can not import deviceID %s"%(deviceID))
+                    self.logger.error("can not import deviceID %s"%(deviceID), exc_info=True)
         else:
-            self.log("info","device file is empty")
-        self.log("info","restore devices success")
+            self.logger.info("device file is empty")
+        self.logger.info("restore devices success")
                    
     def loadDefaultEventFile(self,filename):
-        self.log("info","reading configuration database default event handler %s"%(filename))
+        self.logger.info("reading configuration database default event handler %s"%(filename))
         try:    
             self.defaultEventHandlerCFG=self.loadJSON(filename)
             for eventTyp in self.defaultEventHandlerCFG:
                 for eventHandlerName in self.defaultEventHandlerCFG[eventTyp]:
-                    self.log("info","try to add default event handler %s for event %s"%(eventHandlerName,eventTyp))
+                    self.logger.info("try to add default event handler %s for event %s"%(eventHandlerName,eventTyp))
                     self.addDefaultEventhandler(eventTyp,eventHandlerName)
         except:
-            self.log("error","can not reading configuration database eventHandler, no eventHandler add")  
+            self.logger.error("can not reading configuration database eventHandler, no eventHandler add")  
             return
 
     def loadEventHandlerFile(self,filename):
-        self.log("info","reading configuration database event handler %s"%(filename))
+        self.logger.info("reading configuration database event handler %s"%(filename))
         try:
             eventHandlerCFG=self.loadJSON(filename)
             for eventhandler in eventHandlerCFG:
                 self.addEventHandler(eventhandler,eventHandlerCFG[eventhandler]) 
         except:
-            self.log("error","can not reading configuration database eventHandler, no eventHandler add")  
-            tb = sys.exc_info()
-            for msg in tb:
-                self.log("error","Trace back Info:%s" %(msg)) 
-            exc_type, exc_obj, exc_tb = sys.exc_info()
-            fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
-            self.log("error","%s %s %s "%(exc_type, fname, exc_tb.tb_lineno))
+            self.logger.error("can not reading configuration database eventHandler, no eventHandler add",exc_info=True)
     '''
     writing Configuration
     '''
     def writeAllConfiguration(self):
         path="%s%s/%s"%(self.args['confFile']['basePath'],self.args['global']['host'],self.args['confFile']['filePath'])
-        self.log("info","write configuration")
+        self.logger.info("write configuration")
         self.writeEventHandlerFile(path+self.args['confFile']['eventHandler'])
         self.writeGatewayFile(path+self.args['confFile']['gateways'])
         self.writeDefaultEventHandlerFile(path+self.args['confFile']['defaultEvent'])
@@ -131,38 +125,38 @@ class coreConfiguration():
         if not filename:
             path="%s%s/%s"%(self.args['confFile']['basePath'],self.args['global']['host'],self.args['confFile']['filePath'])
             filename=path+self.args['confFile']['eventHandler']
-        self.log("info","write event handler configuration to %s"%(filename))
+        self.logger.info("write event handler configuration to %s"%(filename))
         self.writeJSON(filename,self.eventHandlerCFG)
     
     def writeGatewayFile(self,filename=False):
         if not filename:
             path="%s%s/%s"%(self.args['confFile']['basePath'],self.args['global']['host'],self.args['confFile']['filePath'])
             filename=path+self.args['confFile']['gateways']
-        self.log("info","write gateway configuration to %s"%(filename))
+        self.logger.info("write gateway configuration to %s"%(filename))
         self.writeJSON(filename,self.gatewaysCFG)
     
     def CoreClientsFile(self,filename=False):
         if not filename:
             path="%s%s/%s"%(self.args['confFile']['basePath'],self.args['global']['host'],self.args['confFile']['filePath'])
             filename=path+self.args['confFile']['remoteCore']
-        self.log("info","write gateway configuration to %s"%(filename))
+        self.logger.info("write gateway configuration to %s"%(filename))
         self.writeJSON(filename,self.coreClientsCFG)
     
     def writeDefaultEventHandlerFile(self,filename=False):
         if not filename:
             path="%s%s/%s"%(self.args['confFile']['basePath'],self.args['global']['host'],self.args['confFile']['filePath'])
             filename=path+self.args['confFile']['defaultEvent']
-        self.log("info","write default event hadnler configuration to %s"%(filename))
+        self.logger.info("write default event hadnler configuration to %s"%(filename))
         self.writeJSON(filename,self.defaultEventHandler)
     
     def writeDevicesFile(self,filename=False):
         if not filename:
             path="%s%s/%s"%(self.args['confFile']['basePath'],self.args['global']['host'],self.args['confFile']['filePath'])
             filename=path+self.args['confFile']['devices']
-        self.log("info","write device configuration to %s"%(filename))
+        self.logger.info("write device configuration to %s"%(filename))
         configuration={}
         for deviceID in self.getAllDeviceId():
-            self.log("data","find object in CORE:%s"%(deviceID))
+            self.logger.debug("find object in CORE:%s"%(deviceID))
             configuration[deviceID]=self.devices[deviceID].getConfiguration()
         self.writeJSON(filename,configuration)
     
