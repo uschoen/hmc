@@ -13,7 +13,8 @@ from coreDevice import coreDevices
 from coreConnector import coreConnector
 from coreEventHandler import coreEventHandler
 
-class maganer(coreBase,coreGateways,coreEvents,coreConfiguration,coreDevices,coreConnector,coreEventHandler,object):
+
+class manager(coreBase,coreGateways,coreEvents,coreConfiguration,coreDevices,coreConnector,coreEventHandler,object):
     '''
     classdocs
     '''

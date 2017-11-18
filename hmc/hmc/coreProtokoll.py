@@ -23,7 +23,7 @@ class code(object):
         self.verion=1
         self.user=user
         self.password=password
-        self.log("info","corProtokoll build")
+        self.logger.info("corProtokoll build")
         
     def decode(self,calling,args):
         body=self.__decodeBody(calling, args, self.password)
@@ -36,18 +36,18 @@ class code(object):
             (calling,args,password)=self.__encodeBody(body)
             return (user,password,calling,args)
         except:
-            self.log("error", "can not convert meassage")
+            self.logger.error( "can not convert meassage")
             raise Exception  
     
     def __enecodeHeader(self,header):
         try:
             encodeHeader=self.__unserialData(header)
             if not 'user' in encodeHeader and not 'body' in encodeHeader:    
-                self.log("error", "no user or body found in meassage header")
+                self.logger.error( "no user or body found in meassage header")
                 raise Exception
             return (encodeHeader['user'],encodeHeader['body'])          
         except:
-            self.log("error", "can not convert meassage")
+            self.logger.error( "can not convert meassage")
             raise Exception
     
     def __decodeHeader(self,user,body):
@@ -62,10 +62,10 @@ class code(object):
             unserialBody=self.__unserialData(body)
             if 'calling' in unserialBody and 'args' in unserialBody and 'password' in unserialBody:
                 return (unserialBody['calling'],unserialBody['args'],unserialBody['password'])
-            self.log("error", "body mismatch")
+            self.logger.error( "body mismatch")
             raise Exception
         except:
-            self.log("error", "body mismatch")
+            self.logger.error( "body mismatch")
             raise Exception
     
     def __decodeBody(self,calling,args,password):
@@ -76,16 +76,16 @@ class code(object):
         return self.__serialData(body)
     
     def __serialData(self,data):
-        self.log("debug","serial messages")
+        self.logger.debug("serial messages")
         return json.dumps(data)   
     
     def __unserialData(self,data):
-        self.log("debug","unserial messages")
+        self.logger.debug("unserial messages")
         try:
             jsonData=json.loads(data)
             return jsonData
         except:
-            self.log("error", "can not covert to json string")
+            self.logger.error( "can not covert to json string")
             raise Exception
     
     def __strgrjust(self,string):
