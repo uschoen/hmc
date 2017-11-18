@@ -60,7 +60,10 @@ class coreGateways():
                 self.logger.critical("can not build gateways %s"%(gatewayName),exc_info=True)
                 self.gatewaysCFG[gatewayName]=config
                 raise Exception
-        
+        else:
+            self.logger.error("no right pattern for Gateways %s"%(gatewayName))
+            self.gatewaysCFG[gatewayName]=config 
+            
     def startGateway(self,gatewayName):
         try:
             self.gatewaysInstance[gatewayName]['instance'].start()
