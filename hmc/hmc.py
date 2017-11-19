@@ -155,7 +155,7 @@ if __name__ == '__main__':
             logger.info("EasyHMC wait %s sec for next check"%(configuration['checkgatewaysintervall']))
             time.sleep(configuration['checkgatewaysintervall'])    
     except (SystemExit, KeyboardInterrupt):
-        logger.critical("control C press!!,system going down !!", exc_info=True)  
+        logger.critical("control C press!!,system going down !!")  
     except :
         logger.error("unkown error:", exc_info=True)
       
