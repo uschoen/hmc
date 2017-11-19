@@ -5,10 +5,11 @@
             "intervall": 60, 
             "path": "/sys/bus/w1/devices/", 
             "tempDiv": 0.5, 
-            "typ": "ds1820"
+            "typ": "ds1820",
+            "gateway":"onewire"
         }, 
         "enable": true, 
         "modul": "ds1820", 
-        "pakage": "raspberry.onewire"
+        "package": "raspberry.onewire"
     }
 }

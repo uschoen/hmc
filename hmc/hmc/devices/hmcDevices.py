@@ -24,8 +24,7 @@ class device(object):
         self._attribute={}
         packagePath=arg["package"]["value"]
         self._attribute.update(self._load_attribute("hmc/devices/hmcDevices.json"))
-        packagePath.replace(".", "/")
-        jsonPath="gateways/%s/devices/%s.json"%(packagePath,self._name_())
+        jsonPath="gateways/%s/devices/%s.json"%(packagePath.replace(".", "/"),self._name_())
         self._attribute.update(self._load_attribute(jsonPath))
         self._attribute.update(arg)
         self.logger.debug("build %s instance"%(self._name_()))

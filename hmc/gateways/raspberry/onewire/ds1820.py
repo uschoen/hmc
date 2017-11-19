@@ -25,6 +25,7 @@ class sensor(threading.Thread):
         
     def run(self):
         self.logger.info("%s start"%(__name__))
+        sleep(5)
         while self.running:
             self.__checkConnectedSensors()
             for sensorID in self.__connectedSensors:
@@ -108,13 +109,14 @@ class sensor(threading.Thread):
                 try:
                     self.__addNewSensor(sensorID)
                 except:
-                    self.logger.error("can not add new sensorID %s"%(sensorID))
+                    self.logger.error("can not add new sensorID %s"%(sensorID),exc_info=True)
                    
         self.__deleteDisconectedSensors()
     
     def __addNewSensor(self,sensorID):
         self.logger.info("add new sensorID %s"%(sensorID))
-        tempSensor={
+        try:
+            tempSensor={
                     "gateway":{
                                "value":"%s"%(self.__args['gateway'])
                               },
@@ -143,7 +145,7 @@ class sensor(threading.Thread):
                                 "value":self.__args['package']
                         }
                    }
-        try:
+        
             if self.__core.deviceExists(tempSensor["deviceID"]['value']):
                 self.logger.info("deviceID %s is existing, update core"%(tempSensor["deviceID"]['value']))
                 self.__core.updateDevice(tempSensor)
@@ -153,7 +155,7 @@ class sensor(threading.Thread):
                 self.__core.addDevice(tempSensor)
                 self.__connectedSensors[sensorID]=tempSensor
         except:
-            self.logger.error("can not add new deviceID %s to core"%(tempSensor["deviceID"]['value']))
+            self.logger.error("can not add new deviceID %s to core"%(sensorID), exc_info=True)
             raise Exception
         
     def __deleteDisconectedSensors(self):
