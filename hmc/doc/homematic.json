@@ -1,0 +1,3956 @@
+[
+    {
+        "ADDRESS": "BidCoS-Wir", 
+        "CHILDREN": [
+            "BidCoS-Wir:0", 
+            "BidCoS-Wir:1", 
+            "BidCoS-Wir:2", 
+            "BidCoS-Wir:3", 
+            "BidCoS-Wir:4", 
+            "BidCoS-Wir:5", 
+            "BidCoS-Wir:6", 
+            "BidCoS-Wir:7", 
+            "BidCoS-Wir:8", 
+            "BidCoS-Wir:9", 
+            "BidCoS-Wir:10", 
+            "BidCoS-Wir:11", 
+            "BidCoS-Wir:12", 
+            "BidCoS-Wir:13", 
+            "BidCoS-Wir:14", 
+            "BidCoS-Wir:15", 
+            "BidCoS-Wir:16", 
+            "BidCoS-Wir:17", 
+            "BidCoS-Wir:18", 
+            "BidCoS-Wir:19", 
+            "BidCoS-Wir:20", 
+            "BidCoS-Wir:21", 
+            "BidCoS-Wir:22", 
+            "BidCoS-Wir:23", 
+            "BidCoS-Wir:24", 
+            "BidCoS-Wir:25", 
+            "BidCoS-Wir:26", 
+            "BidCoS-Wir:27", 
+            "BidCoS-Wir:28", 
+            "BidCoS-Wir:29", 
+            "BidCoS-Wir:30", 
+            "BidCoS-Wir:31", 
+            "BidCoS-Wir:32", 
+            "BidCoS-Wir:33", 
+            "BidCoS-Wir:34", 
+            "BidCoS-Wir:35", 
+            "BidCoS-Wir:36", 
+            "BidCoS-Wir:37", 
+            "BidCoS-Wir:38", 
+            "BidCoS-Wir:39", 
+            "BidCoS-Wir:40", 
+            "BidCoS-Wir:41", 
+            "BidCoS-Wir:42", 
+            "BidCoS-Wir:43", 
+            "BidCoS-Wir:44", 
+            "BidCoS-Wir:45", 
+            "BidCoS-Wir:46", 
+            "BidCoS-Wir:47", 
+            "BidCoS-Wir:48", 
+            "BidCoS-Wir:49", 
+            "BidCoS-Wir:50"
+        ], 
+        "FIRMWARE": "2.29.23", 
+        "FLAGS": 9, 
+        "PARAMSETS": [
+            "MASTER"
+        ], 
+        "PARENT": "", 
+        "TYPE": "HMW-RCV-50", 
+        "UPDATABLE": 1, 
+        "VERSION": 3
+    }, 
+    {
+        "ADDRESS": "BidCoS-Wir:0", 
+        "AES_ACTIVE": 0, 
+        "DIRECTION": 0, 
+        "FLAGS": 3, 
+        "INDEX": 0, 
+        "LINK_SOURCE_ROLES": "", 
+        "LINK_TARGET_ROLES": "", 
+        "PARAMSETS": [
+            "MASTER", 
+            "VALUES"
+        ], 
+        "PARENT": "BidCoS-Wir", 
+        "PARENT_TYPE": "HMW-RCV-50", 
+        "TYPE": "MAINTENANCE", 
+        "VERSION": 3
+    }, 
+    {
+        "ADDRESS": "BidCoS-Wir:1", 
+        "AES_ACTIVE": 0, 
+        "DIRECTION": 1, 
+        "FLAGS": 1, 
+        "INDEX": 1, 
+        "LINK_SOURCE_ROLES": "SWITCH", 
+        "LINK_TARGET_ROLES": "", 
+        "PARAMSETS": [
+            "LINK", 
+            "MASTER", 
+            "VALUES"
+        ], 
+        "PARENT": "BidCoS-Wir", 
+        "PARENT_TYPE": "HMW-RCV-50", 
+        "TYPE": "VIRTUAL_KEY", 
+        "VERSION": 3
+    }, 
+    {
+        "ADDRESS": "BidCoS-Wir:2", 
+        "AES_ACTIVE": 0, 
+        "DIRECTION": 1, 
+        "FLAGS": 1, 
+        "INDEX": 2, 
+        "LINK_SOURCE_ROLES": "SWITCH", 
+        "LINK_TARGET_ROLES": "", 
+        "PARAMSETS": [
+            "LINK", 
+            "MASTER", 
+            "VALUES"
+        ], 
+        "PARENT": "BidCoS-Wir", 
+        "PARENT_TYPE": "HMW-RCV-50", 
+        "TYPE": "VIRTUAL_KEY", 
+        "VERSION": 3
+    }, 
+    {
+        "ADDRESS": "BidCoS-Wir:3", 
+        "AES_ACTIVE": 0, 
+        "DIRECTION": 1, 
+        "FLAGS": 1, 
+        "INDEX": 3, 
+        "LINK_SOURCE_ROLES": "SWITCH", 
+        "LINK_TARGET_ROLES": "", 
+        "PARAMSETS": [
+            "LINK", 
+            "MASTER", 
+            "VALUES"
+        ], 
+        "PARENT": "BidCoS-Wir", 
+        "PARENT_TYPE": "HMW-RCV-50", 
+        "TYPE": "VIRTUAL_KEY", 
+        "VERSION": 3
+    }, 
+    {
+        "ADDRESS": "BidCoS-Wir:4", 
+        "AES_ACTIVE": 0, 
+        "DIRECTION": 1, 
+        "FLAGS": 1, 
+        "INDEX": 4, 
+        "LINK_SOURCE_ROLES": "SWITCH", 
+        "LINK_TARGET_ROLES": "", 
+        "PARAMSETS": [
+            "LINK", 
+            "MASTER", 
+            "VALUES"
+        ], 
+        "PARENT": "BidCoS-Wir", 
+        "PARENT_TYPE": "HMW-RCV-50", 
+        "TYPE": "VIRTUAL_KEY", 
+        "VERSION": 3
+    }, 
+    {
+        "ADDRESS": "BidCoS-Wir:5", 
+        "AES_ACTIVE": 0, 
+        "DIRECTION": 1, 
+        "FLAGS": 1, 
+        "INDEX": 5, 
+        "LINK_SOURCE_ROLES": "SWITCH", 
+        "LINK_TARGET_ROLES": "", 
+        "PARAMSETS": [
+            "LINK", 
+            "MASTER", 
+            "VALUES"
+        ], 
+        "PARENT": "BidCoS-Wir", 
+        "PARENT_TYPE": "HMW-RCV-50", 
+        "TYPE": "VIRTUAL_KEY", 
+        "VERSION": 3
+    }, 
+    {
+        "ADDRESS": "BidCoS-Wir:6", 
+        "AES_ACTIVE": 0, 
+        "DIRECTION": 1, 
+        "FLAGS": 1, 
+        "INDEX": 6, 
+        "LINK_SOURCE_ROLES": "SWITCH", 
+        "LINK_TARGET_ROLES": "", 
+        "PARAMSETS": [
+            "LINK", 
+            "MASTER", 
+            "VALUES"
+        ], 
+        "PARENT": "BidCoS-Wir", 
+        "PARENT_TYPE": "HMW-RCV-50", 
+        "TYPE": "VIRTUAL_KEY", 
+        "VERSION": 3
+    }, 
+    {
+        "ADDRESS": "BidCoS-Wir:7", 
+        "AES_ACTIVE": 0, 
+        "DIRECTION": 1, 
+        "FLAGS": 1, 
+        "INDEX": 7, 
+        "LINK_SOURCE_ROLES": "SWITCH", 
+        "LINK_TARGET_ROLES": "", 
+        "PARAMSETS": [
+            "LINK", 
+            "MASTER", 
+            "VALUES"
+        ], 
+        "PARENT": "BidCoS-Wir", 
+        "PARENT_TYPE": "HMW-RCV-50", 
+        "TYPE": "VIRTUAL_KEY", 
+        "VERSION": 3
+    }, 
+    {
+        "ADDRESS": "BidCoS-Wir:8", 
+        "AES_ACTIVE": 0, 
+        "DIRECTION": 1, 
+        "FLAGS": 1, 
+        "INDEX": 8, 
+        "LINK_SOURCE_ROLES": "SWITCH", 
+        "LINK_TARGET_ROLES": "", 
+        "PARAMSETS": [
+            "LINK", 
+            "MASTER", 
+            "VALUES"
+        ], 
+        "PARENT": "BidCoS-Wir", 
+        "PARENT_TYPE": "HMW-RCV-50", 
+        "TYPE": "VIRTUAL_KEY", 
+        "VERSION": 3
+    }, 
+    {
+        "ADDRESS": "BidCoS-Wir:9", 
+        "AES_ACTIVE": 0, 
+        "DIRECTION": 1, 
+        "FLAGS": 1, 
+        "INDEX": 9, 
+        "LINK_SOURCE_ROLES": "SWITCH", 
+        "LINK_TARGET_ROLES": "", 
+        "PARAMSETS": [
+            "LINK", 
+            "MASTER", 
+            "VALUES"
+        ], 
+        "PARENT": "BidCoS-Wir", 
+        "PARENT_TYPE": "HMW-RCV-50", 
+        "TYPE": "VIRTUAL_KEY", 
+        "VERSION": 3
+    }, 
+    {
+        "ADDRESS": "BidCoS-Wir:10", 
+        "AES_ACTIVE": 0, 
+        "DIRECTION": 1, 
+        "FLAGS": 1, 
+        "INDEX": 10, 
+        "LINK_SOURCE_ROLES": "SWITCH", 
+        "LINK_TARGET_ROLES": "", 
+        "PARAMSETS": [
+            "LINK", 
+            "MASTER", 
+            "VALUES"
+        ], 
+        "PARENT": "BidCoS-Wir", 
+        "PARENT_TYPE": "HMW-RCV-50", 
+        "TYPE": "VIRTUAL_KEY", 
+        "VERSION": 3
+    }, 
+    {
+        "ADDRESS": "BidCoS-Wir:11", 
+        "AES_ACTIVE": 0, 
+        "DIRECTION": 1, 
+        "FLAGS": 1, 
+        "INDEX": 11, 
+        "LINK_SOURCE_ROLES": "SWITCH", 
+        "LINK_TARGET_ROLES": "", 
+        "PARAMSETS": [
+            "LINK", 
+            "MASTER", 
+            "VALUES"
+        ], 
+        "PARENT": "BidCoS-Wir", 
+        "PARENT_TYPE": "HMW-RCV-50", 
+        "TYPE": "VIRTUAL_KEY", 
+        "VERSION": 3
+    }, 
+    {
+        "ADDRESS": "BidCoS-Wir:12", 
+        "AES_ACTIVE": 0, 
+        "DIRECTION": 1, 
+        "FLAGS": 1, 
+        "INDEX": 12, 
+        "LINK_SOURCE_ROLES": "SWITCH", 
+        "LINK_TARGET_ROLES": "", 
+        "PARAMSETS": [
+            "LINK", 
+            "MASTER", 
+            "VALUES"
+        ], 
+        "PARENT": "BidCoS-Wir", 
+        "PARENT_TYPE": "HMW-RCV-50", 
+        "TYPE": "VIRTUAL_KEY", 
+        "VERSION": 3
+    }, 
+    {
+        "ADDRESS": "BidCoS-Wir:13", 
+        "AES_ACTIVE": 0, 
+        "DIRECTION": 1, 
+        "FLAGS": 1, 
+        "INDEX": 13, 
+        "LINK_SOURCE_ROLES": "SWITCH", 
+        "LINK_TARGET_ROLES": "", 
+        "PARAMSETS": [
+            "LINK", 
+            "MASTER", 
+            "VALUES"
+        ], 
+        "PARENT": "BidCoS-Wir", 
+        "PARENT_TYPE": "HMW-RCV-50", 
+        "TYPE": "VIRTUAL_KEY", 
+        "VERSION": 3
+    }, 
+    {
+        "ADDRESS": "BidCoS-Wir:14", 
+        "AES_ACTIVE": 0, 
+        "DIRECTION": 1, 
+        "FLAGS": 1, 
+        "INDEX": 14, 
+        "LINK_SOURCE_ROLES": "SWITCH", 
+        "LINK_TARGET_ROLES": "", 
+        "PARAMSETS": [
+            "LINK", 
+            "MASTER", 
+            "VALUES"
+        ], 
+        "PARENT": "BidCoS-Wir", 
+        "PARENT_TYPE": "HMW-RCV-50", 
+        "TYPE": "VIRTUAL_KEY", 
+        "VERSION": 3
+    }, 
+    {
+        "ADDRESS": "BidCoS-Wir:15", 
+        "AES_ACTIVE": 0, 
+        "DIRECTION": 1, 
+        "FLAGS": 1, 
+        "INDEX": 15, 
+        "LINK_SOURCE_ROLES": "SWITCH", 
+        "LINK_TARGET_ROLES": "", 
+        "PARAMSETS": [
+            "LINK", 
+            "MASTER", 
+            "VALUES"
+        ], 
+        "PARENT": "BidCoS-Wir", 
+        "PARENT_TYPE": "HMW-RCV-50", 
+        "TYPE": "VIRTUAL_KEY", 
+        "VERSION": 3
+    }, 
+    {
+        "ADDRESS": "BidCoS-Wir:16", 
+        "AES_ACTIVE": 0, 
+        "DIRECTION": 1, 
+        "FLAGS": 1, 
+        "INDEX": 16, 
+        "LINK_SOURCE_ROLES": "SWITCH", 
+        "LINK_TARGET_ROLES": "", 
+        "PARAMSETS": [
+            "LINK", 
+            "MASTER", 
+            "VALUES"
+        ], 
+        "PARENT": "BidCoS-Wir", 
+        "PARENT_TYPE": "HMW-RCV-50", 
+        "TYPE": "VIRTUAL_KEY", 
+        "VERSION": 3
+    }, 
+    {
+        "ADDRESS": "BidCoS-Wir:17", 
+        "AES_ACTIVE": 0, 
+        "DIRECTION": 1, 
+        "FLAGS": 1, 
+        "INDEX": 17, 
+        "LINK_SOURCE_ROLES": "SWITCH", 
+        "LINK_TARGET_ROLES": "", 
+        "PARAMSETS": [
+            "LINK", 
+            "MASTER", 
+            "VALUES"
+        ], 
+        "PARENT": "BidCoS-Wir", 
+        "PARENT_TYPE": "HMW-RCV-50", 
+        "TYPE": "VIRTUAL_KEY", 
+        "VERSION": 3
+    }, 
+    {
+        "ADDRESS": "BidCoS-Wir:18", 
+        "AES_ACTIVE": 0, 
+        "DIRECTION": 1, 
+        "FLAGS": 1, 
+        "INDEX": 18, 
+        "LINK_SOURCE_ROLES": "SWITCH", 
+        "LINK_TARGET_ROLES": "", 
+        "PARAMSETS": [
+            "LINK", 
+            "MASTER", 
+            "VALUES"
+        ], 
+        "PARENT": "BidCoS-Wir", 
+        "PARENT_TYPE": "HMW-RCV-50", 
+        "TYPE": "VIRTUAL_KEY", 
+        "VERSION": 3
+    }, 
+    {
+        "ADDRESS": "BidCoS-Wir:19", 
+        "AES_ACTIVE": 0, 
+        "DIRECTION": 1, 
+        "FLAGS": 1, 
+        "INDEX": 19, 
+        "LINK_SOURCE_ROLES": "SWITCH", 
+        "LINK_TARGET_ROLES": "", 
+        "PARAMSETS": [
+            "LINK", 
+            "MASTER", 
+            "VALUES"
+        ], 
+        "PARENT": "BidCoS-Wir", 
+        "PARENT_TYPE": "HMW-RCV-50", 
+        "TYPE": "VIRTUAL_KEY", 
+        "VERSION": 3
+    }, 
+    {
+        "ADDRESS": "BidCoS-Wir:20", 
+        "AES_ACTIVE": 0, 
+        "DIRECTION": 1, 
+        "FLAGS": 1, 
+        "INDEX": 20, 
+        "LINK_SOURCE_ROLES": "SWITCH", 
+        "LINK_TARGET_ROLES": "", 
+        "PARAMSETS": [
+            "LINK", 
+            "MASTER", 
+            "VALUES"
+        ], 
+        "PARENT": "BidCoS-Wir", 
+        "PARENT_TYPE": "HMW-RCV-50", 
+        "TYPE": "VIRTUAL_KEY", 
+        "VERSION": 3
+    }, 
+    {
+        "ADDRESS": "BidCoS-Wir:21", 
+        "AES_ACTIVE": 0, 
+        "DIRECTION": 1, 
+        "FLAGS": 1, 
+        "INDEX": 21, 
+        "LINK_SOURCE_ROLES": "SWITCH", 
+        "LINK_TARGET_ROLES": "", 
+        "PARAMSETS": [
+            "LINK", 
+            "MASTER", 
+            "VALUES"
+        ], 
+        "PARENT": "BidCoS-Wir", 
+        "PARENT_TYPE": "HMW-RCV-50", 
+        "TYPE": "VIRTUAL_KEY", 
+        "VERSION": 3
+    }, 
+    {
+        "ADDRESS": "BidCoS-Wir:22", 
+        "AES_ACTIVE": 0, 
+        "DIRECTION": 1, 
+        "FLAGS": 1, 
+        "INDEX": 22, 
+        "LINK_SOURCE_ROLES": "SWITCH", 
+        "LINK_TARGET_ROLES": "", 
+        "PARAMSETS": [
+            "LINK", 
+            "MASTER", 
+            "VALUES"
+        ], 
+        "PARENT": "BidCoS-Wir", 
+        "PARENT_TYPE": "HMW-RCV-50", 
+        "TYPE": "VIRTUAL_KEY", 
+        "VERSION": 3
+    }, 
+    {
+        "ADDRESS": "BidCoS-Wir:23", 
+        "AES_ACTIVE": 0, 
+        "DIRECTION": 1, 
+        "FLAGS": 1, 
+        "INDEX": 23, 
+        "LINK_SOURCE_ROLES": "SWITCH", 
+        "LINK_TARGET_ROLES": "", 
+        "PARAMSETS": [
+            "LINK", 
+            "MASTER", 
+            "VALUES"
+        ], 
+        "PARENT": "BidCoS-Wir", 
+        "PARENT_TYPE": "HMW-RCV-50", 
+        "TYPE": "VIRTUAL_KEY", 
+        "VERSION": 3
+    }, 
+    {
+        "ADDRESS": "BidCoS-Wir:24", 
+        "AES_ACTIVE": 0, 
+        "DIRECTION": 1, 
+        "FLAGS": 1, 
+        "INDEX": 24, 
+        "LINK_SOURCE_ROLES": "SWITCH", 
+        "LINK_TARGET_ROLES": "", 
+        "PARAMSETS": [
+            "LINK", 
+            "MASTER", 
+            "VALUES"
+        ], 
+        "PARENT": "BidCoS-Wir", 
+        "PARENT_TYPE": "HMW-RCV-50", 
+        "TYPE": "VIRTUAL_KEY", 
+        "VERSION": 3
+    }, 
+    {
+        "ADDRESS": "BidCoS-Wir:25", 
+        "AES_ACTIVE": 0, 
+        "DIRECTION": 1, 
+        "FLAGS": 1, 
+        "INDEX": 25, 
+        "LINK_SOURCE_ROLES": "SWITCH", 
+        "LINK_TARGET_ROLES": "", 
+        "PARAMSETS": [
+            "LINK", 
+            "MASTER", 
+            "VALUES"
+        ], 
+        "PARENT": "BidCoS-Wir", 
+        "PARENT_TYPE": "HMW-RCV-50", 
+        "TYPE": "VIRTUAL_KEY", 
+        "VERSION": 3
+    }, 
+    {
+        "ADDRESS": "BidCoS-Wir:26", 
+        "AES_ACTIVE": 0, 
+        "DIRECTION": 1, 
+        "FLAGS": 1, 
+        "INDEX": 26, 
+        "LINK_SOURCE_ROLES": "SWITCH", 
+        "LINK_TARGET_ROLES": "", 
+        "PARAMSETS": [
+            "LINK", 
+            "MASTER", 
+            "VALUES"
+        ], 
+        "PARENT": "BidCoS-Wir", 
+        "PARENT_TYPE": "HMW-RCV-50", 
+        "TYPE": "VIRTUAL_KEY", 
+        "VERSION": 3
+    }, 
+    {
+        "ADDRESS": "BidCoS-Wir:27", 
+        "AES_ACTIVE": 0, 
+        "DIRECTION": 1, 
+        "FLAGS": 1, 
+        "INDEX": 27, 
+        "LINK_SOURCE_ROLES": "SWITCH", 
+        "LINK_TARGET_ROLES": "", 
+        "PARAMSETS": [
+            "LINK", 
+            "MASTER", 
+            "VALUES"
+        ], 
+        "PARENT": "BidCoS-Wir", 
+        "PARENT_TYPE": "HMW-RCV-50", 
+        "TYPE": "VIRTUAL_KEY", 
+        "VERSION": 3
+    }, 
+    {
+        "ADDRESS": "BidCoS-Wir:28", 
+        "AES_ACTIVE": 0, 
+        "DIRECTION": 1, 
+        "FLAGS": 1, 
+        "INDEX": 28, 
+        "LINK_SOURCE_ROLES": "SWITCH", 
+        "LINK_TARGET_ROLES": "", 
+        "PARAMSETS": [
+            "LINK", 
+            "MASTER", 
+            "VALUES"
+        ], 
+        "PARENT": "BidCoS-Wir", 
+        "PARENT_TYPE": "HMW-RCV-50", 
+        "TYPE": "VIRTUAL_KEY", 
+        "VERSION": 3
+    }, 
+    {
+        "ADDRESS": "BidCoS-Wir:29", 
+        "AES_ACTIVE": 0, 
+        "DIRECTION": 1, 
+        "FLAGS": 1, 
+        "INDEX": 29, 
+        "LINK_SOURCE_ROLES": "SWITCH", 
+        "LINK_TARGET_ROLES": "", 
+        "PARAMSETS": [
+            "LINK", 
+            "MASTER", 
+            "VALUES"
+        ], 
+        "PARENT": "BidCoS-Wir", 
+        "PARENT_TYPE": "HMW-RCV-50", 
+        "TYPE": "VIRTUAL_KEY", 
+        "VERSION": 3
+    }, 
+    {
+        "ADDRESS": "BidCoS-Wir:30", 
+        "AES_ACTIVE": 0, 
+        "DIRECTION": 1, 
+        "FLAGS": 1, 
+        "INDEX": 30, 
+        "LINK_SOURCE_ROLES": "SWITCH", 
+        "LINK_TARGET_ROLES": "", 
+        "PARAMSETS": [
+            "LINK", 
+            "MASTER", 
+            "VALUES"
+        ], 
+        "PARENT": "BidCoS-Wir", 
+        "PARENT_TYPE": "HMW-RCV-50", 
+        "TYPE": "VIRTUAL_KEY", 
+        "VERSION": 3
+    }, 
+    {
+        "ADDRESS": "BidCoS-Wir:31", 
+        "AES_ACTIVE": 0, 
+        "DIRECTION": 1, 
+        "FLAGS": 1, 
+        "INDEX": 31, 
+        "LINK_SOURCE_ROLES": "SWITCH", 
+        "LINK_TARGET_ROLES": "", 
+        "PARAMSETS": [
+            "LINK", 
+            "MASTER", 
+            "VALUES"
+        ], 
+        "PARENT": "BidCoS-Wir", 
+        "PARENT_TYPE": "HMW-RCV-50", 
+        "TYPE": "VIRTUAL_KEY", 
+        "VERSION": 3
+    }, 
+    {
+        "ADDRESS": "BidCoS-Wir:32", 
+        "AES_ACTIVE": 0, 
+        "DIRECTION": 1, 
+        "FLAGS": 1, 
+        "INDEX": 32, 
+        "LINK_SOURCE_ROLES": "SWITCH", 
+        "LINK_TARGET_ROLES": "", 
+        "PARAMSETS": [
+            "LINK", 
+            "MASTER", 
+            "VALUES"
+        ], 
+        "PARENT": "BidCoS-Wir", 
+        "PARENT_TYPE": "HMW-RCV-50", 
+        "TYPE": "VIRTUAL_KEY", 
+        "VERSION": 3
+    }, 
+    {
+        "ADDRESS": "BidCoS-Wir:33", 
+        "AES_ACTIVE": 0, 
+        "DIRECTION": 1, 
+        "FLAGS": 1, 
+        "INDEX": 33, 
+        "LINK_SOURCE_ROLES": "SWITCH", 
+        "LINK_TARGET_ROLES": "", 
+        "PARAMSETS": [
+            "LINK", 
+            "MASTER", 
+            "VALUES"
+        ], 
+        "PARENT": "BidCoS-Wir", 
+        "PARENT_TYPE": "HMW-RCV-50", 
+        "TYPE": "VIRTUAL_KEY", 
+        "VERSION": 3
+    }, 
+    {
+        "ADDRESS": "BidCoS-Wir:34", 
+        "AES_ACTIVE": 0, 
+        "DIRECTION": 1, 
+        "FLAGS": 1, 
+        "INDEX": 34, 
+        "LINK_SOURCE_ROLES": "SWITCH", 
+        "LINK_TARGET_ROLES": "", 
+        "PARAMSETS": [
+            "LINK", 
+            "MASTER", 
+            "VALUES"
+        ], 
+        "PARENT": "BidCoS-Wir", 
+        "PARENT_TYPE": "HMW-RCV-50", 
+        "TYPE": "VIRTUAL_KEY", 
+        "VERSION": 3
+    }, 
+    {
+        "ADDRESS": "BidCoS-Wir:35", 
+        "AES_ACTIVE": 0, 
+        "DIRECTION": 1, 
+        "FLAGS": 1, 
+        "INDEX": 35, 
+        "LINK_SOURCE_ROLES": "SWITCH", 
+        "LINK_TARGET_ROLES": "", 
+        "PARAMSETS": [
+            "LINK", 
+            "MASTER", 
+            "VALUES"
+        ], 
+        "PARENT": "BidCoS-Wir", 
+        "PARENT_TYPE": "HMW-RCV-50", 
+        "TYPE": "VIRTUAL_KEY", 
+        "VERSION": 3
+    }, 
+    {
+        "ADDRESS": "BidCoS-Wir:36", 
+        "AES_ACTIVE": 0, 
+        "DIRECTION": 1, 
+        "FLAGS": 1, 
+        "INDEX": 36, 
+        "LINK_SOURCE_ROLES": "SWITCH", 
+        "LINK_TARGET_ROLES": "", 
+        "PARAMSETS": [
+            "LINK", 
+            "MASTER", 
+            "VALUES"
+        ], 
+        "PARENT": "BidCoS-Wir", 
+        "PARENT_TYPE": "HMW-RCV-50", 
+        "TYPE": "VIRTUAL_KEY", 
+        "VERSION": 3
+    }, 
+    {
+        "ADDRESS": "BidCoS-Wir:37", 
+        "AES_ACTIVE": 0, 
+        "DIRECTION": 1, 
+        "FLAGS": 1, 
+        "INDEX": 37, 
+        "LINK_SOURCE_ROLES": "SWITCH", 
+        "LINK_TARGET_ROLES": "", 
+        "PARAMSETS": [
+            "LINK", 
+            "MASTER", 
+            "VALUES"
+        ], 
+        "PARENT": "BidCoS-Wir", 
+        "PARENT_TYPE": "HMW-RCV-50", 
+        "TYPE": "VIRTUAL_KEY", 
+        "VERSION": 3
+    }, 
+    {
+        "ADDRESS": "BidCoS-Wir:38", 
+        "AES_ACTIVE": 0, 
+        "DIRECTION": 1, 
+        "FLAGS": 1, 
+        "INDEX": 38, 
+        "LINK_SOURCE_ROLES": "SWITCH", 
+        "LINK_TARGET_ROLES": "", 
+        "PARAMSETS": [
+            "LINK", 
+            "MASTER", 
+            "VALUES"
+        ], 
+        "PARENT": "BidCoS-Wir", 
+        "PARENT_TYPE": "HMW-RCV-50", 
+        "TYPE": "VIRTUAL_KEY", 
+        "VERSION": 3
+    }, 
+    {
+        "ADDRESS": "BidCoS-Wir:39", 
+        "AES_ACTIVE": 0, 
+        "DIRECTION": 1, 
+        "FLAGS": 1, 
+        "INDEX": 39, 
+        "LINK_SOURCE_ROLES": "SWITCH", 
+        "LINK_TARGET_ROLES": "", 
+        "PARAMSETS": [
+            "LINK", 
+            "MASTER", 
+            "VALUES"
+        ], 
+        "PARENT": "BidCoS-Wir", 
+        "PARENT_TYPE": "HMW-RCV-50", 
+        "TYPE": "VIRTUAL_KEY", 
+        "VERSION": 3
+    }, 
+    {
+        "ADDRESS": "BidCoS-Wir:40", 
+        "AES_ACTIVE": 0, 
+        "DIRECTION": 1, 
+        "FLAGS": 1, 
+        "INDEX": 40, 
+        "LINK_SOURCE_ROLES": "SWITCH", 
+        "LINK_TARGET_ROLES": "", 
+        "PARAMSETS": [
+            "LINK", 
+            "MASTER", 
+            "VALUES"
+        ], 
+        "PARENT": "BidCoS-Wir", 
+        "PARENT_TYPE": "HMW-RCV-50", 
+        "TYPE": "VIRTUAL_KEY", 
+        "VERSION": 3
+    }, 
+    {
+        "ADDRESS": "BidCoS-Wir:41", 
+        "AES_ACTIVE": 0, 
+        "DIRECTION": 1, 
+        "FLAGS": 1, 
+        "INDEX": 41, 
+        "LINK_SOURCE_ROLES": "SWITCH", 
+        "LINK_TARGET_ROLES": "", 
+        "PARAMSETS": [
+            "LINK", 
+            "MASTER", 
+            "VALUES"
+        ], 
+        "PARENT": "BidCoS-Wir", 
+        "PARENT_TYPE": "HMW-RCV-50", 
+        "TYPE": "VIRTUAL_KEY", 
+        "VERSION": 3
+    }, 
+    {
+        "ADDRESS": "BidCoS-Wir:42", 
+        "AES_ACTIVE": 0, 
+        "DIRECTION": 1, 
+        "FLAGS": 1, 
+        "INDEX": 42, 
+        "LINK_SOURCE_ROLES": "SWITCH", 
+        "LINK_TARGET_ROLES": "", 
+        "PARAMSETS": [
+            "LINK", 
+            "MASTER", 
+            "VALUES"
+        ], 
+        "PARENT": "BidCoS-Wir", 
+        "PARENT_TYPE": "HMW-RCV-50", 
+        "TYPE": "VIRTUAL_KEY", 
+        "VERSION": 3
+    }, 
+    {
+        "ADDRESS": "BidCoS-Wir:43", 
+        "AES_ACTIVE": 0, 
+        "DIRECTION": 1, 
+        "FLAGS": 1, 
+        "INDEX": 43, 
+        "LINK_SOURCE_ROLES": "SWITCH", 
+        "LINK_TARGET_ROLES": "", 
+        "PARAMSETS": [
+            "LINK", 
+            "MASTER", 
+            "VALUES"
+        ], 
+        "PARENT": "BidCoS-Wir", 
+        "PARENT_TYPE": "HMW-RCV-50", 
+        "TYPE": "VIRTUAL_KEY", 
+        "VERSION": 3
+    }, 
+    {
+        "ADDRESS": "BidCoS-Wir:44", 
+        "AES_ACTIVE": 0, 
+        "DIRECTION": 1, 
+        "FLAGS": 1, 
+        "INDEX": 44, 
+        "LINK_SOURCE_ROLES": "SWITCH", 
+        "LINK_TARGET_ROLES": "", 
+        "PARAMSETS": [
+            "LINK", 
+            "MASTER", 
+            "VALUES"
+        ], 
+        "PARENT": "BidCoS-Wir", 
+        "PARENT_TYPE": "HMW-RCV-50", 
+        "TYPE": "VIRTUAL_KEY", 
+        "VERSION": 3
+    }, 
+    {
+        "ADDRESS": "BidCoS-Wir:45", 
+        "AES_ACTIVE": 0, 
+        "DIRECTION": 1, 
+        "FLAGS": 1, 
+        "INDEX": 45, 
+        "LINK_SOURCE_ROLES": "SWITCH", 
+        "LINK_TARGET_ROLES": "", 
+        "PARAMSETS": [
+            "LINK", 
+            "MASTER", 
+            "VALUES"
+        ], 
+        "PARENT": "BidCoS-Wir", 
+        "PARENT_TYPE": "HMW-RCV-50", 
+        "TYPE": "VIRTUAL_KEY", 
+        "VERSION": 3
+    }, 
+    {
+        "ADDRESS": "BidCoS-Wir:46", 
+        "AES_ACTIVE": 0, 
+        "DIRECTION": 1, 
+        "FLAGS": 1, 
+        "INDEX": 46, 
+        "LINK_SOURCE_ROLES": "SWITCH", 
+        "LINK_TARGET_ROLES": "", 
+        "PARAMSETS": [
+            "LINK", 
+            "MASTER", 
+            "VALUES"
+        ], 
+        "PARENT": "BidCoS-Wir", 
+        "PARENT_TYPE": "HMW-RCV-50", 
+        "TYPE": "VIRTUAL_KEY", 
+        "VERSION": 3
+    }, 
+    {
+        "ADDRESS": "BidCoS-Wir:47", 
+        "AES_ACTIVE": 0, 
+        "DIRECTION": 1, 
+        "FLAGS": 1, 
+        "INDEX": 47, 
+        "LINK_SOURCE_ROLES": "SWITCH", 
+        "LINK_TARGET_ROLES": "", 
+        "PARAMSETS": [
+            "LINK", 
+            "MASTER", 
+            "VALUES"
+        ], 
+        "PARENT": "BidCoS-Wir", 
+        "PARENT_TYPE": "HMW-RCV-50", 
+        "TYPE": "VIRTUAL_KEY", 
+        "VERSION": 3
+    }, 
+    {
+        "ADDRESS": "BidCoS-Wir:48", 
+        "AES_ACTIVE": 0, 
+        "DIRECTION": 1, 
+        "FLAGS": 1, 
+        "INDEX": 48, 
+        "LINK_SOURCE_ROLES": "SWITCH", 
+        "LINK_TARGET_ROLES": "", 
+        "PARAMSETS": [
+            "LINK", 
+            "MASTER", 
+            "VALUES"
+        ], 
+        "PARENT": "BidCoS-Wir", 
+        "PARENT_TYPE": "HMW-RCV-50", 
+        "TYPE": "VIRTUAL_KEY", 
+        "VERSION": 3
+    }, 
+    {
+        "ADDRESS": "BidCoS-Wir:49", 
+        "AES_ACTIVE": 0, 
+        "DIRECTION": 1, 
+        "FLAGS": 1, 
+        "INDEX": 49, 
+        "LINK_SOURCE_ROLES": "SWITCH", 
+        "LINK_TARGET_ROLES": "", 
+        "PARAMSETS": [
+            "LINK", 
+            "MASTER", 
+            "VALUES"
+        ], 
+        "PARENT": "BidCoS-Wir", 
+        "PARENT_TYPE": "HMW-RCV-50", 
+        "TYPE": "VIRTUAL_KEY", 
+        "VERSION": 3
+    }, 
+    {
+        "ADDRESS": "BidCoS-Wir:50", 
+        "AES_ACTIVE": 0, 
+        "DIRECTION": 1, 
+        "FLAGS": 1, 
+        "INDEX": 50, 
+        "LINK_SOURCE_ROLES": "SWITCH", 
+        "LINK_TARGET_ROLES": "", 
+        "PARAMSETS": [
+            "LINK", 
+            "MASTER", 
+            "VALUES"
+        ], 
+        "PARENT": "BidCoS-Wir", 
+        "PARENT_TYPE": "HMW-RCV-50", 
+        "TYPE": "VIRTUAL_KEY", 
+        "VERSION": 3
+    }, 
+    {
+        "ADDRESS": "JEQ0149163", 
+        "AVAILABLE_FIRMWARE": "3.06", 
+        "CHILDREN": [
+            "JEQ0149163:0", 
+            "JEQ0149163:1", 
+            "JEQ0149163:2", 
+            "JEQ0149163:3", 
+            "JEQ0149163:4", 
+            "JEQ0149163:5", 
+            "JEQ0149163:6", 
+            "JEQ0149163:7", 
+            "JEQ0149163:8", 
+            "JEQ0149163:9", 
+            "JEQ0149163:10", 
+            "JEQ0149163:11", 
+            "JEQ0149163:12", 
+            "JEQ0149163:13", 
+            "JEQ0149163:14", 
+            "JEQ0149163:15", 
+            "JEQ0149163:16", 
+            "JEQ0149163:17", 
+            "JEQ0149163:18", 
+            "JEQ0149163:19"
+        ], 
+        "FIRMWARE": "3.06", 
+        "FLAGS": 1, 
+        "PARAMSETS": [
+            "MASTER"
+        ], 
+        "PARENT": "", 
+        "TYPE": "HMW-IO-12-Sw7-DR", 
+        "UPDATABLE": 1, 
+        "VERSION": 11
+    }, 
+    {
+        "ADDRESS": "JEQ0149163:0", 
+        "AES_ACTIVE": 0, 
+        "DIRECTION": 0, 
+        "FLAGS": 3, 
+        "INDEX": 0, 
+        "LINK_SOURCE_ROLES": "", 
+        "LINK_TARGET_ROLES": "", 
+        "PARAMSETS": [
+            "MASTER", 
+            "VALUES"
+        ], 
+        "PARENT": "JEQ0149163", 
+        "PARENT_TYPE": "HMW-IO-12-Sw7-DR", 
+        "TYPE": "MAINTENANCE", 
+        "VERSION": 11
+    }, 
+    {
+        "ADDRESS": "JEQ0149163:1", 
+        "AES_ACTIVE": 0, 
+        "DIRECTION": 1, 
+        "FLAGS": 1, 
+        "INDEX": 1, 
+        "LINK_SOURCE_ROLES": "SWITCH", 
+        "LINK_TARGET_ROLES": "", 
+        "PARAMSETS": [
+            "LINK", 
+            "MASTER", 
+            "VALUES"
+        ], 
+        "PARENT": "JEQ0149163", 
+        "PARENT_TYPE": "HMW-IO-12-Sw7-DR", 
+        "TYPE": "KEY", 
+        "VERSION": 11
+    }, 
+    {
+        "ADDRESS": "JEQ0149163:2", 
+        "AES_ACTIVE": 0, 
+        "DIRECTION": 1, 
+        "FLAGS": 1, 
+        "INDEX": 2, 
+        "LINK_SOURCE_ROLES": "SWITCH", 
+        "LINK_TARGET_ROLES": "", 
+        "PARAMSETS": [
+            "LINK", 
+            "MASTER", 
+            "VALUES"
+        ], 
+        "PARENT": "JEQ0149163", 
+        "PARENT_TYPE": "HMW-IO-12-Sw7-DR", 
+        "TYPE": "KEY", 
+        "VERSION": 11
+    }, 
+    {
+        "ADDRESS": "JEQ0149163:3", 
+        "AES_ACTIVE": 0, 
+        "DIRECTION": 1, 
+        "FLAGS": 1, 
+        "INDEX": 3, 
+        "LINK_SOURCE_ROLES": "SWITCH", 
+        "LINK_TARGET_ROLES": "", 
+        "PARAMSETS": [
+            "LINK", 
+            "MASTER", 
+            "VALUES"
+        ], 
+        "PARENT": "JEQ0149163", 
+        "PARENT_TYPE": "HMW-IO-12-Sw7-DR", 
+        "TYPE": "KEY", 
+        "VERSION": 11
+    }, 
+    {
+        "ADDRESS": "JEQ0149163:4", 
+        "AES_ACTIVE": 0, 
+        "DIRECTION": 1, 
+        "FLAGS": 1, 
+        "INDEX": 4, 
+        "LINK_SOURCE_ROLES": "SWITCH", 
+        "LINK_TARGET_ROLES": "", 
+        "PARAMSETS": [
+            "LINK", 
+            "MASTER", 
+            "VALUES"
+        ], 
+        "PARENT": "JEQ0149163", 
+        "PARENT_TYPE": "HMW-IO-12-Sw7-DR", 
+        "TYPE": "KEY", 
+        "VERSION": 11
+    }, 
+    {
+        "ADDRESS": "JEQ0149163:5", 
+        "AES_ACTIVE": 0, 
+        "DIRECTION": 1, 
+        "FLAGS": 1, 
+        "INDEX": 5, 
+        "LINK_SOURCE_ROLES": "SWITCH", 
+        "LINK_TARGET_ROLES": "", 
+        "PARAMSETS": [
+            "LINK", 
+            "MASTER", 
+            "VALUES"
+        ], 
+        "PARENT": "JEQ0149163", 
+        "PARENT_TYPE": "HMW-IO-12-Sw7-DR", 
+        "TYPE": "KEY", 
+        "VERSION": 11
+    }, 
+    {
+        "ADDRESS": "JEQ0149163:6", 
+        "AES_ACTIVE": 0, 
+        "DIRECTION": 1, 
+        "FLAGS": 1, 
+        "INDEX": 6, 
+        "LINK_SOURCE_ROLES": "SWITCH", 
+        "LINK_TARGET_ROLES": "", 
+        "PARAMSETS": [
+            "LINK", 
+            "MASTER", 
+            "VALUES"
+        ], 
+        "PARENT": "JEQ0149163", 
+        "PARENT_TYPE": "HMW-IO-12-Sw7-DR", 
+        "TYPE": "KEY", 
+        "VERSION": 11
+    }, 
+    {
+        "ADDRESS": "JEQ0149163:7", 
+        "AES_ACTIVE": 0, 
+        "DIRECTION": 1, 
+        "FLAGS": 1, 
+        "INDEX": 7, 
+        "LINK_SOURCE_ROLES": "SWITCH", 
+        "LINK_TARGET_ROLES": "", 
+        "PARAMSETS": [
+            "LINK", 
+            "MASTER", 
+            "VALUES"
+        ], 
+        "PARENT": "JEQ0149163", 
+        "PARENT_TYPE": "HMW-IO-12-Sw7-DR", 
+        "TYPE": "KEY", 
+        "VERSION": 11
+    }, 
+    {
+        "ADDRESS": "JEQ0149163:8", 
+        "AES_ACTIVE": 0, 
+        "DIRECTION": 1, 
+        "FLAGS": 1, 
+        "INDEX": 8, 
+        "LINK_SOURCE_ROLES": "SWITCH", 
+        "LINK_TARGET_ROLES": "", 
+        "PARAMSETS": [
+            "LINK", 
+            "MASTER", 
+            "VALUES"
+        ], 
+        "PARENT": "JEQ0149163", 
+        "PARENT_TYPE": "HMW-IO-12-Sw7-DR", 
+        "TYPE": "KEY", 
+        "VERSION": 11
+    }, 
+    {
+        "ADDRESS": "JEQ0149163:9", 
+        "AES_ACTIVE": 0, 
+        "DIRECTION": 1, 
+        "FLAGS": 1, 
+        "INDEX": 9, 
+        "LINK_SOURCE_ROLES": "SWITCH", 
+        "LINK_TARGET_ROLES": "", 
+        "PARAMSETS": [
+            "LINK", 
+            "MASTER", 
+            "VALUES"
+        ], 
+        "PARENT": "JEQ0149163", 
+        "PARENT_TYPE": "HMW-IO-12-Sw7-DR", 
+        "TYPE": "KEY", 
+        "VERSION": 11
+    }, 
+    {
+        "ADDRESS": "JEQ0149163:10", 
+        "AES_ACTIVE": 0, 
+        "DIRECTION": 1, 
+        "FLAGS": 1, 
+        "INDEX": 10, 
+        "LINK_SOURCE_ROLES": "SWITCH", 
+        "LINK_TARGET_ROLES": "", 
+        "PARAMSETS": [
+            "LINK", 
+            "MASTER", 
+            "VALUES"
+        ], 
+        "PARENT": "JEQ0149163", 
+        "PARENT_TYPE": "HMW-IO-12-Sw7-DR", 
+        "TYPE": "KEY", 
+        "VERSION": 11
+    }, 
+    {
+        "ADDRESS": "JEQ0149163:11", 
+        "AES_ACTIVE": 0, 
+        "DIRECTION": 1, 
+        "FLAGS": 1, 
+        "INDEX": 11, 
+        "LINK_SOURCE_ROLES": "SWITCH", 
+        "LINK_TARGET_ROLES": "", 
+        "PARAMSETS": [
+            "LINK", 
+            "MASTER", 
+            "VALUES"
+        ], 
+        "PARENT": "JEQ0149163", 
+        "PARENT_TYPE": "HMW-IO-12-Sw7-DR", 
+        "TYPE": "KEY", 
+        "VERSION": 11
+    }, 
+    {
+        "ADDRESS": "JEQ0149163:12", 
+        "AES_ACTIVE": 0, 
+        "DIRECTION": 1, 
+        "FLAGS": 1, 
+        "INDEX": 12, 
+        "LINK_SOURCE_ROLES": "SWITCH", 
+        "LINK_TARGET_ROLES": "", 
+        "PARAMSETS": [
+            "LINK", 
+            "MASTER", 
+            "VALUES"
+        ], 
+        "PARENT": "JEQ0149163", 
+        "PARENT_TYPE": "HMW-IO-12-Sw7-DR", 
+        "TYPE": "KEY", 
+        "VERSION": 11
+    }, 
+    {
+        "ADDRESS": "JEQ0149163:13", 
+        "AES_ACTIVE": 0, 
+        "DIRECTION": 2, 
+        "FLAGS": 1, 
+        "INDEX": 13, 
+        "LINK_SOURCE_ROLES": "", 
+        "LINK_TARGET_ROLES": "SWITCH", 
+        "PARAMSETS": [
+            "LINK", 
+            "MASTER", 
+            "VALUES"
+        ], 
+        "PARENT": "JEQ0149163", 
+        "PARENT_TYPE": "HMW-IO-12-Sw7-DR", 
+        "TYPE": "SWITCH", 
+        "VERSION": 11
+    }, 
+    {
+        "ADDRESS": "JEQ0149163:14", 
+        "AES_ACTIVE": 0, 
+        "DIRECTION": 2, 
+        "FLAGS": 1, 
+        "INDEX": 14, 
+        "LINK_SOURCE_ROLES": "", 
+        "LINK_TARGET_ROLES": "SWITCH", 
+        "PARAMSETS": [
+            "LINK", 
+            "MASTER", 
+            "VALUES"
+        ], 
+        "PARENT": "JEQ0149163", 
+        "PARENT_TYPE": "HMW-IO-12-Sw7-DR", 
+        "TYPE": "SWITCH", 
+        "VERSION": 11
+    }, 
+    {
+        "ADDRESS": "JEQ0149163:15", 
+        "AES_ACTIVE": 0, 
+        "DIRECTION": 2, 
+        "FLAGS": 1, 
+        "INDEX": 15, 
+        "LINK_SOURCE_ROLES": "", 
+        "LINK_TARGET_ROLES": "SWITCH", 
+        "PARAMSETS": [
+            "LINK", 
+            "MASTER", 
+            "VALUES"
+        ], 
+        "PARENT": "JEQ0149163", 
+        "PARENT_TYPE": "HMW-IO-12-Sw7-DR", 
+        "TYPE": "SWITCH", 
+        "VERSION": 11
+    }, 
+    {
+        "ADDRESS": "JEQ0149163:16", 
+        "AES_ACTIVE": 0, 
+        "DIRECTION": 2, 
+        "FLAGS": 1, 
+        "INDEX": 16, 
+        "LINK_SOURCE_ROLES": "", 
+        "LINK_TARGET_ROLES": "SWITCH", 
+        "PARAMSETS": [
+            "LINK", 
+            "MASTER", 
+            "VALUES"
+        ], 
+        "PARENT": "JEQ0149163", 
+        "PARENT_TYPE": "HMW-IO-12-Sw7-DR", 
+        "TYPE": "SWITCH", 
+        "VERSION": 11
+    }, 
+    {
+        "ADDRESS": "JEQ0149163:17", 
+        "AES_ACTIVE": 0, 
+        "DIRECTION": 2, 
+        "FLAGS": 1, 
+        "INDEX": 17, 
+        "LINK_SOURCE_ROLES": "", 
+        "LINK_TARGET_ROLES": "SWITCH", 
+        "PARAMSETS": [
+            "LINK", 
+            "MASTER", 
+            "VALUES"
+        ], 
+        "PARENT": "JEQ0149163", 
+        "PARENT_TYPE": "HMW-IO-12-Sw7-DR", 
+        "TYPE": "SWITCH", 
+        "VERSION": 11
+    }, 
+    {
+        "ADDRESS": "JEQ0149163:18", 
+        "AES_ACTIVE": 0, 
+        "DIRECTION": 2, 
+        "FLAGS": 1, 
+        "INDEX": 18, 
+        "LINK_SOURCE_ROLES": "", 
+        "LINK_TARGET_ROLES": "SWITCH", 
+        "PARAMSETS": [
+            "LINK", 
+            "MASTER", 
+            "VALUES"
+        ], 
+        "PARENT": "JEQ0149163", 
+        "PARENT_TYPE": "HMW-IO-12-Sw7-DR", 
+        "TYPE": "SWITCH", 
+        "VERSION": 11
+    }, 
+    {
+        "ADDRESS": "JEQ0149163:19", 
+        "AES_ACTIVE": 0, 
+        "DIRECTION": 2, 
+        "FLAGS": 1, 
+        "INDEX": 19, 
+        "LINK_SOURCE_ROLES": "", 
+        "LINK_TARGET_ROLES": "SWITCH", 
+        "PARAMSETS": [
+            "LINK", 
+            "MASTER", 
+            "VALUES"
+        ], 
+        "PARENT": "JEQ0149163", 
+        "PARENT_TYPE": "HMW-IO-12-Sw7-DR", 
+        "TYPE": "SWITCH", 
+        "VERSION": 11
+    }, 
+    {
+        "ADDRESS": "JEQ0497783", 
+        "AVAILABLE_FIRMWARE": "3.06", 
+        "CHILDREN": [
+            "JEQ0497783:0", 
+            "JEQ0497783:1", 
+            "JEQ0497783:2", 
+            "JEQ0497783:3", 
+            "JEQ0497783:4", 
+            "JEQ0497783:5", 
+            "JEQ0497783:6", 
+            "JEQ0497783:7", 
+            "JEQ0497783:8", 
+            "JEQ0497783:9", 
+            "JEQ0497783:10", 
+            "JEQ0497783:11", 
+            "JEQ0497783:12", 
+            "JEQ0497783:13", 
+            "JEQ0497783:14", 
+            "JEQ0497783:15", 
+            "JEQ0497783:16", 
+            "JEQ0497783:17", 
+            "JEQ0497783:18", 
+            "JEQ0497783:19"
+        ], 
+        "FIRMWARE": "3.06", 
+        "FLAGS": 1, 
+        "PARAMSETS": [
+            "MASTER"
+        ], 
+        "PARENT": "", 
+        "TYPE": "HMW-IO-12-Sw7-DR", 
+        "UPDATABLE": 1, 
+        "VERSION": 11
+    }, 
+    {
+        "ADDRESS": "JEQ0497783:0", 
+        "AES_ACTIVE": 0, 
+        "DIRECTION": 0, 
+        "FLAGS": 3, 
+        "INDEX": 0, 
+        "LINK_SOURCE_ROLES": "", 
+        "LINK_TARGET_ROLES": "", 
+        "PARAMSETS": [
+            "MASTER", 
+            "VALUES"
+        ], 
+        "PARENT": "JEQ0497783", 
+        "PARENT_TYPE": "HMW-IO-12-Sw7-DR", 
+        "TYPE": "MAINTENANCE", 
+        "VERSION": 11
+    }, 
+    {
+        "ADDRESS": "JEQ0497783:1", 
+        "AES_ACTIVE": 0, 
+        "DIRECTION": 1, 
+        "FLAGS": 1, 
+        "INDEX": 1, 
+        "LINK_SOURCE_ROLES": "SWITCH", 
+        "LINK_TARGET_ROLES": "", 
+        "PARAMSETS": [
+            "LINK", 
+            "MASTER", 
+            "VALUES"
+        ], 
+        "PARENT": "JEQ0497783", 
+        "PARENT_TYPE": "HMW-IO-12-Sw7-DR", 
+        "TYPE": "KEY", 
+        "VERSION": 11
+    }, 
+    {
+        "ADDRESS": "JEQ0497783:2", 
+        "AES_ACTIVE": 0, 
+        "DIRECTION": 1, 
+        "FLAGS": 1, 
+        "INDEX": 2, 
+        "LINK_SOURCE_ROLES": "SWITCH", 
+        "LINK_TARGET_ROLES": "", 
+        "PARAMSETS": [
+            "LINK", 
+            "MASTER", 
+            "VALUES"
+        ], 
+        "PARENT": "JEQ0497783", 
+        "PARENT_TYPE": "HMW-IO-12-Sw7-DR", 
+        "TYPE": "KEY", 
+        "VERSION": 11
+    }, 
+    {
+        "ADDRESS": "JEQ0497783:3", 
+        "AES_ACTIVE": 0, 
+        "DIRECTION": 1, 
+        "FLAGS": 1, 
+        "INDEX": 3, 
+        "LINK_SOURCE_ROLES": "SWITCH", 
+        "LINK_TARGET_ROLES": "", 
+        "PARAMSETS": [
+            "LINK", 
+            "MASTER", 
+            "VALUES"
+        ], 
+        "PARENT": "JEQ0497783", 
+        "PARENT_TYPE": "HMW-IO-12-Sw7-DR", 
+        "TYPE": "KEY", 
+        "VERSION": 11
+    }, 
+    {
+        "ADDRESS": "JEQ0497783:4", 
+        "AES_ACTIVE": 0, 
+        "DIRECTION": 1, 
+        "FLAGS": 1, 
+        "INDEX": 4, 
+        "LINK_SOURCE_ROLES": "SWITCH", 
+        "LINK_TARGET_ROLES": "", 
+        "PARAMSETS": [
+            "LINK", 
+            "MASTER", 
+            "VALUES"
+        ], 
+        "PARENT": "JEQ0497783", 
+        "PARENT_TYPE": "HMW-IO-12-Sw7-DR", 
+        "TYPE": "KEY", 
+        "VERSION": 11
+    }, 
+    {
+        "ADDRESS": "JEQ0497783:5", 
+        "AES_ACTIVE": 0, 
+        "DIRECTION": 1, 
+        "FLAGS": 1, 
+        "INDEX": 5, 
+        "LINK_SOURCE_ROLES": "SWITCH", 
+        "LINK_TARGET_ROLES": "", 
+        "PARAMSETS": [
+            "LINK", 
+            "MASTER", 
+            "VALUES"
+        ], 
+        "PARENT": "JEQ0497783", 
+        "PARENT_TYPE": "HMW-IO-12-Sw7-DR", 
+        "TYPE": "KEY", 
+        "VERSION": 11
+    }, 
+    {
+        "ADDRESS": "JEQ0497783:6", 
+        "AES_ACTIVE": 0, 
+        "DIRECTION": 1, 
+        "FLAGS": 1, 
+        "INDEX": 6, 
+        "LINK_SOURCE_ROLES": "SWITCH", 
+        "LINK_TARGET_ROLES": "", 
+        "PARAMSETS": [
+            "LINK", 
+            "MASTER", 
+            "VALUES"
+        ], 
+        "PARENT": "JEQ0497783", 
+        "PARENT_TYPE": "HMW-IO-12-Sw7-DR", 
+        "TYPE": "KEY", 
+        "VERSION": 11
+    }, 
+    {
+        "ADDRESS": "JEQ0497783:7", 
+        "AES_ACTIVE": 0, 
+        "DIRECTION": 1, 
+        "FLAGS": 1, 
+        "INDEX": 7, 
+        "LINK_SOURCE_ROLES": "SWITCH", 
+        "LINK_TARGET_ROLES": "", 
+        "PARAMSETS": [
+            "LINK", 
+            "MASTER", 
+            "VALUES"
+        ], 
+        "PARENT": "JEQ0497783", 
+        "PARENT_TYPE": "HMW-IO-12-Sw7-DR", 
+        "TYPE": "KEY", 
+        "VERSION": 11
+    }, 
+    {
+        "ADDRESS": "JEQ0497783:8", 
+        "AES_ACTIVE": 0, 
+        "DIRECTION": 1, 
+        "FLAGS": 1, 
+        "INDEX": 8, 
+        "LINK_SOURCE_ROLES": "SWITCH", 
+        "LINK_TARGET_ROLES": "", 
+        "PARAMSETS": [
+            "LINK", 
+            "MASTER", 
+            "VALUES"
+        ], 
+        "PARENT": "JEQ0497783", 
+        "PARENT_TYPE": "HMW-IO-12-Sw7-DR", 
+        "TYPE": "KEY", 
+        "VERSION": 11
+    }, 
+    {
+        "ADDRESS": "JEQ0497783:9", 
+        "AES_ACTIVE": 0, 
+        "DIRECTION": 1, 
+        "FLAGS": 1, 
+        "INDEX": 9, 
+        "LINK_SOURCE_ROLES": "SWITCH", 
+        "LINK_TARGET_ROLES": "", 
+        "PARAMSETS": [
+            "LINK", 
+            "MASTER", 
+            "VALUES"
+        ], 
+        "PARENT": "JEQ0497783", 
+        "PARENT_TYPE": "HMW-IO-12-Sw7-DR", 
+        "TYPE": "KEY", 
+        "VERSION": 11
+    }, 
+    {
+        "ADDRESS": "JEQ0497783:10", 
+        "AES_ACTIVE": 0, 
+        "DIRECTION": 1, 
+        "FLAGS": 1, 
+        "INDEX": 10, 
+        "LINK_SOURCE_ROLES": "SWITCH", 
+        "LINK_TARGET_ROLES": "", 
+        "PARAMSETS": [
+            "LINK", 
+            "MASTER", 
+            "VALUES"
+        ], 
+        "PARENT": "JEQ0497783", 
+        "PARENT_TYPE": "HMW-IO-12-Sw7-DR", 
+        "TYPE": "KEY", 
+        "VERSION": 11
+    }, 
+    {
+        "ADDRESS": "JEQ0497783:11", 
+        "AES_ACTIVE": 0, 
+        "DIRECTION": 1, 
+        "FLAGS": 1, 
+        "INDEX": 11, 
+        "LINK_SOURCE_ROLES": "SWITCH", 
+        "LINK_TARGET_ROLES": "", 
+        "PARAMSETS": [
+            "LINK", 
+            "MASTER", 
+            "VALUES"
+        ], 
+        "PARENT": "JEQ0497783", 
+        "PARENT_TYPE": "HMW-IO-12-Sw7-DR", 
+        "TYPE": "KEY", 
+        "VERSION": 11
+    }, 
+    {
+        "ADDRESS": "JEQ0497783:12", 
+        "AES_ACTIVE": 0, 
+        "DIRECTION": 1, 
+        "FLAGS": 1, 
+        "INDEX": 12, 
+        "LINK_SOURCE_ROLES": "SWITCH", 
+        "LINK_TARGET_ROLES": "", 
+        "PARAMSETS": [
+            "LINK", 
+            "MASTER", 
+            "VALUES"
+        ], 
+        "PARENT": "JEQ0497783", 
+        "PARENT_TYPE": "HMW-IO-12-Sw7-DR", 
+        "TYPE": "KEY", 
+        "VERSION": 11
+    }, 
+    {
+        "ADDRESS": "JEQ0497783:13", 
+        "AES_ACTIVE": 0, 
+        "DIRECTION": 2, 
+        "FLAGS": 1, 
+        "INDEX": 13, 
+        "LINK_SOURCE_ROLES": "", 
+        "LINK_TARGET_ROLES": "SWITCH", 
+        "PARAMSETS": [
+            "LINK", 
+            "MASTER", 
+            "VALUES"
+        ], 
+        "PARENT": "JEQ0497783", 
+        "PARENT_TYPE": "HMW-IO-12-Sw7-DR", 
+        "TYPE": "SWITCH", 
+        "VERSION": 11
+    }, 
+    {
+        "ADDRESS": "JEQ0497783:14", 
+        "AES_ACTIVE": 0, 
+        "DIRECTION": 2, 
+        "FLAGS": 1, 
+        "INDEX": 14, 
+        "LINK_SOURCE_ROLES": "", 
+        "LINK_TARGET_ROLES": "SWITCH", 
+        "PARAMSETS": [
+            "LINK", 
+            "MASTER", 
+            "VALUES"
+        ], 
+        "PARENT": "JEQ0497783", 
+        "PARENT_TYPE": "HMW-IO-12-Sw7-DR", 
+        "TYPE": "SWITCH", 
+        "VERSION": 11
+    }, 
+    {
+        "ADDRESS": "JEQ0497783:15", 
+        "AES_ACTIVE": 0, 
+        "DIRECTION": 2, 
+        "FLAGS": 1, 
+        "INDEX": 15, 
+        "LINK_SOURCE_ROLES": "", 
+        "LINK_TARGET_ROLES": "SWITCH", 
+        "PARAMSETS": [
+            "LINK", 
+            "MASTER", 
+            "VALUES"
+        ], 
+        "PARENT": "JEQ0497783", 
+        "PARENT_TYPE": "HMW-IO-12-Sw7-DR", 
+        "TYPE": "SWITCH", 
+        "VERSION": 11
+    }, 
+    {
+        "ADDRESS": "JEQ0497783:16", 
+        "AES_ACTIVE": 0, 
+        "DIRECTION": 2, 
+        "FLAGS": 1, 
+        "INDEX": 16, 
+        "LINK_SOURCE_ROLES": "", 
+        "LINK_TARGET_ROLES": "SWITCH", 
+        "PARAMSETS": [
+            "LINK", 
+            "MASTER", 
+            "VALUES"
+        ], 
+        "PARENT": "JEQ0497783", 
+        "PARENT_TYPE": "HMW-IO-12-Sw7-DR", 
+        "TYPE": "SWITCH", 
+        "VERSION": 11
+    }, 
+    {
+        "ADDRESS": "JEQ0497783:17", 
+        "AES_ACTIVE": 0, 
+        "DIRECTION": 2, 
+        "FLAGS": 1, 
+        "INDEX": 17, 
+        "LINK_SOURCE_ROLES": "", 
+        "LINK_TARGET_ROLES": "SWITCH", 
+        "PARAMSETS": [
+            "LINK", 
+            "MASTER", 
+            "VALUES"
+        ], 
+        "PARENT": "JEQ0497783", 
+        "PARENT_TYPE": "HMW-IO-12-Sw7-DR", 
+        "TYPE": "SWITCH", 
+        "VERSION": 11
+    }, 
+    {
+        "ADDRESS": "JEQ0497783:18", 
+        "AES_ACTIVE": 0, 
+        "DIRECTION": 2, 
+        "FLAGS": 1, 
+        "INDEX": 18, 
+        "LINK_SOURCE_ROLES": "", 
+        "LINK_TARGET_ROLES": "SWITCH", 
+        "PARAMSETS": [
+            "LINK", 
+            "MASTER", 
+            "VALUES"
+        ], 
+        "PARENT": "JEQ0497783", 
+        "PARENT_TYPE": "HMW-IO-12-Sw7-DR", 
+        "TYPE": "SWITCH", 
+        "VERSION": 11
+    }, 
+    {
+        "ADDRESS": "JEQ0497783:19", 
+        "AES_ACTIVE": 0, 
+        "DIRECTION": 2, 
+        "FLAGS": 1, 
+        "INDEX": 19, 
+        "LINK_SOURCE_ROLES": "", 
+        "LINK_TARGET_ROLES": "SWITCH", 
+        "PARAMSETS": [
+            "LINK", 
+            "MASTER", 
+            "VALUES"
+        ], 
+        "PARENT": "JEQ0497783", 
+        "PARENT_TYPE": "HMW-IO-12-Sw7-DR", 
+        "TYPE": "SWITCH", 
+        "VERSION": 11
+    }, 
+    {
+        "ADDRESS": "KEQ0055042", 
+        "AVAILABLE_FIRMWARE": "3.06", 
+        "CHILDREN": [
+            "KEQ0055042:0", 
+            "KEQ0055042:1", 
+            "KEQ0055042:2", 
+            "KEQ0055042:3", 
+            "KEQ0055042:4", 
+            "KEQ0055042:5", 
+            "KEQ0055042:6", 
+            "KEQ0055042:7", 
+            "KEQ0055042:8", 
+            "KEQ0055042:9", 
+            "KEQ0055042:10", 
+            "KEQ0055042:11", 
+            "KEQ0055042:12", 
+            "KEQ0055042:13", 
+            "KEQ0055042:14", 
+            "KEQ0055042:15", 
+            "KEQ0055042:16", 
+            "KEQ0055042:17", 
+            "KEQ0055042:18", 
+            "KEQ0055042:19"
+        ], 
+        "FIRMWARE": "3.06", 
+        "FLAGS": 1, 
+        "PARAMSETS": [
+            "MASTER"
+        ], 
+        "PARENT": "", 
+        "TYPE": "HMW-IO-12-Sw7-DR", 
+        "UPDATABLE": 1, 
+        "VERSION": 11
+    }, 
+    {
+        "ADDRESS": "KEQ0055042:0", 
+        "AES_ACTIVE": 0, 
+        "DIRECTION": 0, 
+        "FLAGS": 3, 
+        "INDEX": 0, 
+        "LINK_SOURCE_ROLES": "", 
+        "LINK_TARGET_ROLES": "", 
+        "PARAMSETS": [
+            "MASTER", 
+            "VALUES"
+        ], 
+        "PARENT": "KEQ0055042", 
+        "PARENT_TYPE": "HMW-IO-12-Sw7-DR", 
+        "TYPE": "MAINTENANCE", 
+        "VERSION": 11
+    }, 
+    {
+        "ADDRESS": "KEQ0055042:1", 
+        "AES_ACTIVE": 0, 
+        "DIRECTION": 1, 
+        "FLAGS": 1, 
+        "INDEX": 1, 
+        "LINK_SOURCE_ROLES": "SWITCH", 
+        "LINK_TARGET_ROLES": "", 
+        "PARAMSETS": [
+            "LINK", 
+            "MASTER", 
+            "VALUES"
+        ], 
+        "PARENT": "KEQ0055042", 
+        "PARENT_TYPE": "HMW-IO-12-Sw7-DR", 
+        "TYPE": "KEY", 
+        "VERSION": 11
+    }, 
+    {
+        "ADDRESS": "KEQ0055042:2", 
+        "AES_ACTIVE": 0, 
+        "DIRECTION": 1, 
+        "FLAGS": 1, 
+        "INDEX": 2, 
+        "LINK_SOURCE_ROLES": "SWITCH", 
+        "LINK_TARGET_ROLES": "", 
+        "PARAMSETS": [
+            "LINK", 
+            "MASTER", 
+            "VALUES"
+        ], 
+        "PARENT": "KEQ0055042", 
+        "PARENT_TYPE": "HMW-IO-12-Sw7-DR", 
+        "TYPE": "KEY", 
+        "VERSION": 11
+    }, 
+    {
+        "ADDRESS": "KEQ0055042:3", 
+        "AES_ACTIVE": 0, 
+        "DIRECTION": 1, 
+        "FLAGS": 1, 
+        "INDEX": 3, 
+        "LINK_SOURCE_ROLES": "SWITCH", 
+        "LINK_TARGET_ROLES": "", 
+        "PARAMSETS": [
+            "LINK", 
+            "MASTER", 
+            "VALUES"
+        ], 
+        "PARENT": "KEQ0055042", 
+        "PARENT_TYPE": "HMW-IO-12-Sw7-DR", 
+        "TYPE": "KEY", 
+        "VERSION": 11
+    }, 
+    {
+        "ADDRESS": "KEQ0055042:4", 
+        "AES_ACTIVE": 0, 
+        "DIRECTION": 1, 
+        "FLAGS": 1, 
+        "INDEX": 4, 
+        "LINK_SOURCE_ROLES": "SWITCH", 
+        "LINK_TARGET_ROLES": "", 
+        "PARAMSETS": [
+            "LINK", 
+            "MASTER", 
+            "VALUES"
+        ], 
+        "PARENT": "KEQ0055042", 
+        "PARENT_TYPE": "HMW-IO-12-Sw7-DR", 
+        "TYPE": "KEY", 
+        "VERSION": 11
+    }, 
+    {
+        "ADDRESS": "KEQ0055042:5", 
+        "AES_ACTIVE": 0, 
+        "DIRECTION": 1, 
+        "FLAGS": 1, 
+        "INDEX": 5, 
+        "LINK_SOURCE_ROLES": "SWITCH", 
+        "LINK_TARGET_ROLES": "", 
+        "PARAMSETS": [
+            "LINK", 
+            "MASTER", 
+            "VALUES"
+        ], 
+        "PARENT": "KEQ0055042", 
+        "PARENT_TYPE": "HMW-IO-12-Sw7-DR", 
+        "TYPE": "KEY", 
+        "VERSION": 11
+    }, 
+    {
+        "ADDRESS": "KEQ0055042:6", 
+        "AES_ACTIVE": 0, 
+        "DIRECTION": 1, 
+        "FLAGS": 1, 
+        "INDEX": 6, 
+        "LINK_SOURCE_ROLES": "SWITCH", 
+        "LINK_TARGET_ROLES": "", 
+        "PARAMSETS": [
+            "LINK", 
+            "MASTER", 
+            "VALUES"
+        ], 
+        "PARENT": "KEQ0055042", 
+        "PARENT_TYPE": "HMW-IO-12-Sw7-DR", 
+        "TYPE": "KEY", 
+        "VERSION": 11
+    }, 
+    {
+        "ADDRESS": "KEQ0055042:7", 
+        "AES_ACTIVE": 0, 
+        "DIRECTION": 1, 
+        "FLAGS": 1, 
+        "INDEX": 7, 
+        "LINK_SOURCE_ROLES": "SWITCH", 
+        "LINK_TARGET_ROLES": "", 
+        "PARAMSETS": [
+            "LINK", 
+            "MASTER", 
+            "VALUES"
+        ], 
+        "PARENT": "KEQ0055042", 
+        "PARENT_TYPE": "HMW-IO-12-Sw7-DR", 
+        "TYPE": "KEY", 
+        "VERSION": 11
+    }, 
+    {
+        "ADDRESS": "KEQ0055042:8", 
+        "AES_ACTIVE": 0, 
+        "DIRECTION": 1, 
+        "FLAGS": 1, 
+        "INDEX": 8, 
+        "LINK_SOURCE_ROLES": "SWITCH", 
+        "LINK_TARGET_ROLES": "", 
+        "PARAMSETS": [
+            "LINK", 
+            "MASTER", 
+            "VALUES"
+        ], 
+        "PARENT": "KEQ0055042", 
+        "PARENT_TYPE": "HMW-IO-12-Sw7-DR", 
+        "TYPE": "KEY", 
+        "VERSION": 11
+    }, 
+    {
+        "ADDRESS": "KEQ0055042:9", 
+        "AES_ACTIVE": 0, 
+        "DIRECTION": 1, 
+        "FLAGS": 1, 
+        "INDEX": 9, 
+        "LINK_SOURCE_ROLES": "SWITCH", 
+        "LINK_TARGET_ROLES": "", 
+        "PARAMSETS": [
+            "LINK", 
+            "MASTER", 
+            "VALUES"
+        ], 
+        "PARENT": "KEQ0055042", 
+        "PARENT_TYPE": "HMW-IO-12-Sw7-DR", 
+        "TYPE": "KEY", 
+        "VERSION": 11
+    }, 
+    {
+        "ADDRESS": "KEQ0055042:10", 
+        "AES_ACTIVE": 0, 
+        "DIRECTION": 1, 
+        "FLAGS": 1, 
+        "INDEX": 10, 
+        "LINK_SOURCE_ROLES": "SWITCH", 
+        "LINK_TARGET_ROLES": "", 
+        "PARAMSETS": [
+            "LINK", 
+            "MASTER", 
+            "VALUES"
+        ], 
+        "PARENT": "KEQ0055042", 
+        "PARENT_TYPE": "HMW-IO-12-Sw7-DR", 
+        "TYPE": "KEY", 
+        "VERSION": 11
+    }, 
+    {
+        "ADDRESS": "KEQ0055042:11", 
+        "AES_ACTIVE": 0, 
+        "DIRECTION": 1, 
+        "FLAGS": 1, 
+        "INDEX": 11, 
+        "LINK_SOURCE_ROLES": "SWITCH", 
+        "LINK_TARGET_ROLES": "", 
+        "PARAMSETS": [
+            "LINK", 
+            "MASTER", 
+            "VALUES"
+        ], 
+        "PARENT": "KEQ0055042", 
+        "PARENT_TYPE": "HMW-IO-12-Sw7-DR", 
+        "TYPE": "KEY", 
+        "VERSION": 11
+    }, 
+    {
+        "ADDRESS": "KEQ0055042:12", 
+        "AES_ACTIVE": 0, 
+        "DIRECTION": 1, 
+        "FLAGS": 1, 
+        "INDEX": 12, 
+        "LINK_SOURCE_ROLES": "SWITCH", 
+        "LINK_TARGET_ROLES": "", 
+        "PARAMSETS": [
+            "LINK", 
+            "MASTER", 
+            "VALUES"
+        ], 
+        "PARENT": "KEQ0055042", 
+        "PARENT_TYPE": "HMW-IO-12-Sw7-DR", 
+        "TYPE": "KEY", 
+        "VERSION": 11
+    }, 
+    {
+        "ADDRESS": "KEQ0055042:13", 
+        "AES_ACTIVE": 0, 
+        "DIRECTION": 2, 
+        "FLAGS": 1, 
+        "INDEX": 13, 
+        "LINK_SOURCE_ROLES": "", 
+        "LINK_TARGET_ROLES": "SWITCH", 
+        "PARAMSETS": [
+            "LINK", 
+            "MASTER", 
+            "VALUES"
+        ], 
+        "PARENT": "KEQ0055042", 
+        "PARENT_TYPE": "HMW-IO-12-Sw7-DR", 
+        "TYPE": "SWITCH", 
+        "VERSION": 11
+    }, 
+    {
+        "ADDRESS": "KEQ0055042:14", 
+        "AES_ACTIVE": 0, 
+        "DIRECTION": 2, 
+        "FLAGS": 1, 
+        "INDEX": 14, 
+        "LINK_SOURCE_ROLES": "", 
+        "LINK_TARGET_ROLES": "SWITCH", 
+        "PARAMSETS": [
+            "LINK", 
+            "MASTER", 
+            "VALUES"
+        ], 
+        "PARENT": "KEQ0055042", 
+        "PARENT_TYPE": "HMW-IO-12-Sw7-DR", 
+        "TYPE": "SWITCH", 
+        "VERSION": 11
+    }, 
+    {
+        "ADDRESS": "KEQ0055042:15", 
+        "AES_ACTIVE": 0, 
+        "DIRECTION": 2, 
+        "FLAGS": 1, 
+        "INDEX": 15, 
+        "LINK_SOURCE_ROLES": "", 
+        "LINK_TARGET_ROLES": "SWITCH", 
+        "PARAMSETS": [
+            "LINK", 
+            "MASTER", 
+            "VALUES"
+        ], 
+        "PARENT": "KEQ0055042", 
+        "PARENT_TYPE": "HMW-IO-12-Sw7-DR", 
+        "TYPE": "SWITCH", 
+        "VERSION": 11
+    }, 
+    {
+        "ADDRESS": "KEQ0055042:16", 
+        "AES_ACTIVE": 0, 
+        "DIRECTION": 2, 
+        "FLAGS": 1, 
+        "INDEX": 16, 
+        "LINK_SOURCE_ROLES": "", 
+        "LINK_TARGET_ROLES": "SWITCH", 
+        "PARAMSETS": [
+            "LINK", 
+            "MASTER", 
+            "VALUES"
+        ], 
+        "PARENT": "KEQ0055042", 
+        "PARENT_TYPE": "HMW-IO-12-Sw7-DR", 
+        "TYPE": "SWITCH", 
+        "VERSION": 11
+    }, 
+    {
+        "ADDRESS": "KEQ0055042:17", 
+        "AES_ACTIVE": 0, 
+        "DIRECTION": 2, 
+        "FLAGS": 1, 
+        "INDEX": 17, 
+        "LINK_SOURCE_ROLES": "", 
+        "LINK_TARGET_ROLES": "SWITCH", 
+        "PARAMSETS": [
+            "LINK", 
+            "MASTER", 
+            "VALUES"
+        ], 
+        "PARENT": "KEQ0055042", 
+        "PARENT_TYPE": "HMW-IO-12-Sw7-DR", 
+        "TYPE": "SWITCH", 
+        "VERSION": 11
+    }, 
+    {
+        "ADDRESS": "KEQ0055042:18", 
+        "AES_ACTIVE": 0, 
+        "DIRECTION": 2, 
+        "FLAGS": 1, 
+        "INDEX": 18, 
+        "LINK_SOURCE_ROLES": "", 
+        "LINK_TARGET_ROLES": "SWITCH", 
+        "PARAMSETS": [
+            "LINK", 
+            "MASTER", 
+            "VALUES"
+        ], 
+        "PARENT": "KEQ0055042", 
+        "PARENT_TYPE": "HMW-IO-12-Sw7-DR", 
+        "TYPE": "SWITCH", 
+        "VERSION": 11
+    }, 
+    {
+        "ADDRESS": "KEQ0055042:19", 
+        "AES_ACTIVE": 0, 
+        "DIRECTION": 2, 
+        "FLAGS": 1, 
+        "INDEX": 19, 
+        "LINK_SOURCE_ROLES": "", 
+        "LINK_TARGET_ROLES": "SWITCH", 
+        "PARAMSETS": [
+            "LINK", 
+            "MASTER", 
+            "VALUES"
+        ], 
+        "PARENT": "KEQ0055042", 
+        "PARENT_TYPE": "HMW-IO-12-Sw7-DR", 
+        "TYPE": "SWITCH", 
+        "VERSION": 11
+    }, 
+    {
+        "ADDRESS": "KEQ0181992", 
+        "AVAILABLE_FIRMWARE": "1.00", 
+        "CHILDREN": [
+            "KEQ0181992:0", 
+            "KEQ0181992:1", 
+            "KEQ0181992:2", 
+            "KEQ0181992:3", 
+            "KEQ0181992:4", 
+            "KEQ0181992:5", 
+            "KEQ0181992:6", 
+            "KEQ0181992:7", 
+            "KEQ0181992:8", 
+            "KEQ0181992:9", 
+            "KEQ0181992:10", 
+            "KEQ0181992:11", 
+            "KEQ0181992:12", 
+            "KEQ0181992:13", 
+            "KEQ0181992:14", 
+            "KEQ0181992:15", 
+            "KEQ0181992:16", 
+            "KEQ0181992:17", 
+            "KEQ0181992:18", 
+            "KEQ0181992:19", 
+            "KEQ0181992:20", 
+            "KEQ0181992:21", 
+            "KEQ0181992:22", 
+            "KEQ0181992:23", 
+            "KEQ0181992:24", 
+            "KEQ0181992:25", 
+            "KEQ0181992:26"
+        ], 
+        "FIRMWARE": "1.00", 
+        "FLAGS": 1, 
+        "PARAMSETS": [
+            "MASTER"
+        ], 
+        "PARENT": "", 
+        "TYPE": "HMW-IO-12-Sw14-DR", 
+        "UPDATABLE": 1, 
+        "VERSION": 12
+    }, 
+    {
+        "ADDRESS": "KEQ0181992:0", 
+        "AES_ACTIVE": 0, 
+        "DIRECTION": 0, 
+        "FLAGS": 3, 
+        "INDEX": 0, 
+        "LINK_SOURCE_ROLES": "", 
+        "LINK_TARGET_ROLES": "", 
+        "PARAMSETS": [
+            "MASTER", 
+            "VALUES"
+        ], 
+        "PARENT": "KEQ0181992", 
+        "PARENT_TYPE": "HMW-IO-12-Sw14-DR", 
+        "TYPE": "MAINTENANCE", 
+        "VERSION": 12
+    }, 
+    {
+        "ADDRESS": "KEQ0181992:1", 
+        "AES_ACTIVE": 0, 
+        "DIRECTION": 0, 
+        "FLAGS": 1, 
+        "INDEX": 1, 
+        "LINK_SOURCE_ROLES": "", 
+        "LINK_TARGET_ROLES": "", 
+        "PARAMSETS": [
+            "MASTER", 
+            "VALUES"
+        ], 
+        "PARENT": "KEQ0181992", 
+        "PARENT_TYPE": "HMW-IO-12-Sw14-DR", 
+        "TYPE": "DIGITAL_OUTPUT", 
+        "VERSION": 12
+    }, 
+    {
+        "ADDRESS": "KEQ0181992:2", 
+        "AES_ACTIVE": 0, 
+        "DIRECTION": 0, 
+        "FLAGS": 1, 
+        "INDEX": 2, 
+        "LINK_SOURCE_ROLES": "", 
+        "LINK_TARGET_ROLES": "", 
+        "PARAMSETS": [
+            "MASTER", 
+            "VALUES"
+        ], 
+        "PARENT": "KEQ0181992", 
+        "PARENT_TYPE": "HMW-IO-12-Sw14-DR", 
+        "TYPE": "DIGITAL_OUTPUT", 
+        "VERSION": 12
+    }, 
+    {
+        "ADDRESS": "KEQ0181992:3", 
+        "AES_ACTIVE": 0, 
+        "DIRECTION": 0, 
+        "FLAGS": 1, 
+        "INDEX": 3, 
+        "LINK_SOURCE_ROLES": "", 
+        "LINK_TARGET_ROLES": "", 
+        "PARAMSETS": [
+            "MASTER", 
+            "VALUES"
+        ], 
+        "PARENT": "KEQ0181992", 
+        "PARENT_TYPE": "HMW-IO-12-Sw14-DR", 
+        "TYPE": "DIGITAL_OUTPUT", 
+        "VERSION": 12
+    }, 
+    {
+        "ADDRESS": "KEQ0181992:4", 
+        "AES_ACTIVE": 0, 
+        "DIRECTION": 0, 
+        "FLAGS": 1, 
+        "INDEX": 4, 
+        "LINK_SOURCE_ROLES": "", 
+        "LINK_TARGET_ROLES": "", 
+        "PARAMSETS": [
+            "MASTER", 
+            "VALUES"
+        ], 
+        "PARENT": "KEQ0181992", 
+        "PARENT_TYPE": "HMW-IO-12-Sw14-DR", 
+        "TYPE": "DIGITAL_OUTPUT", 
+        "VERSION": 12
+    }, 
+    {
+        "ADDRESS": "KEQ0181992:5", 
+        "AES_ACTIVE": 0, 
+        "DIRECTION": 0, 
+        "FLAGS": 1, 
+        "INDEX": 5, 
+        "LINK_SOURCE_ROLES": "", 
+        "LINK_TARGET_ROLES": "", 
+        "PARAMSETS": [
+            "MASTER", 
+            "VALUES"
+        ], 
+        "PARENT": "KEQ0181992", 
+        "PARENT_TYPE": "HMW-IO-12-Sw14-DR", 
+        "TYPE": "DIGITAL_OUTPUT", 
+        "VERSION": 12
+    }, 
+    {
+        "ADDRESS": "KEQ0181992:6", 
+        "AES_ACTIVE": 0, 
+        "DIRECTION": 0, 
+        "FLAGS": 1, 
+        "INDEX": 6, 
+        "LINK_SOURCE_ROLES": "", 
+        "LINK_TARGET_ROLES": "", 
+        "PARAMSETS": [
+            "MASTER", 
+            "VALUES"
+        ], 
+        "PARENT": "KEQ0181992", 
+        "PARENT_TYPE": "HMW-IO-12-Sw14-DR", 
+        "TYPE": "DIGITAL_OUTPUT", 
+        "VERSION": 12
+    }, 
+    {
+        "ADDRESS": "KEQ0181992:7", 
+        "AES_ACTIVE": 0, 
+        "DIRECTION": 0, 
+        "FLAGS": 1, 
+        "INDEX": 7, 
+        "LINK_SOURCE_ROLES": "", 
+        "LINK_TARGET_ROLES": "", 
+        "PARAMSETS": [
+            "MASTER", 
+            "VALUES"
+        ], 
+        "PARENT": "KEQ0181992", 
+        "PARENT_TYPE": "HMW-IO-12-Sw14-DR", 
+        "TYPE": "DIGITAL_ANALOG_OUTPUT", 
+        "VERSION": 12
+    }, 
+    {
+        "ADDRESS": "KEQ0181992:8", 
+        "AES_ACTIVE": 0, 
+        "DIRECTION": 0, 
+        "FLAGS": 1, 
+        "INDEX": 8, 
+        "LINK_SOURCE_ROLES": "", 
+        "LINK_TARGET_ROLES": "", 
+        "PARAMSETS": [
+            "MASTER", 
+            "VALUES"
+        ], 
+        "PARENT": "KEQ0181992", 
+        "PARENT_TYPE": "HMW-IO-12-Sw14-DR", 
+        "TYPE": "DIGITAL_ANALOG_OUTPUT", 
+        "VERSION": 12
+    }, 
+    {
+        "ADDRESS": "KEQ0181992:9", 
+        "AES_ACTIVE": 0, 
+        "DIRECTION": 0, 
+        "FLAGS": 1, 
+        "INDEX": 9, 
+        "LINK_SOURCE_ROLES": "", 
+        "LINK_TARGET_ROLES": "", 
+        "PARAMSETS": [
+            "MASTER", 
+            "VALUES"
+        ], 
+        "PARENT": "KEQ0181992", 
+        "PARENT_TYPE": "HMW-IO-12-Sw14-DR", 
+        "TYPE": "DIGITAL_ANALOG_OUTPUT", 
+        "VERSION": 12
+    }, 
+    {
+        "ADDRESS": "KEQ0181992:10", 
+        "AES_ACTIVE": 0, 
+        "DIRECTION": 0, 
+        "FLAGS": 1, 
+        "INDEX": 10, 
+        "LINK_SOURCE_ROLES": "", 
+        "LINK_TARGET_ROLES": "", 
+        "PARAMSETS": [
+            "MASTER", 
+            "VALUES"
+        ], 
+        "PARENT": "KEQ0181992", 
+        "PARENT_TYPE": "HMW-IO-12-Sw14-DR", 
+        "TYPE": "DIGITAL_ANALOG_OUTPUT", 
+        "VERSION": 12
+    }, 
+    {
+        "ADDRESS": "KEQ0181992:11", 
+        "AES_ACTIVE": 0, 
+        "DIRECTION": 0, 
+        "FLAGS": 1, 
+        "INDEX": 11, 
+        "LINK_SOURCE_ROLES": "", 
+        "LINK_TARGET_ROLES": "", 
+        "PARAMSETS": [
+            "MASTER", 
+            "VALUES"
+        ], 
+        "PARENT": "KEQ0181992", 
+        "PARENT_TYPE": "HMW-IO-12-Sw14-DR", 
+        "TYPE": "DIGITAL_ANALOG_OUTPUT", 
+        "VERSION": 12
+    }, 
+    {
+        "ADDRESS": "KEQ0181992:12", 
+        "AES_ACTIVE": 0, 
+        "DIRECTION": 0, 
+        "FLAGS": 1, 
+        "INDEX": 12, 
+        "LINK_SOURCE_ROLES": "", 
+        "LINK_TARGET_ROLES": "", 
+        "PARAMSETS": [
+            "MASTER", 
+            "VALUES"
+        ], 
+        "PARENT": "KEQ0181992", 
+        "PARENT_TYPE": "HMW-IO-12-Sw14-DR", 
+        "TYPE": "DIGITAL_ANALOG_OUTPUT", 
+        "VERSION": 12
+    }, 
+    {
+        "ADDRESS": "KEQ0181992:13", 
+        "AES_ACTIVE": 0, 
+        "DIRECTION": 0, 
+        "FLAGS": 1, 
+        "INDEX": 13, 
+        "LINK_SOURCE_ROLES": "", 
+        "LINK_TARGET_ROLES": "", 
+        "PARAMSETS": [
+            "MASTER", 
+            "VALUES"
+        ], 
+        "PARENT": "KEQ0181992", 
+        "PARENT_TYPE": "HMW-IO-12-Sw14-DR", 
+        "TYPE": "DIGITAL_ANALOG_OUTPUT", 
+        "VERSION": 12
+    }, 
+    {
+        "ADDRESS": "KEQ0181992:14", 
+        "AES_ACTIVE": 0, 
+        "DIRECTION": 0, 
+        "FLAGS": 1, 
+        "INDEX": 14, 
+        "LINK_SOURCE_ROLES": "", 
+        "LINK_TARGET_ROLES": "", 
+        "PARAMSETS": [
+            "MASTER", 
+            "VALUES"
+        ], 
+        "PARENT": "KEQ0181992", 
+        "PARENT_TYPE": "HMW-IO-12-Sw14-DR", 
+        "TYPE": "DIGITAL_ANALOG_OUTPUT", 
+        "VERSION": 12
+    }, 
+    {
+        "ADDRESS": "KEQ0181992:15", 
+        "AES_ACTIVE": 0, 
+        "DIRECTION": 0, 
+        "FLAGS": 1, 
+        "INDEX": 15, 
+        "LINK_SOURCE_ROLES": "", 
+        "LINK_TARGET_ROLES": "", 
+        "PARAMSETS": [
+            "MASTER", 
+            "VALUES"
+        ], 
+        "PARENT": "KEQ0181992", 
+        "PARENT_TYPE": "HMW-IO-12-Sw14-DR", 
+        "TYPE": "DIGITAL_INPUT", 
+        "VERSION": 12
+    }, 
+    {
+        "ADDRESS": "KEQ0181992:16", 
+        "AES_ACTIVE": 0, 
+        "DIRECTION": 0, 
+        "FLAGS": 1, 
+        "INDEX": 16, 
+        "LINK_SOURCE_ROLES": "", 
+        "LINK_TARGET_ROLES": "", 
+        "PARAMSETS": [
+            "MASTER", 
+            "VALUES"
+        ], 
+        "PARENT": "KEQ0181992", 
+        "PARENT_TYPE": "HMW-IO-12-Sw14-DR", 
+        "TYPE": "DIGITAL_INPUT", 
+        "VERSION": 12
+    }, 
+    {
+        "ADDRESS": "KEQ0181992:17", 
+        "AES_ACTIVE": 0, 
+        "DIRECTION": 0, 
+        "FLAGS": 1, 
+        "INDEX": 17, 
+        "LINK_SOURCE_ROLES": "", 
+        "LINK_TARGET_ROLES": "", 
+        "PARAMSETS": [
+            "MASTER", 
+            "VALUES"
+        ], 
+        "PARENT": "KEQ0181992", 
+        "PARENT_TYPE": "HMW-IO-12-Sw14-DR", 
+        "TYPE": "DIGITAL_INPUT", 
+        "VERSION": 12
+    }, 
+    {
+        "ADDRESS": "KEQ0181992:18", 
+        "AES_ACTIVE": 0, 
+        "DIRECTION": 0, 
+        "FLAGS": 1, 
+        "INDEX": 18, 
+        "LINK_SOURCE_ROLES": "", 
+        "LINK_TARGET_ROLES": "", 
+        "PARAMSETS": [
+            "MASTER", 
+            "VALUES"
+        ], 
+        "PARENT": "KEQ0181992", 
+        "PARENT_TYPE": "HMW-IO-12-Sw14-DR", 
+        "TYPE": "DIGITAL_INPUT", 
+        "VERSION": 12
+    }, 
+    {
+        "ADDRESS": "KEQ0181992:19", 
+        "AES_ACTIVE": 0, 
+        "DIRECTION": 0, 
+        "FLAGS": 1, 
+        "INDEX": 19, 
+        "LINK_SOURCE_ROLES": "", 
+        "LINK_TARGET_ROLES": "", 
+        "PARAMSETS": [
+            "MASTER", 
+            "VALUES"
+        ], 
+        "PARENT": "KEQ0181992", 
+        "PARENT_TYPE": "HMW-IO-12-Sw14-DR", 
+        "TYPE": "DIGITAL_INPUT", 
+        "VERSION": 12
+    }, 
+    {
+        "ADDRESS": "KEQ0181992:20", 
+        "AES_ACTIVE": 0, 
+        "DIRECTION": 0, 
+        "FLAGS": 1, 
+        "INDEX": 20, 
+        "LINK_SOURCE_ROLES": "", 
+        "LINK_TARGET_ROLES": "", 
+        "PARAMSETS": [
+            "MASTER", 
+            "VALUES"
+        ], 
+        "PARENT": "KEQ0181992", 
+        "PARENT_TYPE": "HMW-IO-12-Sw14-DR", 
+        "TYPE": "DIGITAL_INPUT", 
+        "VERSION": 12
+    }, 
+    {
+        "ADDRESS": "KEQ0181992:21", 
+        "AES_ACTIVE": 0, 
+        "DIRECTION": 0, 
+        "FLAGS": 1, 
+        "INDEX": 21, 
+        "LINK_SOURCE_ROLES": "", 
+        "LINK_TARGET_ROLES": "", 
+        "PARAMSETS": [
+            "MASTER", 
+            "VALUES"
+        ], 
+        "PARENT": "KEQ0181992", 
+        "PARENT_TYPE": "HMW-IO-12-Sw14-DR", 
+        "TYPE": "DIGITAL_ANALOG_INPUT", 
+        "VERSION": 12
+    }, 
+    {
+        "ADDRESS": "KEQ0181992:22", 
+        "AES_ACTIVE": 0, 
+        "DIRECTION": 0, 
+        "FLAGS": 1, 
+        "INDEX": 22, 
+        "LINK_SOURCE_ROLES": "", 
+        "LINK_TARGET_ROLES": "", 
+        "PARAMSETS": [
+            "MASTER", 
+            "VALUES"
+        ], 
+        "PARENT": "KEQ0181992", 
+        "PARENT_TYPE": "HMW-IO-12-Sw14-DR", 
+        "TYPE": "DIGITAL_ANALOG_INPUT", 
+        "VERSION": 12
+    }, 
+    {
+        "ADDRESS": "KEQ0181992:23", 
+        "AES_ACTIVE": 0, 
+        "DIRECTION": 0, 
+        "FLAGS": 1, 
+        "INDEX": 23, 
+        "LINK_SOURCE_ROLES": "", 
+        "LINK_TARGET_ROLES": "", 
+        "PARAMSETS": [
+            "MASTER", 
+            "VALUES"
+        ], 
+        "PARENT": "KEQ0181992", 
+        "PARENT_TYPE": "HMW-IO-12-Sw14-DR", 
+        "TYPE": "DIGITAL_ANALOG_INPUT", 
+        "VERSION": 12
+    }, 
+    {
+        "ADDRESS": "KEQ0181992:24", 
+        "AES_ACTIVE": 0, 
+        "DIRECTION": 0, 
+        "FLAGS": 1, 
+        "INDEX": 24, 
+        "LINK_SOURCE_ROLES": "", 
+        "LINK_TARGET_ROLES": "", 
+        "PARAMSETS": [
+            "MASTER", 
+            "VALUES"
+        ], 
+        "PARENT": "KEQ0181992", 
+        "PARENT_TYPE": "HMW-IO-12-Sw14-DR", 
+        "TYPE": "DIGITAL_ANALOG_INPUT", 
+        "VERSION": 12
+    }, 
+    {
+        "ADDRESS": "KEQ0181992:25", 
+        "AES_ACTIVE": 0, 
+        "DIRECTION": 0, 
+        "FLAGS": 1, 
+        "INDEX": 25, 
+        "LINK_SOURCE_ROLES": "", 
+        "LINK_TARGET_ROLES": "", 
+        "PARAMSETS": [
+            "MASTER", 
+            "VALUES"
+        ], 
+        "PARENT": "KEQ0181992", 
+        "PARENT_TYPE": "HMW-IO-12-Sw14-DR", 
+        "TYPE": "DIGITAL_ANALOG_INPUT", 
+        "VERSION": 12
+    }, 
+    {
+        "ADDRESS": "KEQ0181992:26", 
+        "AES_ACTIVE": 0, 
+        "DIRECTION": 0, 
+        "FLAGS": 1, 
+        "INDEX": 26, 
+        "LINK_SOURCE_ROLES": "", 
+        "LINK_TARGET_ROLES": "", 
+        "PARAMSETS": [
+            "MASTER", 
+            "VALUES"
+        ], 
+        "PARENT": "KEQ0181992", 
+        "PARENT_TYPE": "HMW-IO-12-Sw14-DR", 
+        "TYPE": "DIGITAL_ANALOG_INPUT", 
+        "VERSION": 12
+    }, 
+    {
+        "ADDRESS": "KEQ0182021", 
+        "AVAILABLE_FIRMWARE": "1.00", 
+        "CHILDREN": [
+            "KEQ0182021:0", 
+            "KEQ0182021:1", 
+            "KEQ0182021:2", 
+            "KEQ0182021:3", 
+            "KEQ0182021:4", 
+            "KEQ0182021:5", 
+            "KEQ0182021:6", 
+            "KEQ0182021:7", 
+            "KEQ0182021:8", 
+            "KEQ0182021:9", 
+            "KEQ0182021:10", 
+            "KEQ0182021:11", 
+            "KEQ0182021:12", 
+            "KEQ0182021:13", 
+            "KEQ0182021:14", 
+            "KEQ0182021:15", 
+            "KEQ0182021:16", 
+            "KEQ0182021:17", 
+            "KEQ0182021:18", 
+            "KEQ0182021:19", 
+            "KEQ0182021:20", 
+            "KEQ0182021:21", 
+            "KEQ0182021:22", 
+            "KEQ0182021:23", 
+            "KEQ0182021:24", 
+            "KEQ0182021:25", 
+            "KEQ0182021:26"
+        ], 
+        "FIRMWARE": "1.00", 
+        "FLAGS": 1, 
+        "PARAMSETS": [
+            "MASTER"
+        ], 
+        "PARENT": "", 
+        "TYPE": "HMW-IO-12-Sw14-DR", 
+        "UPDATABLE": 1, 
+        "VERSION": 12
+    }, 
+    {
+        "ADDRESS": "KEQ0182021:0", 
+        "AES_ACTIVE": 0, 
+        "DIRECTION": 0, 
+        "FLAGS": 3, 
+        "INDEX": 0, 
+        "LINK_SOURCE_ROLES": "", 
+        "LINK_TARGET_ROLES": "", 
+        "PARAMSETS": [
+            "MASTER", 
+            "VALUES"
+        ], 
+        "PARENT": "KEQ0182021", 
+        "PARENT_TYPE": "HMW-IO-12-Sw14-DR", 
+        "TYPE": "MAINTENANCE", 
+        "VERSION": 12
+    }, 
+    {
+        "ADDRESS": "KEQ0182021:1", 
+        "AES_ACTIVE": 0, 
+        "DIRECTION": 0, 
+        "FLAGS": 1, 
+        "INDEX": 1, 
+        "LINK_SOURCE_ROLES": "", 
+        "LINK_TARGET_ROLES": "", 
+        "PARAMSETS": [
+            "MASTER", 
+            "VALUES"
+        ], 
+        "PARENT": "KEQ0182021", 
+        "PARENT_TYPE": "HMW-IO-12-Sw14-DR", 
+        "TYPE": "DIGITAL_OUTPUT", 
+        "VERSION": 12
+    }, 
+    {
+        "ADDRESS": "KEQ0182021:2", 
+        "AES_ACTIVE": 0, 
+        "DIRECTION": 0, 
+        "FLAGS": 1, 
+        "INDEX": 2, 
+        "LINK_SOURCE_ROLES": "", 
+        "LINK_TARGET_ROLES": "", 
+        "PARAMSETS": [
+            "MASTER", 
+            "VALUES"
+        ], 
+        "PARENT": "KEQ0182021", 
+        "PARENT_TYPE": "HMW-IO-12-Sw14-DR", 
+        "TYPE": "DIGITAL_OUTPUT", 
+        "VERSION": 12
+    }, 
+    {
+        "ADDRESS": "KEQ0182021:3", 
+        "AES_ACTIVE": 0, 
+        "DIRECTION": 0, 
+        "FLAGS": 1, 
+        "INDEX": 3, 
+        "LINK_SOURCE_ROLES": "", 
+        "LINK_TARGET_ROLES": "", 
+        "PARAMSETS": [
+            "MASTER", 
+            "VALUES"
+        ], 
+        "PARENT": "KEQ0182021", 
+        "PARENT_TYPE": "HMW-IO-12-Sw14-DR", 
+        "TYPE": "DIGITAL_OUTPUT", 
+        "VERSION": 12
+    }, 
+    {
+        "ADDRESS": "KEQ0182021:4", 
+        "AES_ACTIVE": 0, 
+        "DIRECTION": 0, 
+        "FLAGS": 1, 
+        "INDEX": 4, 
+        "LINK_SOURCE_ROLES": "", 
+        "LINK_TARGET_ROLES": "", 
+        "PARAMSETS": [
+            "MASTER", 
+            "VALUES"
+        ], 
+        "PARENT": "KEQ0182021", 
+        "PARENT_TYPE": "HMW-IO-12-Sw14-DR", 
+        "TYPE": "DIGITAL_OUTPUT", 
+        "VERSION": 12
+    }, 
+    {
+        "ADDRESS": "KEQ0182021:5", 
+        "AES_ACTIVE": 0, 
+        "DIRECTION": 0, 
+        "FLAGS": 1, 
+        "INDEX": 5, 
+        "LINK_SOURCE_ROLES": "", 
+        "LINK_TARGET_ROLES": "", 
+        "PARAMSETS": [
+            "MASTER", 
+            "VALUES"
+        ], 
+        "PARENT": "KEQ0182021", 
+        "PARENT_TYPE": "HMW-IO-12-Sw14-DR", 
+        "TYPE": "DIGITAL_OUTPUT", 
+        "VERSION": 12
+    }, 
+    {
+        "ADDRESS": "KEQ0182021:6", 
+        "AES_ACTIVE": 0, 
+        "DIRECTION": 0, 
+        "FLAGS": 1, 
+        "INDEX": 6, 
+        "LINK_SOURCE_ROLES": "", 
+        "LINK_TARGET_ROLES": "", 
+        "PARAMSETS": [
+            "MASTER", 
+            "VALUES"
+        ], 
+        "PARENT": "KEQ0182021", 
+        "PARENT_TYPE": "HMW-IO-12-Sw14-DR", 
+        "TYPE": "DIGITAL_OUTPUT", 
+        "VERSION": 12
+    }, 
+    {
+        "ADDRESS": "KEQ0182021:7", 
+        "AES_ACTIVE": 0, 
+        "DIRECTION": 0, 
+        "FLAGS": 1, 
+        "INDEX": 7, 
+        "LINK_SOURCE_ROLES": "", 
+        "LINK_TARGET_ROLES": "", 
+        "PARAMSETS": [
+            "MASTER", 
+            "VALUES"
+        ], 
+        "PARENT": "KEQ0182021", 
+        "PARENT_TYPE": "HMW-IO-12-Sw14-DR", 
+        "TYPE": "DIGITAL_ANALOG_OUTPUT", 
+        "VERSION": 12
+    }, 
+    {
+        "ADDRESS": "KEQ0182021:8", 
+        "AES_ACTIVE": 0, 
+        "DIRECTION": 0, 
+        "FLAGS": 1, 
+        "INDEX": 8, 
+        "LINK_SOURCE_ROLES": "", 
+        "LINK_TARGET_ROLES": "", 
+        "PARAMSETS": [
+            "MASTER", 
+            "VALUES"
+        ], 
+        "PARENT": "KEQ0182021", 
+        "PARENT_TYPE": "HMW-IO-12-Sw14-DR", 
+        "TYPE": "DIGITAL_ANALOG_OUTPUT", 
+        "VERSION": 12
+    }, 
+    {
+        "ADDRESS": "KEQ0182021:9", 
+        "AES_ACTIVE": 0, 
+        "DIRECTION": 0, 
+        "FLAGS": 1, 
+        "INDEX": 9, 
+        "LINK_SOURCE_ROLES": "", 
+        "LINK_TARGET_ROLES": "", 
+        "PARAMSETS": [
+            "MASTER", 
+            "VALUES"
+        ], 
+        "PARENT": "KEQ0182021", 
+        "PARENT_TYPE": "HMW-IO-12-Sw14-DR", 
+        "TYPE": "DIGITAL_ANALOG_OUTPUT", 
+        "VERSION": 12
+    }, 
+    {
+        "ADDRESS": "KEQ0182021:10", 
+        "AES_ACTIVE": 0, 
+        "DIRECTION": 0, 
+        "FLAGS": 1, 
+        "INDEX": 10, 
+        "LINK_SOURCE_ROLES": "", 
+        "LINK_TARGET_ROLES": "", 
+        "PARAMSETS": [
+            "MASTER", 
+            "VALUES"
+        ], 
+        "PARENT": "KEQ0182021", 
+        "PARENT_TYPE": "HMW-IO-12-Sw14-DR", 
+        "TYPE": "DIGITAL_ANALOG_OUTPUT", 
+        "VERSION": 12
+    }, 
+    {
+        "ADDRESS": "KEQ0182021:11", 
+        "AES_ACTIVE": 0, 
+        "DIRECTION": 0, 
+        "FLAGS": 1, 
+        "INDEX": 11, 
+        "LINK_SOURCE_ROLES": "", 
+        "LINK_TARGET_ROLES": "", 
+        "PARAMSETS": [
+            "MASTER", 
+            "VALUES"
+        ], 
+        "PARENT": "KEQ0182021", 
+        "PARENT_TYPE": "HMW-IO-12-Sw14-DR", 
+        "TYPE": "DIGITAL_ANALOG_OUTPUT", 
+        "VERSION": 12
+    }, 
+    {
+        "ADDRESS": "KEQ0182021:12", 
+        "AES_ACTIVE": 0, 
+        "DIRECTION": 0, 
+        "FLAGS": 1, 
+        "INDEX": 12, 
+        "LINK_SOURCE_ROLES": "", 
+        "LINK_TARGET_ROLES": "", 
+        "PARAMSETS": [
+            "MASTER", 
+            "VALUES"
+        ], 
+        "PARENT": "KEQ0182021", 
+        "PARENT_TYPE": "HMW-IO-12-Sw14-DR", 
+        "TYPE": "DIGITAL_ANALOG_OUTPUT", 
+        "VERSION": 12
+    }, 
+    {
+        "ADDRESS": "KEQ0182021:13", 
+        "AES_ACTIVE": 0, 
+        "DIRECTION": 0, 
+        "FLAGS": 1, 
+        "INDEX": 13, 
+        "LINK_SOURCE_ROLES": "", 
+        "LINK_TARGET_ROLES": "", 
+        "PARAMSETS": [
+            "MASTER", 
+            "VALUES"
+        ], 
+        "PARENT": "KEQ0182021", 
+        "PARENT_TYPE": "HMW-IO-12-Sw14-DR", 
+        "TYPE": "DIGITAL_ANALOG_OUTPUT", 
+        "VERSION": 12
+    }, 
+    {
+        "ADDRESS": "KEQ0182021:14", 
+        "AES_ACTIVE": 0, 
+        "DIRECTION": 0, 
+        "FLAGS": 1, 
+        "INDEX": 14, 
+        "LINK_SOURCE_ROLES": "", 
+        "LINK_TARGET_ROLES": "", 
+        "PARAMSETS": [
+            "MASTER", 
+            "VALUES"
+        ], 
+        "PARENT": "KEQ0182021", 
+        "PARENT_TYPE": "HMW-IO-12-Sw14-DR", 
+        "TYPE": "DIGITAL_ANALOG_OUTPUT", 
+        "VERSION": 12
+    }, 
+    {
+        "ADDRESS": "KEQ0182021:15", 
+        "AES_ACTIVE": 0, 
+        "DIRECTION": 0, 
+        "FLAGS": 1, 
+        "INDEX": 15, 
+        "LINK_SOURCE_ROLES": "", 
+        "LINK_TARGET_ROLES": "", 
+        "PARAMSETS": [
+            "MASTER", 
+            "VALUES"
+        ], 
+        "PARENT": "KEQ0182021", 
+        "PARENT_TYPE": "HMW-IO-12-Sw14-DR", 
+        "TYPE": "DIGITAL_INPUT", 
+        "VERSION": 12
+    }, 
+    {
+        "ADDRESS": "KEQ0182021:16", 
+        "AES_ACTIVE": 0, 
+        "DIRECTION": 0, 
+        "FLAGS": 1, 
+        "INDEX": 16, 
+        "LINK_SOURCE_ROLES": "", 
+        "LINK_TARGET_ROLES": "", 
+        "PARAMSETS": [
+            "MASTER", 
+            "VALUES"
+        ], 
+        "PARENT": "KEQ0182021", 
+        "PARENT_TYPE": "HMW-IO-12-Sw14-DR", 
+        "TYPE": "DIGITAL_INPUT", 
+        "VERSION": 12
+    }, 
+    {
+        "ADDRESS": "KEQ0182021:17", 
+        "AES_ACTIVE": 0, 
+        "DIRECTION": 0, 
+        "FLAGS": 1, 
+        "INDEX": 17, 
+        "LINK_SOURCE_ROLES": "", 
+        "LINK_TARGET_ROLES": "", 
+        "PARAMSETS": [
+            "MASTER", 
+            "VALUES"
+        ], 
+        "PARENT": "KEQ0182021", 
+        "PARENT_TYPE": "HMW-IO-12-Sw14-DR", 
+        "TYPE": "DIGITAL_INPUT", 
+        "VERSION": 12
+    }, 
+    {
+        "ADDRESS": "KEQ0182021:18", 
+        "AES_ACTIVE": 0, 
+        "DIRECTION": 0, 
+        "FLAGS": 1, 
+        "INDEX": 18, 
+        "LINK_SOURCE_ROLES": "", 
+        "LINK_TARGET_ROLES": "", 
+        "PARAMSETS": [
+            "MASTER", 
+            "VALUES"
+        ], 
+        "PARENT": "KEQ0182021", 
+        "PARENT_TYPE": "HMW-IO-12-Sw14-DR", 
+        "TYPE": "DIGITAL_INPUT", 
+        "VERSION": 12
+    }, 
+    {
+        "ADDRESS": "KEQ0182021:19", 
+        "AES_ACTIVE": 0, 
+        "DIRECTION": 0, 
+        "FLAGS": 1, 
+        "INDEX": 19, 
+        "LINK_SOURCE_ROLES": "", 
+        "LINK_TARGET_ROLES": "", 
+        "PARAMSETS": [
+            "MASTER", 
+            "VALUES"
+        ], 
+        "PARENT": "KEQ0182021", 
+        "PARENT_TYPE": "HMW-IO-12-Sw14-DR", 
+        "TYPE": "DIGITAL_INPUT", 
+        "VERSION": 12
+    }, 
+    {
+        "ADDRESS": "KEQ0182021:20", 
+        "AES_ACTIVE": 0, 
+        "DIRECTION": 0, 
+        "FLAGS": 1, 
+        "INDEX": 20, 
+        "LINK_SOURCE_ROLES": "", 
+        "LINK_TARGET_ROLES": "", 
+        "PARAMSETS": [
+            "MASTER", 
+            "VALUES"
+        ], 
+        "PARENT": "KEQ0182021", 
+        "PARENT_TYPE": "HMW-IO-12-Sw14-DR", 
+        "TYPE": "DIGITAL_INPUT", 
+        "VERSION": 12
+    }, 
+    {
+        "ADDRESS": "KEQ0182021:21", 
+        "AES_ACTIVE": 0, 
+        "DIRECTION": 0, 
+        "FLAGS": 1, 
+        "INDEX": 21, 
+        "LINK_SOURCE_ROLES": "", 
+        "LINK_TARGET_ROLES": "", 
+        "PARAMSETS": [
+            "MASTER", 
+            "VALUES"
+        ], 
+        "PARENT": "KEQ0182021", 
+        "PARENT_TYPE": "HMW-IO-12-Sw14-DR", 
+        "TYPE": "DIGITAL_ANALOG_INPUT", 
+        "VERSION": 12
+    }, 
+    {
+        "ADDRESS": "KEQ0182021:22", 
+        "AES_ACTIVE": 0, 
+        "DIRECTION": 0, 
+        "FLAGS": 1, 
+        "INDEX": 22, 
+        "LINK_SOURCE_ROLES": "", 
+        "LINK_TARGET_ROLES": "", 
+        "PARAMSETS": [
+            "MASTER", 
+            "VALUES"
+        ], 
+        "PARENT": "KEQ0182021", 
+        "PARENT_TYPE": "HMW-IO-12-Sw14-DR", 
+        "TYPE": "DIGITAL_ANALOG_INPUT", 
+        "VERSION": 12
+    }, 
+    {
+        "ADDRESS": "KEQ0182021:23", 
+        "AES_ACTIVE": 0, 
+        "DIRECTION": 0, 
+        "FLAGS": 1, 
+        "INDEX": 23, 
+        "LINK_SOURCE_ROLES": "", 
+        "LINK_TARGET_ROLES": "", 
+        "PARAMSETS": [
+            "MASTER", 
+            "VALUES"
+        ], 
+        "PARENT": "KEQ0182021", 
+        "PARENT_TYPE": "HMW-IO-12-Sw14-DR", 
+        "TYPE": "DIGITAL_ANALOG_INPUT", 
+        "VERSION": 12
+    }, 
+    {
+        "ADDRESS": "KEQ0182021:24", 
+        "AES_ACTIVE": 0, 
+        "DIRECTION": 0, 
+        "FLAGS": 1, 
+        "INDEX": 24, 
+        "LINK_SOURCE_ROLES": "", 
+        "LINK_TARGET_ROLES": "", 
+        "PARAMSETS": [
+            "MASTER", 
+            "VALUES"
+        ], 
+        "PARENT": "KEQ0182021", 
+        "PARENT_TYPE": "HMW-IO-12-Sw14-DR", 
+        "TYPE": "DIGITAL_ANALOG_INPUT", 
+        "VERSION": 12
+    }, 
+    {
+        "ADDRESS": "KEQ0182021:25", 
+        "AES_ACTIVE": 0, 
+        "DIRECTION": 0, 
+        "FLAGS": 1, 
+        "INDEX": 25, 
+        "LINK_SOURCE_ROLES": "", 
+        "LINK_TARGET_ROLES": "", 
+        "PARAMSETS": [
+            "MASTER", 
+            "VALUES"
+        ], 
+        "PARENT": "KEQ0182021", 
+        "PARENT_TYPE": "HMW-IO-12-Sw14-DR", 
+        "TYPE": "DIGITAL_ANALOG_INPUT", 
+        "VERSION": 12
+    }, 
+    {
+        "ADDRESS": "KEQ0182021:26", 
+        "AES_ACTIVE": 0, 
+        "DIRECTION": 0, 
+        "FLAGS": 1, 
+        "INDEX": 26, 
+        "LINK_SOURCE_ROLES": "", 
+        "LINK_TARGET_ROLES": "", 
+        "PARAMSETS": [
+            "MASTER", 
+            "VALUES"
+        ], 
+        "PARENT": "KEQ0182021", 
+        "PARENT_TYPE": "HMW-IO-12-Sw14-DR", 
+        "TYPE": "DIGITAL_ANALOG_INPUT", 
+        "VERSION": 12
+    }, 
+    {
+        "ADDRESS": "LEQ0869628", 
+        "AVAILABLE_FIRMWARE": "3.06", 
+        "CHILDREN": [
+            "LEQ0869628:0", 
+            "LEQ0869628:1", 
+            "LEQ0869628:2", 
+            "LEQ0869628:3", 
+            "LEQ0869628:4", 
+            "LEQ0869628:5", 
+            "LEQ0869628:6", 
+            "LEQ0869628:7", 
+            "LEQ0869628:8", 
+            "LEQ0869628:9", 
+            "LEQ0869628:10", 
+            "LEQ0869628:11", 
+            "LEQ0869628:12", 
+            "LEQ0869628:13", 
+            "LEQ0869628:14", 
+            "LEQ0869628:15", 
+            "LEQ0869628:16", 
+            "LEQ0869628:17", 
+            "LEQ0869628:18", 
+            "LEQ0869628:19"
+        ], 
+        "FIRMWARE": "3.06", 
+        "FLAGS": 1, 
+        "PARAMSETS": [
+            "MASTER"
+        ], 
+        "PARENT": "", 
+        "TYPE": "HMW-IO-12-Sw7-DR", 
+        "UPDATABLE": 1, 
+        "VERSION": 11
+    }, 
+    {
+        "ADDRESS": "LEQ0869628:0", 
+        "AES_ACTIVE": 0, 
+        "DIRECTION": 0, 
+        "FLAGS": 3, 
+        "INDEX": 0, 
+        "LINK_SOURCE_ROLES": "", 
+        "LINK_TARGET_ROLES": "", 
+        "PARAMSETS": [
+            "MASTER", 
+            "VALUES"
+        ], 
+        "PARENT": "LEQ0869628", 
+        "PARENT_TYPE": "HMW-IO-12-Sw7-DR", 
+        "TYPE": "MAINTENANCE", 
+        "VERSION": 11
+    }, 
+    {
+        "ADDRESS": "LEQ0869628:1", 
+        "AES_ACTIVE": 0, 
+        "DIRECTION": 1, 
+        "FLAGS": 1, 
+        "INDEX": 1, 
+        "LINK_SOURCE_ROLES": "SWITCH", 
+        "LINK_TARGET_ROLES": "", 
+        "PARAMSETS": [
+            "LINK", 
+            "MASTER", 
+            "VALUES"
+        ], 
+        "PARENT": "LEQ0869628", 
+        "PARENT_TYPE": "HMW-IO-12-Sw7-DR", 
+        "TYPE": "KEY", 
+        "VERSION": 11
+    }, 
+    {
+        "ADDRESS": "LEQ0869628:2", 
+        "AES_ACTIVE": 0, 
+        "DIRECTION": 1, 
+        "FLAGS": 1, 
+        "INDEX": 2, 
+        "LINK_SOURCE_ROLES": "SWITCH", 
+        "LINK_TARGET_ROLES": "", 
+        "PARAMSETS": [
+            "LINK", 
+            "MASTER", 
+            "VALUES"
+        ], 
+        "PARENT": "LEQ0869628", 
+        "PARENT_TYPE": "HMW-IO-12-Sw7-DR", 
+        "TYPE": "KEY", 
+        "VERSION": 11
+    }, 
+    {
+        "ADDRESS": "LEQ0869628:3", 
+        "AES_ACTIVE": 0, 
+        "DIRECTION": 1, 
+        "FLAGS": 1, 
+        "INDEX": 3, 
+        "LINK_SOURCE_ROLES": "SWITCH", 
+        "LINK_TARGET_ROLES": "", 
+        "PARAMSETS": [
+            "LINK", 
+            "MASTER", 
+            "VALUES"
+        ], 
+        "PARENT": "LEQ0869628", 
+        "PARENT_TYPE": "HMW-IO-12-Sw7-DR", 
+        "TYPE": "KEY", 
+        "VERSION": 11
+    }, 
+    {
+        "ADDRESS": "LEQ0869628:4", 
+        "AES_ACTIVE": 0, 
+        "DIRECTION": 1, 
+        "FLAGS": 1, 
+        "INDEX": 4, 
+        "LINK_SOURCE_ROLES": "SWITCH", 
+        "LINK_TARGET_ROLES": "", 
+        "PARAMSETS": [
+            "LINK", 
+            "MASTER", 
+            "VALUES"
+        ], 
+        "PARENT": "LEQ0869628", 
+        "PARENT_TYPE": "HMW-IO-12-Sw7-DR", 
+        "TYPE": "KEY", 
+        "VERSION": 11
+    }, 
+    {
+        "ADDRESS": "LEQ0869628:5", 
+        "AES_ACTIVE": 0, 
+        "DIRECTION": 1, 
+        "FLAGS": 1, 
+        "INDEX": 5, 
+        "LINK_SOURCE_ROLES": "SWITCH", 
+        "LINK_TARGET_ROLES": "", 
+        "PARAMSETS": [
+            "LINK", 
+            "MASTER", 
+            "VALUES"
+        ], 
+        "PARENT": "LEQ0869628", 
+        "PARENT_TYPE": "HMW-IO-12-Sw7-DR", 
+        "TYPE": "KEY", 
+        "VERSION": 11
+    }, 
+    {
+        "ADDRESS": "LEQ0869628:6", 
+        "AES_ACTIVE": 0, 
+        "DIRECTION": 1, 
+        "FLAGS": 1, 
+        "INDEX": 6, 
+        "LINK_SOURCE_ROLES": "SWITCH", 
+        "LINK_TARGET_ROLES": "", 
+        "PARAMSETS": [
+            "LINK", 
+            "MASTER", 
+            "VALUES"
+        ], 
+        "PARENT": "LEQ0869628", 
+        "PARENT_TYPE": "HMW-IO-12-Sw7-DR", 
+        "TYPE": "KEY", 
+        "VERSION": 11
+    }, 
+    {
+        "ADDRESS": "LEQ0869628:7", 
+        "AES_ACTIVE": 0, 
+        "DIRECTION": 1, 
+        "FLAGS": 1, 
+        "INDEX": 7, 
+        "LINK_SOURCE_ROLES": "SWITCH", 
+        "LINK_TARGET_ROLES": "", 
+        "PARAMSETS": [
+            "LINK", 
+            "MASTER", 
+            "VALUES"
+        ], 
+        "PARENT": "LEQ0869628", 
+        "PARENT_TYPE": "HMW-IO-12-Sw7-DR", 
+        "TYPE": "KEY", 
+        "VERSION": 11
+    }, 
+    {
+        "ADDRESS": "LEQ0869628:8", 
+        "AES_ACTIVE": 0, 
+        "DIRECTION": 1, 
+        "FLAGS": 1, 
+        "INDEX": 8, 
+        "LINK_SOURCE_ROLES": "SWITCH", 
+        "LINK_TARGET_ROLES": "", 
+        "PARAMSETS": [
+            "LINK", 
+            "MASTER", 
+            "VALUES"
+        ], 
+        "PARENT": "LEQ0869628", 
+        "PARENT_TYPE": "HMW-IO-12-Sw7-DR", 
+        "TYPE": "KEY", 
+        "VERSION": 11
+    }, 
+    {
+        "ADDRESS": "LEQ0869628:9", 
+        "AES_ACTIVE": 0, 
+        "DIRECTION": 1, 
+        "FLAGS": 1, 
+        "INDEX": 9, 
+        "LINK_SOURCE_ROLES": "SWITCH", 
+        "LINK_TARGET_ROLES": "", 
+        "PARAMSETS": [
+            "LINK", 
+            "MASTER", 
+            "VALUES"
+        ], 
+        "PARENT": "LEQ0869628", 
+        "PARENT_TYPE": "HMW-IO-12-Sw7-DR", 
+        "TYPE": "KEY", 
+        "VERSION": 11
+    }, 
+    {
+        "ADDRESS": "LEQ0869628:10", 
+        "AES_ACTIVE": 0, 
+        "DIRECTION": 1, 
+        "FLAGS": 1, 
+        "INDEX": 10, 
+        "LINK_SOURCE_ROLES": "SWITCH", 
+        "LINK_TARGET_ROLES": "", 
+        "PARAMSETS": [
+            "LINK", 
+            "MASTER", 
+            "VALUES"
+        ], 
+        "PARENT": "LEQ0869628", 
+        "PARENT_TYPE": "HMW-IO-12-Sw7-DR", 
+        "TYPE": "KEY", 
+        "VERSION": 11
+    }, 
+    {
+        "ADDRESS": "LEQ0869628:11", 
+        "AES_ACTIVE": 0, 
+        "DIRECTION": 1, 
+        "FLAGS": 1, 
+        "INDEX": 11, 
+        "LINK_SOURCE_ROLES": "SWITCH", 
+        "LINK_TARGET_ROLES": "", 
+        "PARAMSETS": [
+            "LINK", 
+            "MASTER", 
+            "VALUES"
+        ], 
+        "PARENT": "LEQ0869628", 
+        "PARENT_TYPE": "HMW-IO-12-Sw7-DR", 
+        "TYPE": "KEY", 
+        "VERSION": 11
+    }, 
+    {
+        "ADDRESS": "LEQ0869628:12", 
+        "AES_ACTIVE": 0, 
+        "DIRECTION": 1, 
+        "FLAGS": 1, 
+        "INDEX": 12, 
+        "LINK_SOURCE_ROLES": "SWITCH", 
+        "LINK_TARGET_ROLES": "", 
+        "PARAMSETS": [
+            "LINK", 
+            "MASTER", 
+            "VALUES"
+        ], 
+        "PARENT": "LEQ0869628", 
+        "PARENT_TYPE": "HMW-IO-12-Sw7-DR", 
+        "TYPE": "KEY", 
+        "VERSION": 11
+    }, 
+    {
+        "ADDRESS": "LEQ0869628:13", 
+        "AES_ACTIVE": 0, 
+        "DIRECTION": 2, 
+        "FLAGS": 1, 
+        "INDEX": 13, 
+        "LINK_SOURCE_ROLES": "", 
+        "LINK_TARGET_ROLES": "SWITCH", 
+        "PARAMSETS": [
+            "LINK", 
+            "MASTER", 
+            "VALUES"
+        ], 
+        "PARENT": "LEQ0869628", 
+        "PARENT_TYPE": "HMW-IO-12-Sw7-DR", 
+        "TYPE": "SWITCH", 
+        "VERSION": 11
+    }, 
+    {
+        "ADDRESS": "LEQ0869628:14", 
+        "AES_ACTIVE": 0, 
+        "DIRECTION": 2, 
+        "FLAGS": 1, 
+        "INDEX": 14, 
+        "LINK_SOURCE_ROLES": "", 
+        "LINK_TARGET_ROLES": "SWITCH", 
+        "PARAMSETS": [
+            "LINK", 
+            "MASTER", 
+            "VALUES"
+        ], 
+        "PARENT": "LEQ0869628", 
+        "PARENT_TYPE": "HMW-IO-12-Sw7-DR", 
+        "TYPE": "SWITCH", 
+        "VERSION": 11
+    }, 
+    {
+        "ADDRESS": "LEQ0869628:15", 
+        "AES_ACTIVE": 0, 
+        "DIRECTION": 2, 
+        "FLAGS": 1, 
+        "INDEX": 15, 
+        "LINK_SOURCE_ROLES": "", 
+        "LINK_TARGET_ROLES": "SWITCH", 
+        "PARAMSETS": [
+            "LINK", 
+            "MASTER", 
+            "VALUES"
+        ], 
+        "PARENT": "LEQ0869628", 
+        "PARENT_TYPE": "HMW-IO-12-Sw7-DR", 
+        "TYPE": "SWITCH", 
+        "VERSION": 11
+    }, 
+    {
+        "ADDRESS": "LEQ0869628:16", 
+        "AES_ACTIVE": 0, 
+        "DIRECTION": 2, 
+        "FLAGS": 1, 
+        "INDEX": 16, 
+        "LINK_SOURCE_ROLES": "", 
+        "LINK_TARGET_ROLES": "SWITCH", 
+        "PARAMSETS": [
+            "LINK", 
+            "MASTER", 
+            "VALUES"
+        ], 
+        "PARENT": "LEQ0869628", 
+        "PARENT_TYPE": "HMW-IO-12-Sw7-DR", 
+        "TYPE": "SWITCH", 
+        "VERSION": 11
+    }, 
+    {
+        "ADDRESS": "LEQ0869628:17", 
+        "AES_ACTIVE": 0, 
+        "DIRECTION": 2, 
+        "FLAGS": 1, 
+        "INDEX": 17, 
+        "LINK_SOURCE_ROLES": "", 
+        "LINK_TARGET_ROLES": "SWITCH", 
+        "PARAMSETS": [
+            "LINK", 
+            "MASTER", 
+            "VALUES"
+        ], 
+        "PARENT": "LEQ0869628", 
+        "PARENT_TYPE": "HMW-IO-12-Sw7-DR", 
+        "TYPE": "SWITCH", 
+        "VERSION": 11
+    }, 
+    {
+        "ADDRESS": "LEQ0869628:18", 
+        "AES_ACTIVE": 0, 
+        "DIRECTION": 2, 
+        "FLAGS": 1, 
+        "INDEX": 18, 
+        "LINK_SOURCE_ROLES": "", 
+        "LINK_TARGET_ROLES": "SWITCH", 
+        "PARAMSETS": [
+            "LINK", 
+            "MASTER", 
+            "VALUES"
+        ], 
+        "PARENT": "LEQ0869628", 
+        "PARENT_TYPE": "HMW-IO-12-Sw7-DR", 
+        "TYPE": "SWITCH", 
+        "VERSION": 11
+    }, 
+    {
+        "ADDRESS": "LEQ0869628:19", 
+        "AES_ACTIVE": 0, 
+        "DIRECTION": 2, 
+        "FLAGS": 1, 
+        "INDEX": 19, 
+        "LINK_SOURCE_ROLES": "", 
+        "LINK_TARGET_ROLES": "SWITCH", 
+        "PARAMSETS": [
+            "LINK", 
+            "MASTER", 
+            "VALUES"
+        ], 
+        "PARENT": "LEQ0869628", 
+        "PARENT_TYPE": "HMW-IO-12-Sw7-DR", 
+        "TYPE": "SWITCH", 
+        "VERSION": 11
+    }, 
+    {
+        "ADDRESS": "MEQ1770008", 
+        "AVAILABLE_FIRMWARE": "3.06", 
+        "CHILDREN": [
+            "MEQ1770008:0", 
+            "MEQ1770008:1", 
+            "MEQ1770008:2", 
+            "MEQ1770008:3", 
+            "MEQ1770008:4", 
+            "MEQ1770008:5", 
+            "MEQ1770008:6", 
+            "MEQ1770008:7", 
+            "MEQ1770008:8", 
+            "MEQ1770008:9", 
+            "MEQ1770008:10", 
+            "MEQ1770008:11", 
+            "MEQ1770008:12", 
+            "MEQ1770008:13", 
+            "MEQ1770008:14", 
+            "MEQ1770008:15", 
+            "MEQ1770008:16", 
+            "MEQ1770008:17", 
+            "MEQ1770008:18", 
+            "MEQ1770008:19"
+        ], 
+        "FIRMWARE": "3.06", 
+        "FLAGS": 1, 
+        "PARAMSETS": [
+            "MASTER"
+        ], 
+        "PARENT": "", 
+        "TYPE": "HMW-IO-12-Sw7-DR", 
+        "UPDATABLE": 1, 
+        "VERSION": 11
+    }, 
+    {
+        "ADDRESS": "MEQ1770008:0", 
+        "AES_ACTIVE": 0, 
+        "DIRECTION": 0, 
+        "FLAGS": 3, 
+        "INDEX": 0, 
+        "LINK_SOURCE_ROLES": "", 
+        "LINK_TARGET_ROLES": "", 
+        "PARAMSETS": [
+            "MASTER", 
+            "VALUES"
+        ], 
+        "PARENT": "MEQ1770008", 
+        "PARENT_TYPE": "HMW-IO-12-Sw7-DR", 
+        "TYPE": "MAINTENANCE", 
+        "VERSION": 11
+    }, 
+    {
+        "ADDRESS": "MEQ1770008:1", 
+        "AES_ACTIVE": 0, 
+        "DIRECTION": 1, 
+        "FLAGS": 1, 
+        "INDEX": 1, 
+        "LINK_SOURCE_ROLES": "SWITCH", 
+        "LINK_TARGET_ROLES": "", 
+        "PARAMSETS": [
+            "LINK", 
+            "MASTER", 
+            "VALUES"
+        ], 
+        "PARENT": "MEQ1770008", 
+        "PARENT_TYPE": "HMW-IO-12-Sw7-DR", 
+        "TYPE": "KEY", 
+        "VERSION": 11
+    }, 
+    {
+        "ADDRESS": "MEQ1770008:2", 
+        "AES_ACTIVE": 0, 
+        "DIRECTION": 1, 
+        "FLAGS": 1, 
+        "INDEX": 2, 
+        "LINK_SOURCE_ROLES": "SWITCH", 
+        "LINK_TARGET_ROLES": "", 
+        "PARAMSETS": [
+            "LINK", 
+            "MASTER", 
+            "VALUES"
+        ], 
+        "PARENT": "MEQ1770008", 
+        "PARENT_TYPE": "HMW-IO-12-Sw7-DR", 
+        "TYPE": "KEY", 
+        "VERSION": 11
+    }, 
+    {
+        "ADDRESS": "MEQ1770008:3", 
+        "AES_ACTIVE": 0, 
+        "DIRECTION": 1, 
+        "FLAGS": 1, 
+        "INDEX": 3, 
+        "LINK_SOURCE_ROLES": "SWITCH", 
+        "LINK_TARGET_ROLES": "", 
+        "PARAMSETS": [
+            "LINK", 
+            "MASTER", 
+            "VALUES"
+        ], 
+        "PARENT": "MEQ1770008", 
+        "PARENT_TYPE": "HMW-IO-12-Sw7-DR", 
+        "TYPE": "KEY", 
+        "VERSION": 11
+    }, 
+    {
+        "ADDRESS": "MEQ1770008:4", 
+        "AES_ACTIVE": 0, 
+        "DIRECTION": 1, 
+        "FLAGS": 1, 
+        "INDEX": 4, 
+        "LINK_SOURCE_ROLES": "SWITCH", 
+        "LINK_TARGET_ROLES": "", 
+        "PARAMSETS": [
+            "LINK", 
+            "MASTER", 
+            "VALUES"
+        ], 
+        "PARENT": "MEQ1770008", 
+        "PARENT_TYPE": "HMW-IO-12-Sw7-DR", 
+        "TYPE": "KEY", 
+        "VERSION": 11
+    }, 
+    {
+        "ADDRESS": "MEQ1770008:5", 
+        "AES_ACTIVE": 0, 
+        "DIRECTION": 1, 
+        "FLAGS": 1, 
+        "INDEX": 5, 
+        "LINK_SOURCE_ROLES": "SWITCH", 
+        "LINK_TARGET_ROLES": "", 
+        "PARAMSETS": [
+            "LINK", 
+            "MASTER", 
+            "VALUES"
+        ], 
+        "PARENT": "MEQ1770008", 
+        "PARENT_TYPE": "HMW-IO-12-Sw7-DR", 
+        "TYPE": "KEY", 
+        "VERSION": 11
+    }, 
+    {
+        "ADDRESS": "MEQ1770008:6", 
+        "AES_ACTIVE": 0, 
+        "DIRECTION": 1, 
+        "FLAGS": 1, 
+        "INDEX": 6, 
+        "LINK_SOURCE_ROLES": "SWITCH", 
+        "LINK_TARGET_ROLES": "", 
+        "PARAMSETS": [
+            "LINK", 
+            "MASTER", 
+            "VALUES"
+        ], 
+        "PARENT": "MEQ1770008", 
+        "PARENT_TYPE": "HMW-IO-12-Sw7-DR", 
+        "TYPE": "KEY", 
+        "VERSION": 11
+    }, 
+    {
+        "ADDRESS": "MEQ1770008:7", 
+        "AES_ACTIVE": 0, 
+        "DIRECTION": 1, 
+        "FLAGS": 1, 
+        "INDEX": 7, 
+        "LINK_SOURCE_ROLES": "SWITCH", 
+        "LINK_TARGET_ROLES": "", 
+        "PARAMSETS": [
+            "LINK", 
+            "MASTER", 
+            "VALUES"
+        ], 
+        "PARENT": "MEQ1770008", 
+        "PARENT_TYPE": "HMW-IO-12-Sw7-DR", 
+        "TYPE": "KEY", 
+        "VERSION": 11
+    }, 
+    {
+        "ADDRESS": "MEQ1770008:8", 
+        "AES_ACTIVE": 0, 
+        "DIRECTION": 1, 
+        "FLAGS": 1, 
+        "INDEX": 8, 
+        "LINK_SOURCE_ROLES": "SWITCH", 
+        "LINK_TARGET_ROLES": "", 
+        "PARAMSETS": [
+            "LINK", 
+            "MASTER", 
+            "VALUES"
+        ], 
+        "PARENT": "MEQ1770008", 
+        "PARENT_TYPE": "HMW-IO-12-Sw7-DR", 
+        "TYPE": "KEY", 
+        "VERSION": 11
+    }, 
+    {
+        "ADDRESS": "MEQ1770008:9", 
+        "AES_ACTIVE": 0, 
+        "DIRECTION": 1, 
+        "FLAGS": 1, 
+        "INDEX": 9, 
+        "LINK_SOURCE_ROLES": "SWITCH", 
+        "LINK_TARGET_ROLES": "", 
+        "PARAMSETS": [
+            "LINK", 
+            "MASTER", 
+            "VALUES"
+        ], 
+        "PARENT": "MEQ1770008", 
+        "PARENT_TYPE": "HMW-IO-12-Sw7-DR", 
+        "TYPE": "KEY", 
+        "VERSION": 11
+    }, 
+    {
+        "ADDRESS": "MEQ1770008:10", 
+        "AES_ACTIVE": 0, 
+        "DIRECTION": 1, 
+        "FLAGS": 1, 
+        "INDEX": 10, 
+        "LINK_SOURCE_ROLES": "SWITCH", 
+        "LINK_TARGET_ROLES": "", 
+        "PARAMSETS": [
+            "LINK", 
+            "MASTER", 
+            "VALUES"
+        ], 
+        "PARENT": "MEQ1770008", 
+        "PARENT_TYPE": "HMW-IO-12-Sw7-DR", 
+        "TYPE": "KEY", 
+        "VERSION": 11
+    }, 
+    {
+        "ADDRESS": "MEQ1770008:11", 
+        "AES_ACTIVE": 0, 
+        "DIRECTION": 1, 
+        "FLAGS": 1, 
+        "INDEX": 11, 
+        "LINK_SOURCE_ROLES": "SWITCH", 
+        "LINK_TARGET_ROLES": "", 
+        "PARAMSETS": [
+            "LINK", 
+            "MASTER", 
+            "VALUES"
+        ], 
+        "PARENT": "MEQ1770008", 
+        "PARENT_TYPE": "HMW-IO-12-Sw7-DR", 
+        "TYPE": "KEY", 
+        "VERSION": 11
+    }, 
+    {
+        "ADDRESS": "MEQ1770008:12", 
+        "AES_ACTIVE": 0, 
+        "DIRECTION": 1, 
+        "FLAGS": 1, 
+        "INDEX": 12, 
+        "LINK_SOURCE_ROLES": "SWITCH", 
+        "LINK_TARGET_ROLES": "", 
+        "PARAMSETS": [
+            "LINK", 
+            "MASTER", 
+            "VALUES"
+        ], 
+        "PARENT": "MEQ1770008", 
+        "PARENT_TYPE": "HMW-IO-12-Sw7-DR", 
+        "TYPE": "KEY", 
+        "VERSION": 11
+    }, 
+    {
+        "ADDRESS": "MEQ1770008:13", 
+        "AES_ACTIVE": 0, 
+        "DIRECTION": 2, 
+        "FLAGS": 1, 
+        "INDEX": 13, 
+        "LINK_SOURCE_ROLES": "", 
+        "LINK_TARGET_ROLES": "SWITCH", 
+        "PARAMSETS": [
+            "LINK", 
+            "MASTER", 
+            "VALUES"
+        ], 
+        "PARENT": "MEQ1770008", 
+        "PARENT_TYPE": "HMW-IO-12-Sw7-DR", 
+        "TYPE": "SWITCH", 
+        "VERSION": 11
+    }, 
+    {
+        "ADDRESS": "MEQ1770008:14", 
+        "AES_ACTIVE": 0, 
+        "DIRECTION": 2, 
+        "FLAGS": 1, 
+        "INDEX": 14, 
+        "LINK_SOURCE_ROLES": "", 
+        "LINK_TARGET_ROLES": "SWITCH", 
+        "PARAMSETS": [
+            "LINK", 
+            "MASTER", 
+            "VALUES"
+        ], 
+        "PARENT": "MEQ1770008", 
+        "PARENT_TYPE": "HMW-IO-12-Sw7-DR", 
+        "TYPE": "SWITCH", 
+        "VERSION": 11
+    }, 
+    {
+        "ADDRESS": "MEQ1770008:15", 
+        "AES_ACTIVE": 0, 
+        "DIRECTION": 2, 
+        "FLAGS": 1, 
+        "INDEX": 15, 
+        "LINK_SOURCE_ROLES": "", 
+        "LINK_TARGET_ROLES": "SWITCH", 
+        "PARAMSETS": [
+            "LINK", 
+            "MASTER", 
+            "VALUES"
+        ], 
+        "PARENT": "MEQ1770008", 
+        "PARENT_TYPE": "HMW-IO-12-Sw7-DR", 
+        "TYPE": "SWITCH", 
+        "VERSION": 11
+    }, 
+    {
+        "ADDRESS": "MEQ1770008:16", 
+        "AES_ACTIVE": 0, 
+        "DIRECTION": 2, 
+        "FLAGS": 1, 
+        "INDEX": 16, 
+        "LINK_SOURCE_ROLES": "", 
+        "LINK_TARGET_ROLES": "SWITCH", 
+        "PARAMSETS": [
+            "LINK", 
+            "MASTER", 
+            "VALUES"
+        ], 
+        "PARENT": "MEQ1770008", 
+        "PARENT_TYPE": "HMW-IO-12-Sw7-DR", 
+        "TYPE": "SWITCH", 
+        "VERSION": 11
+    }, 
+    {
+        "ADDRESS": "MEQ1770008:17", 
+        "AES_ACTIVE": 0, 
+        "DIRECTION": 2, 
+        "FLAGS": 1, 
+        "INDEX": 17, 
+        "LINK_SOURCE_ROLES": "", 
+        "LINK_TARGET_ROLES": "SWITCH", 
+        "PARAMSETS": [
+            "LINK", 
+            "MASTER", 
+            "VALUES"
+        ], 
+        "PARENT": "MEQ1770008", 
+        "PARENT_TYPE": "HMW-IO-12-Sw7-DR", 
+        "TYPE": "SWITCH", 
+        "VERSION": 11
+    }, 
+    {
+        "ADDRESS": "MEQ1770008:18", 
+        "AES_ACTIVE": 0, 
+        "DIRECTION": 2, 
+        "FLAGS": 1, 
+        "INDEX": 18, 
+        "LINK_SOURCE_ROLES": "", 
+        "LINK_TARGET_ROLES": "SWITCH", 
+        "PARAMSETS": [
+            "LINK", 
+            "MASTER", 
+            "VALUES"
+        ], 
+        "PARENT": "MEQ1770008", 
+        "PARENT_TYPE": "HMW-IO-12-Sw7-DR", 
+        "TYPE": "SWITCH", 
+        "VERSION": 11
+    }, 
+    {
+        "ADDRESS": "MEQ1770008:19", 
+        "AES_ACTIVE": 0, 
+        "DIRECTION": 2, 
+        "FLAGS": 1, 
+        "INDEX": 19, 
+        "LINK_SOURCE_ROLES": "", 
+        "LINK_TARGET_ROLES": "SWITCH", 
+        "PARAMSETS": [
+            "LINK", 
+            "MASTER", 
+            "VALUES"
+        ], 
+        "PARENT": "MEQ1770008", 
+        "PARENT_TYPE": "HMW-IO-12-Sw7-DR", 
+        "TYPE": "SWITCH", 
+        "VERSION": 11
+    }
+]

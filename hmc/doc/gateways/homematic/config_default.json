@@ -1,7 +1,7 @@
 {
 "hmc_rpc_rf@hostname":{
  		"enable":true,
- 		"pakage":"homematic",
+ 		"package":"homematic",
  		"modul":"rpcServer",
  		"class":"server",
  		"config":{
@@ -16,7 +16,7 @@
 },
 "hmc_rpc_wired@hostname":{
  		"enable":true,
- 		"pakage":"homematic",
+ 		"package":"homematic",
  		"modul":"rpcServer",
  		"class":"server",
  		"config":{

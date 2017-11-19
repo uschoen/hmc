@@ -3,17 +3,17 @@ Created on 05.12.2016
 
 @author: uschoen
 '''
-from hmcDevices import defaultDevice
+from hmc.devices.hmcDevices import device
 from time import sleep
 
 __version__="2.0"
 
-class device(defaultDevice):
+class device(device):
     '''
     classdocs
     '''
     def _name_(self):
-        return "ks300_humidity"    
+        return "ks300_wind"    
 
 if __name__ == "__main__":
 

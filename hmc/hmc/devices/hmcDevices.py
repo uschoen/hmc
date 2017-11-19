@@ -9,7 +9,8 @@ from time import time
 import json
 import logging
 
-class defaultDevice(object):
+
+class device(object):
     '''
     classdocs
     '''
@@ -21,8 +22,11 @@ class defaultDevice(object):
         self.__eventHandlerList=eventHandlerList
         self.logger=logging.getLogger(__name__)
         self._attribute={}
-        self._attribute.update(self._load_attribute("hmc/hmcDevices/hmcDevices.json"))
-        self._attribute.update(self._load_attribute("hmc/hmcDevices/"+self._name_()+".json"))
+        packagePath=arg["package"]["value"]
+        self._attribute.update(self._load_attribute("hmc/devices/hmcDevices.json"))
+        packagePath.replace(".", "/")
+        jsonPath="gateways/%s/devices/%s.json"%(packagePath,self._name_())
+        self._attribute.update(self._load_attribute(jsonPath))
         self._attribute.update(arg)
         self.logger.debug("build %s instance"%(self._name_()))
         if adding:

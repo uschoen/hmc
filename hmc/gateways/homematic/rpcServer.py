@@ -56,7 +56,6 @@ class hmc_rpc_callback:
         self.__timer()
         self.logger.debug("call newDevices for interfaceID:%s"%(interfaceID))
         for device in allDevices:
-            self.logger.debug("%s"%(device))
             if device['PARENT']=="":
                 self.logger.debug("ignore type is parent")
                 continue
@@ -92,10 +91,13 @@ class hmc_rpc_callback:
                                "value":0
                               },
                     "typ":{
-                               "value":"%s_%s"%(device['PARENT_TYPE'],device['TYPE'])
+                               "value":"%s"%(device['PARENT_TYPE'])
                               },
                     "host":{
                                 "value":self.__config['host']
+                            },
+                    "package":{
+                                "value":self.__config['package']
                             }
                    }  
             self.logger.info("add deviceID %s to core"%(hmcDevice["deviceID"]['value']))

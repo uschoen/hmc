@@ -138,6 +138,9 @@ class sensor(threading.Thread):
                               },
                     "host":{
                                 "value":self.__config['host']
+                            },
+                    "package":{
+                                "value":self.__config['package']
                             }
                    }
         return tempSensor

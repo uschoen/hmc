@@ -2,11 +2,16 @@
 Created on 08.10.2017
 
 @author: uschoen
+
+TODO: changing add device.If device type not exists copy default device type to new one.
+
 '''
 __version__ = "2.0"
 
-from hmcDevices import *
-import importlib,copy,time
+import importlib,copy,time,os
+from _ast import Module
+
+
 
 
 class coreDevices ():
@@ -104,7 +109,7 @@ class coreDevices ():
         
     def getAllDeviceAttribute(self,deviceID): 
         '''
-        return a list with all avaible attribute
+        return a list with all available attribute
         '''
         try:
             if deviceID not in self.devices:
@@ -122,62 +127,74 @@ class coreDevices ():
         return object_list
     
     def __buildDevice(self,device):
-        self.logger.info("add new device %s"%(device['typ']['value']))
-        pakageName="hmc.hmcDevices."+str(device['typ']['value'])
-        self.logger.info("try to load %s"%(pakageName))
+        self.logger.info("add new device type %s"%(device['typ']['value']))
+        classModul=False
+        DEFAULTDEVICE="hmc.devices.hmcDevices"
         argumente=(device,self.eventHandler)
+        className = "device"
+        devicePackage=DEFAULTDEVICE
+        if "package" in device:
+            self.logger.debug("find package field:%s in device"%(device['package']['value']))
+            devicePackage="gateways.%s.devices.%s"%(device['package']['value'],device['typ']['value'])
         try:
-            module = importlib.import_module(pakageName)
-            className = "device"
-            self.devices[device['deviceID']['value']] = getattr(module, className)(*argumente)
-            if hasattr(module, '__version__'):
-                if module.__version__<__version__:
-                    self.logger.warning("Version of %s is %s and can by to low"%(pakageName,module.__version__))
-                else:
-                    self.logger.info( "Version of %s is %s"%(pakageName,module.__version__))
-            else:
-                self.logger.warning("pakage %s has no version Info"%(pakageName))
-        except ImportError:
+            classModul = self.__loadPackage(devicePackage)
+        except:
+            self.logger.error("can not load package %s"%(devicePackage))
+            devicePath="gateways/%s/devices/"%(device['package']['value'])
+            self.__copyNewDevice(devicePath,device['typ']['value'])
             try:
-                self.logger.warning("deviceTyp %s no found use hmcDefault typ"%(device['typ']['value']))
-                self.__copyNewDevice(device['typ']['value'])
-                pakageName="hmc.hmcDevices.hmcDevices"
-                module = importlib.import_module(pakageName)
-                className = "defaultDevice"
-                self.devices[device['deviceID']['value']] = getattr(module, className)(*argumente)
-                if hasattr(module, '__version__'):
-                    if module.__version__<__version__:
-                        self.logger.warning("Version of %s is %s and can by to low"%(pakageName,module.__version__))
-                    else:
-                        self.logger.info( "Version of %s is %s"%(pakageName,module.__version__))
-                else:
-                    self.logger.warning("pakage %s has no version Info"%(pakageName))
-            except :
-                self.logger.error("can not load default device",exc_info=True)
-                raise Exception
-        except :
-            self.logger.critical("can not load device",exc_info=True)
-            raise Exception
-    
-    def __copyNewDevice(self,typ):
-        self.logger.info("copy new device type %s from default"%(typ))
+                classModul = self.__loadPackage(devicePackage)
+            except:
+                self.logger.error("can not load package %s after copy"%(devicePackage))
+                try:
+                    devicePackage=DEFAULTDEVICE
+                    classModul = self.__loadPackage(devicePackage)
+                except:
+                    self.logger.error("can not load default package %s as fail over"%(devicePackage),exc_info=True)
+                    raise
         try:
-            deviceJsonName="hmc/hmcDevices/%s.json"%(typ)
-            devicefileName="hmc/hmcDevices/%s.py"%(typ)
-            self.writeJSON(deviceJsonName,self.loadJSON("hmc/hmcDevices/hmcDevices.json"))
-            pythonFile = open(devicefileName,"w") 
+            self.devices[device['deviceID']['value']] = getattr(classModul, className)(*argumente)
+            if hasattr(classModul, '__version__'):
+                if classModul.__version__<__version__:
+                    self.logger.warning("Version of %s is %s and can by to low"%(devicePackage,classModul.__version__))
+                else:
+                    self.logger.info( "Version of %s is %s"%(devicePackage,classModul.__version__))
+            else:
+                self.logger.warning("package %s has no version Info"%(devicePackage))
+        except:
+            self.logger.error("can not add package %s as deviceID %s"%(devicePackage,device['deviceID']['value']),exc_info=True)
+    
+    def __loadPackage(self,devicePackage):
+        self.logger.info("try to load %s"%(devicePackage))
+        try:
+            classModul = importlib.import_module(devicePackage)
+            return classModul  
+        except:
+            self.logger.error("can not load package %s"%(devicePackage))
+            raise
+            
+    def __copyNewDevice(self,devicePath,deviceType):
+        self.logger.info("copy new device type %s from default path: %s"%(deviceType,devicePath))
+        try:
+            deviceJsonName="%s%s.json"%(devicePath,deviceType)
+            devicefileName="%s%s.py"%(devicePath,deviceType)
+            temp={}
+            temp['attribute']={}
+            self.writeJSON(deviceJsonName,temp)
+            
+            pythonFile = open(os.path.normpath(devicefileName),"w") 
             pythonFile.write("\'\'\'\nCreated on %s\n"%(time.strftime("%d.%m.%Y")))
             pythonFile.write("@author: uschoen\n\n")
             pythonFile.write("\'\'\'\n")
-            pythonFile.write("from hmcDevices import defaultDevice\n\n")
+            pythonFile.write("from hmc.devices.hmcDevices import device\n\n")
             pythonFile.write("__version__=\"%s\"\n\n"%(__version__))
             pythonFile.write("\n")
-            pythonFile.write("class device(defaultDevice):\n")
+            pythonFile.write("class device(device):\n")
             pythonFile.write("    def _name_(self):\n")
-            pythonFile.write("        return \"%s\"\n"%(typ))
+            pythonFile.write("        return \"%s\"\n"%(deviceType))
             pythonFile.close()
         except:
-            self.logger.error("can not copy device type %s"%(typ),exc_info=True)
+            self.logger.error("can not copy device type %s"%(deviceType),exc_info=True)
         
         
         

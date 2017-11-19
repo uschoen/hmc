@@ -2,9 +2,6 @@
     "onewire@hostname": {
         "class": "sensor", 
         "config": {
-            "devices": {}, 
-            "gateway": "onewire", 
-            "host": "hostname", 
             "intervall": 60, 
             "path": "/sys/bus/w1/devices/", 
             "tempDiv": 0.5, 

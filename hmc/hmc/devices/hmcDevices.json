@@ -63,9 +63,14 @@
               		},
                "typ":
                   	{
-                  			"value":"defaultDevice",
+                  			"value":"hmcDevices",
                   			"typ":"string"
                   	},
+                "pakage":
+                	{
+                			"value":"hmc.devices",
+                			"typ":"string"
+                	},
               "lastupdate":
               		{
               				"value":"0",

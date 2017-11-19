@@ -35,9 +35,10 @@ class coreGateways():
     def addGateway(self,gatewayName,config):
         self.logger.info("add gateway %s"%(gatewayName))
         if self.eventHome(gatewayName): 
-            pakage="gateways.%s.%s"%(config['pakage'],config['modul'])
-            self.logger.info("try to load gateway: %s  with pakage: %s"%(gatewayName,pakage))
+            pakage="gateways.%s.%s"%(config['package'],config['modul'])
+            self.logger.info("try to load gateway: %s  with package: %s"%(gatewayName,pakage))
             tempconfig=config['config']
+            tempconfig['package']=config['package']
             tempconfig.update(self.args['global'])
             ARGUMENTS = (tempconfig,self)  
             try:

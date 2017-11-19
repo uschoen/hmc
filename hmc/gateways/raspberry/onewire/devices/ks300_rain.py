@@ -3,13 +3,13 @@ Created on 05.12.2016
 
 @author: uschoen
 '''
-from hmcDevices import defaultDevice
+from hmc.devices.hmcDevices import device
 from time import time,sleep
 
 
 __version__="2.0"
 
-class device(defaultDevice):
+class device(device):
     '''
     classdocs
     '''   

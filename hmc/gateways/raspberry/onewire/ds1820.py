@@ -138,7 +138,10 @@ class sensor(threading.Thread):
                               },
                     "host":{
                                 "value":self.__args['host']
-                            }
+                            },
+                    "package":{
+                                "value":self.__args['package']
+                        }
                    }
         try:
             if self.__core.deviceExists(tempSensor["deviceID"]['value']):
