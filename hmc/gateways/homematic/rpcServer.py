@@ -20,9 +20,9 @@ import logging
 
 
 
-from time import localtime, strftime, sleep, time
-from datetime import datetime
-from getpass import fallback_getpass
+from time import sleep, time
+
+
 
 
 class hmc_rpc_callback:
@@ -30,8 +30,8 @@ class hmc_rpc_callback:
         self.__core=core
         self.__config=parms
         self.__timer=timer
-        self.__config['host']=str(socket.gethostbyaddr(socket.gethostname())[0])
         self.logger=logging.getLogger(__name__) 
+    
     def event(self, interface_id, deviceID, chanel, value,*unkown):
         self.__timer()
         self.logger.debug("event: interface_id = %s, address: %s, value_key = %s, value = %s" % ( interface_id,deviceID, chanel, str(value) ))
@@ -41,35 +41,68 @@ class hmc_rpc_callback:
             self.logger.info("add new devicesID:%s"%(deviceID))       
             self.__core.addDevice(deviceID,typ)
         self.__core.setValue(deviceID,value)
+    
     def listMethods(self,*args):
         self.__timer()
-        self.logger.error("listMethods")
-        print "methode"
+        self.logger.info("call listMethods for interfaceID %s"%(args))
         return ''
+    
     def listDevices(self,*args):
         self.__timer()
-        self.logger.error("listDevices")
-        for arg in args:
-            self.logger.error("listDevices %s"%(arg))
-            print "listdevice"
+        self.logger.info("call listDevices for interfaceID %s"%(args))
         return ''
-    def newDevices(self, interface_id, allDevices):
+    
+    def newDevices(self, interfaceID, allDevices):
         self.__timer()
-        self.logger.debug("get newDevices ")
+        self.logger.debug("call newDevices for interfaceID:%s"%(interfaceID))
         for device in allDevices:
+            self.logger.debug("%s"%(device))
             if device['PARENT']=="":
                 self.logger.debug("ignore type is parent")
-            else:
-                typ=("%s_%s"%(device['PARENT_TYPE'],device['TYPE']))      # 'PARENT_TYPE': 'HMW-IO-12-Sw7-DR'      
-                                                                        # 'TYPE': 'MAINTENANCE'                                        """
-                deviceAddress=device['ADDRESS']                         # 'ADDRESS': 'JEQ0149163:0' 
-                if deviceAddress not in  self.__devices:
-                    self.__devices[deviceAddress]={}
-                self.__devices[deviceAddress]['typ']=typ
-                self.logger.debug("add internel device address %s with typ %s"%(deviceAddress,self.__devices[deviceAddress]['typ']))
+                continue
+            deviceID="%s@%s.%s"%(device['ADDRESS'],self.__config['gateway'],self.__config['host'])
+            try:
+                if not self.__core.deviceExists(deviceID):
+                    self.__addDevice(device)
+                else:
+                    self.logger.info("deviceID is exist: %s"%(deviceID)) 
+            except:
+                self.logger.warning("can not add deviceID: %s"%(deviceID), exc_info=True) 
+                  
         return ''
     
-    
+    def __addDevice(self,device):
+        try:
+            deviceID="%s@%s.%s"%(device['ADDRESS'],self.__config['gateway'],self.__config['host'])
+            self.logger.info("add  newDevices:%s"%(deviceID))
+            hmcDevice={
+                    "gateway":{
+                               "value":"%s"%(self.__config['gateway'])
+                              },
+                    "deviceID":{
+                               "value":deviceID
+                              },
+                    "enable":{
+                               "value":True
+                              },
+                    "connected":{
+                               "value":True
+                              },
+                    "value":{
+                               "value":0
+                              },
+                    "typ":{
+                               "value":"%s_%s"%(device['PARENT_TYPE'],device['TYPE'])
+                              },
+                    "host":{
+                                "value":self.__config['host']
+                            }
+                   }  
+            self.logger.info("add deviceID %s to core"%(hmcDevice["deviceID"]['value']))
+            self.__core.addDevice(hmcDevice)
+        except:
+            self.logger.warning("can not add deviceID: %s"%(deviceID), exc_info=True) 
+        
 
 class server(threading.Thread):
     '''
