@@ -5,9 +5,8 @@ Created on 05.12.2016
 '''
 __version__="2.0"
 
-from time import localtime, strftime,time
-from datetime import datetime
-import json,re,socket
+from time import time
+import json
 import logging
 
 class defaultDevice(object):
@@ -25,7 +24,6 @@ class defaultDevice(object):
         self._attribute.update(self._load_attribute("hmc/hmcDevices/hmcDevices.json"))
         self._attribute.update(self._load_attribute("hmc/hmcDevices/"+self._name_()+".json"))
         self._attribute.update(arg)
-        self.host=socket.gethostbyaddr(socket.gethostname())[0]
         self.logger.debug("build %s instance"%(self._name_()))
         if adding:
             self._oncreate_event()

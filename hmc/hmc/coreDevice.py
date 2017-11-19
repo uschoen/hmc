@@ -6,8 +6,8 @@ Created on 08.10.2017
 __version__ = "2.0"
 
 from hmcDevices import *
-import importlib,copy
-import sys
+import importlib,copy,time
+
 
 class coreDevices ():
     '''
@@ -140,6 +140,7 @@ class coreDevices ():
         except ImportError:
             try:
                 self.logger.warning("deviceTyp %s no found use hmcDefault typ"%(device['typ']['value']))
+                self.__copyNewDevice(device['typ']['value'])
                 pakageName="hmc.hmcDevices.hmcDevices"
                 module = importlib.import_module(pakageName)
                 className = "defaultDevice"
@@ -157,3 +158,26 @@ class coreDevices ():
         except :
             self.logger.critical("can not load device",exc_info=True)
             raise Exception
+    
+    def __copyNewDevice(self,typ):
+        self.logger.info("copy new device type %s from default"%(typ))
+        try:
+            deviceJsonName="hmc/hmcDevices/%s.json"%(typ)
+            devicefileName="hmc/hmcDevices/%s.py"%(typ)
+            self.writeJSON(deviceJsonName,self.loadJSON("hmc/hmcDevices/hmcDevices.json"))
+            pythonFile = open(devicefileName,"w") 
+            pythonFile.write("\'\'\'\nCreated on %s\n"%(time.strftime("%d.%m.%Y")))
+            pythonFile.write("@author: uschoen\n\n")
+            pythonFile.write("\'\'\'\n")
+            pythonFile.write("from hmcDevices import defaultDevice\n\n")
+            pythonFile.write("__version__=\"%s\"\n\n"%(__version__))
+            pythonFile.write("\n")
+            pythonFile.write("class device(defaultDevice):\n")
+            pythonFile.write("    def _name_(self):\n")
+            pythonFile.write("        return \"%s\"\n"%(typ))
+            pythonFile.close()
+        except:
+            self.logger.error("can not copy device type %s"%(typ),exc_info=True)
+        
+        
+        
