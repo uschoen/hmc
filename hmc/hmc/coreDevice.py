@@ -9,7 +9,7 @@ TODO: changing add device.If device type not exists copy default device type to 
 __version__ = "2.0"
 
 import importlib,copy,time,os
-from _ast import Module
+
 
 
 
@@ -47,7 +47,18 @@ class coreDevices ():
         except:
             self.logger.error("can not restore device:%s"%(device),exc_info=True)
             raise Exception
-
+    
+    def ifDeviceAttributeExist(self,deviceID,attribute):
+        self.logger.info("if attribute %s for device id %s available"%(attribute,deviceID))
+        try:
+            if not deviceID in self.devices:
+                self.logger.error("device id %s not existing"%(deviceID))
+                raise Exception
+            return self.devices[deviceID].ifAttributeExist(attribute)
+        except:
+            self.logger.error("can not check if attribute %s for device id %s available"%(attribute,deviceID),exc_info=True)
+            raise
+        
     def setDeviceAttribute(self,deviceID,attribute,value):
         self.logger.info("set attribute %s for device id %s value %s"%(attribute,deviceID,value))
         try:

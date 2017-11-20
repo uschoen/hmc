@@ -64,23 +64,31 @@ class device(object):
         return attribute_list
     '''
     add attribute
-    internel function
     '''    
-    def addAttribute(self,parameter,value):
+    def addAttribute(self,attribute):
         self.logger.debug("set sensor data")
+        if attribute.key()[0] in self._attribute:
+            self.logger.error("attribute: %s exist"%(attribute))
+            raise
+    
+    def ifAttributeExist(self,attribute):
+        if attribute in self._attribute:
+            return True
+        return False
     '''
-    get value of attribut
+    get value of attribute
     public function
      '''    
     def getAttributeValue(self,attribute):
-        self.logger.debug("get attribut value for:%s"%(attribute))
+        self.logger.debug("get attribute value for:%s"%(attribute))
         try:
             if not attribute in self._attribute:
-                self.logger.error("can not find attribut:%s "%(attribute))
+                self.logger.error("can not find attribute:%s "%(attribute))
                 raise Exception
             return self._attribute[attribute]['value']
         except:
             raise Exception
+    
     '''
      set value of attribute
      public function
