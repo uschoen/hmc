@@ -6,7 +6,7 @@ Created on 05.12.2016
 __version__="2.0"
 
 from time import time
-import json
+import json,os
 import logging
 
 
@@ -22,11 +22,18 @@ class device(object):
         self.__eventHandlerList=eventHandlerList
         self.logger=logging.getLogger(__name__)
         self._attribute={}
-        packagePath=arg["package"]["value"]
-        self._attribute.update(self._load_attribute("hmc/devices/hmcDevices.json"))
-        jsonPath="gateways/%s/devices/%s.json"%(packagePath.replace(".", "/"),self._name_())
-        self._attribute.update(self._load_attribute(jsonPath))
-        self._attribute.update(arg)
+        
+        try:
+            packagePath=arg["package"]["value"]
+            attribute=self._loadJSON("hmc/devices/hmcDevices.json")
+            self._attribute.update(attribute['attribute'])
+            jsonPath="gateways/%s/devices/%s.json"%(packagePath.replace(".", "/"),self._name_())
+            attribute=self._loadJSON(jsonPath)
+            self._attribute.update(attribute['attribute'])
+            self._attribute.update(arg)
+        except:
+            self.logger.error("can not load attribute, %s can not build"%(self._name_()))
+            raise
         self.logger.debug("build %s instance"%(self._name_()))
         if adding:
             self._oncreate_event()
@@ -136,18 +143,39 @@ class device(object):
     def _name_(self):
         return "hmcDevices"
     
-    def _load_attribute(self,file):
-        self.logger.debug("load attribute  "+file)  
+    def _writeJSON(self,filename,data={}):
+        self.logger.info("write configuration to %s"%(filename))
         try:
-            with open(file) as json_data_file:
-                data = json.load(json_data_file)
-                return data['attribute'] 
+            with open(os.path.normpath(filename),'w') as outfile:
+                json.dump(data, outfile,sort_keys=True, indent=4)
+                outfile.close()
         except IOError:
-            self.logger.error("can not find "+self._name_()+".json file")   
-            raise 
-        except :
-            self.logger.error("can not load "+self._name_()+".json file") 
+            self.logger.error("can not find file: %s "%(os.path.normpath(filename)), exc_info=True)
             raise
+        except ValueError:
+            self.logger.error("error in find file: %s "%(os.path.normpath(filename)), exc_info=True)
+            raise
+        except:
+            self.logger.error("unkown error:", exc_info=True)
+            raise
+                       
+    def _loadJSON(self,filename):
+        '''
+        loading configuration file
+        '''
+        try:
+            with open(os.path.normpath(filename)) as jsonDataFile:
+                dateFile = json.load(jsonDataFile)
+            return dateFile 
+        except IOError:
+            self.logger.error("can not file: %s "%(os.path.normpath(filename)), exc_info=True)
+            raise
+        except ValueError:
+            self.logger.error("error in file: %s "%(os.path.normpath(filename)), exc_info=True)
+            raise
+        except:
+            self.logger.error("unkown error",exc_info=True)
+            raise 
     '''    
     
     
