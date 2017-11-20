@@ -43,7 +43,7 @@ class coreDevices ():
                 self.logger.error("deviceID  exists :%s"%(device['deviceID']['value']))
                 raise Exception 
             self.logger.info("restore device with device id %s and typ:%s"%(device['deviceID']['value'],device['typ']['value']))
-            self.__buildDevice(copy.deepcopy(device))
+            self.__buildDevice(copy.deepcopy(device),False)
         except:
             self.logger.error("can not restore device:%s"%(device),exc_info=True)
             raise Exception
@@ -79,7 +79,7 @@ class coreDevices ():
                 self.logger.error("deviceID  exists :%s"%(device['deviceID']['value']))
                 raise Exception 
             self.logger.info("add device with device id %s and typ:%s"%(device['deviceID']['value'],device['typ']['value']))
-            self.__buildDevice(copy.deepcopy(device))
+            self.__buildDevice(copy.deepcopy(device),True)
             self.updateRemoteCore(False,device['deviceID']['value'],'addDevice',device)
             '''
             # on events
@@ -101,7 +101,7 @@ class coreDevices ():
             self.logger.debug("update device %s"%(device['deviceID']['value']))
             if device['deviceID']['value'] in self.devices:
                 del self.devices[device['deviceID']['value']]
-            self.__buildDevice(copy.deepcopy(device))
+            self.__buildDevice(copy.deepcopy(device),False)
             self.updateRemoteCore(False,device['deviceID']['value'],'updateDevice',device)
         except:
             self.logger.error("can not update device %s"%(device['deviceID']['value']),exc_info=True)  
@@ -126,11 +126,11 @@ class coreDevices ():
             object_list.append(object_id)
         return object_list
     
-    def __buildDevice(self,device):
+    def __buildDevice(self,device,adding=False):
         self.logger.info("add new device type %s"%(device['typ']['value']))
         classModul=False
         DEFAULTDEVICE="hmc.devices.hmcDevices"
-        argumente=(device,self.eventHandler)
+        argumente=(device,self.eventHandler,adding)
         className = "device"
         devicePackage=DEFAULTDEVICE
         if "package" in device:
