@@ -56,7 +56,7 @@ class coreBase():
     def writeJSON(self,filename,data={}):
         self.logger.info("write configuration to %s"%(filename))
         try:
-            with open(filename,'w') as outfile:
+            with open(os.path.normpath(filename),'w') as outfile:
                 json.dump(data, outfile,sort_keys=True, indent=4)
                 outfile.close()
         except IOError:
@@ -65,7 +65,7 @@ class coreBase():
         except ValueError:
             self.logger.error("error in find file: %s "%(os.path.normpath(filename)), exc_info=True)
             raise
-        except Exception,e:
+        except:
             self.logger.error("unkown error:", exc_info=True)
             raise
                        
@@ -78,14 +78,12 @@ class coreBase():
                 dateFile = json.load(jsonDataFile)
             return dateFile 
         except IOError:
-            self.logger.error("can not file: %s "%(os.path.normpath(filename)))
+            self.logger.error("can not file: %s "%(os.path.normpath(filename)), exc_info=True)
             raise
         except ValueError:
-            e = sys.exc_info()[1]
-            self.logger.error("error in file: %s "%(os.path.normpath(filename)))
-            self.logger.error("json: %s "%(e))
+            self.logger.error("error in file: %s "%(os.path.normpath(filename)), exc_info=True)
             raise
-        except Exception,e:
+        except:
             self.logger.error("unkown error",exc_info=True)
             raise         
     
