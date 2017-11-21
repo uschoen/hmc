@@ -69,6 +69,7 @@ class hmc_rpc_callback:
                 self.logger.warning("can not add deviceID: %s"%(deviceID), exc_info=True) 
                   
         return ''
+    
     def __defaultConfig(self):
         attribute={
             "autoAttribut":True,
@@ -95,6 +96,7 @@ class hmc_rpc_callback:
                 pass
             except:
                 pass
+            
     def __addDevice(self,device):
         try:
             deviceID="%s@%s.%s"%(device['ADDRESS'],self.__config['gateway'],self.__config['host'])
