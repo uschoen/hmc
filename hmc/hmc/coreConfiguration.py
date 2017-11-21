@@ -122,20 +122,30 @@ class coreConfiguration():
         self.CoreClientsFile(path+self.args['confFile']['remoteCore'])
         
     def writeEventHandlerFile(self,filename=False):
+        if len(self.eventHandlerCFG)==0:
+            self.logger.warning("can not write event handler, lenght is 0")
+            return
         if not filename:
             path="%s%s/%s"%(self.args['confFile']['basePath'],self.args['global']['host'],self.args['confFile']['filePath'])
             filename=path+self.args['confFile']['eventHandler']
         self.logger.info("write event handler configuration to %s"%(filename))
         self.writeJSON(filename,self.eventHandlerCFG)
+        
     
     def writeGatewayFile(self,filename=False):
+        if len(self.gatewaysCFG)==0:
+            self.logger.warning("can not write gateways, lenght is 0")
+            return
         if not filename:
             path="%s%s/%s"%(self.args['confFile']['basePath'],self.args['global']['host'],self.args['confFile']['filePath'])
             filename=path+self.args['confFile']['gateways']
         self.logger.info("write gateway configuration to %s"%(filename))
         self.writeJSON(filename,self.gatewaysCFG)
-    
+        
     def CoreClientsFile(self,filename=False):
+        if len(self.coreClientsCFG)==0:
+            self.logger.warning("can not write core Clients, lenght is 0")
+            return
         if not filename:
             path="%s%s/%s"%(self.args['confFile']['basePath'],self.args['global']['host'],self.args['confFile']['filePath'])
             filename=path+self.args['confFile']['remoteCore']
@@ -143,11 +153,15 @@ class coreConfiguration():
         self.writeJSON(filename,self.coreClientsCFG)
     
     def writeDefaultEventHandlerFile(self,filename=False):
+        if len(self.defaultEventHandler)==0:
+            self.logger.warning("can not write default event handler, lenght is 0")
+            return
         if not filename:
             path="%s%s/%s"%(self.args['confFile']['basePath'],self.args['global']['host'],self.args['confFile']['filePath'])
             filename=path+self.args['confFile']['defaultEvent']
-        self.logger.info("write default event hadnler configuration to %s"%(filename))
+        self.logger.info("write default event handler configuration to %s"%(filename))
         self.writeJSON(filename,self.defaultEventHandler)
+        
     
     def writeDevicesFile(self,filename=False):
         if not filename:
