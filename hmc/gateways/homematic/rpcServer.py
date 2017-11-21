@@ -15,7 +15,7 @@ import xmlrpclib,socket
 from SimpleXMLRPCServer import SimpleXMLRPCServer
 from SimpleXMLRPCServer import SimpleXMLRPCRequestHandler
 import urllib2,xmltodict
-
+from random import randint
 import logging
 
 
@@ -69,7 +69,32 @@ class hmc_rpc_callback:
                 self.logger.warning("can not add deviceID: %s"%(deviceID), exc_info=True) 
                   
         return ''
+    def __defaultConfig(self):
+        attribute={
+            "autoAttribut":True,
+            "name":"hmc_rpc_rf_default",
+            "hm_ip":"127.0.0.1",
+            "hm_port":"2000",
+            "hm_interface_id":randint(100,999),
+            "rpc_port":"5050",
+            "rpc_ip":"127.0.0.0",
+            "gateway":"hmc_rpc_rf",
+            "timeout":280}
+        
+        return attribute
     
+    def __defaultAttribute(self):
+        attribute={
+                    'value':"",
+                    'type':"var"}
+        return attribute
+    
+    def __addAttribute(self,attribute):
+        if self.__config['autoAttribut']:
+            try:
+                pass
+            except:
+                pass
     def __addDevice(self,device):
         try:
             deviceID="%s@%s.%s"%(device['ADDRESS'],self.__config['gateway'],self.__config['host'])
