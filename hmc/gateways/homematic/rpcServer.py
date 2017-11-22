@@ -32,16 +32,33 @@ class hmc_rpc_callback:
         self.__timer=timer
         self.logger=logging.getLogger(__name__) 
     
-    def event(self, interface_id, deviceID, chanel, value,*unkown):
+    def event(self, interfaceID, device, attribute, value,*unkown):
+        deviceID=unkown
+        attribute=attribute.lower()
         self.__timer()
-        self.logger.debug("event: interface_id = %s, address: %s, value_key = %s, value = %s" % ( interface_id,deviceID, chanel, str(value) ))
-        deviceID=("%s_%s@%s.%s"%(deviceID,chanel,self.__config['gateway'],self.__config['host']))  
-        if deviceID not in self.__core.getAllDeviceId():
-            typ=self.__devices[deviceID]['typ']
-            self.logger.info("add new devicesID:%s"%(deviceID))       
-            self.__core.addDevice(deviceID,typ)
-        self.__core.setValue(deviceID,value)
-    
+        try:
+            self.logger.debug("event: interfaceID = %s, device: %s, attribute = %s, value = %s" % ( interfaceID,device, attribute, str(value) ))
+            deviceID=("%s@%s.%s"%(device,self.__config['gateway'],self.__config['host']))  
+            self.logger.debug("deviceID %s"%(deviceID))
+        except:
+            self.logger.error("error can not add event", exc_info=True)
+            return''
+        if not self.__core.ifDeviceExists(deviceID):
+            self.logger.error("deviceID %s is not exists"%(deviceID))
+            return''
+        try:
+            if self.__config['autoAttribut']:
+                if not self.__core.ifDeviceAttributeExist(deviceID,attribute):
+                    attributeItem=self.__defaultAttribute(attribute)
+                    self.__core.addDeviceAttribute(deviceID,attributeItem)
+        except:
+            self.logger.error("error to add attribute %s for deviceID %s "%(attribute,deviceID), exc_info=True)
+            return ''
+        try:
+            self.__core.setDeviceAttribute(deviceID,attribute,value)
+        except:
+            self.logger.error("error can not  add value %s for attribute %s for deviceID %s "%(value,attribute,deviceID), exc_info=True)
+        return ''
     def listMethods(self,*args):
         self.__timer()
         self.logger.info("call listMethods for interfaceID %s"%(args))
@@ -61,34 +78,22 @@ class hmc_rpc_callback:
                 continue
             deviceID="%s@%s.%s"%(device['ADDRESS'],self.__config['gateway'],self.__config['host'])
             try:
-                if not self.__core.deviceExists(deviceID):
+                if not self.__core.ifDeviceExists(deviceID):
                     self.__addDevice(device)
                 else:
                     self.logger.info("deviceID is exist: %s"%(deviceID)) 
             except:
                 self.logger.warning("can not add deviceID: %s"%(deviceID), exc_info=True) 
-                  
         return ''
-    
-    def __defaultConfig(self):
-        attribute={
-            "autoAttribut":True,
-            "name":"hmc_rpc_rf_default",
-            "hm_ip":"127.0.0.1",
-            "hm_port":"2000",
-            "hm_interface_id":randint(100,999),
-            "rpc_port":"5050",
-            "rpc_ip":"127.0.0.0",
-            "gateway":"hmc_rpc_rf",
-            "timeout":280}
-        
-        return attribute
-    
-    def __defaultAttribute(self):
-        attribute={
-                    'value':"",
-                    'type':"var"}
-        return attribute
+     
+    def __defaultAttribute(self,attribute):
+        attribute=attribute.lower()
+        tmpAttribute={
+                    attribute:{
+                        'value':"",
+                        'type':"var"}
+                   }
+        return tmpAttribute
     
     def __addAttribute(self,attribute):
         if self.__config['autoAttribut']:
@@ -146,10 +151,12 @@ class server(threading.Thread):
         self.__core=core
         self.__timer=int(time())
         self.__timeoutnow=False
-        self.__config=params
+        self.__config=self.__defaultConfig()
+        self.__config.update(params)
         self.__config['host']=str(socket.gethostbyaddr(socket.gethostname())[0])
         self.logger=logging.getLogger(__name__) 
         self.logger.debug("build  %s instance"%(__name__))
+    
     def run(self):
         self.logger.info( "start thread")
         while not self.__adding_server():
@@ -173,7 +180,21 @@ class server(threading.Thread):
                     self.resetTimer()
             sleep(1) 
         self.logger.warning("thread %s stop"%(__name__))
+    
+    def __defaultConfig(self):
+        attribute={
+            "autoAttribut":True,
+            "name":"hmc_rpc_rf_default",
+            "hm_ip":"127.0.0.1",
+            "hm_port":"2000",
+            "hm_interface_id":randint(100,999),
+            "rpc_port":5050+randint(0,100),
+            "rpc_ip":"127.0.0.0",
+            "gateway":"hmc_rpc_rf",
+            "timeout":280}
         
+        return attribute
+       
     def __sendcommand(self):
         self.logger.error("send messages to homematic")
         HMurl=self.__config['hmXmlUrl']

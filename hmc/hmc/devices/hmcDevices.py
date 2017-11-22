@@ -43,7 +43,8 @@ class device(object):
      public function
     '''
     def delete(self):
-        self.logger.info("delete device %s"%(self._attribute['deviceID']['value']))       
+        self.logger.info("delete device %s"%(self._attribute['deviceID']['value']))    
+        self.logger.warning("delete device not implemnt")       
         self._ondelete_event()
     '''
     ####################
@@ -67,10 +68,13 @@ class device(object):
     '''    
     def addAttribute(self,attribute):
         self.logger.debug("set sensor data")
-        if attribute.key()[0] in self._attribute:
+        if (attribute.keys()[0]) in self._attribute:
             self.logger.error("attribute: %s exist"%(attribute))
             raise
-    
+        print (self._attribute)
+        self._attribute.update(attribute)   
+        print (self._attribute)
+        
     def ifAttributeExist(self,attribute):
         if attribute in self._attribute:
             return True

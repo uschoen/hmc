@@ -47,8 +47,21 @@ class coreDevices ():
         except:
             self.logger.error("can not restore device:%s"%(device),exc_info=True)
             raise Exception
-    
+        
+    def addDeviceAttribute(self,deviceID,attribute):
+        self.logger.info("add attribute %s for device id %s"%(attribute,deviceID))
+        try:
+            if not deviceID in self.devices:
+                self.logger.error("device id %s not existing"%(deviceID))
+                raise
+            self.devices[deviceID].addAttribute(attribute)
+            self.updateRemoteCore(False,deviceID,'addDeviceAttribute',deviceID,attribute)
+        except:
+            self.logger.error("can not add attribute %s for deviceID %s"%(attribute,deviceID))
+            raise
+           
     def ifDeviceAttributeExist(self,deviceID,attribute):
+        attribute=attribute.lower()
         self.logger.info("if attribute %s for device id %s available"%(attribute,deviceID))
         try:
             if not deviceID in self.devices:
@@ -60,11 +73,12 @@ class coreDevices ():
             raise
         
     def setDeviceAttribute(self,deviceID,attribute,value):
+        attribute=attribute.lower()
         self.logger.info("set attribute %s for device id %s value %s"%(attribute,deviceID,value))
         try:
             if not deviceID in self.devices:
                 self.logger.error("device id %s not existing"%(deviceID))
-                raise Exception
+                raise 
             self.devices[deviceID].setAttributeValue(attribute,value)
             self.updateRemoteCore(False,deviceID,'setDeviceAttribute',deviceID,attribute,value)
         except:
@@ -72,6 +86,7 @@ class coreDevices ():
             raise  
     
     def getDeviceAttributeValue(self,deviceID,attribute):
+        attribute=attribute.lower()
         try: 
             if deviceID not in self.devices:
                 self.logger.error("object id %s not existing"%(deviceID))
@@ -99,13 +114,17 @@ class coreDevices ():
         except:
             self.logger.error("can not add device id %s"%(device['deviceID']['value']),exc_info=True)
             raise Exception
-       
-    def deviceExists(self,deviceID):   
+    
+    def ifDeviceExists(self,deviceID):   
         if deviceID in self.devices:
             self.logger.debug("device %s is exists"%(deviceID))
             return True
         self.logger.debug("device %s is not exists"%(deviceID))
-        return False
+        return False   
+    
+    def deviceExists(self,deviceID):   
+        self.logger.warning("deviceExists is a old function, use ifDeviceExists")
+        return self.ifDeviceExists(deviceID)
     
     def updateDevice(self,device):
         try:
