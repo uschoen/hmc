@@ -78,7 +78,7 @@ class coreBase():
                 dateFile = json.load(jsonDataFile)
             return dateFile 
         except IOError:
-            self.logger.error("can not file: %s "%(os.path.normpath(filename)), exc_info=True)
+            self.logger.error("can not find file: %s "%(os.path.normpath(filename)), exc_info=True)
             raise
         except ValueError:
             self.logger.error("error in file: %s "%(os.path.normpath(filename)), exc_info=True)
