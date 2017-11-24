@@ -1,3 +1,16 @@
 {
-    "attribute": {}
+    "attribute": {
+        "press_long": {
+            "type": "var", 
+            "value": ""
+        }, 
+        "state": {
+            "type": "var", 
+            "value": ""
+        }, 
+        "working": {
+            "type": "var", 
+            "value": ""
+        }
+    }
 }

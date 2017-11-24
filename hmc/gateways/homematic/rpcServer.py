@@ -73,6 +73,7 @@ class hmc_rpc_callback:
         self.__timer()
         self.logger.debug("call newDevices for interfaceID:%s"%(interfaceID))
         for device in allDevices:
+            self.__timer()
             if device['PARENT']=="":
                 self.logger.debug("ignore type is parent")
                 continue

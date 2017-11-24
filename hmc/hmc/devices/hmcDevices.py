@@ -6,8 +6,9 @@ Created on 05.12.2016
 __version__="2.0"
 
 from time import time
-import json,os
+import json,os,copy
 import logging
+from _hashlib import new
 
 
 class device(object):
@@ -27,8 +28,8 @@ class device(object):
             packagePath=arg["package"]["value"]
             attribute=self._loadJSON("hmc/devices/hmcDevices.json")
             self._attribute.update(attribute['attribute'])
-            jsonPath="gateways/%s/devices/%s.json"%(packagePath.replace(".", "/"),self._name_())
-            attribute=self._loadJSON(jsonPath)
+            self._jsonPath="gateways/%s/devices/%s.json"%(packagePath.replace(".", "/"),self._name_())
+            attribute=self._loadJSON( self._jsonPath)
             self._attribute.update(attribute['attribute'])
             self._attribute.update(arg)
         except:
@@ -71,10 +72,17 @@ class device(object):
         if (attribute.keys()[0]) in self._attribute:
             self.logger.error("attribute: %s exist"%(attribute))
             raise
-        print (self._attribute)
         self._attribute.update(attribute)   
-        print (self._attribute)
-        
+        try:
+            writeJsonVars={}
+            oldJsonvar=self._loadJSON(self._jsonPath)
+            newJsonVars=oldJsonvar['attribute']
+            newJsonVars.update(attribute)
+            writeJsonVars['attribute']=newJsonVars
+            self._writeJSON(self._jsonPath,writeJsonVars)
+                            
+        except:
+            self.logger.error("can not write new attribute file to %s"%(self._jsonPath), exc_info=True)
     def ifAttributeExist(self,attribute):
         if attribute in self._attribute:
             return True
@@ -103,7 +111,11 @@ class device(object):
                 self.logger.error("attribute %s to not exist"%(attribute))
                 raise Exception
             self.logger.debug("set attribute %s to %s"%(attribute,value))
+            oldValue=self._attribute[attribute]['value']
             self._attribute[attribute]['value']=value
+            if oldValue<>value:
+                self._onchange_event(attribute)
+            self._onrefresh_event(attribute)
         except:
             self.logger.error("can not set attribute %s to %s"%(attribute,value))
             raise Exception
@@ -123,14 +135,14 @@ class device(object):
             return
         self._attribute[eventTyp]['value'].append(eventName)
         
-    def _onchange_event(self):
-        self.logger.debug("__onchange_event: %s"%(self._attribute['deviceID']['value']))
+    def _onchange_event(self,attribute):
+        self.logger.debug("__onchange_event: %s for attribute: %s"%(self._attribute['deviceID']['value'],attribute))
         self._attribute['lastchange']['value']=int(time())
         for eventName in self._attribute["onchange_event"]["value"]:
             self.logger.debug("calling: %s event handler"%(eventName))
             self.__eventHandlerList[eventName].callback(self)
-    def _onrefresh_event(self):
-        self.logger.debug("__onrefresh_event: %s"%(self._attribute['deviceID']['value']))
+    def _onrefresh_event(self,attribute):
+        self.logger.debug("__onrefresh_event: %s for attribute: %s"%(self._attribute['deviceID']['value'],attribute))
         self._attribute['lastupdate']['value']=int(time())
         for eventName in self._attribute["onrefresh_event"]["value"]:
             self.logger.debug("calling: %s event handler"%(eventName))
@@ -170,7 +182,7 @@ class device(object):
         except:
             self.logger.error("unkown error:", exc_info=True)
             raise
-                       
+                      
     def _loadJSON(self,filename):
         '''
         loading configuration file

@@ -1,3 +1,20 @@
 {
-    "attribute": {}
+    "attribute": {
+        "state": {
+            "type": "var", 
+            "value": ""
+        }, 
+        "sticky_unreach": {
+            "type": "var", 
+            "value": ""
+        }, 
+        "unreach": {
+            "type": "var", 
+            "value": ""
+        }, 
+        "working": {
+            "type": "var", 
+            "value": ""
+        }
+    }
 }
