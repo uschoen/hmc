@@ -6,7 +6,7 @@ Created on 23.09.2017
 __version__=0.2
 
 
-import json,os,sys,re,importlib
+import json,os,re,importlib
 import logging
 
 class coreBase():
