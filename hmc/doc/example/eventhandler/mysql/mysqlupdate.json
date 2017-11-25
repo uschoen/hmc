@@ -1,0 +1,26 @@
+{
+    "mysql_statistic@default": {
+        "class": "server", 
+        "config": {
+            "db": "hmc.test", 
+            "host": "192.168.x.x", 
+            "mapping": [
+                {
+                    "value": "value"
+                }, 
+                {
+                    "device": "deviceID"
+                }, 
+                {
+                    "timestamp": "lastchange"
+                }
+            ], 
+            "password": "password", 
+            "table": "statistic", 
+            "user": "user"
+        }, 
+        "enable": false, 
+        "modul": "mapping", 
+        "pakage": "mysql"
+    }
+}
