@@ -4,6 +4,10 @@
             "type": "var", 
             "value": ""
         }, 
+        "press_short": {
+            "type": "var", 
+            "value": ""
+        }, 
         "state": {
             "type": "var", 
             "value": ""
