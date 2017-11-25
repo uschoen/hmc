@@ -5,11 +5,10 @@ Created on 28.01.2017
 '''
 __version__ = "2.0"
 
-import sys,os
-from time import localtime, strftime,time
-from datetime import datetime
-import json,base64,hashlib
+
+import json,base64,hashlib,logging
 from Crypto.Cipher import AES
+
 
 class code(object):
     '''
@@ -17,9 +16,9 @@ class code(object):
     '''
 
 
-    def __init__(self,user,password,logs):
+    def __init__(self,user,password):
     
-        self.logger=logs
+        self.logger=logging.getLogger(__name__)  
         self.verion=1
         self.user=user
         self.password=password
@@ -118,14 +117,3 @@ class code(object):
         md = hashlib.md5()
         md.update(string)
         return md.digest() 
-        
-    def log (self,level="unkown",messages="no messages"):
-        if self.logger:
-            dt = datetime.now()
-            conf={}
-            conf['package']=__name__
-            conf['level']=level
-            conf['messages']=str(messages)
-            conf['time']=strftime("%d.%b %H:%M:%S", localtime())
-            conf['microsecond']=dt.microsecond
-            self.logger.write(conf)    
