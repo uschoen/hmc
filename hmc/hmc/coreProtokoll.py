@@ -11,6 +11,7 @@ from Crypto.Cipher import AES
 from time import time
 import logging.config
 import cPickle
+from builtins import str
 
 class code(object):
     '''
@@ -27,6 +28,10 @@ class code(object):
         self.__AESmode = AES.MODE_CBC
         self.__BS = 16
         self.logger.info("corProtokoll build")
+    
+    def decode(self,calling,args):
+        self.logger.error( "old function decode, use derypt")
+        self.decrypt(calling, args)   
         
     def decrypt(self,calling,args):
         """
@@ -43,7 +48,7 @@ class code(object):
         Returns:
             a string
         """
-        self.logger.error( "start decode message")
+        self.logger.debug( "start decode message")
         try:
             body=self.__decryptBody(calling, args, self.__password)
             string=self.__decryptHeader(self.__user,body)
@@ -53,6 +58,10 @@ class code(object):
             self.logger.error( "can not decode message",exc_info=True)
             raise Exception 
     
+    def encode(self,string):
+        self.logger.error( "old function encode, use unrypt")
+        self.uncrypt(string)
+        
     def uncrypt(self,string):
         """
         encode a string with core protocol format .
