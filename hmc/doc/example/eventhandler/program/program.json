@@ -1,0 +1,15 @@
+{
+    "programm@default": {
+        "class": "server", 
+        "enable": true, 
+        "modul": "manager", 
+        "pakage": "program",
+        "config":	{
+        			"confFile":{
+ 						"basePath":"etc/",
+ 						"filePath":"database/",
+ 						"defaultEvent":"defaultEvents.json"
+ 						} 
+    				}
+    }
+}
