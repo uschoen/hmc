@@ -24,9 +24,9 @@ class server(object):
     
     def callback(self,device):
         self.logger.debug("call program manager from deviceID:%s"%(device['deviceID']['value']))
-  
-            
-            
-            
-            
+    
+    def shutdown(self):
+        self.logger.critical("%s is shutdown"%(__name__))
+        
+               
 if __name__ == "__main__":      
