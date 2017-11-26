@@ -1,9 +1,0 @@
-{
-    "programm@default": {
-        "class": "server", 
-        "enable": false, 
-        "modul": "manager", 
-        "pakage": "program",
-        "config": {} 
-    }
-}
