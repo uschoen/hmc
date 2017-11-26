@@ -1,4 +1,8 @@
 {
-       "attribute": {
-                 
-}}
+    "attribute": {
+        "state": {
+            "type": "var", 
+            "value": ""
+        }
+    }
+}
