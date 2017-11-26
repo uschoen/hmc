@@ -24,6 +24,12 @@ class coreEventHandler():
         self.defaultEventHandler[eventTyp].append(eventHandlerName)
         self.updateRemoteCore(False,eventHandlerName,'addDefaultEventhandler',eventTyp,eventHandlerName)
     
+    def shutdownAllEventhadnler(self):
+        self.logger.critical("shutdown all Eventhandler")
+        for eventhandler in self.eventHandler:
+            self.logger.critical("shutdown Eventhandler %s"%(eventhandler))
+            self.eventHandler[eventhandler].shutdown()
+        
     def addEventHandler(self,eventhandlerName,eventhandlerCFG):
         '''
          add a Event handler 

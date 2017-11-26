@@ -6,12 +6,14 @@ Created on 28.01.2017
 __version__ = "2.0"
 
 
+
 import hashlib,logging,os
 from Crypto.Cipher import AES
 from time import time
 import logging.config
 import cPickle
 from builtins import str
+
 
 class code(object):
     '''
@@ -243,3 +245,4 @@ if __name__ == "__main__":
     
     user,password,calling,args=core.uncrypt(decodeString) 
     log.debug ("user:%s password:%s calling:%s args:%s"%(user,password,calling,args))
+

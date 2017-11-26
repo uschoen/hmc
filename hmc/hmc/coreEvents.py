@@ -20,5 +20,6 @@ class coreEvents():
     def onshutdown_event(self):
         self.logger.info("core onshutdown_event is calling")
         self.shutdownAllGateways()
+        self.shutdownAllEventhadnler()
         self.writeAllConfiguration()
     
