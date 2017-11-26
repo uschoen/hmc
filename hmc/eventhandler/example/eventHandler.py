@@ -41,5 +41,7 @@ class server(object):
         function is calling from the devices for selcted events 
         like __onchange, __onrefrech etc
         '''
-           
+    def shutdown(self):
+        self.logger.critical("%s is shutdown"%(__name__))
+              
 if __name__ == "__main__":      

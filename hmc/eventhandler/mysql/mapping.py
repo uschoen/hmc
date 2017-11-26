@@ -6,9 +6,9 @@ Created on 18.12.2016
 __version__ = "2.0"
 
 
-from time import localtime, strftime,sleep
-from datetime import datetime
+from time import sleep
 import MySQLdb
+import logging
 
 class server(object):
     '''
@@ -16,7 +16,7 @@ class server(object):
     '''
 
 
-    def __init__(self,parms,core,logger=False):
+    def __init__(self,parms,core):
         '''
         Constructor
          '''
@@ -24,9 +24,10 @@ class server(object):
         self.__config={}
         self.__config.update(self.__loadDefaultArgs())
         self.__config.update(parms)
-        self.__logger=logger 
+        self.__logger=logging.getLogger(__name__)  
         self.__dbConnection=False
         self.__log("debug","build  %s instance"%(__name__))
+    
     def callback(self,device):
         if not self.__dbConnection:
             self.__dbConnect()
@@ -35,7 +36,7 @@ class server(object):
             if not self.__dbConnection.open:
                 self.__log("error","can not open mysql connection")
                 return
-        self.__log("debug","callback from device id %s"%(device.getAttributeValue('deviceID')))
+        self.__log.debug("callback from device id %s"%(device.getAttributeValue('deviceID')))
         fieldstring=""
         valuestring=""
         secound=False
@@ -49,7 +50,7 @@ class server(object):
                 fieldstring+=("`%s`"%(key))
                 valuestring+=("'%s'"%(device.getAttributeValue(fields[key])))
         sql=("INSERT INTO `%s` (%s) VALUES (%s)"%(self.__config['table'],fieldstring,valuestring))
-        self.__log("debug","build sql string:%s"%(sql))
+        self.__log.debug("build sql string:%s"%(sql))
         
         try:
             with self.__dbConnection:
@@ -62,8 +63,9 @@ class server(object):
             self.__dbConnect()
         except :
             self.__log("error","unkown Error sql:%s"%(sql))    
+    
     def __dbConnect(self):
-        self.__log("info","try connect to host:%s with user:%s table:%s"%(self.__config['host'],self.__config['user'],self.__config['db']))
+        self.__log.info("try connect to host:%s with user:%s table:%s"%(self.__config['host'],self.__config['user'],self.__config['db']))
         try:
             self.__dbConnection = MySQLdb.connect(
                                                   host=self.__config['host'],
@@ -74,7 +76,7 @@ class server(object):
             self.__dbConnection.apilevel = "2.0"
             self.__dbConnection.threadsafety = 2
             self.__dbConnection.paramstyle = "format" 
-            self.__log("info","connect succecfull")
+            self.__log.info("connect succecfull")
             return
         except MySQLdb.DataError as e:
             print("DataError"%(e))
@@ -95,8 +97,9 @@ class server(object):
                 
     def __dbClose(self):
         if self.__dbConnection:
-            self.__log("info","close database")
+            self.__log.info("close database")
             self.__dbConnection.close()    
+    
     def __loadDefaultArgs(self):
         args={"host":"127.0.0.1",
              "user":"SQLUSER",
@@ -105,20 +108,12 @@ class server(object):
              "table":"statistic",
              "mapping":[]
              }
-        return args
-    def __log (self,level="unkown",messages="no messages"):
-        if self.__logger:
-            dt = datetime.now()
-            conf={}
-            conf['package']=__name__
-            conf['level']=level
-            conf['messages']=str(messages)
-            conf['time']=strftime("%d.%b %H:%M:%S", localtime())
-            conf['microsecond']=dt.microsecond
-            self.__logger.write(conf)   
+        return args 
             
-            
-            
+    def shutdown(self):
+        self.logger.critical("%s is shutdown"%(__name__))
+        self.__dbClose()       
+        self.logger.critical("%s is down"%(__name__))    
             
 if __name__ == "__main__":            
     class logger(object):
