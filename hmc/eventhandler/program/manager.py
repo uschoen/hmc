@@ -23,7 +23,7 @@ class server(object):
         ("debug","build  %s instance"%(__name__))
     
     def callback(self,device):
-        pass
+        self.logger.debug("call program manager from deviceID:%s"%(device['deviceID']['value']))
   
             
             
