@@ -1,5 +1,9 @@
 {
-    "test_programm@host":{
-    						'set'
+    "programm@default": {
+        "class": "server", 
+        "enable": false, 
+        "modul": "manager", 
+        "pakage": "programm",
+        "config": {} 
     }
 }

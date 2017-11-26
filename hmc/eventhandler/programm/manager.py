@@ -5,9 +5,6 @@ Created on 18.12.2016
 '''
 __version__ = "2.0"
 
-
-from time import localtime, strftime,sleep
-from datetime import datetime
 import logging
 
 class server(object):
