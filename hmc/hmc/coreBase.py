@@ -114,6 +114,18 @@ class coreBase():
         except Exception,e:
             self.loggger.error("can not format pattern %s"%(pattern),exc_info=True)
             return False
+        
+    def __dirExists(self,dir):
+        self.logger.debug("check if directory %s exists"%(dir))
+        return os.path.isdir(dir)
+    
+    def _ifFileExists(self,filename):
+        self.logger.debug("check if file %s exists"%(filename))
+        return (os.path.exists(filename))
+    
+    def __makeDir(self,dir):
+        self.logger.debug("add directory %s"%(dir))
+        
     def loadModul(self,pakage,modulName,modulCFG):
         """ load python pakage/module
         
@@ -127,9 +139,7 @@ class coreBase():
         
         return: class Object
         exception: yes 
-        """
-        
-            
+        """           
         try:
             pakage=pakage+"."+modulCFG['pakage']+"."+modulCFG['modul']
             self.logger.info("try to load event handler:%s with pakage: %s"%(modulName,pakage))

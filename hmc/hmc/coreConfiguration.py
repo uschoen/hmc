@@ -3,16 +3,11 @@ Created on 23.09.2017
 
 @author: uschoen
 '''
-__version__=0.2
+__version__=2.1
 
-import sys,os
 
 class coreConfiguration():
     
-    
-    def saveCoreConfiguration(self):
-        self.logger.warning("not implement")
-        return
     def loadAllConfiguration(self):
         self.logger.info("load core configuration file")
         path="%s%s/%s"%(self.args['confFile']['basePath'],self.args['global']['host'],self.args['confFile']['filePath'])
@@ -174,6 +169,9 @@ class coreConfiguration():
             configuration[deviceID]=self.devices[deviceID].getConfiguration()
         self.writeJSON(filename,configuration)
     
+    
+        
+        
     
               
             

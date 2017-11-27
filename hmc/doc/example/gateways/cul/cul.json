@@ -1,0 +1,16 @@
+{
+"cul@rasp-server01":{
+    	"class": "sensor",
+    	"enable":true, 
+        "modul": "cul", 
+        "package": "cul",
+    	"config":{
+    		"gateway": "cul", 
+            "host": "rasp-server01",
+    		"usbport":"/dev/ttyUSB0",
+            "baudrate":"9600",
+            "timeout":1,
+            "sleeping":0.5
+         }
+	}
+}
