@@ -16,7 +16,7 @@ class sensor(threading.Thread):
     def __init__(self, parms,core):
         threading.Thread.__init__(self)
         self.__core=core
-        self.__logger=self.logger=logging.getLogger(__name__) 
+        self.__log=self.logger=logging.getLogger(__name__) 
         self.__config={}
         self.__config.update(self.__loadDefaultArgs())
         self.__config.update(parms)
@@ -26,7 +26,7 @@ class sensor(threading.Thread):
         self.__read_queue=[]
         self.running=1
         self.__USBport=False
-        self.__log.info("build  "+__name__+" instance")
+        self.__log.info("build %s instance"%(__name__))
         
     def run(self):
         try:
