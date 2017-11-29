@@ -3,15 +3,11 @@ Created on 08.10.2017
 
 @author: uschoen
 
-TODO: changing add device.If device type not exists copy default device type to new one.
 
 '''
 __version__ = "2.0"
 
 import importlib,copy,time,os
-
-
-
 
 
 class coreDevices ():
@@ -28,12 +24,6 @@ class coreDevices ():
     
     '''
     
-    def getValue(self,deviceID):
-        return self.getDeviceAttributeValue(deviceID, 'value')
-    
-    def setValue(self,deviceID,value):
-        self.setDeviceAttribute(deviceID,'value', value)
-    
     def restoreDevice(self,device):
         try:
             if not 'deviceID' in device and not 'typ' in device:
@@ -48,52 +38,52 @@ class coreDevices ():
             self.logger.error("can not restore device:%s"%(device),exc_info=True)
             raise Exception
         
-    def addDeviceAttribute(self,deviceID,attribute):
-        self.logger.info("add attribute %s for device id %s"%(attribute,deviceID))
+    def addDeviceChannel(self,deviceID,channel):
+        self.logger.info("add channel %s for device id %s"%(channel,deviceID))
         try:
             if not deviceID in self.devices:
                 self.logger.error("device id %s not existing"%(deviceID))
                 raise
-            self.devices[deviceID].addAttribute(attribute)
-            self.updateRemoteCore(False,deviceID,'addDeviceAttribute',deviceID,attribute)
+            self.devices[deviceID].addchannel(channel)
+            self.updateRemoteCore(False,deviceID,'addDeviceChannel',deviceID,channel)
         except:
-            self.logger.error("can not add attribute %s for deviceID %s"%(attribute,deviceID))
+            self.logger.error("can not add channel %s for deviceID %s"%(channel,deviceID))
             raise
            
-    def ifDeviceAttributeExist(self,deviceID,attribute):
-        attribute=attribute.lower()
-        self.logger.info("if attribute %s for device id %s available"%(attribute,deviceID))
+    def ifDeviceChannelExist(self,deviceID,channel):
+        channel=channel.lower()
+        self.logger.info("if channel %s for device id %s available"%(channel,deviceID))
         try:
             if not deviceID in self.devices:
                 self.logger.error("device id %s not existing"%(deviceID))
                 raise Exception
-            return self.devices[deviceID].ifAttributeExist(attribute)
+            return self.devices[deviceID].ifChannelExist(channel)
         except:
-            self.logger.error("can not check if attribute %s for device id %s available"%(attribute,deviceID),exc_info=True)
+            self.logger.error("can not check if channel %s for device id %s available"%(channel,deviceID),exc_info=True)
             raise
         
-    def setDeviceAttribute(self,deviceID,attribute,value):
-        attribute=attribute.lower()
-        self.logger.info("set attribute %s for device id %s value %s"%(attribute,deviceID,value))
+    def setDeviceChannel(self,deviceID,channel,value):
+        channel=channel.lower()
+        self.logger.info("set channel %s for device id %s value %s"%(channel,deviceID,value))
         try:
             if not deviceID in self.devices:
                 self.logger.error("device id %s not existing"%(deviceID))
                 raise 
-            self.devices[deviceID].setAttributeValue(attribute,value)
-            self.updateRemoteCore(False,deviceID,'setDeviceAttribute',deviceID,attribute,value)
+            self.devices[deviceID].setChannelValue(channel,value)
+            self.updateRemoteCore(False,deviceID,'setDeviceChannel',deviceID,channel,value)
         except:
-            self.logger.error("can not set attribute %s for device id %s value %s"%(attribute,deviceID,value),exc_info=True)
+            self.logger.error("can not set channel %s for device id %s value %s"%(channel,deviceID,value),exc_info=True)
             raise  
     
-    def getDeviceAttributeValue(self,deviceID,attribute):
-        attribute=attribute.lower()
+    def getDeviceChannelValue(self,deviceID,channel):
+        channel=channel.lower()
         try: 
             if deviceID not in self.devices:
                 self.logger.error("object id %s not existing"%(deviceID))
                 raise Exception
-            return self.devices[deviceID].getAttributeValue(attribute)
+            return self.devices[deviceID].getChannelValue(channel)
         except:
-            self.logger.error("can not get attribute %s for device id %s"%(attribute,deviceID),exc_info=True)
+            self.logger.error("can not get channel %s for device id %s"%(channel,deviceID),exc_info=True)
             raise 
     
     def addDevice(self,device):
@@ -137,17 +127,17 @@ class coreDevices ():
             self.logger.error("can not update device %s"%(device['deviceID']['value']),exc_info=True)  
             raise Exception
         
-    def getAllDeviceAttribute(self,deviceID): 
+    def getAllDeviceChannel(self,deviceID): 
         '''
-        return a list with all available attribute
+        return a list with all available channel
         '''
         try:
             if deviceID not in self.devices:
                 self.__log("error","object id %s not existing"%(deviceID))
                 raise Exception
-            return self.devices[deviceID].getAllAttribute()
+            return self.devices[deviceID].getAllChannel()
         except:
-            self.logger.error("can not get all attribute for deviceID %s"%(deviceID),exc_info=True)  
+            self.logger.error("can not get all channel for deviceID %s"%(deviceID),exc_info=True)  
             raise Exception
     
     def getAllDeviceId(self):  
@@ -209,7 +199,7 @@ class coreDevices ():
             deviceJsonName="%s%s.json"%(devicePath,deviceType)
             devicefileName="%s%s.py"%(devicePath,deviceType)
             temp={}
-            temp['attribute']={}
+            temp['channel']={}
             self.writeJSON(deviceJsonName,temp)
             
             pythonFile = open(os.path.normpath(devicefileName),"w") 

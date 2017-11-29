@@ -116,8 +116,8 @@ class device(object):
             oldValue=self._channel[channel]['value']
             self._channel[channel]['value']=value
             if oldValue<>value:
-                self._onchange_event(channel)
-            self._onrefresh_event(channel)
+                self._callEvent('on_change_event',channel)
+            self._callEvent('on_refrech_event',channel)
         except:
             self.logger.error("can not set channel %s to %s"%(channel,value))
             raise 
@@ -139,7 +139,7 @@ class device(object):
     
     def _callEvent(self,eventTyp,channel):
         self.logger.debug("call event: %s for channel: %s for deviceID:%s"%(eventTyp,channel,self._channel['deviceID']['value']))
-        self._channel[eventTyp]['time']=int(time())
+        self._channel[channel][eventTyp]['time']=int(time())
         
         
     def _onchange_event(self,channel):
