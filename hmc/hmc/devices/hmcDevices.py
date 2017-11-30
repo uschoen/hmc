@@ -7,6 +7,8 @@ __version__="2.0"
 
 from time import time
 import json,os,logging
+from email.policy import default
+from _hashlib import new
 
 
 
@@ -68,9 +70,14 @@ class device(object):
     '''    
     def addChannel(self,channel):
         self.logger.info("add channel %s"%(channel))
-        if (channel.keys()[0]) in self._channel:
-            self.logger.error("channel: %s is exist"%(channel))
+        channelName=channel.keys()[0]
+        if (channelName) in self._channel:
+            self.logger.error("channel: %s is exist"%(channelName))
             raise
+        newChannel={}
+        newChannel[channelName]=self._channelDefaults()
+        newChannel[channelName].update(channel[channelName])
+        
         try:
             writeJsonVars={}
             oldJsonvar=self._loadJSON(self._jsonPath)
@@ -82,6 +89,29 @@ class device(object):
         except:
             self.logger.error("can not write new channel to file %s"%(self._jsonPath), exc_info=True)
             raise
+    
+    def _channelDefaults(self):
+        channel={
+            "name":{        
+                "value":"unkown",
+                "typ":"string"},
+            "lastchange":{
+                "value":"0",
+                "typ":"int",
+                "hidden":False},
+             "lastupdate":{
+                "value":"0",
+                "typ":"int",
+                "hidden":False},
+             "create":{
+                "value":"0",
+                "typ":"int"},
+              "enable":{
+                "value":True,
+                "typ":"bool"},
+             "events":{}
+        }
+        return channel
         
     def ifChannelExist(self,channel):
         if channel in self._channel:

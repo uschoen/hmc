@@ -1,8 +1,5 @@
 {
-    "attribute": {
-        "unreach": {
-            "type": "var", 
-            "value": ""
-        }
-    }
+"device":{},
+"channel": {}
 }
+

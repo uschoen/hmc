@@ -1,20 +1,5 @@
 {
-    "attribute": {
-        "press_long": {
-            "type": "var", 
-            "value": ""
-        }, 
-        "press_short": {
-            "type": "var", 
-            "value": ""
-        }, 
-        "state": {
-            "type": "var", 
-            "value": ""
-        }, 
-        "working": {
-            "type": "var", 
-            "value": ""
-        }
-    }
+"device":{},
+"channel": {}
 }
+

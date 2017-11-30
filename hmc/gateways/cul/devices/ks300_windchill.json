@@ -1,10 +1,5 @@
 {
-       "attribute": {
-       			"rssi": 
-                    {
-                           "value":"0",
-                           "typ":"var"
-                    }
-             
-}}
+"device":{},
+"channel": {}
+}
 
