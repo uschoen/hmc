@@ -14,9 +14,16 @@
 		"type":"int"},
      "name":{
      	"value":"unkown",
-     	"type":"string"}
-     	},
-"channel": {
+     	"type":"string"},
+     "devicegroupe":[],
+     "events":{
+     	"onchange_event":[],
+        "onrefresh_event":[],
+        "onboot_event":[],
+        "oncreate_event":[],
+        "ondelete_event":[]}
+		},
+"channels": {
 	"value":{
 		"value":"0",
 		"type":"var",
@@ -38,6 +45,11 @@
 	     "name":{
 			"value":"unkown",
 	        "type":"string"},
-		 "events":{}
-			}}
+		 "events":{
+     	"onchange_event":[],
+        "onrefresh_event":[],
+        "onboot_event":[],
+        "oncreate_event":[],
+        "ondelete_event":[]}
+ }}
 }

@@ -3,7 +3,7 @@ Created on 05.12.2016
 
 @author: uschoen
 '''
-from hmc.devices.hmcDevices import device
+from hmc.devices.defaultDevice import device
 from time import sleep
 
 __version__="2.0"

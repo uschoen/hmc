@@ -112,10 +112,6 @@ class coreDevices ():
         self.logger.debug("device %s is not exists"%(deviceID))
         return False   
     
-    def deviceExists(self,deviceID):   
-        self.logger.warning("deviceExists is a old function, use ifDeviceExists")
-        return self.ifDeviceExists(deviceID)
-    
     def updateDevice(self,device):
         try:
             self.logger.debug("update device %s"%(device['deviceID']['value']))
@@ -149,7 +145,7 @@ class coreDevices ():
     def __buildDevice(self,device,adding=False):
         self.logger.info("add new device type %s"%(device['typ']['value']))
         classModul=False
-        DEFAULTDEVICE="hmc.devices.hmcDevices"
+        DEFAULTDEVICE="hmc.devices.hmcDevices_old"
         argumente=(device,self.eventHandler,adding)
         className = "device"
         devicePackage=DEFAULTDEVICE
@@ -206,7 +202,7 @@ class coreDevices ():
             pythonFile.write("\'\'\'\nCreated on %s\n"%(time.strftime("%d.%m.%Y")))
             pythonFile.write("@author: uschoen\n\n")
             pythonFile.write("\'\'\'\n")
-            pythonFile.write("from hmc.devices.hmcDevices import device\n\n")
+            pythonFile.write("from hmc.devices.defaultDeviceimport device\n\n")
             pythonFile.write("__version__=\"%s\"\n\n"%(__version__))
             pythonFile.write("\n")
             pythonFile.write("class device(device):\n")
