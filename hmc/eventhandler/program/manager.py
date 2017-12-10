@@ -29,4 +29,5 @@ class server(object):
         self.logger.critical("%s is shutdown"%(__name__))
         
                
-if __name__ == "__main__":      
+if __name__ == "__main__":   
+    pass   
