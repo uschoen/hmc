@@ -25,87 +25,106 @@ class coreDevices ():
     '''
     
     def restoreDevice(self,device):
+        '''
+        retore a dive
+        '''
         try:
-            if not 'deviceID' in device and not 'typ' in device:
-                self.logger.error("device has no deviceID  or deviceTyp device:%s"%(device))
+            if not 'deviceID' in device and not 'devicetype' in device:
+                self.logger.error("device has no deviceID  or deviceType device:%s"%(device))
                 raise Exception
-            if device['deviceID']['value'] in self.devices:
-                self.logger.error("deviceID  exists :%s"%(device['deviceID']['value']))
+            if device['deviceID'] in self.devices:
+                self.logger.error("deviceID  exists :%s"%(device['deviceID']))
                 raise Exception 
-            self.logger.info("restore device with device id %s and typ:%s"%(device['deviceID']['value'],device['typ']['value']))
+            self.logger.info("restore device with device id %s and deviceType:%s"%(device['deviceID'],device['devicetype']))
             self.__buildDevice(copy.deepcopy(device),False)
         except:
             self.logger.error("can not restore device:%s"%(device),exc_info=True)
             raise Exception
         
-    def addDeviceChannel(self,deviceID,channel):
-        self.logger.info("add channel %s for device id %s"%(channel,deviceID))
+    def addDeviceChannel(self,deviceID,channelName,channelValues):
+        '''
+        add a new channel to a device
+        '''
+        self.logger.info("add channel %s for device id %s"%(channelName,deviceID))
         try:
             if not deviceID in self.devices:
                 self.logger.error("device id %s not existing"%(deviceID))
                 raise
-            self.devices[deviceID].addchannel(channel)
-            self.updateRemoteCore(False,deviceID,'addDeviceChannel',deviceID,channel)
+            self.devices[deviceID].addchannel(channelName,channelValues)
+            self.updateRemoteCore(False,deviceID,'addDeviceChannel',deviceID,channelName,channelValues)
         except:
-            self.logger.error("can not add channel %s for deviceID %s"%(channel,deviceID))
+            self.logger.error("can not add channel %s for deviceID %s"%(channelName,deviceID))
             raise
            
-    def ifDeviceChannelExist(self,deviceID,channel):
-        channel=channel.lower()
-        self.logger.info("if channel %s for device id %s available"%(channel,deviceID))
+    def ifDeviceChannelExist(self,deviceID,channelName):
+        '''
+        check if a channel exist
+        '''
+        channelName=channelName.lower()
+        self.logger.info("check if channel %s for deviceID %s available"%(channelName,deviceID))
         try:
             if not deviceID in self.devices:
                 self.logger.error("device id %s not existing"%(deviceID))
                 raise Exception
-            return self.devices[deviceID].ifChannelExist(channel)
+            return self.devices[deviceID].ifChannelExist(channelName)
         except:
-            self.logger.error("can not check if channel %s for device id %s available"%(channel,deviceID),exc_info=True)
+            self.logger.error("can not check if channel %s for device id %s available"%(channelName,deviceID),exc_info=True)
             raise
         
-    def setDeviceChannel(self,deviceID,channel,value):
-        channel=channel.lower()
-        self.logger.info("set channel %s for device id %s value %s"%(channel,deviceID,value))
+    def setDeviceChannel(self,deviceID,channelName,value):
+        '''
+        set a channel value for a dive
+        '''
+        channelName=channelName.lower()
+        self.logger.info("set channel %s for device id %s value %s"%(channelName,deviceID,value))
         try:
             if not deviceID in self.devices:
                 self.logger.error("device id %s not existing"%(deviceID))
                 raise 
-            self.devices[deviceID].setChannelValue(channel,value)
-            self.updateRemoteCore(False,deviceID,'setDeviceChannel',deviceID,channel,value)
+            self.devices[deviceID].setChannelValue(channelName,value)
+            self.updateRemoteCore(False,deviceID,'setDeviceChannel',deviceID,channelName,value)
         except:
-            self.logger.error("can not set channel %s for device id %s value %s"%(channel,deviceID,value),exc_info=True)
+            self.logger.error("can not set channel %s for device id %s value %s"%(channelName,deviceID,value),exc_info=True)
             raise  
     
-    def getDeviceChannelValue(self,deviceID,channel):
-        channel=channel.lower()
+    def getDeviceChannelValue(self,deviceID,channelName):
+        '''
+        get a value for a device channel
+        '''
+        channelName=channelName.lower()
         try: 
             if deviceID not in self.devices:
                 self.logger.error("object id %s not existing"%(deviceID))
                 raise Exception
-            return self.devices[deviceID].getChannelValue(channel)
+            return self.devices[deviceID].getChannelValue(channelName)
         except:
-            self.logger.error("can not get channel %s for device id %s"%(channel,deviceID),exc_info=True)
+            self.logger.error("can not get channel %s for device id %s"%(channelName,deviceID),exc_info=True)
             raise 
     
     def addDevice(self,device):
+        '''
+        add a new device
+        '''
+        print (device)
         try:
-            if not 'deviceID' in device and not 'typ' in device:
-                self.logger.error("device has no deviceID  or deviceTyp device:%s"%(device))
+            if not 'deviceID' in device and not 'devicetype' in device:
+                self.logger.error("device has no deviceID  or deviceType device:%s"%(device))
                 raise Exception
-            if device['deviceID']['value'] in self.devices:
-                self.logger.error("deviceID  exists :%s"%(device['deviceID']['value']))
+            if device['deviceID'] in self.devices:
+                self.logger.error("deviceID  exists :%s"%(device['deviceID']))
                 raise Exception 
-            self.logger.info("add device with device id %s and typ:%s"%(device['deviceID']['value'],device['typ']['value']))
+            self.logger.info("add device with device id %s and typ:%s"%(device['deviceID'],device['devicetype']))
             self.__buildDevice(copy.deepcopy(device),True)
-            self.updateRemoteCore(False,device['deviceID']['value'],'addDevice',device)
-            '''
-            # on events
-            #todo
-            '''
+            self.updateRemoteCore(False,device['deviceID'],'addDevice',device)
+            #todo: add the event on create
         except:
-            self.logger.error("can not add device id %s"%(device['deviceID']['value']),exc_info=True)
+            self.logger.error("can not add device id %s"%(device['deviceID']),exc_info=True)
             raise Exception
     
-    def ifDeviceExists(self,deviceID):   
+    def ifDeviceExists(self,deviceID): 
+        '''
+        check if device exist
+        '''  
         if deviceID in self.devices:
             self.logger.debug("device %s is exists"%(deviceID))
             return True
@@ -113,14 +132,17 @@ class coreDevices ():
         return False   
     
     def updateDevice(self,device):
+        '''
+        update a exist device to a new one
+        '''
         try:
-            self.logger.debug("update device %s"%(device['deviceID']['value']))
-            if device['deviceID']['value'] in self.devices:
-                del self.devices[device['deviceID']['value']]
+            self.logger.debug("update device %s"%(device['deviceID']))
+            if device['deviceID'] in self.devices:
+                del self.devices[device['deviceID']]
             self.__buildDevice(copy.deepcopy(device),False)
-            self.updateRemoteCore(False,device['deviceID']['value'],'updateDevice',device)
+            self.updateRemoteCore(False,device['deviceID'],'updateDevice',device)
         except:
-            self.logger.error("can not update device %s"%(device['deviceID']['value']),exc_info=True)  
+            self.logger.error("can not update device %s"%(device['deviceID']),exc_info=True)  
             raise Exception
         
     def getAllDeviceChannel(self,deviceID): 
@@ -136,28 +158,34 @@ class coreDevices ():
             self.logger.error("can not get all channel for deviceID %s"%(deviceID),exc_info=True)  
             raise Exception
     
-    def getAllDeviceId(self):  
+    def getAllDeviceId(self):
+        '''
+        return a array with all device Ids
+        ''' 
         object_list=list()
         for object_id in self.devices:
             object_list.append(object_id)
         return object_list
     
     def __buildDevice(self,device,adding=False):
-        self.logger.info("add new device type %s"%(device['typ']['value']))
+        '''
+        build a new device object
+        '''
+        self.logger.info("add new device type %s"%(device['devicetype']))
         classModul=False
-        DEFAULTDEVICE="hmc.devices.hmcDevices_old"
+        DEFAULTDEVICE="hmc.devices.defaultDevice"
         argumente=(device,self.eventHandler,adding)
         className = "device"
         devicePackage=DEFAULTDEVICE
         if "package" in device:
-            self.logger.debug("find package field:%s in device"%(device['package']['value']))
-            devicePackage="gateways.%s.devices.%s"%(device['package']['value'],device['typ']['value'])
+            self.logger.debug("find package field:%s in device"%(device['package']))
+            devicePackage="gateways.%s.devices.%s"%(device['package'],device['devicetype'])
         try:
             classModul = self.__loadPackage(devicePackage)
         except:
             self.logger.error("can not load package %s"%(devicePackage))
-            devicePath="gateways/%s/devices/"%(device['package']['value'])
-            self.__copyNewDevice(devicePath,device['typ']['value'])
+            devicePath="gateways/%s/devices/"%(device['package'])
+            self.__copyNewDevice(devicePath,device['devicetype'])
             try:
                 classModul = self.__loadPackage(devicePackage)
             except:
@@ -169,7 +197,7 @@ class coreDevices ():
                     self.logger.error("can not load default package %s as fail over"%(devicePackage),exc_info=True)
                     raise
         try:
-            self.devices[device['deviceID']['value']] = getattr(classModul, className)(*argumente)
+            self.devices[device['deviceID']] = getattr(classModul, className)(*argumente)
             if hasattr(classModul, '__version__'):
                 if classModul.__version__<__version__:
                     self.logger.warning("Version of %s is %s and can by to low"%(devicePackage,classModul.__version__))
@@ -178,9 +206,12 @@ class coreDevices ():
             else:
                 self.logger.warning("package %s has no version Info"%(devicePackage))
         except:
-            self.logger.error("can not add package %s as deviceID %s"%(devicePackage,device['deviceID']['value']),exc_info=True)
+            self.logger.error("can not add package %s as deviceID %s"%(devicePackage,device['deviceID']),exc_info=True)
     
     def __loadPackage(self,devicePackage):
+        '''
+        load a package
+        '''
         self.logger.info("try to load %s"%(devicePackage))
         try:
             classModul = importlib.import_module(devicePackage)
@@ -190,6 +221,9 @@ class coreDevices ():
             raise
             
     def __copyNewDevice(self,devicePath,deviceType):
+        '''
+        copy a new device type
+        '''
         self.logger.info("copy new device type %s from default path: %s"%(deviceType,devicePath))
         try:
             deviceJsonName="%s%s.json"%(devicePath,deviceType)

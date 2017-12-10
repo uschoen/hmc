@@ -7,8 +7,7 @@ sudo apt-get install rrdtool python-rrdtool
 
 '''
 import threading,os,re
-from time import localtime, strftime,sleep
-from datetime import datetime
+from time import sleep
 import logging
 
 __version__="2.0"
@@ -53,7 +52,7 @@ class sensor(threading.Thread):
             '''
             check if Sensor in core as device
             '''
-            if not self.__core.deviceExists(self.__connectedSensors[sensorID]["deviceID"]['value']):
+            if not self.__core.IfDeviceExists(self.__connectedSensors[sensorID]["deviceID"]['value']):
                 try:
                     self.__addNewSensor(sensorID)
                 except:
@@ -146,7 +145,7 @@ class sensor(threading.Thread):
                         }
                    }
         
-            if self.__core.deviceExists(tempSensor["deviceID"]['value']):
+            if self.__core.ifDeviceExists(tempSensor["deviceID"]['value']):
                 self.logger.info("deviceID %s is existing, update core"%(tempSensor["deviceID"]['value']))
                 self.__core.updateDevice(tempSensor)
                 self.__connectedSensors[sensorID]=tempSensor

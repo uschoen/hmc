@@ -73,6 +73,7 @@ class device(object):
         '''
         add a new channel
         '''
+        channelName=channelName.lower()
         self.logger.info("add channel %s"%(channelName))
         if channelName in self._channels:
             self.logger.error("channel: %s is exist"%(channelName))
@@ -106,22 +107,23 @@ class device(object):
             raise 
     
        
-    def setChannelValue(self,channel,value):
+    def setChannelValue(self,channelName,value):
         '''
         set value of channel
         ''' 
+        channelName=channelName.lower()
         try:
-            if not channel in self._channels:
-                self.logger.error("channel %s is not exist"%(channel))
+            if not channelName in self._channels:
+                self.logger.error("channel %s is not exist"%(channelName))
                 raise 
-            self.logger.debug("set channel %s to %s"%(channel,value))
-            oldValue=self._channels[channel]['value']
-            self._channels[channel]['value']=value
+            self.logger.debug("set channel %s to %s"%(channelName,value))
+            oldValue=self._channels[channelName]['value']
+            self._channels[channelName]['value']=value
             if oldValue<>value:
-                self._callEvent('change_event',channel)
-            self._callEvent('refrech_event',channel)
+                self._callEvent('change_event',channelName)
+            self._callEvent('refrech_event',channelName)
         except:
-            self.logger.error("can not set channel %s to %s"%(channel,value))
+            self.logger.error("can not set channel %s to %s"%(channelName,value))
             raise 
         
     def getConfiguration(self):
@@ -156,11 +158,12 @@ class device(object):
             self._channel[channelName]['events'].append(eventName)
         
     
-    def ifChannelExist(self,channel):
+    def ifChannelExist(self,channelName):
         '''
         return true if channel exists
         '''
-        if channel in self._channels:
+        channelName=channelName.lower()
+        if channelName in self._channels:
             return True
         return False
     
