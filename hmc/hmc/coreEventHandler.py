@@ -18,7 +18,7 @@ class coreEventHandler():
             self.logger.error("can not find event type %s"%(eventTyp))
             return
         if eventHandlerName not in self.eventHandler:
-            self.loggger.error("can not find event Handler %s"%(eventHandlerName))
+            self.logger.error("can not find event Handler %s"%(eventHandlerName))
             return
         self.logger.info("add event Handler %s for event: %s"%(eventHandlerName,eventTyp))
         self.defaultEventHandler[eventTyp].append(eventHandlerName)
