@@ -17,27 +17,77 @@ class device(object):
         '''
         class vars
         '''
+        # list of device configuration
+        self._device={
+                        
+                            "deviceID":{
+                                "value":"unknown@unknown.unknown",
+                                "type":"string"},
+                             "devicetype":{
+                                "value":"defaultDevice",
+                                "type":"string"},
+                             "package":{
+                                "value":"hmc.devices",
+                                "type":"string"},
+                             "rssi":{        
+                                 "value":"0",
+                                "type":"int"},
+                             "name":{
+                                 "value":"unknown",
+                                 "type":"string"},
+                             "devicegroupe":[],
+                             "lastchange":{
+                                 "value":"unknown",
+                                 "type":"int"},
+                             "create":{
+                                 "value":"unknown",
+                                 "type":"int"},
+                             "lastupdate":{
+                                 "value":"unknown",
+                                 "type":"int"},
+                             "gateway":{
+                                 "value":"unknown",
+                                 "type":"string"},
+                             "enable":{
+                                 "value":"unknown",
+                                 "type":"string"},
+                             "events":{
+                                "onchange_event":[],
+                                "onrefresh_event":[],
+                                "onboot_event":[],
+                                "oncreate_event":[],
+                                "ondelete_event":[]}
+                                }
+                         
+        
         self._channels={}       # list of all channels
-        self._device={}         # list of device configuration
+        
         '''
         objects
         '''
         self.logger=logging.getLogger(__name__) # logger object
         self._eventHandlerList=eventHandlerList # event handler
-        self._packageName=arg["package"]["value"]
+        self._packageName=arg["device"]["package"]['value']
         self._configurationFile="gateways/%s/devices/%s.json"%(self._packageName.replace(".", "/"),self._name_())
         
-        try:
-            defaultConfiguration=self._loadJSON("hmc/devices/hmcDevices.json")
-            self._device=defaultConfiguration['device']
-            self._channels=defaultConfiguration['channels']
-            
+        try:         
             packageConfiguration=self._loadJSON(self._configurationFile)
-            self._device.update(packageConfiguration['device'])
-            self._channels.update(packageConfiguration['channels'])
             
-            self._channels.update(arg['channels'])
-            self._device.update(arg['device'])
+            if 'device' in packageConfiguration:
+                self._device.update(packageConfiguration['device'])
+            else:
+                self.logger.info("configuration file: %s has no device attribute"%(self._configurationFile))
+            
+            if 'channels' in packageConfiguration:
+                self._channels.update(packageConfiguration['channels'])
+            else:
+                self.logger.info("configuration file: %s has no channels attribute"%(self._configurationFile))
+            
+            if 'channels' in arg:
+                self._channels.update(arg['channels'])
+            
+            if 'device' in arg:   
+                self._device.update(arg['device'])
         except:
             self.logger.error("can not load channels, %s can not build"%(self._name_()))
             raise
@@ -45,7 +95,7 @@ class device(object):
         self.logger.debug("build %s instance"%(self._name_()))
         if adding:
             self._callEvent('oncreate_event', 'device')
-            
+    
     def delete(self):
         '''
         delete function of the device
@@ -77,17 +127,13 @@ class device(object):
         self.logger.info("add channel %s"%(channelName))
         if channelName in self._channels:
             self.logger.error("channel: %s is exist"%(channelName))
-        
-        newChannel={}
-        newChannelValues=self._channelDefaults()
-        newChannelValues.update(channelValues)
         try:
-            oldConfiguration=self._loadJSON(self._configurationFile)
-            oldConfiguration['channel'][channelName]=newChannelValues
-            self._writeJSON(self._configurationFile,oldConfiguration)
-            self._channels.update(newChannel)
+            newChannel={}
+            newChannel=self._channelDefaults()
+            newChannel.update(channelValues[channelName])
+            self._channels[channelName]=newChannel 
         except:
-            self.logger.error("can not write new channel to file %s"%(self._jsonPath), exc_info=True)
+            self.logger.error("can not add new channel to devicID %s"%(self._device['deviceID']['value']), exc_info=True)
             raise   
     
     def getChannelValue(self,channel):
@@ -120,8 +166,9 @@ class device(object):
             oldValue=self._channels[channelName]['value']
             self._channels[channelName]['value']=value
             if oldValue<>value:
-                self._callEvent('change_event',channelName)
-            self._callEvent('refrech_event',channelName)
+                self._callEvent('onchange_event',channelName)
+            self._callEvent('onrefresh_event',channelName)
+            
         except:
             self.logger.error("can not set channel %s to %s"%(channelName,value))
             raise 
@@ -172,6 +219,10 @@ class device(object):
         return the channel default
         '''
         channel={
+            "value":{
+                "value":"unkown",
+                "type":"string"
+                },
             "name":{        
                 "value":"unkown",
                 "type":"string"},
@@ -207,8 +258,7 @@ class device(object):
         oncreate_event
         ondelete_event
         '''
-        
-        self.logger.debug("call event: %s for channel: %s for deviceID:%s"%(eventTyp,channel,self._device['deviceID']['value']))
+        self.logger.debug("call event: %s for channel: %s, for deviceID:%s"%(eventTyp,channel,self._device['deviceID']['value']))
         if channel not in self._channels and not channel=='device':
             '''
             check if channel exist
@@ -216,22 +266,23 @@ class device(object):
             self.logger.warning("channel %s not exists in deviceID %s"%(channel,self._device['deviceID']['value']))
             return 
         
-        '''
-        select event type
-        '''
-        if eventTyp=='onchange_event':
-            self._onchange_event(channel)
-        elif eventTyp=='onrefresh_event':
-            self._onrefresh_event(channel)
-        elif eventTyp=='onboot_event':
-            self._onboot_event(channel)
-        elif eventTyp=='oncreate_event':
-            self._oncreate_event(channel)
-        elif eventTyp=='ondelete_event':   
-            self._ondelete_event(channel)
-        else:
-            self.logger.warning("event type %s is unknown"%(eventTyp))
-            return     
+        if not channel=='device':
+            '''
+            select event type
+            '''
+            if eventTyp=='onchange_event':
+                self._onchange_event(channel)
+            elif eventTyp=='onrefresh_event':
+                self._onrefresh_event(channel)
+            elif eventTyp=='onboot_event':
+                self._onboot_event(channel)
+            elif eventTyp=='oncreate_event':
+                self._oncreate_event(channel)
+            elif eventTyp=='ondelete_event':   
+                self._ondelete_event(channel)
+            else:
+                self.logger.warning("event type %s is unknown"%(eventTyp))
+                return     
         
         if not channel=='device':
             '''
@@ -270,7 +321,7 @@ class device(object):
             self._eventHandlerList[eventName].callback(self,eventTyp,channel)
     
     def _name_(self):
-        return "defaultDevices"
+        return "defaultDevice"
     
     def _writeJSON(self,filename,data={}):
         self.logger.info("write configuration to %s"%(filename))

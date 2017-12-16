@@ -76,7 +76,7 @@ class coreConfiguration():
         if len(devicesCFG)>0:
             for deviceID in devicesCFG:
                 try:
-                    self.logger.info("restore deviceID: %s with typ %s  "%(deviceID,devicesCFG[deviceID]['typ']['value']))
+                    self.logger.info("restore deviceID: %s with typ %s  "%(deviceID,devicesCFG[deviceID]['device']['devicetype']['value']))
                     self.restoreDevice(devicesCFG[deviceID])
                 except:
                     self.logger.error("can not import deviceID %s"%(deviceID), exc_info=True)
