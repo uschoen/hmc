@@ -72,7 +72,7 @@ class coreConfiguration():
             return
         except:
             self.logger.error("can not reading device configuration file", exc_info=True)
-        
+            return
         if len(devicesCFG)>0:
             for deviceID in devicesCFG:
                 try:
@@ -111,7 +111,8 @@ class coreConfiguration():
         path="%s%s/%s"%(self.args['confFile']['basePath'],self.args['global']['host'],self.args['confFile']['filePath'])
         self.logger.info("write configuration")
         self.writeEventHandlerFile(path+self.args['confFile']['eventHandler'])
-        self.writeGatewayFile(path+self.args['confFile']['gateways'])
+        if self.args['confFile']['gatewaysWrite']:
+            self.writeGatewayFile(path+self.args['confFile']['gateways'])
         self.writeDefaultEventHandlerFile(path+self.args['confFile']['defaultEvent'])
         self.writeDevicesFile(path+self.args['confFile']['devices'])
         self.CoreClientsFile(path+self.args['confFile']['remoteCore'])
