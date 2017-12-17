@@ -28,8 +28,8 @@ class code(object):
         self.__BS = 16
         self.logger.info("corProtokoll build")
     
-    def decode(self,calling,args):
-        self.logger.error( "old function decode, use derypt")
+    def __olddecode(self,calling,args):
+        self.logger.error( "old function decode, use derypt",exc_info=True)
         self.decrypt(calling, args)   
         
     def decrypt(self,calling,args):
@@ -57,8 +57,8 @@ class code(object):
             self.logger.error( "can not decode message",exc_info=True)
             raise Exception 
     
-    def encode(self,string):
-        self.logger.error( "old function encode, use unrypt")
+    def __oldencode(self,string):
+        self.logger.error( "old function encode, use unrypt",exc_info=True)
         self.uncrypt(string)
         
     def uncrypt(self,string):

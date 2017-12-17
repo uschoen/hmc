@@ -78,7 +78,7 @@ class coreDevices ():
                 self.logger.error("device id %s not existing"%(deviceID))
                 raise 
             self.devices[deviceID].setChannelValue(channelName,value)
-            self.updateRemoteCore(False,deviceID,'setDeviceChannel',deviceID,channelName,value)
+            self.updateRemoteCore(False,deviceID,'setDeviceChannelValue',deviceID,channelName,value)
         except:
             self.logger.error("can not set channel %s for device id %s value %s"%(channelName,deviceID,value),exc_info=True)
             raise  

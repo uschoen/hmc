@@ -4,22 +4,21 @@ Created on 19.10.2017
 @author: uschoen
 '''
 
-import socket,threading,os,sys,copy
-from time import localtime, strftime,sleep,time
-from datetime import datetime
+import socket,threading,copy,logging
+from time import sleep,time
 import coreProtokoll
 
 class CoreConnection(threading.Thread): 
-    def __init__(self, params,core,logger=False):
+    def __init__(self,params,core):
         threading.Thread.__init__(self)
         self.__core=core
         self.__arg=params
-        self.__logger=logger
+        self.logger=logging.getLogger(__name__) 
         self.running=1
         self.blockedTime=0
         self.queue={}
         self.syncQueue={}
-        self.coreDataobj=coreProtokoll.code(self.__arg['user'],self.__arg['password'],self.__logger)
+        self.coreDataobj=coreProtokoll.code(self.__arg['user'],self.__arg['password'])
         self.sync=False
         self.__newQueue=False
         self.logger.debug("build  "+__name__+" instance")
@@ -55,15 +54,15 @@ class CoreConnection(threading.Thread):
                 coreSocket.connect((self.__arg['ip'],int(self.__arg['port'])))
                 self.logger.info("connect to Core %s:%s"%(self.__arg['ip'],self.__arg['port']))
             except:
-                self.logger.error("can not connect to Core %s:%s , socket error"%(self.__arg['ip'],self.__arg['port']))
+                self.logger.error("can not connect to Core %s:%s , socket error"%(self.__arg['ip'],self.__arg['port']),exc_info=True)
                 self.__blockClient()
                 raise 
             '''
             send message to core
             '''
             try:
-                corData=self.coreDataobj.decode(queue[queueEntry]['calling'],queue[queueEntry]['arg'])
-                self.logger.debug("send message to core: %s"%(corData))
+                corData=self.coreDataobj.decrypt(queue[queueEntry]['calling'],queue[queueEntry]['arg'])
+                self.logger.debug("send message to core")
                 coreSocket.sendall(corData)
                 if syncQueue:
                     del self.syncQueue[queueEntry]
@@ -73,7 +72,7 @@ class CoreConnection(threading.Thread):
                 self.__unblockClient()
                 self.logger.debug("send message success")
             except:
-                self.logger.error("can not send message to core %s, sending error"%(corData))
+                self.logger.error("can not send message to core, sending error",exc_info=True)
                 self.__blockClient()
                 coreSocket.close()
                 raise
@@ -85,7 +84,7 @@ class CoreConnection(threading.Thread):
                 coreSocket.close()
                 self.logger.debug("socket close to core")    
             except: 
-                self.logger.error("no answer from core %s"%(self.__arg['hostName'])) 
+                self.logger.error("no answer from core %s"%(self.__arg['hostName']),exc_info=True) 
                 
     def listenToClient(self,coreSocket):
         size = 1024
@@ -93,7 +92,7 @@ class CoreConnection(threading.Thread):
             try:
                 data = coreSocket.recv(size)
                 if data:
-                    (user,password,calling,args)=self.coreDataobj.encode(data)
+                    (user,password,calling,args)=self.coreDataobj.uncrypt(data)
                     self.logger.debug("calling function:%s user:%s"%(calling,user))
                     self.logger.debug("args %s"%(args))
                     if args['result']=="success":
@@ -106,13 +105,7 @@ class CoreConnection(threading.Thread):
                     self.logger.debug("client disconnected")
                     break
             except:
-                self.logger.error(sys.exc_info())
-                tb = sys.exc_info()
-                for msg in tb:
-                    self.logger.error("Traceback Info:%s"%(msg)) 
-                exc_type, exc_obj, exc_tb = sys.exc_info()
-                fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
-                self.logger.error("%s %s %s "%(exc_type, fname, exc_tb.tb_lineno))
+                self.logger.error("some error in client communication",exc_info=True) 
                 self.logger.debug("close client connection")
     
     def __syncCore(self,deviceID,calling,*arg):
@@ -152,16 +145,9 @@ class CoreConnection(threading.Thread):
             self.logger.info("finish sync to core %s"%(self.__arg['hostName']))
             self.__clearSyncQueue()
         except:
-            self.logger.error("can not sync to core %s"%(self.__arg['hostName']))
+            self.logger.error("can not sync to core %s"%(self.__arg['hostName']),exc_info=True)
             self.__blockClient()
             self.__clearSyncQueue()
-            self.logger.error(sys.exc_info())
-            tb = sys.exc_info()
-            for msg in tb:
-                self.logger.error("Traceback Info:%s"%(msg)) 
-            exc_type, exc_obj, exc_tb = sys.exc_info()
-            fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
-            self.logger.error("%s %s %s "%(exc_type, fname, exc_tb.tb_lineno))
             
     def __clearSyncQueue(self):
         self.logger.debug("clear sync queue")
@@ -177,14 +163,7 @@ class CoreConnection(threading.Thread):
                 device=self.__core.devices[deviceID].getConfiguration()
                 self.__syncCore(deviceID,'updateDevice',device)
         except:
-            self.logger.error("can not sync Devices to core %s"%(self.__arg['hostName']))
-            self.logger.error(sys.exc_info())
-            tb = sys.exc_info()
-            for msg in tb:
-                self.logger.error("Traceback Info:%s"%(msg)) 
-            exc_type, exc_obj, exc_tb = sys.exc_info()
-            fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
-            self.logger.error("%s %s %s "%(exc_type, fname, exc_tb.tb_lineno))
+            self.logger.error("can not sync Devices to core %s"%(self.__arg['hostName']),exc_info=True)
             raise Exception
         
     def __syncCoreGateways(self):
@@ -242,16 +221,7 @@ class CoreConnection(threading.Thread):
         self.logger.info("unblock Client %s"%(self.__arg['hostName']))
         self.blockedTime=0
            
-    def log (self,level="unkown",messages="no messages"):
-        if self.__logger:
-            dt = datetime.now()
-            conf={}
-            conf['package']="%s.%s"%(__name__,self.__arg['hostName'])
-            conf['level']=level
-            conf['messages']=messages
-            conf['time']=strftime("%d.%b %H:%M:%S", localtime())
-            conf['microsecond']=dt.microsecond
-            self.__logger.write(conf) 
+    
 
 
     

@@ -161,7 +161,7 @@ class device(object):
         try:
             if not channelName in self._channels:
                 self.logger.error("channel %s is not exist"%(channelName))
-                raise 
+                raise Exception
             self.logger.debug("set channel %s to %s"%(channelName,value))
             oldValue=self._channels[channelName]['value']
             self._channels[channelName]['value']=value
@@ -171,7 +171,7 @@ class device(object):
             
         except:
             self.logger.error("can not set channel %s to %s"%(channelName,value))
-            raise 
+            raise Exception
         
     def getConfiguration(self):
         '''

@@ -13,10 +13,10 @@ class sensor(threading.Thread):
     '''
     classdocs
     '''
-    def __init__(self, parms,core):
+    def __init__(self,parms,core):
         threading.Thread.__init__(self)
         self.__core=core
-        self.__log=self.logger=logging.getLogger(__name__) 
+        self.__log=logging.getLogger(__name__) 
         self.__config={}
         self.__config.update(self.__loadDefaultArgs())
         self.__config.update(parms)
@@ -230,9 +230,13 @@ class sensor(threading.Thread):
         return False
     
     def __closeUSB(self):
-        self.__log.info("close serial, port:%s baud:%s timeout:%s"%(self.__config['usbport'],self.__config['baudrate'],self.__config['timeout']))
-        if(self.__USBport.isOpen() == True):
+        try:
+            self.__log.info("close serial, port:%s baud:%s timeout:%s"%(self.__config['usbport'],self.__config['baudrate'],self.__config['timeout']))
             self.__USBport.close()
+        except:
+            self.__log.info("serial is all ready close")
+        
+            
             
     def __initCUL(self):
         '''
