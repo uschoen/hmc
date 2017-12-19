@@ -26,6 +26,7 @@ class code(object):
         self.__password=password
         self.__AESmode = AES.MODE_CBC
         self.__BS = 16
+        self.__DECODE=True
         self.logger.info("corProtokoll build")
     
     def __olddecode(self,calling,args):
@@ -156,29 +157,34 @@ class code(object):
     
     def __decrypt(self, string):
         self.logger.debug( "decrypt message")
-        try:
-            iv=self.__IVKey()
-            decryption_suite = AES.new(self.__md5decode(self.__password), self.__AESmode,iv)
-            plain_text =iv+decryption_suite.decrypt(self.__strgrjust(string))
-            return plain_text
-        except:
-            self.logger.error( "can not decrypt message", exc_info=True)
-            raise
+        if self.__DECODE:
+            try:
+                iv=self.__IVKey()
+                decryption_suite = AES.new(self.__md5decode(self.__password), self.__AESmode,iv)
+                plain_text =iv+decryption_suite.decrypt(self.__strgrjust(string))
+                return plain_text
+            except:
+                self.logger.error( "can not decrypt message", exc_info=True)
+                raise
+        self.logger.debug( "decrypt is disable")
+        return string
     def __IVKey(self):
         return (os.urandom(128)[:self.__BS])
    
     def __encrypt(self,cryptstring):
         self.logger.debug( "encrypt message")
-        try:
-            iv=cryptstring[:self.__BS]
-            cryptstring=cryptstring[self.__BS:]
-            encryption_suite = AES.new(self.__md5decode(self.__password),self.__AESmode,iv)
-            plaintext = encryption_suite.encrypt(cryptstring)
-            return plaintext
-        except:
-            self.logger.error( "can not encrypt message", exc_info=True)
-            raise
-            
+        if self.__DECODE:
+            try:
+                iv=cryptstring[:self.__BS]
+                cryptstring=cryptstring[self.__BS:]
+                encryption_suite = AES.new(self.__md5decode(self.__password),self.__AESmode,iv)
+                plaintext = encryption_suite.encrypt(cryptstring)
+                return plaintext
+            except:
+                self.logger.error( "can not encrypt message", exc_info=True)
+                raise
+        self.logger.info("encrypt is disable")
+        return  cryptstring   
     def __md5decode(self,key):
         ''' 
         convert a string to a md5 hash
