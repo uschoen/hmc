@@ -26,7 +26,7 @@ class code(object):
         self.__password=password
         self.__AESmode = AES.MODE_CBC
         self.__BS = 16
-        self.__DECODE=True
+        self.__DECRYPT=False
         self.logger.info("corProtokoll build")
     
     def __olddecode(self,calling,args):
@@ -157,7 +157,7 @@ class code(object):
     
     def __decrypt(self, string):
         self.logger.debug( "decrypt message")
-        if self.__DECODE:
+        if self.__DECRYPT:
             try:
                 iv=self.__IVKey()
                 decryption_suite = AES.new(self.__md5decode(self.__password), self.__AESmode,iv)
@@ -173,7 +173,7 @@ class code(object):
    
     def __encrypt(self,cryptstring):
         self.logger.debug( "encrypt message")
-        if self.__DECODE:
+        if self.__DECRYPT:
             try:
                 iv=cryptstring[:self.__BS]
                 cryptstring=cryptstring[self.__BS:]
