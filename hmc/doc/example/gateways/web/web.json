@@ -1,0 +1,14 @@
+{
+"web@example":{
+    	"class": "server",
+    	"enable":true, 
+        "modul": "web", 
+        "package": "web",
+    	"config":{
+    		"gateway": "web", 
+            "host": "example",
+            "port":"8080",
+            "interface":""
+         }
+	}
+}
