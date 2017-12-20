@@ -26,6 +26,7 @@ class server(threading.Thread):
         self.socket=False
         self.coreDataobj=coreProtokoll.code(self.args['user'],self.args['password'])
         self.logger.debug("build socket Server")
+        self.sendNR=0
             
     def run(self):
         self.logger.debug("starting socket server")
@@ -48,9 +49,14 @@ class server(threading.Thread):
                 data = client.recv(size)
                 if data:
                     try:
+                        self.logger.debug("recive:%s"%(data))
                         self.logger.debug("get message try to decode")
                         (user,password,calling,args)=self.coreDataobj.uncrypt(data)
                         self.logger.debug("calling function:%s user:%s"%(calling,user))
+                        #file = open('recive.txt','a') 
+                        #file.write('%i %s %s\n'%(self.sendNR,calling,args)) 
+                        #file.close() 
+                        #self.sendNR=self.sendNR+1
                         method_to_call = getattr(self.core,calling)
                         method_to_call(*args)
                         client.sendall(self.coreDataobj.decrypt('result',{'result':"success"}))
