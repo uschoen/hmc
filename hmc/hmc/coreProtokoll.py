@@ -26,10 +26,11 @@ class code(object):
         self.__password=password
         self.__AESmode = AES.MODE_CBC
         self.__BS = 16
+        self.__DECRYPT=False
         self.logger.info("corProtokoll build")
     
-    def decode(self,calling,args):
-        self.logger.error( "old function decode, use derypt")
+    def __olddecode(self,calling,args):
+        self.logger.error( "old function decode, use derypt",exc_info=True)
         self.decrypt(calling, args)   
         
     def decrypt(self,calling,args):
@@ -57,8 +58,8 @@ class code(object):
             self.logger.error( "can not decode message",exc_info=True)
             raise Exception 
     
-    def encode(self,string):
-        self.logger.error( "old function encode, use unrypt")
+    def __oldencode(self,string):
+        self.logger.error( "old function encode, use unrypt",exc_info=True)
         self.uncrypt(string)
         
     def uncrypt(self,string):
@@ -156,29 +157,34 @@ class code(object):
     
     def __decrypt(self, string):
         self.logger.debug( "decrypt message")
-        try:
-            iv=self.__IVKey()
-            decryption_suite = AES.new(self.__md5decode(self.__password), self.__AESmode,iv)
-            plain_text =iv+decryption_suite.decrypt(self.__strgrjust(string))
-            return plain_text
-        except:
-            self.logger.error( "can not decrypt message", exc_info=True)
-            raise
+        if self.__DECRYPT:
+            try:
+                iv=self.__IVKey()
+                decryption_suite = AES.new(self.__md5decode(self.__password), self.__AESmode,iv)
+                plain_text =iv+decryption_suite.decrypt(self.__strgrjust(string))
+                return plain_text
+            except:
+                self.logger.error( "can not decrypt message", exc_info=True)
+                raise
+        self.logger.debug( "decrypt is disable")
+        return string
     def __IVKey(self):
         return (os.urandom(128)[:self.__BS])
    
     def __encrypt(self,cryptstring):
         self.logger.debug( "encrypt message")
-        try:
-            iv=cryptstring[:self.__BS]
-            cryptstring=cryptstring[self.__BS:]
-            encryption_suite = AES.new(self.__md5decode(self.__password),self.__AESmode,iv)
-            plaintext = encryption_suite.encrypt(cryptstring)
-            return plaintext
-        except:
-            self.logger.error( "can not encrypt message", exc_info=True)
-            raise
-            
+        if self.__DECRYPT:
+            try:
+                iv=cryptstring[:self.__BS]
+                cryptstring=cryptstring[self.__BS:]
+                encryption_suite = AES.new(self.__md5decode(self.__password),self.__AESmode,iv)
+                plaintext = encryption_suite.encrypt(cryptstring)
+                return plaintext
+            except:
+                self.logger.error( "can not encrypt message", exc_info=True)
+                raise
+        self.logger.info("encrypt is disable")
+        return  cryptstring   
     def __md5decode(self,key):
         ''' 
         convert a string to a md5 hash

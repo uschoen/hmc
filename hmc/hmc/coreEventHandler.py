@@ -18,7 +18,7 @@ class coreEventHandler():
             self.logger.error("can not find event type %s"%(eventTyp))
             return
         if eventHandlerName not in self.eventHandler:
-            self.loggger.error("can not find event Handler %s"%(eventHandlerName))
+            self.logger.error("can not find event Handler %s"%(eventHandlerName))
             return
         self.logger.info("add event Handler %s for event: %s"%(eventHandlerName,eventTyp))
         self.defaultEventHandler[eventTyp].append(eventHandlerName)
@@ -59,13 +59,8 @@ class coreEventHandler():
             self.updateRemoteCore(False,eventhandlerName,'addEventHandler',eventhandlerName,eventhandlerCFG)
         
         except:
-            self.logger.error("can not add event handler Name: %s"%(eventhandlerName))  
-            tb = sys.exc_info()
-            for msg in tb:
-                self.logger.error("Trace back Info:%s"%(msg)) 
-            exc_type, exc_obj, exc_tb = sys.exc_info()
-            fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
-            self.logger.error("%s %s %s "%(exc_type, fname, exc_tb.tb_lineno))
+            self.logger.error("can not add event handler Name: %s"%(eventhandlerName),exc_info=True)  
+            
     
     
     

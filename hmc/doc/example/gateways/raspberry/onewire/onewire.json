@@ -2,10 +2,10 @@
     "onewire@hostname": {
         "class": "sensor", 
         "config": {
-            "intervall": 60, 
+            "interval": 60, 
             "path": "/sys/bus/w1/devices/", 
             "tempDiv": 0.5, 
-            "typ": "ds1820",
+            "devicetype": "ds1820",
             "gateway":"onewire"
         }, 
         "enable": true, 

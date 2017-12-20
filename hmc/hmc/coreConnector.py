@@ -24,27 +24,20 @@ class coreConnector(object):
                     '''
                     start core Server
                     '''
-                    self.ConnectorServer= socketServer.server(args,self,self.logger)
+                    self.ConnectorServer= socketServer.server(args,self)
                     self.ConnectorServer.daemon=True
                     self.ConnectorServer.start()        
                 else:
                     '''
                     start core Client
                     '''  
-                    self.CoreClientsConnections[coreName]=socketClient.CoreConnection(args,self,self.logger)
+                    self.CoreClientsConnections[coreName]=socketClient.CoreConnection(args,self)
                     self.CoreClientsConnections[coreName].daemon=True
                     self.CoreClientsConnections[coreName].start()   
             else:
                 self.logger.info("core Client %s is disable"%(args['hostName']))  
         except:
-            self.logger.error("can not start core %s"%(args['hostName']))
-            self.logger.error(sys.exc_info())
-            tb = sys.exc_info()
-            for msg in tb:
-                self.logger.error("Trace back Info: %s"%(msg)) 
-            exc_type, exc_obj, exc_tb = sys.exc_info()
-            fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
-            self.logger.error("%s %s %s "%(exc_type, fname, exc_tb.tb_lineno))
+            self.logger.error("can not start core %s"%(args['hostName']),exc_info=True)
         self.coreClientsCFG[coreName]=args  
         
     def updateRemoteCore(self,force,deviceID,calling,*args): 

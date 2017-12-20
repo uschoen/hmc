@@ -112,7 +112,7 @@ class coreBase():
             self.logger.error("unkown pattern:%s"%(pattern))       
             return False
         except Exception,e:
-            self.loggger.error("can not format pattern %s"%(pattern),exc_info=True)
+            self.logger.error("can not format pattern %s"%(pattern),exc_info=True)
             return False
         
     def __dirExists(self,dir):
@@ -155,5 +155,5 @@ class coreBase():
                 self.logger.warning( "pakage %s has no version Info"%(pakage))
             return getattr(module, CLASS_NAME)(*ARGUMENTS)
         except Exception,e:
-            self.loggger.error("can no load module: %s"%(pakage),exc_info=True)  
+            self.logger.error("can no load module: %s"%(pakage),exc_info=True)  
             raise
