@@ -6,7 +6,9 @@ Created on 21.10.2016
 
 
 '''
+import time
 import threading
+import flask 
 import logging
 
 __version__="2.0"
@@ -18,12 +20,13 @@ class sensor(threading.Thread):
         self.__args=params
         self.logger=logging.getLogger(__name__) 
         self.running=1
+        self.Fask=flask.Flask(__name__)
         self.logger.debug("build  %s instance with version %s"%(__name__,__version__))
     
     def run(self):
         self.logger.info("%s start"%(__name__))
         while self.running:
-            pass
+            time.sleep(self.__args['timeout'])
         self.logger.info("%s stop:"%(__name__))   
     
     def shutdown(self):
