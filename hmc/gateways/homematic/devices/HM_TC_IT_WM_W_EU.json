@@ -1,0 +1,705 @@
+{
+    "channels": {
+        "actual_humidity": {
+            "create": {
+                "type": "int", 
+                "value": "0"
+            }, 
+            "enable": {
+                "type": "bool", 
+                "value": true
+            }, 
+            "events": {
+                "onboot_event": [], 
+                "onchange_event": [], 
+                "oncreate_event": [], 
+                "ondelete_event": [], 
+                "onrefresh_event": []
+            }, 
+            "lastchange": {
+                "hidden": false, 
+                "type": "int", 
+                "value": 1514045441
+            }, 
+            "lastupdate": {
+                "hidden": false, 
+                "type": "int", 
+                "value": 1514046364
+            }, 
+            "name": {
+                "type": "string", 
+                "value": "unkown"
+            }, 
+            "value": {
+                "type": "string", 
+                "value": 51.0
+            }
+        }, 
+        "actual_temperature": {
+            "create": {
+                "type": "int", 
+                "value": "0"
+            }, 
+            "enable": {
+                "type": "bool", 
+                "value": true
+            }, 
+            "events": {
+                "onboot_event": [], 
+                "onchange_event": [], 
+                "oncreate_event": [], 
+                "ondelete_event": [], 
+                "onrefresh_event": []
+            }, 
+            "lastchange": {
+                "hidden": false, 
+                "type": "int", 
+                "value": 1514046364
+            }, 
+            "lastupdate": {
+                "hidden": false, 
+                "type": "int", 
+                "value": 1514046375
+            }, 
+            "name": {
+                "type": "string", 
+                "value": "unkown"
+            }, 
+            "value": {
+                "type": "string", 
+                "value": 21.3
+            }
+        }, 
+        "battery_state": {
+            "create": {
+                "type": "int", 
+                "value": "0"
+            }, 
+            "enable": {
+                "type": "bool", 
+                "value": true
+            }, 
+            "events": {
+                "onboot_event": [], 
+                "onchange_event": [], 
+                "oncreate_event": [], 
+                "ondelete_event": [], 
+                "onrefresh_event": []
+            }, 
+            "lastchange": {
+                "hidden": false, 
+                "type": "int", 
+                "value": 1514046375
+            }, 
+            "lastupdate": {
+                "hidden": false, 
+                "type": "int", 
+                "value": 1514046375
+            }, 
+            "name": {
+                "type": "string", 
+                "value": "unkown"
+            }, 
+            "value": {
+                "type": "string", 
+                "value": 2.5
+            }
+        }, 
+        "boost_state": {
+            "create": {
+                "type": "int", 
+                "value": "0"
+            }, 
+            "enable": {
+                "type": "bool", 
+                "value": true
+            }, 
+            "events": {
+                "onboot_event": [], 
+                "onchange_event": [], 
+                "oncreate_event": [], 
+                "ondelete_event": [], 
+                "onrefresh_event": []
+            }, 
+            "lastchange": {
+                "hidden": false, 
+                "type": "int", 
+                "value": 1514046375
+            }, 
+            "lastupdate": {
+                "hidden": false, 
+                "type": "int", 
+                "value": 1514046375
+            }, 
+            "name": {
+                "type": "string", 
+                "value": "unkown"
+            }, 
+            "value": {
+                "type": "string", 
+                "value": 0
+            }
+        }, 
+        "communication_reporting": {
+            "create": {
+                "type": "int", 
+                "value": "0"
+            }, 
+            "enable": {
+                "type": "bool", 
+                "value": true
+            }, 
+            "events": {
+                "onboot_event": [], 
+                "onchange_event": [], 
+                "oncreate_event": [], 
+                "ondelete_event": [], 
+                "onrefresh_event": []
+            }, 
+            "lastchange": {
+                "hidden": false, 
+                "type": "int", 
+                "value": 1514046374
+            }, 
+            "lastupdate": {
+                "hidden": false, 
+                "type": "int", 
+                "value": 1514046374
+            }, 
+            "name": {
+                "type": "string", 
+                "value": "unkown"
+            }, 
+            "value": {
+                "type": "string", 
+                "value": false
+            }
+        }, 
+        "control_mode": {
+            "create": {
+                "type": "int", 
+                "value": "0"
+            }, 
+            "enable": {
+                "type": "bool", 
+                "value": true
+            }, 
+            "events": {
+                "onboot_event": [], 
+                "onchange_event": [], 
+                "oncreate_event": [], 
+                "ondelete_event": [], 
+                "onrefresh_event": []
+            }, 
+            "lastchange": {
+                "hidden": false, 
+                "type": "int", 
+                "value": 1514046374
+            }, 
+            "lastupdate": {
+                "hidden": false, 
+                "type": "int", 
+                "value": 1514046374
+            }, 
+            "name": {
+                "type": "string", 
+                "value": "unkown"
+            }, 
+            "value": {
+                "type": "string", 
+                "value": 0
+            }
+        }, 
+        "humidity": {
+            "create": {
+                "type": "int", 
+                "value": "0"
+            }, 
+            "enable": {
+                "type": "bool", 
+                "value": true
+            }, 
+            "events": {
+                "onboot_event": [], 
+                "onchange_event": [], 
+                "oncreate_event": [], 
+                "ondelete_event": [], 
+                "onrefresh_event": []
+            }, 
+            "lastchange": {
+                "hidden": false, 
+                "type": "int", 
+                "value": 1514045299
+            }, 
+            "lastupdate": {
+                "hidden": false, 
+                "type": "int", 
+                "value": 1514046245
+            }, 
+            "name": {
+                "type": "string", 
+                "value": "unkown"
+            }, 
+            "value": {
+                "type": "string", 
+                "value": 51
+            }
+        }, 
+        "lowbat_reporting": {
+            "create": {
+                "type": "int", 
+                "value": "0"
+            }, 
+            "enable": {
+                "type": "bool", 
+                "value": true
+            }, 
+            "events": {
+                "onboot_event": [], 
+                "onchange_event": [], 
+                "oncreate_event": [], 
+                "ondelete_event": [], 
+                "onrefresh_event": []
+            }, 
+            "lastchange": {
+                "hidden": false, 
+                "type": "int", 
+                "value": 1514046374
+            }, 
+            "lastupdate": {
+                "hidden": false, 
+                "type": "int", 
+                "value": 1514046374
+            }, 
+            "name": {
+                "type": "string", 
+                "value": "unkown"
+            }, 
+            "value": {
+                "type": "string", 
+                "value": false
+            }
+        }, 
+        "party_start_day": {
+            "create": {
+                "type": "int", 
+                "value": "0"
+            }, 
+            "enable": {
+                "type": "bool", 
+                "value": true
+            }, 
+            "events": {
+                "onboot_event": [], 
+                "onchange_event": [], 
+                "oncreate_event": [], 
+                "ondelete_event": [], 
+                "onrefresh_event": []
+            }, 
+            "lastchange": {
+                "hidden": false, 
+                "type": "int", 
+                "value": 1514046375
+            }, 
+            "lastupdate": {
+                "hidden": false, 
+                "type": "int", 
+                "value": 1514046375
+            }, 
+            "name": {
+                "type": "string", 
+                "value": "unkown"
+            }, 
+            "value": {
+                "type": "string", 
+                "value": 1
+            }
+        }, 
+        "party_start_month": {
+            "create": {
+                "type": "int", 
+                "value": "0"
+            }, 
+            "enable": {
+                "type": "bool", 
+                "value": true
+            }, 
+            "events": {
+                "onboot_event": [], 
+                "onchange_event": [], 
+                "oncreate_event": [], 
+                "ondelete_event": [], 
+                "onrefresh_event": []
+            }, 
+            "lastchange": {
+                "hidden": false, 
+                "type": "int", 
+                "value": 1514046375
+            }, 
+            "lastupdate": {
+                "hidden": false, 
+                "type": "int", 
+                "value": 1514046375
+            }, 
+            "name": {
+                "type": "string", 
+                "value": "unkown"
+            }, 
+            "value": {
+                "type": "string", 
+                "value": 1
+            }
+        }, 
+        "party_start_time": {
+            "create": {
+                "type": "int", 
+                "value": "0"
+            }, 
+            "enable": {
+                "type": "bool", 
+                "value": true
+            }, 
+            "events": {
+                "onboot_event": [], 
+                "onchange_event": [], 
+                "oncreate_event": [], 
+                "ondelete_event": [], 
+                "onrefresh_event": []
+            }, 
+            "lastchange": {
+                "hidden": false, 
+                "type": "int", 
+                "value": 1514046375
+            }, 
+            "lastupdate": {
+                "hidden": false, 
+                "type": "int", 
+                "value": 1514046375
+            }, 
+            "name": {
+                "type": "string", 
+                "value": "unkown"
+            }, 
+            "value": {
+                "type": "string", 
+                "value": 0
+            }
+        }, 
+        "party_start_year": {
+            "create": {
+                "type": "int", 
+                "value": "0"
+            }, 
+            "enable": {
+                "type": "bool", 
+                "value": true
+            }, 
+            "events": {
+                "onboot_event": [], 
+                "onchange_event": [], 
+                "oncreate_event": [], 
+                "ondelete_event": [], 
+                "onrefresh_event": []
+            }, 
+            "lastchange": {
+                "hidden": false, 
+                "type": "int", 
+                "value": 1514046375
+            }, 
+            "lastupdate": {
+                "hidden": false, 
+                "type": "int", 
+                "value": 1514046375
+            }, 
+            "name": {
+                "type": "string", 
+                "value": "unkown"
+            }, 
+            "value": {
+                "type": "string", 
+                "value": 0
+            }
+        }, 
+        "party_stop_day": {
+            "create": {
+                "type": "int", 
+                "value": "0"
+            }, 
+            "enable": {
+                "type": "bool", 
+                "value": true
+            }, 
+            "events": {
+                "onboot_event": [], 
+                "onchange_event": [], 
+                "oncreate_event": [], 
+                "ondelete_event": [], 
+                "onrefresh_event": []
+            }, 
+            "lastchange": {
+                "hidden": false, 
+                "type": "int", 
+                "value": 1514046376
+            }, 
+            "lastupdate": {
+                "hidden": false, 
+                "type": "int", 
+                "value": 1514046376
+            }, 
+            "name": {
+                "type": "string", 
+                "value": "unkown"
+            }, 
+            "value": {
+                "type": "string", 
+                "value": 1
+            }
+        }, 
+        "party_stop_month": {
+            "create": {
+                "type": "int", 
+                "value": "0"
+            }, 
+            "enable": {
+                "type": "bool", 
+                "value": true
+            }, 
+            "events": {
+                "onboot_event": [], 
+                "onchange_event": [], 
+                "oncreate_event": [], 
+                "ondelete_event": [], 
+                "onrefresh_event": []
+            }, 
+            "lastchange": {
+                "hidden": false, 
+                "type": "int", 
+                "value": 1514046376
+            }, 
+            "lastupdate": {
+                "hidden": false, 
+                "type": "int", 
+                "value": 1514046376
+            }, 
+            "name": {
+                "type": "string", 
+                "value": "unkown"
+            }, 
+            "value": {
+                "type": "string", 
+                "value": 1
+            }
+        }, 
+        "party_stop_time": {
+            "create": {
+                "type": "int", 
+                "value": "0"
+            }, 
+            "enable": {
+                "type": "bool", 
+                "value": true
+            }, 
+            "events": {
+                "onboot_event": [], 
+                "onchange_event": [], 
+                "oncreate_event": [], 
+                "ondelete_event": [], 
+                "onrefresh_event": []
+            }, 
+            "lastchange": {
+                "hidden": false, 
+                "type": "int", 
+                "value": 1514046376
+            }, 
+            "lastupdate": {
+                "hidden": false, 
+                "type": "int", 
+                "value": 1514046376
+            }, 
+            "name": {
+                "type": "string", 
+                "value": "unkown"
+            }, 
+            "value": {
+                "type": "string", 
+                "value": 0
+            }
+        }, 
+        "party_stop_year": {
+            "create": {
+                "type": "int", 
+                "value": "0"
+            }, 
+            "enable": {
+                "type": "bool", 
+                "value": true
+            }, 
+            "events": {
+                "onboot_event": [], 
+                "onchange_event": [], 
+                "oncreate_event": [], 
+                "ondelete_event": [], 
+                "onrefresh_event": []
+            }, 
+            "lastchange": {
+                "hidden": false, 
+                "type": "int", 
+                "value": "0"
+            }, 
+            "lastupdate": {
+                "hidden": false, 
+                "type": "int", 
+                "value": "0"
+            }, 
+            "name": {
+                "type": "string", 
+                "value": "unkown"
+            }, 
+            "value": {
+                "type": "string", 
+                "value": "unkown"
+            }
+        }, 
+        "party_temperature": {
+            "create": {
+                "type": "int", 
+                "value": "0"
+            }, 
+            "enable": {
+                "type": "bool", 
+                "value": true
+            }, 
+            "events": {
+                "onboot_event": [], 
+                "onchange_event": [], 
+                "oncreate_event": [], 
+                "ondelete_event": [], 
+                "onrefresh_event": []
+            }, 
+            "lastchange": {
+                "hidden": false, 
+                "type": "int", 
+                "value": 1514046375
+            }, 
+            "lastupdate": {
+                "hidden": false, 
+                "type": "int", 
+                "value": 1514046375
+            }, 
+            "name": {
+                "type": "string", 
+                "value": "unkown"
+            }, 
+            "value": {
+                "type": "string", 
+                "value": 5.0
+            }
+        }, 
+        "set_temperature": {
+            "create": {
+                "type": "int", 
+                "value": "0"
+            }, 
+            "enable": {
+                "type": "bool", 
+                "value": true
+            }, 
+            "events": {
+                "onboot_event": [], 
+                "onchange_event": [], 
+                "oncreate_event": [], 
+                "ondelete_event": [], 
+                "onrefresh_event": []
+            }, 
+            "lastchange": {
+                "hidden": false, 
+                "type": "int", 
+                "value": 1514045441
+            }, 
+            "lastupdate": {
+                "hidden": false, 
+                "type": "int", 
+                "value": 1514046375
+            }, 
+            "name": {
+                "type": "string", 
+                "value": "unkown"
+            }, 
+            "value": {
+                "type": "string", 
+                "value": 21.0
+            }
+        }, 
+        "temperature": {
+            "create": {
+                "type": "int", 
+                "value": "0"
+            }, 
+            "enable": {
+                "type": "bool", 
+                "value": true
+            }, 
+            "events": {
+                "onboot_event": [], 
+                "onchange_event": [], 
+                "oncreate_event": [], 
+                "ondelete_event": [], 
+                "onrefresh_event": []
+            }, 
+            "lastchange": {
+                "hidden": false, 
+                "type": "int", 
+                "value": 1514045299
+            }, 
+            "lastupdate": {
+                "hidden": false, 
+                "type": "int", 
+                "value": 1514046245
+            }, 
+            "name": {
+                "type": "string", 
+                "value": "unkown"
+            }, 
+            "value": {
+                "type": "string", 
+                "value": 21.4
+            }
+        }, 
+        "window_open_reporting": {
+            "create": {
+                "type": "int", 
+                "value": "0"
+            }, 
+            "enable": {
+                "type": "bool", 
+                "value": true
+            }, 
+            "events": {
+                "onboot_event": [], 
+                "onchange_event": [], 
+                "oncreate_event": [], 
+                "ondelete_event": [], 
+                "onrefresh_event": []
+            }, 
+            "lastchange": {
+                "hidden": false, 
+                "type": "int", 
+                "value": 1514046374
+            }, 
+            "lastupdate": {
+                "hidden": false, 
+                "type": "int", 
+                "value": 1514046374
+            }, 
+            "name": {
+                "type": "string", 
+                "value": "unkown"
+            }, 
+            "value": {
+                "type": "string", 
+                "value": false
+            }
+        }
+    }, 
+    "device": {}
+}
