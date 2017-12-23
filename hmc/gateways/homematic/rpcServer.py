@@ -32,32 +32,27 @@ class hmc_rpc_callback:
         self.__timer=timer
         self.logger=logging.getLogger(__name__) 
     
-    def event(self, interfaceID, device, attribute, value,*unkown):
-        deviceID=unkown
-        attribute=attribute.lower()
+    def event(self, interfaceID, device, channelName, value,*unkown):
+        (device,channelNumber)=device.split(":")
+        deviceID=("%s@%s.%s"%(device,self.__config['gateway'],self.__config['host']))  
+        channelName=channelName.lower()
         self.__timer()
         try:
-            self.logger.debug("event: interfaceID = %s, device: %s, attribute = %s, value = %s" % ( interfaceID,device, attribute, str(value) ))
-            deviceID=("%s@%s.%s"%(device,self.__config['gateway'],self.__config['host']))  
+            self.logger.debug("event: interfaceID = %s, device: %s, channel name = %s, value = %s" % ( interfaceID,device,channelName,value))
             self.logger.debug("deviceID %s"%(deviceID))
+        
+            if not self.__core.ifDeviceExists(deviceID):
+                self.logger.error("deviceID %s is not exists"%(deviceID))
+                return''
+            if not self.__core.ifDeviceChannelExist(deviceID,channelName):
+                self.__core.addDeviceChannel(deviceID,channelName,self.__defaultAttribute(channelName))
         except:
-            self.logger.error("error can not add event", exc_info=True)
-            return''
-        if not self.__core.ifDeviceExists(deviceID):
-            self.logger.error("deviceID %s is not exists"%(deviceID))
-            return''
-        try:
-            if self.__config['autoAttribut']:
-                if not self.__core.ifDeviceAttributeExist(deviceID,attribute):
-                    attributeItem=self.__defaultAttribute(attribute)
-                    self.__core.addDeviceAttribute(deviceID,attributeItem)
-        except:
-            self.logger.error("error to add attribute %s for deviceID %s "%(attribute,deviceID), exc_info=True)
+            self.logger.error("error to add channel %s for deviceID %s "%(channelName,deviceID), exc_info=True)
             return ''
         try:
-            self.__core.setDeviceAttribute(deviceID,attribute,value)
+            self.__core.setDeviceChannelValue(deviceID,channelName,value)
         except:
-            self.logger.error("error can not  add value %s for attribute %s for deviceID %s "%(value,attribute,deviceID), exc_info=True)
+            self.logger.error("error can not  add value %s for channel %s for deviceID %s "%(value,channelName,deviceID), exc_info=True)
         return ''
     def listMethods(self,*args):
         self.__timer()
@@ -73,70 +68,68 @@ class hmc_rpc_callback:
         self.__timer()
         self.logger.debug("call newDevices for interfaceID:%s"%(interfaceID))
         for device in allDevices:
-            self.__timer()
             if device['PARENT']=="":
-                self.logger.debug("ignore type is parent")
-                continue
-            deviceID="%s@%s.%s"%(device['ADDRESS'],self.__config['gateway'],self.__config['host'])
-            try:
-                if not self.__core.ifDeviceExists(deviceID):
-                    self.__addDevice(device)
-                else:
-                    self.logger.info("deviceID is exist: %s"%(deviceID)) 
-            except:
-                self.logger.warning("can not add deviceID: %s"%(deviceID), exc_info=True) 
+                deviceID="%s@%s.%s"%(device['ADDRESS'],self.__config['gateway'],self.__config['host'])
+                try:
+                    if not self.__core.ifDeviceExists(deviceID):
+                        self.__addNewDevice(device)
+                    else:
+                        self.logger.info("deviceID is exist: %s"%(deviceID))
+                except:
+                    self.logger.warning("can not add deviceID: %s"%(deviceID), exc_info=True) 
         return ''
      
-    def __defaultAttribute(self,attribute):
-        attribute=attribute.lower()
-        tmpAttribute={
-                    attribute:{
-                        'value':"",
-                        'type':"var"}
-                   }
-        return tmpAttribute
+    def __defaultAttribute(self,channelName):
+        channelValues={}
+        channelValues[channelName]={
+                "value":{
+                        "value":"unkown",
+                        "type":"string"},
+                "name":{        
+                        "value":"unkown",
+                        "type":"string"},
+                    }
+        return channelValues
     
-    def __addAttribute(self,attribute):
-        if self.__config['autoAttribut']:
-            try:
-                pass
-            except:
-                pass
-            
-    def __addDevice(self,device):
+    def __addNewDevice(self,device):
+        '''
+        add a new sensor to core devices
+        '''
         try:
             deviceID="%s@%s.%s"%(device['ADDRESS'],self.__config['gateway'],self.__config['host'])
-            self.logger.info("add  newDevices:%s"%(deviceID))
-            hmcDevice={
+            self.logger.info("add  new devicesID:%s"%(deviceID))
+            devicetype=device['TYPE'].replace("-","_")
+            device={
+                "device":{
                     "gateway":{
-                               "value":"%s"%(self.__config['gateway'])
-                              },
+                        "value":"%s"%(self.__config['gateway']),
+                        "type":"string"},
                     "deviceID":{
-                               "value":deviceID
-                              },
+                        "value":"%s"%(deviceID),
+                        "type":"string"},
                     "enable":{
-                               "value":True
-                              },
+                        "value":True,
+                        "type":"bool"},
                     "connected":{
-                               "value":True
-                              },
-                    "value":{
-                               "value":0
-                              },
-                    "typ":{
-                               "value":"%s"%(device['PARENT_TYPE'])
-                              },
+                        "value":True,
+                        "type":"bool"},
+                    "devicetype":{
+                        "value":"%s"%(devicetype),
+                        "type":"string"},
                     "host":{
-                                "value":self.__config['host']
-                            },
+                        "value":self.__config['host'],
+                        "type":"string"},
                     "package":{
-                                "value":self.__config['package']
-                            }
-                   }  
-            self.logger.info("add deviceID %s to core"%(hmcDevice["deviceID"]['value']))
-            self.__core.addDevice(hmcDevice)
+                        "value":self.__config['package'],
+                        "type":"string"},
+                    }
+                }
+            self.__core.addDevice(device)
         except:
-            self.logger.warning("can not add deviceID: %s"%(deviceID), exc_info=True) 
+            self.logger.error("can not add deviceID: %s"%(deviceID), exc_info=True) 
+                            
+    
+            
         
 
 class server(threading.Thread):

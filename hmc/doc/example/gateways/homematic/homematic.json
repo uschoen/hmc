@@ -5,7 +5,6 @@
  		"modul":"rpcServer",
  		"class":"server",
  		"config":{
- 			"autoAttribut":true,
  			"name":"hmc_rpc_rf",
 			"hm_ip":"192.168.x.x",
 			"hm_port":"2000",
@@ -21,7 +20,6 @@
  		"modul":"rpcServer",
  		"class":"server",
  		"config":{
- 			"autoAttribut":true,
  			"name":"hmc_rpc_wired",
 			"hm_ip":"192.168.x.x",
 			"hm_port":"2001",
