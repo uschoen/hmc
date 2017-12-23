@@ -4,7 +4,7 @@
         "config": {
             "interval": 60, 
             "path": "/sys/bus/w1/devices/", 
-            "tempDiv": 0.5, 
+            "tolerance": 0.5, 
             "devicetype": "ds1820",
             "gateway":"onewire"
         }, 

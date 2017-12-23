@@ -54,21 +54,18 @@
             "lastchange": {
                 "hidden": false, 
                 "type": "int", 
-                "value": "0"
+                "value": 1514024980
             }, 
             "lastupdate": {
                 "hidden": false, 
                 "type": "int", 
-                "value": "0"
+                "value": 1514024980
             }, 
             "name": {
                 "type": "string", 
                 "value": "unkown"
             }, 
-            "value": {
-                "type": "string", 
-                "value": "unkown"
-            }
+            "value": 448.0
         }
     }, 
     "device": {}

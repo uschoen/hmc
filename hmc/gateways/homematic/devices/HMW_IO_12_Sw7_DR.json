@@ -1,6 +1,6 @@
 {
     "channels": {
-        "state": {
+        "press_long": {
             "create": {
                 "type": "int", 
                 "value": "0"
@@ -19,12 +19,12 @@
             "lastchange": {
                 "hidden": false, 
                 "type": "int", 
-                "value": 1514023384
+                "value": 1514025227
             }, 
             "lastupdate": {
                 "hidden": false, 
                 "type": "int", 
-                "value": 1514023384
+                "value": 1514025228
             }, 
             "name": {
                 "type": "string", 
@@ -32,7 +32,7 @@
             }, 
             "value": true
         }, 
-        "working": {
+        "press_short": {
             "create": {
                 "type": "int", 
                 "value": "0"
@@ -66,6 +66,70 @@
                 "type": "string", 
                 "value": "unkown"
             }
+        }, 
+        "state": {
+            "create": {
+                "type": "int", 
+                "value": "0"
+            }, 
+            "enable": {
+                "type": "bool", 
+                "value": true
+            }, 
+            "events": {
+                "onboot_event": [], 
+                "onchange_event": [], 
+                "oncreate_event": [], 
+                "ondelete_event": [], 
+                "onrefresh_event": []
+            }, 
+            "lastchange": {
+                "hidden": false, 
+                "type": "int", 
+                "value": 1514025014
+            }, 
+            "lastupdate": {
+                "hidden": false, 
+                "type": "int", 
+                "value": 1514025038
+            }, 
+            "name": {
+                "type": "string", 
+                "value": "unkown"
+            }, 
+            "value": true
+        }, 
+        "working": {
+            "create": {
+                "type": "int", 
+                "value": "0"
+            }, 
+            "enable": {
+                "type": "bool", 
+                "value": true
+            }, 
+            "events": {
+                "onboot_event": [], 
+                "onchange_event": [], 
+                "oncreate_event": [], 
+                "ondelete_event": [], 
+                "onrefresh_event": []
+            }, 
+            "lastchange": {
+                "hidden": false, 
+                "type": "int", 
+                "value": 1514024305
+            }, 
+            "lastupdate": {
+                "hidden": false, 
+                "type": "int", 
+                "value": 1514025038
+            }, 
+            "name": {
+                "type": "string", 
+                "value": "unkown"
+            }, 
+            "value": false
         }
     }, 
     "device": {}

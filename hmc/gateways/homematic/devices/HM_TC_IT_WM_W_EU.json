@@ -19,18 +19,18 @@
             "lastchange": {
                 "hidden": false, 
                 "type": "int", 
-                "value": 1514023469
+                "value": 1514023228
             }, 
             "lastupdate": {
                 "hidden": false, 
                 "type": "int", 
-                "value": 1514023593
+                "value": 1514024799
             }, 
             "name": {
                 "type": "string", 
                 "value": "unkown"
             }, 
-            "value": 54.0
+            "value": 51.0
         }, 
         "actual_temperature": {
             "create": {
@@ -51,18 +51,18 @@
             "lastchange": {
                 "hidden": false, 
                 "type": "int", 
-                "value": 1514023593
+                "value": 1514024799
             }, 
             "lastupdate": {
                 "hidden": false, 
                 "type": "int", 
-                "value": 1514023604
+                "value": 1514024810
             }, 
             "name": {
                 "type": "string", 
                 "value": "unkown"
             }, 
-            "value": 18.4
+            "value": 18.9
         }, 
         "battery_state": {
             "create": {
@@ -83,18 +83,18 @@
             "lastchange": {
                 "hidden": false, 
                 "type": "int", 
-                "value": 1514023603
+                "value": 1514024809
             }, 
             "lastupdate": {
                 "hidden": false, 
                 "type": "int", 
-                "value": 1514023603
+                "value": 1514024809
             }, 
             "name": {
                 "type": "string", 
                 "value": "unkown"
             }, 
-            "value": 3.0
+            "value": 2.5
         }, 
         "boost_state": {
             "create": {
@@ -115,12 +115,12 @@
             "lastchange": {
                 "hidden": false, 
                 "type": "int", 
-                "value": 1514023604
+                "value": 1514024809
             }, 
             "lastupdate": {
                 "hidden": false, 
                 "type": "int", 
-                "value": 1514023604
+                "value": 1514024809
             }, 
             "name": {
                 "type": "string", 
@@ -147,12 +147,12 @@
             "lastchange": {
                 "hidden": false, 
                 "type": "int", 
-                "value": 1514023603
+                "value": 1514024809
             }, 
             "lastupdate": {
                 "hidden": false, 
                 "type": "int", 
-                "value": 1514023603
+                "value": 1514024809
             }, 
             "name": {
                 "type": "string", 
@@ -179,12 +179,12 @@
             "lastchange": {
                 "hidden": false, 
                 "type": "int", 
-                "value": 1514023603
+                "value": 1514024809
             }, 
             "lastupdate": {
                 "hidden": false, 
                 "type": "int", 
-                "value": 1514023603
+                "value": 1514024809
             }, 
             "name": {
                 "type": "string", 
@@ -211,18 +211,18 @@
             "lastchange": {
                 "hidden": false, 
                 "type": "int", 
-                "value": 1514023351
+                "value": 1514023425
             }, 
             "lastupdate": {
                 "hidden": false, 
                 "type": "int", 
-                "value": 1514023489
+                "value": 1514024643
             }, 
             "name": {
                 "type": "string", 
                 "value": "unkown"
             }, 
-            "value": 54
+            "value": 51
         }, 
         "lowbat_reporting": {
             "create": {
@@ -243,12 +243,12 @@
             "lastchange": {
                 "hidden": false, 
                 "type": "int", 
-                "value": 1514023603
+                "value": 1514024809
             }, 
             "lastupdate": {
                 "hidden": false, 
                 "type": "int", 
-                "value": 1514023603
+                "value": 1514024809
             }, 
             "name": {
                 "type": "string", 
@@ -275,12 +275,12 @@
             "lastchange": {
                 "hidden": false, 
                 "type": "int", 
-                "value": 1514023604
+                "value": 1514024810
             }, 
             "lastupdate": {
                 "hidden": false, 
                 "type": "int", 
-                "value": 1514023604
+                "value": 1514024810
             }, 
             "name": {
                 "type": "string", 
@@ -307,12 +307,12 @@
             "lastchange": {
                 "hidden": false, 
                 "type": "int", 
-                "value": 1514023604
+                "value": 1514024810
             }, 
             "lastupdate": {
                 "hidden": false, 
                 "type": "int", 
-                "value": 1514023604
+                "value": 1514024810
             }, 
             "name": {
                 "type": "string", 
@@ -339,12 +339,12 @@
             "lastchange": {
                 "hidden": false, 
                 "type": "int", 
-                "value": 1514023604
+                "value": 1514024810
             }, 
             "lastupdate": {
                 "hidden": false, 
                 "type": "int", 
-                "value": 1514023604
+                "value": 1514024810
             }, 
             "name": {
                 "type": "string", 
@@ -371,12 +371,12 @@
             "lastchange": {
                 "hidden": false, 
                 "type": "int", 
-                "value": 1514023605
+                "value": 1514024810
             }, 
             "lastupdate": {
                 "hidden": false, 
                 "type": "int", 
-                "value": 1514023605
+                "value": 1514024810
             }, 
             "name": {
                 "type": "string", 
@@ -403,12 +403,12 @@
             "lastchange": {
                 "hidden": false, 
                 "type": "int", 
-                "value": 1514023605
+                "value": 1514024811
             }, 
             "lastupdate": {
                 "hidden": false, 
                 "type": "int", 
-                "value": 1514023605
+                "value": 1514024811
             }, 
             "name": {
                 "type": "string", 
@@ -435,12 +435,12 @@
             "lastchange": {
                 "hidden": false, 
                 "type": "int", 
-                "value": 1514023605
+                "value": 1514024811
             }, 
             "lastupdate": {
                 "hidden": false, 
                 "type": "int", 
-                "value": 1514023605
+                "value": 1514024811
             }, 
             "name": {
                 "type": "string", 
@@ -467,12 +467,12 @@
             "lastchange": {
                 "hidden": false, 
                 "type": "int", 
-                "value": 1514023605
+                "value": 1514024810
             }, 
             "lastupdate": {
                 "hidden": false, 
                 "type": "int", 
-                "value": 1514023605
+                "value": 1514024810
             }, 
             "name": {
                 "type": "string", 
@@ -534,12 +534,12 @@
             "lastchange": {
                 "hidden": false, 
                 "type": "int", 
-                "value": 1514023604
+                "value": 1514024810
             }, 
             "lastupdate": {
                 "hidden": false, 
                 "type": "int", 
-                "value": 1514023604
+                "value": 1514024810
             }, 
             "name": {
                 "type": "string", 
@@ -566,18 +566,18 @@
             "lastchange": {
                 "hidden": false, 
                 "type": "int", 
-                "value": 1514023469
+                "value": 1514023228
             }, 
             "lastupdate": {
                 "hidden": false, 
                 "type": "int", 
-                "value": 1514023604
+                "value": 1514024810
             }, 
             "name": {
                 "type": "string", 
                 "value": "unkown"
             }, 
-            "value": 17.0
+            "value": 18.0
         }, 
         "temperature": {
             "create": {
@@ -598,18 +598,18 @@
             "lastchange": {
                 "hidden": false, 
                 "type": "int", 
-                "value": 1514023351
+                "value": 1514023425
             }, 
             "lastupdate": {
                 "hidden": false, 
                 "type": "int", 
-                "value": 1514023489
+                "value": 1514024643
             }, 
             "name": {
                 "type": "string", 
                 "value": "unkown"
             }, 
-            "value": 18.3
+            "value": 18.8
         }, 
         "window_open_reporting": {
             "create": {
@@ -630,12 +630,12 @@
             "lastchange": {
                 "hidden": false, 
                 "type": "int", 
-                "value": 1514023603
+                "value": 1514024809
             }, 
             "lastupdate": {
                 "hidden": false, 
                 "type": "int", 
-                "value": 1514023603
+                "value": 1514024809
             }, 
             "name": {
                 "type": "string", 
