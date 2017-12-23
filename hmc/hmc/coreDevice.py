@@ -116,6 +116,46 @@ class coreDevices ():
             self.logger.error("can not add device id %s"%(device['device']['deviceID']['value']),exc_info=True)
             raise Exception
     
+    def ifDeviceEnable(self,deviceID): 
+        '''
+        check if device enable
+        
+        return  true if enable
+                false is disable
+                
+        exception is deviceID not existing
+        '''
+        if deviceID not in self.devices:
+            self.logger.error("object id %s not existing"%(deviceID))
+            raise Exception
+        return self.devices[deviceID].ifEnable()
+    
+    def deviceDisable(self,deviceID): 
+        '''
+        disable device
+                
+        exception is deviceID not existing
+        update remote core
+        '''
+        if deviceID not in self.devices:
+            self.logger.error("object id %s not existing"%(deviceID))
+            raise Exception
+        self.devices[deviceID].disable()
+        self.updateRemoteCore(False,deviceID,'deviceDisable',deviceID)
+        
+    def deviceEnable(self,deviceID): 
+        '''
+        enable device
+                
+        exception is deviceID not existing
+        update remote core
+        '''
+        if deviceID not in self.devices:
+            self.logger.error("object id %s not existing"%(deviceID))
+            raise Exception
+        self.devices[deviceID].enable()
+        self.updateRemoteCore(False,deviceID,'deviceEnable',deviceID)
+      
     def ifDeviceExists(self,deviceID): 
         '''
         check if device exist
@@ -180,7 +220,7 @@ class coreDevices ():
             classModul = self.__loadPackage(devicePackage)
         except:
             self.logger.info("can not load package %s, copy new device"%(devicePackage))
-            devicePath="gateways/%s/devices/"%(device['device']['package']['value'])
+            devicePath="gateways/%s/devices/"%(device['device']['package']['value'].replace('.','/'))
             self.__copyNewDevice(devicePath,device['device']['devicetype']['value'])
             try:
                 classModul = self.__loadPackage(devicePackage)
