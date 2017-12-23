@@ -10,7 +10,7 @@ import threading,os,re
 from time import sleep
 import logging
 
-__version__="2.0"
+__version__="3.0"
 
 class sensor(threading.Thread): 
     def __init__(self, params,core):
@@ -19,10 +19,10 @@ class sensor(threading.Thread):
         self.__args={
                         "gateway": "unkown", 
                         "host": "unkown", 
-                        "interval": 60, 
+                        "interval": 360, 
                         "package": "raspberry.onewire", 
                         "path": "/sys/bus/w1/devices/", 
-                        "tempDiv": 1, 
+                        "tolerance": 1, 
                         "devicetype": "ds1820"
                         }
         self.__args.update(params)
@@ -35,21 +35,43 @@ class sensor(threading.Thread):
         '''
         gateway main loop
         '''
-        self.logger.info("%s start"%(__name__))
+        self.logger.info("%s start in 5 sec."%(__name__))
         sleep(5)
         while self.running:
             self.__checkConnectedSensors()
             for sensorID in self.__connectedSensors:
-                    if  self.__connectedSensors[sensorID]['device']["connected"]['value']==False or self.__connectedSensors[sensorID]['device']["enable"]['value']==False:
-                        self.logger.info("sensor id %s is disconnected or not enable"%(sensorID))
+                try:
+                    deviceID=self.__deviceID(sensorID)
+                    '''
+                    check if sensor connected to onewire bus
+                    '''                    
+                    if  self.__connectedSensors[sensorID]["connected"]==False:
+                        self.logger.info("sensor id %s is disconnected"%(sensorID))
                         continue
+                    '''
+                    check if sensor enable in core
+                    '''
+                    if not self.__core.ifDeviceEnable(deviceID):
+                        self.logger.info("sensor id %s is disconnected"%(sensorID))
+                        continue 
+                    '''
+                    check if sensor in core exists
+                    '''
+                    if not self.__core.ifDeviceExists(deviceID):
+                        self.__addNewSensor(sensorID)
+                    '''
+                    check if channel temperature exists
+                    '''
+                    if not self.__core.ifDeviceChannelExist(deviceID,"temperature"):
+                        self.__addChannel(sensorID,"temperature")
+                    '''
+                    read temperature from sensor
+                    '''   
                     self.logger.debug("read sensorID %s"%(sensorID))
                     path=self.__args["path"]+sensorID+"/w1_slave"
-                    try:
-                        value=self.__readSensor(path)
-                        self.__updateSensorID(sensorID,value)
-                    except:
-                        self.logger.error("can not read/update sensorID %s"%(sensorID))
+                    self.__updateSensorID(sensorID,self.__readSensor(path))
+                except:
+                    self.logger.error("can not read/update sensorID %s"%(sensorID))
             self.logger.info("wait %i s for next scan"%(self.__args["interval"])) 
             sleep(self.__args["interval"])
         self.logger.info("%s stop:"%(__name__))
@@ -58,45 +80,28 @@ class sensor(threading.Thread):
         '''
         read onewire sensor and compare old & new value
         update core device
-        
-        TODO: change configuration item "tempDiv" to "tolerance"
         '''
         try:
-            deviceID=self.__connectedSensors[sensorID]['device']['deviceID']['value']   
-            if not self.__core.ifDeviceChannelExist(deviceID,"temperature"):
-                self.__addChannel(sensorID,deviceID,"temperature")
+            deviceID=self.__deviceID(sensorID)
+            lastValue=self.__core.getDeviceChannelValue(deviceID,'temperature')
             
-            lastValue=self.__connectedSensors[sensorID]["channels"]["temperature"]['value']
-            tempDiv=float(self.__args["tempDiv"])
-            self.logger.debug("sensorID:%s old value:%s new value:%s temp. tolerance:%s"%(sensorID,lastValue,value,tempDiv))
+            tempDiv=float(self.__args["tolerance"])
+            self.logger.debug("sensorID:%s old value:%s new value:%s tolerance:%s"%(sensorID,lastValue,value,tempDiv))
             
             if (lastValue < (value-tempDiv)) or (lastValue >(value+tempDiv)):
-                self.logger.debug("temperature is change, update internal device") 
-                self.__connectedSensors[sensorID]["channels"]["temperature"]['value']=value
-                '''
-                check if sensor in core as device
-                '''
-                if not self.__core.ifDeviceExists(deviceID):
-                    try:
-                        self.__addNewSensor(sensorID)
-                    except:
-                        self.logger.error("can not add and update sensorID %s"%(sensorID),exc_info=True)
-                        return
-                '''
-                update device in core
-                '''
-                try:
-                    self.__core.setDeviceChannelValue(deviceID,"temperature",value)
-                    self.logger.debug("update for deviceID %s success"%(deviceID)) 
-                except:    
-                    self.logger.error("update for deviceID %s failed. DISABLE sensor"%(deviceID),exc_info=True) 
-                    self.__connectedSensors[sensorID]['device']['enable']['value']=False                                  
+                self.logger.debug("temperature is change, update device channel temperature") 
+                self.__core.setDeviceChannelValue(deviceID,"temperature",value)
+                self.logger.debug("update for deviceID %s success"%(deviceID))                                   
             else:
                 self.logger.debug("temperature is not change")
         except:    
             self.logger.error("can not update sensorID %s"%(sensorID),exc_info=True) 
     
-    def __addChannel(self,sensorID,deviceID,channelName):
+    def __addChannel(self,sensorID,channelName):
+        '''
+        add new channel to device core
+        '''
+        deviceID=self.__deviceID(sensorID)
         self.logger.info("add channel:%s"%(channelName))
         try:
             channelValues={}
@@ -141,29 +146,33 @@ class sensor(threading.Thread):
         
                
     def __checkConnectedSensors(self):
+        '''
+        check if new onewire sensor connect to bus and 
+        add them to core
+        '''
         self.logger.debug("check connected sensors")
         self.__disableAllSensor()
-        self.logger.debug("read connected sensors in path %s"%(self.__args["path"]))
         sensorList =os.listdir(self.__args["path"])
+        self.logger.debug("read connected sensors in path %s"%(sensorList))
         for sensorID in sensorList:
             if sensorID=="w1_bus_master1":
                 continue
             if sensorID in self.__connectedSensors:
                 self.logger.debug("find exiting sensor %s and enable"%(sensorID))
-                self.__connectedSensors[sensorID]['device']["connected"]['value']=True
+                self.__connectedSensors[sensorID]["connected"]=True
             else:
                 try:
                     self.__addNewSensor(sensorID)
                 except:
                     self.logger.error("can not add new sensorID %s"%(sensorID),exc_info=True)
-                   
         self.__deleteDisconectedSensors()
     
     def __addNewSensor(self,sensorID):
         '''
-        add a new sensor to core devices
+        add a new sensor to core core devices
         '''
-        self.logger.info("add new sensorID %s"%(sensorID))
+        deviceID=self.__deviceID(sensorID)
+        self.logger.info("add new sensorID %s with deviceID %s"%(sensorID,deviceID))
         try:
             device={
                 "device":{
@@ -171,7 +180,7 @@ class sensor(threading.Thread):
                         "value":"%s"%(self.__args['gateway']),
                         "type":"string"},
                     "deviceID":{
-                        "value":"%s@%s.%s"%(sensorID,self.__args['gateway'],self.__args['host']),
+                        "value":deviceID,
                         "type":"string"},
                     "enable":{
                         "value":True,
@@ -190,42 +199,48 @@ class sensor(threading.Thread):
                         "type":"string"},
                     }
                 }
-            
-            if self.__core.ifDeviceExists(device["device"]['deviceID']['value']):
-                self.logger.info("deviceID %s is existing, update core"%(device["device"]['deviceID']['value']))
+            self.__connectedSensors[sensorID]={}
+            if self.__core.ifDeviceExists(deviceID):
+                self.logger.info("deviceID %s is existing, update core"%(deviceID))
                 self.__core.updateDevice(device)
-                self.__connectedSensors[sensorID]=device
             else:
-                self.logger.info("add deviceID %s to core"%(device["device"]['deviceID']['value']))
+                self.logger.info("add deviceID %s to core"%(deviceID))
                 self.__core.addDevice(device)
-                self.__connectedSensors[sensorID]=device
+            self.__connectedSensors[sensorID]["connected"]=True
         except:
-            self.logger.error("can not add new deviceID %s to core"%(device["device"]['deviceID']['value']), exc_info=True)
+            self.logger.error("can not add new deviceID %s to core"%(deviceID), exc_info=True)
             raise Exception
         
     def __deleteDisconectedSensors(self):
         '''
-        delete disconnecd senors from gateways list
+        delete disconnected sensor from gateways list
         '''
         self.logger.debug("clear up and delete disconnected sensor")
         for sensorID in self.__connectedSensors:
-            if self.__connectedSensors[sensorID]['device']["connected"]['value']==False:
+            if self.__connectedSensors[sensorID]["connected"]==False:
                 del self.__connectedSensors[sensorID]
+                self.__core.deviceDisable(self.__deviceID(sensorID))
                 self.logger.info("delete sensor %s"%(sensorID))
                    
     def __disableAllSensor(self):
         '''
-        disable alle gateways sensors 
+        disable all gateways sensors 
         '''
-        self.logger.debug("set all sensor conected to false")
+        self.logger.debug("set all sensor value connect to false")
         for sensorID in self.__connectedSensors:
-            self.__connectedSensors[sensorID]['device']["connected"]['value']=False
+            self.__connectedSensors[sensorID]["connected"]=False
                
     def shutdown(self):
+        '''
+        shutdown the gateway
+        '''
         self.running=0
         self.logger.critical("stop %s thread"%(__name__))
     
     def __checkoneWire(self):
+        '''
+        check if onewire path on host exists and one wire install
+        '''
         self.logger.info("check requirements for onewire")
         if not os.path.isdir(self.__args["path"]):
             self.logger.error("onewire path %s not exist"%(self.__args["path"]))
@@ -233,5 +248,12 @@ class sensor(threading.Thread):
         self.logger.info("onewire requirements ok")
         return 1
     
+    def __deviceID(self,sensorID):
+        '''
+        convert the senor id to a dvice id
+        '''
+        deviceID="%s@%s.%s"%(sensorID,self.__args['gateway'],self.__args['host'])
+        return deviceID
+        
             
             

@@ -1,18 +1,13 @@
 '''
-Created on 05.12.2016
-
+Created on 23.12.2017
 @author: uschoen
+
 '''
 from hmc.devices.defaultDevice import device
-
 
 __version__="2.0"
 
 
 class device(device):
-    '''
-    classdocs
-    '''
     def _name_(self):
-        return "ds1820"    
-
+        return "ds1820"
