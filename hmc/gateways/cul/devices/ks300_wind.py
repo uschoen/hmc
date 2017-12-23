@@ -10,4 +10,4 @@ __version__="2.0"
 
 class device(device):
     def _name_(self):
-        return "fs20"
+        return "ks300_wind"
