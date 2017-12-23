@@ -1,0 +1,75 @@
+{
+    "channels": {
+        "rssi": {
+            "create": {
+                "type": "int", 
+                "value": "0"
+            }, 
+            "enable": {
+                "type": "bool", 
+                "value": true
+            }, 
+            "events": {
+                "onboot_event": [], 
+                "onchange_event": [], 
+                "oncreate_event": [], 
+                "ondelete_event": [], 
+                "onrefresh_event": []
+            }, 
+            "lastchange": {
+                "hidden": false, 
+                "type": "int", 
+                "value": "0"
+            }, 
+            "lastupdate": {
+                "hidden": false, 
+                "type": "int", 
+                "value": "0"
+            }, 
+            "name": {
+                "type": "string", 
+                "value": "unkown"
+            }, 
+            "value": {
+                "type": "string", 
+                "value": "unkown"
+            }
+        }, 
+        "value": {
+            "create": {
+                "type": "int", 
+                "value": "0"
+            }, 
+            "enable": {
+                "type": "bool", 
+                "value": true
+            }, 
+            "events": {
+                "onboot_event": [], 
+                "onchange_event": [], 
+                "oncreate_event": [], 
+                "ondelete_event": [], 
+                "onrefresh_event": []
+            }, 
+            "lastchange": {
+                "hidden": false, 
+                "type": "int", 
+                "value": 1514067741
+            }, 
+            "lastupdate": {
+                "hidden": false, 
+                "type": "int", 
+                "value": 1514067995
+            }, 
+            "name": {
+                "type": "string", 
+                "value": "unkown"
+            }, 
+            "value": {
+                "type": "string", 
+                "value": "00"
+            }
+        }
+    }, 
+    "device": {}
+}
