@@ -8,7 +8,7 @@ Created on 08.10.2017
 __version__ = "2.0"
 
 import importlib,copy,time,os
-
+import py_compile
 
 class coreDevices ():
     '''
@@ -179,13 +179,13 @@ class coreDevices ():
         try:
             classModul = self.__loadPackage(devicePackage)
         except:
-            self.logger.error("can not load package %s"%(devicePackage))
+            self.logger.info("can not load package %s, copy new device"%(devicePackage))
             devicePath="gateways/%s/devices/"%(device['device']['package']['value'])
             self.__copyNewDevice(devicePath,device['device']['devicetype']['value'])
             try:
                 classModul = self.__loadPackage(devicePackage)
             except:
-                self.logger.error("can not load package %s after copy"%(devicePackage))
+                self.logger.error("can not load package %s after copy"%(devicePackage),exc_info=True)
                 try:
                     devicePackage=DEFAULTDEVICE
                     classModul = self.__loadPackage(devicePackage)
@@ -225,20 +225,22 @@ class coreDevices ():
             deviceJsonName="%s%s.json"%(devicePath,deviceType)
             devicefileName="%s%s.py"%(devicePath,deviceType)
             temp={}
-            temp['channel']={}
+            temp['channels']={}
+            temp['device']={}
             self.writeJSON(deviceJsonName,temp)
             
             pythonFile = open(os.path.normpath(devicefileName),"w") 
             pythonFile.write("\'\'\'\nCreated on %s\n"%(time.strftime("%d.%m.%Y")))
             pythonFile.write("@author: uschoen\n\n")
             pythonFile.write("\'\'\'\n")
-            pythonFile.write("from hmc.devices.defaultDeviceimport device\n\n")
+            pythonFile.write("from hmc.devices.defaultDevice import device\n\n")
             pythonFile.write("__version__=\"%s\"\n\n"%(__version__))
             pythonFile.write("\n")
             pythonFile.write("class device(device):\n")
             pythonFile.write("    def _name_(self):\n")
             pythonFile.write("        return \"%s\"\n"%(deviceType))
             pythonFile.close()
+            py_compile.compile(os.path.normpath(devicefileName))
         except:
             self.logger.error("can not copy device type %s"%(deviceType),exc_info=True)
         
