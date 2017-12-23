@@ -96,6 +96,29 @@ class device(object):
         if adding:
             self._callEvent('oncreate_event', 'device')
     
+    def ifEnable(self):
+        '''
+        check if device enable
+        
+        return  true if enable
+                false is disable
+        '''
+        return self._device['enable']['value']
+    
+    def enable(self):
+        '''
+        set device to enable
+        '''
+        self.logger.info("enable deviceID %s"%(self._device['deviceID']['value']))   
+        self._device['enable']['value']=True
+    
+    def diable(self):
+        '''
+        set device to disable
+        '''
+        self.logger.info("disable deviceID %s"%(self._device['deviceID']['value']))   
+        self._device['enable']['value']=False
+        
     def delete(self):
         '''
         delete function of the device
@@ -139,18 +162,18 @@ class device(object):
             self.logger.error("can not add new channel to devicID %s"%(self._device['deviceID']['value']), exc_info=True)
             raise   
     
-    def getChannelValue(self,channel):
+    def getChannelValue(self,channelName):
         '''
         get value of channel
         public function
         '''    
     
-        self.logger.debug("get value for channel:%s"%(channel))
+        self.logger.debug("get value for channel:%s"%(channelName))
         try:
-            if not channel in self._channels:
-                self.logger.error("channel %s is not exist"%(channel))
+            if not channelName in self._channels:
+                self.logger.error("channel %s is not exist"%(channelName))
                 raise Exception
-            return self._channels[channel]['value']
+            return self._channels[channelName]['value']['value']
         except:
             self.logger.error("unknown error in getChannelValue")
             raise 
@@ -166,8 +189,8 @@ class device(object):
                 self.logger.error("channel %s is not exist"%(channelName))
                 raise Exception
             self.logger.debug("set channel %s to %s"%(channelName,value))
-            oldValue=self._channels[channelName]['value']
-            self._channels[channelName]['value']=value
+            oldValue=self._channels[channelName]['value']['value']
+            self._channels[channelName]['value']['value']=value
             if oldValue<>value:
                 self._callEvent('onchange_event',channelName)
             self._callEvent('onrefresh_event',channelName)
