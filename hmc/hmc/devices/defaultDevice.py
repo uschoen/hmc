@@ -146,6 +146,7 @@ class device(object):
         '''
         add a new channel
         '''
+        channelName=str(channelName)
         channelName=channelName.lower()
         self.logger.info("add channel %s"%(channelName))
         if channelName in self._channels:
@@ -183,6 +184,7 @@ class device(object):
         '''
         set value of channel
         ''' 
+        channelName=str(channelName)
         channelName=channelName.lower()
         try:
             if not channelName in self._channels:
@@ -235,6 +237,7 @@ class device(object):
         '''
         return true if channel exists
         '''
+        channelName=str(channelName)
         channelName=channelName.lower()
         if channelName in self._channels:
             return True
