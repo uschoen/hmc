@@ -5,7 +5,7 @@ Created on 08.10.2017
 
 
 '''
-__version__ = "2.0"
+__version__ = "3.0"
 
 import importlib,copy,time,os
 import py_compile
@@ -217,12 +217,12 @@ class coreDevices ():
             self.logger.debug("find package field:%s in device"%(device['device']['package']['value']))
             devicePackage="gateways.%s.devices.%s"%(device['device']['package']['value'],device['device']['devicetype']['value'])
         try:
-            classModul = self.__loadPackage(devicePackage)
+            classModul = self.__loadPackage(devicePackage)  
         except:
-            self.logger.info("can not load package %s, copy new device"%(devicePackage))
-            devicePath="gateways/%s/devices/"%(device['device']['package']['value'].replace('.','/'))
-            self.__copyNewDevice(devicePath,device['device']['devicetype']['value'])
             try:
+                self.logger.info("can not load package %s, copy new device"%(devicePackage))
+                devicePath="gateways/%s/devices/"%(device['device']['package']['value'].replace('.','/'))
+                self.__copyNewDevice(devicePath,device['device']['devicetype']['value'])
                 classModul = self.__loadPackage(devicePackage)
             except:
                 self.logger.error("can not load package %s after copy"%(devicePackage),exc_info=True)
@@ -251,7 +251,7 @@ class coreDevices ():
         self.logger.info("try to load %s"%(devicePackage))
         try:
             classModul = importlib.import_module(devicePackage)
-            return classModul  
+            return classModul    
         except:
             self.logger.error("can not load package %s"%(devicePackage))
             raise
@@ -267,8 +267,14 @@ class coreDevices ():
             temp={}
             temp['channels']={}
             temp['device']={}
+            if os.path.isfile(deviceJsonName):
+                self.logger.error("json file for device type %s exists %s"%(deviceType,deviceJsonName))
+                raise 
             self.writeJSON(deviceJsonName,temp)
             
+            if os.path.isfile(devicefileName):
+                self.logger.error("device file for device type %s exists %s"%(deviceType,devicefileName))
+                raise
             pythonFile = open(os.path.normpath(devicefileName),"w") 
             pythonFile.write("\'\'\'\nCreated on %s\n"%(time.strftime("%d.%m.%Y")))
             pythonFile.write("@author: uschoen\n\n")
