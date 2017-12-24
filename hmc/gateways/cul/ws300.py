@@ -99,7 +99,7 @@ class ws300device(object):
             '''
             if channel rssi exists
             '''
-            if not self.core.ifDeviceChannelExist(deviceID,rssi):
+            if not self.core.ifDeviceChannelExist(deviceID,'rssi'):
                 self.log.info("add new channel rssi to deviceID: %s"%(deviceID)) 
                 self.addChannel(deviceID,rssi)
             '''
