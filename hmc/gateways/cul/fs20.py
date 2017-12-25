@@ -7,6 +7,7 @@ Created on 23.12.2017
 class fs20device(object):
     '''
     classdocs
+    TODO: change all changes on device over the core, not himself
     '''
 
 

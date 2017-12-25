@@ -33,10 +33,12 @@ class device(device):
                 if channelName=='temperature':
                     self.calcTemperature(value)
             self._callEvent('onrefresh_event',channelName)
+            
         except:
             self.logger.error("can not set channel %s to %s"%(channelName,value))
             raise Exception
-    
+         
+     
     def _addSysChannels(self):
         '''
         check if sys channel add, if channel not exists
@@ -45,29 +47,35 @@ class device(device):
         raise exception
         '''
         try:
-            sysChannels=['tempMin24h','tempMax24h','lasttemperature']
+            sysChannels={
+                        "tempMin24h":"int",
+                        "tempMax24h":"int",
+                        "lasttemperature":"array"}
             for channelName in sysChannels:
-                if not self.ifChannelExist(channelName):
+                if not self._core.ifDeviceChannelExist(self.deviceID,channelName):
                     self.logger.info("add new channel %s"%(channelName))
-                    self.addChannel(channelName,self._defaultChannel(channelName))
+                    self._core.addDeviceChannel(self.deviceID,channelName,self._defaultChannel(channelName,sysChannels[channelName]))
         except:
             self.logger.error("can not add sys channel to temperature device")
-            raise       
+            raise 
     
-    def _defaultChannel(self,channelName):
+    def _defaultChannel(self,channelName,varType):
         '''
         return a dic with sys channel values
         '''
         channelValues={}
+        defaultVar=0
+        if varType=="array":
+            defaultVar={}
         channelValues[channelName]={
                 "value":{
-                        "value":{},
-                        "type":"array"},
+                        "value":defaultVar,
+                        "type":varType},
                 "name":{        
                         "value":channelName,
                         "type":"string"},
                     }
-        return channelValues
+        return channelValues  
     
     def calcTemperature(self,temperature):
         '''
@@ -76,17 +84,16 @@ class device(device):
         min temperature 24h
         max temperature 24h
         '''
-        return
         self.logger.debug("calc temperature data:%s"%(temperature))
         lastTemperature={}
         try:
             self._addSysChannels()
             self.__clearOldTemp()
-            lastTemperature=self.getChannelValue('lasttemperature')
+            lastTemperature=self.getDeviceChannelValue(self.deviceID,'lasttemperature')
             lastTemperature[int(time())]=temperature
-            self.setChannelValue('lasttemperature',lastTemperature)
-            self.setChannelValue('tempMin24h', min(lastTemperature.values()))
-            self.setChannelValue('tempMax24h', max(lastTemperature.values()))    
+            self._core.setDeviceChannelValue(self.deviceID,'lasttemperature',lastTemperature)
+            self._core.setDeviceChannelValue(self.deviceID,'tempMin24h', min(lastTemperature.values()))
+            self._core.setDeviceChannelValue(self.deviceID,'tempMax24h', max(lastTemperature.values()))    
         except:
             self.logger.debug("can not calc temperature data",exc_info=True)        
 
@@ -99,7 +106,7 @@ class device(device):
             if rainTimeStamp<timebefor24:
                 self.logger.debug("time temperature %s < %s befor"%(rainTimeStamp,timebefor24))
                 del lastTemperature[rainTimeStamp]
-        self.setChannelValue('lasttemperature',lastTemperature)    
+        self._core.setDeviceChannelValue(self.deviceID,'lasttemperature',lastTemperature)    
                 
                 
                 

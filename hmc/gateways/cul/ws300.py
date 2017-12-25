@@ -7,6 +7,7 @@ Created on 23.12.2017
 class ws300device(object):
     '''
     classdocs
+    
     '''
     def decodeWs300weather(self,msg):
         try:
@@ -76,7 +77,7 @@ class ws300device(object):
         except :
             self.log.critical("can not update ks300", exc_info=True)
 
-    def _addWS300(self,deviceID,deviceTyp,channelName,value,rssi):
+    def _addWS300(self,deviceID,deviceTyp,channelName,ChannelValue,rssi):
         try:
             '''
             if device exists
@@ -86,7 +87,7 @@ class ws300device(object):
                 self.addNewDevice(deviceID,deviceTyp)
             
             '''
-            if channel exists
+            if not channel exists
             '''
             if not self.core.ifDeviceChannelExist(deviceID,channelName):
                 self.log.info("add new channel %s for deviceID: %s"%(channelName,deviceID)) 
@@ -94,18 +95,18 @@ class ws300device(object):
             '''
             set channel
             '''
-            self.log.info("set channel %s to value: %s"%(channelName,value)) 
-            self.core.setDeviceChannelValue(deviceID,channelName,value)
+            self.log.info("set channel %s to value: %s"%(channelName,ChannelValue)) 
+            self.core.setDeviceChannelValue(deviceID,channelName,ChannelValue)
             '''
             if channel rssi exists
             '''
             if not self.core.ifDeviceChannelExist(deviceID,'rssi'):
                 self.log.info("add new channel rssi to deviceID: %s"%(deviceID)) 
-                self.addChannel(deviceID,rssi)
+                self.addChannel(deviceID,'rssi')
             '''
             set rssi value
             '''
-            self.log.info("add set channel rssi to value: %s"%(value)) 
+            self.log.info("add set channel rssi to value: %s"%(rssi)) 
             self.core.setDeviceChannelValue(deviceID,"rssi",rssi)
         except:
             self.log.error("can not add ws300 deviceID %s"%(deviceID),exc_info=True)
