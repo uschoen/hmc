@@ -12,7 +12,7 @@ import json,os,logging
 
 class device(object):
     
-    def __init__ (self,arg,eventHandlerList,adding=False):
+    def __init__ (self,arg,core,eventHandlerList,adding=False):
         
         '''
         class vars
@@ -63,13 +63,27 @@ class device(object):
         self._channels={}       # list of all channels
         
         '''
-        objects
+        core objects
         '''
-        self.logger=logging.getLogger(__name__) # logger object
-        self._eventHandlerList=eventHandlerList # event handler
+        self._core=core         
+        '''
+        logger object
+        '''                            
+        self.logger=logging.getLogger(__name__)             
+        '''
+        eventhandler object
+        '''
+        self._eventHandlerList=eventHandlerList
+        '''
+        default parameter
+        '''
+        self.deviceID=arg["device"]['deviceID']["value"]         
         self._packageName=arg["device"]["package"]['value']
-        self._configurationFile="gateways/%s/devices/%s.json"%(self._packageName.replace(".", "/"),self._name_())
         
+        if not self._name_()=="defaultDevice":
+            self._configurationFile="gateways/%s/devices/%s.json"%(self._packageName.replace(".", "/"),self._name_())
+        else:
+            self._configurationFile="core/hmc/devices/defaultDevice.json"
         try:         
             packageConfiguration=self._loadJSON(self._configurationFile)
             
@@ -146,6 +160,7 @@ class device(object):
         '''
         add a new channel
         '''
+        print (channelValues)
         channelName=str(channelName)
         channelName=channelName.lower()
         self.logger.info("add channel %s"%(channelName))
