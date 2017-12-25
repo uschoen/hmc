@@ -210,7 +210,7 @@ class coreDevices ():
         self.logger.info("add new device type %s"%(device['device']['devicetype']['value']))
         classModul=False
         DEFAULTDEVICE="hmc.devices.defaultDevice"
-        argumente=(device,self.eventHandler,adding)
+        argumente=(device,self,self.eventHandler,adding)
         className = "device"
         devicePackage=DEFAULTDEVICE
         if "package" in device['device']:
