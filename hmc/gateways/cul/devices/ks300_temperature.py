@@ -48,34 +48,18 @@ class device(device):
         '''
         try:
             sysChannels={
-                        "tempMin24h":"int",
-                        "tempMax24h":"int",
+                        "tempmin24h":"int",
+                        "tempmax24h":"int",
                         "lasttemperature":"array"}
             for channelName in sysChannels:
                 if not self._core.ifDeviceChannelExist(self.deviceID,channelName):
                     self.logger.info("add new channel %s"%(channelName))
-                    self._core.addDeviceChannel(self.deviceID,channelName,self._defaultChannel(channelName,sysChannels[channelName]))
+                    channel={}
+                    channel[channelName]=self._channelDefaults(channelName,self._defaultChannel(channelName,sysChannels[channelName]))
+                    self._core.addDeviceChannel(channel)
         except:
             self.logger.error("can not add sys channel to temperature device")
             raise 
-    
-    def _defaultChannel(self,channelName,varType):
-        '''
-        return a dic with sys channel values
-        '''
-        channelValues={}
-        defaultVar=0
-        if varType=="array":
-            defaultVar={}
-        channelValues[channelName]={
-                "value":{
-                        "value":defaultVar,
-                        "type":varType},
-                "name":{        
-                        "value":channelName,
-                        "type":"string"},
-                    }
-        return channelValues  
     
     def calcTemperature(self,temperature):
         '''
@@ -92,8 +76,8 @@ class device(device):
             lastTemperature=self.getDeviceChannelValue(self.deviceID,'lasttemperature')
             lastTemperature[int(time())]=temperature
             self._core.setDeviceChannelValue(self.deviceID,'lasttemperature',lastTemperature)
-            self._core.setDeviceChannelValue(self.deviceID,'tempMin24h', min(lastTemperature.values()))
-            self._core.setDeviceChannelValue(self.deviceID,'tempMax24h', max(lastTemperature.values()))    
+            self._core.setDeviceChannelValue(self.deviceID,'tempmin24h', min(lastTemperature.values()))
+            self._core.setDeviceChannelValue(self.deviceID,'tempmax24h', max(lastTemperature.values()))    
         except:
             self.logger.debug("can not calc temperature data",exc_info=True)        
 
