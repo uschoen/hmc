@@ -32,7 +32,10 @@
             }, 
             "value": {
                 "type": "array", 
-                "value": {}
+                "value": {
+                    "27272772": 8.1, 
+                    "27272777": 8.2
+                }
             }
         }, 
         "rssi": {
@@ -54,12 +57,12 @@
             "lastchange": {
                 "hidden": false, 
                 "type": "int", 
-                "value": "0"
+                "value": 1514322242
             }, 
             "lastupdate": {
                 "hidden": false, 
                 "type": "int", 
-                "value": "0"
+                "value": 1514322292
             }, 
             "name": {
                 "type": "string", 
@@ -67,7 +70,7 @@
             }, 
             "value": {
                 "type": "string", 
-                "value": "unkown"
+                "value": -89
             }
         }, 
         "temperature": {
@@ -89,12 +92,12 @@
             "lastchange": {
                 "hidden": false, 
                 "type": "int", 
-                "value": 1514123792
+                "value": 1514322445
             }, 
             "lastupdate": {
                 "hidden": false, 
                 "type": "int", 
-                "value": 1514123792
+                "value": 1514322292
             }, 
             "name": {
                 "type": "string", 
@@ -102,7 +105,77 @@
             }, 
             "value": {
                 "type": "string", 
-                "value": 8.9
+                "value": 4.2
+            }
+        }, 
+        "tempmax24h": {
+            "create": {
+                "type": "int", 
+                "value": "0"
+            }, 
+            "enable": {
+                "type": "bool", 
+                "value": true
+            }, 
+            "events": {
+                "onboot_event": [], 
+                "onchange_event": [], 
+                "oncreate_event": [], 
+                "ondelete_event": [], 
+                "onrefresh_event": []
+            }, 
+            "lastchange": {
+                "hidden": false, 
+                "type": "int", 
+                "value": "0"
+            }, 
+            "lastupdate": {
+                "hidden": false, 
+                "type": "int", 
+                "value": "0"
+            }, 
+            "name": {
+                "type": "string", 
+                "value": "tempmax24h"
+            }, 
+            "value": {
+                "type": "int", 
+                "value": 0
+            }
+        }, 
+        "tempmin24h": {
+            "create": {
+                "type": "int", 
+                "value": "0"
+            }, 
+            "enable": {
+                "type": "bool", 
+                "value": true
+            }, 
+            "events": {
+                "onboot_event": [], 
+                "onchange_event": [], 
+                "oncreate_event": [], 
+                "ondelete_event": [], 
+                "onrefresh_event": []
+            }, 
+            "lastchange": {
+                "hidden": false, 
+                "type": "int", 
+                "value": "0"
+            }, 
+            "lastupdate": {
+                "hidden": false, 
+                "type": "int", 
+                "value": "0"
+            }, 
+            "name": {
+                "type": "string", 
+                "value": "tempmin24h"
+            }, 
+            "value": {
+                "type": "int", 
+                "value": 0
             }
         }
     }, 
