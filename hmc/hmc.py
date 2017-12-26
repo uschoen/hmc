@@ -98,6 +98,7 @@ if __name__ == '__main__':
     CoreManager=False
     coreInstance=False
     signal.signal(signal.SIGINT, signal_handler) 
+    
     """
     load command line option
     """       
@@ -120,8 +121,9 @@ if __name__ == '__main__':
     """
     try:
         configuration.update(loadConfigurationFile(configuration['configfile']))
+        os.chdir(os.path.normpath(configuration['workingdirectoty']))
     except :
-        print ("error with the configuration file")
+        print ("error with the configuration file %s"%(configuration['configfile']))
         sys.exit()
     
     """
