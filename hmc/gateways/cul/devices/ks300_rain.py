@@ -64,29 +64,13 @@ class device(device):
             for channelName in sysChannels:
                 if not self.ifChannelExist(channelName):
                     self.logger.info("add new channel %s"%(channelName))
-                    self.core.addDeviceChannel(self.deviceID,channelName,self._defaultChannel(channelName,sysChannels[channelName]))
+                    channel={}
+                    channel[channelName]=self._channelDefaults(channelName,self._defaultChannel(channelName,sysChannels[channelName]))
+                    self._core.addDeviceChannel(channel)
         except:
             self.logger.error("can not add sys channel to temperature device")
             raise 
-        
-    def _defaultChannel(self,channelName,varType):
-        '''
-        return a dic with sys channel values
-        '''
-        channelValues={}
-        defaultVar=0
-        if varType=="array":
-            defaultVar={}
-        channelValues[channelName]={
-                "value":{
-                        "value":defaultVar,
-                        "type":varType},
-                "name":{        
-                        "value":channelName,
-                        "type":"string"},
-                    }
-        return channelValues   
-        
+    
     def oldsetValue(self,RAWvalue):
         '''
         check ist rain  value have change
