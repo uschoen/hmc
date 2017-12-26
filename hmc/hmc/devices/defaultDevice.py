@@ -65,7 +65,7 @@ class device(object):
         '''
         core objects
         '''
-        self._core=core         
+        self._core=core 
         '''
         logger object
         '''                            
@@ -106,9 +106,20 @@ class device(object):
             self.logger.error("can not load channels, %s can not build"%(self._name_()))
             raise
         
+        '''
+        gateway instance of the device
+        '''
+        
+        
+        
         self.logger.debug("build %s instance"%(self._name_()))
         if adding:
             self._callEvent('oncreate_event', 'device')
+    
+    def _deviceGateway(self):
+        gateway=self._core.getGatewaysInstance("%s@%s"%(self._device['gateway'],self._device['host']))
+        if not gateway:
+            pass
     
     def ifEnable(self):
         '''
@@ -258,17 +269,20 @@ class device(object):
             return True
         return False
     
-    def _channelDefaults(self):
+    def _channelDefaults(self,channelName="unknown",varType="string"):
         '''
         return the channel default
         '''
+        defaultVar=0
+        if varType=="array":
+            defaultVar={}
         channel={
             "value":{
-                "value":"unkown",
-                "type":"string"
+                "value":defaultVar,
+                "type":varType
                 },
             "name":{        
-                "value":"unkown",
+                "value":channelName,
                 "type":"string"},
             "lastchange":{
                 "value":"0",
