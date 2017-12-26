@@ -65,8 +65,8 @@ class device(device):
                 if not self.ifChannelExist(channelName):
                     self.logger.info("add new channel %s"%(channelName))
                     channel={}
-                    channel[channelName]=self._channelDefaults(channelName,self._defaultChannel(channelName,sysChannels[channelName]))
-                    self._core.addDeviceChannel(channel)
+                    channel[channelName]=self._channelDefaults(channelName,sysChannels[channelName])
+                    self._core.addDeviceChannel(self.deviceID,channelName,channel)
         except:
             self.logger.error("can not add sys channel to temperature device")
             raise 

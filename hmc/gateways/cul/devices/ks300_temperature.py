@@ -55,8 +55,8 @@ class device(device):
                 if not self._core.ifDeviceChannelExist(self.deviceID,channelName):
                     self.logger.info("add new channel %s"%(channelName))
                     channel={}
-                    channel[channelName]=self._channelDefaults(channelName,self._defaultChannel(channelName,sysChannels[channelName]))
-                    self._core.addDeviceChannel(channel)
+                    channel[channelName]=self._channelDefaults(channelName,sysChannels[channelName])
+                    self._core.addDeviceChannel(self.deviceID,channelName,channel)
         except:
             self.logger.error("can not add sys channel to temperature device")
             raise 
@@ -73,7 +73,7 @@ class device(device):
         try:
             self._addSysChannels()
             self.__clearOldTemp()
-            lastTemperature=self.getDeviceChannelValue(self.deviceID,'lasttemperature')
+            lastTemperature=self._core.getDeviceChannelValue(self.deviceID,'lasttemperature')
             lastTemperature[int(time())]=temperature
             self._core.setDeviceChannelValue(self.deviceID,'lasttemperature',lastTemperature)
             self._core.setDeviceChannelValue(self.deviceID,'tempmin24h', min(lastTemperature.values()))
