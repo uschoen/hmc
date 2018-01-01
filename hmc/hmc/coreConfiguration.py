@@ -12,10 +12,6 @@ class coreConfiguration():
         self.logger.info("load core configuration file")
         path="%s%s/%s"%(self.args['confFile']['basePath'],self.args['global']['host'],self.args['confFile']['filePath'])
         '''
-        coreClients
-        '''
-        self.loadCoreClientsFile(path+self.args['confFile']['remoteCore'])
-        '''
         event handler
         '''
         self.loadEventHandlerFile(path+self.args['confFile']['eventHandler'])
@@ -31,7 +27,10 @@ class coreConfiguration():
         gateways
         '''
         self.loadGatewayFile(path+self.args['confFile']['gateways'])
-        
+        '''
+        coreClients
+        '''
+        self.loadCoreClientsFile(path+self.args['confFile']['remoteCore'])
             
     def loadGatewayFile(self,filename): 
         self.logger.info("reading configuration database gateways %s"%(filename))      
@@ -77,7 +76,10 @@ class coreConfiguration():
             for deviceID in devicesCFG:
                 try:
                     self.logger.info("restore deviceID: %s with typ %s  "%(deviceID,devicesCFG[deviceID]['device']['devicetype']['value']))
-                    self.restoreDevice(devicesCFG[deviceID])
+                    newDevice=devicesCFG[deviceID]
+                    device=newDevice['device']
+                    channel=newDevice['channels']
+                    self.restoreDevice(device,channel)
                 except:
                     self.logger.error("can not import deviceID %s"%(deviceID), exc_info=True)
         else:

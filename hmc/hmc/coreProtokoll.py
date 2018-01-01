@@ -12,13 +12,14 @@ import logging.config
 import cPickle
 
 
+
 class code(object):
     '''
     classdocs
     '''
 
 
-    def __init__(self,user,password):
+    def __init__(self,user,password,aes):
     
         self.logger=logging.getLogger(__name__)  
         self.verion=1
@@ -26,7 +27,7 @@ class code(object):
         self.__password=password
         self.__AESmode = AES.MODE_CBC
         self.__BS = 16
-        self.__DECRYPT=False
+        self.__aes=aes
         self.logger.info("corProtokoll build")
     
     def __olddecode(self,calling,args):
@@ -106,6 +107,7 @@ class code(object):
             unserialBody=self.__encrypt(body)            
             unserialBody=self.__unserialData(unserialBody)
             if 'calling' in unserialBody and 'args' in unserialBody and 'password' in unserialBody:
+                self.logger.debug( "return args, calling,password")
                 return (unserialBody['calling'],unserialBody['args'],unserialBody['password'])
             self.logger.error( "body mismatch")
             raise 
@@ -138,8 +140,8 @@ class code(object):
     
     def __serialData(self,data):
         self.logger.debug("serial data")
-        serial_data=cPickle.dumps(data) 
-        return serial_data 
+        serial_data=cPickle.dumps(data)
+        return serial_data
     
     def __unserialData(self,data):
         self.logger.debug("un-serial data")
@@ -157,7 +159,7 @@ class code(object):
     
     def __decrypt(self, string):
         self.logger.debug( "decrypt message")
-        if self.__DECRYPT:
+        if self.__aes:
             try:
                 iv=self.__IVKey()
                 decryption_suite = AES.new(self.__md5decode(self.__password), self.__AESmode,iv)
@@ -173,7 +175,7 @@ class code(object):
    
     def __encrypt(self,cryptstring):
         self.logger.debug( "encrypt message")
-        if self.__DECRYPT:
+        if self.__aes:
             try:
                 iv=cryptstring[:self.__BS]
                 cryptstring=cryptstring[self.__BS:]

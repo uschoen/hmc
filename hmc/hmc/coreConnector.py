@@ -47,8 +47,8 @@ class coreConnector(object):
         for coreName in self.CoreClientsConnections:
             ("debug","try to update remote Core: %s"%(coreName))            
             try:
-                self.CoreClientsConnections[coreName].updateCore(deviceID,calling,*args)
+                self.CoreClientsConnections[coreName].updateCore(deviceID,calling,args)
                 self.logger.debug("update remote Core: %s success"%(coreName))
             except:
-                self.logger.error("can not update remote Core: %s"%(coreName))          
+                self.logger.error("can not update remote Core: %s"%(coreName),exc_info=True)          
 
