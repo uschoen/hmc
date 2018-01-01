@@ -85,7 +85,7 @@ class device(device):
         timebefor24=int(time())-86400
         lastTemperature={}
         lastTemperature=self.getChannelValue('lasttemperature')
-        self.logger.debug("clear last 24h temperature data where older then %s"%(timebefor24))
+        self.logger.info("clear last 24h temperature data where older then %s"%(timebefor24))
         for rainTimeStamp in lastTemperature.copy():
             if rainTimeStamp<timebefor24:
                 self.logger.debug("time temperature %s < %s befor"%(rainTimeStamp,timebefor24))

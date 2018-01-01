@@ -4,6 +4,7 @@ Created on 23.12.2017
 @author: uschoen
 '''
 
+__version__=3.0
 class ws300device(object):
     '''
     classdocs
