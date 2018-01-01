@@ -199,13 +199,14 @@ class sensor(threading.Thread):
                         "type":"string"},
                     }
                 }
+            channel={}
             self.__connectedSensors[sensorID]={}
             if self.__core.ifDeviceExists(deviceID):
                 self.logger.info("deviceID %s is existing, update core"%(deviceID))
-                self.__core.updateDevice(device)
+                self.__core.updateDevice(device,channel)
             else:
                 self.logger.info("add deviceID %s to core"%(deviceID))
-                self.__core.addDevice(device)
+                self.__core.addDevice(device,channel)
             self.__connectedSensors[sensorID]["connected"]=True
         except:
             self.logger.error("can not add new deviceID %s to core"%(deviceID), exc_info=True)
