@@ -1,9 +1,10 @@
+#!/usr/bin/python
 '''
 Created on 23.09.2017
 
 @author: uschoen
 '''
-__version__=0.1
+__version__=2.0
 import sys,getopt,time,json,os,getpass,signal
 from hmc.core import manager as coreManager
 import socket
