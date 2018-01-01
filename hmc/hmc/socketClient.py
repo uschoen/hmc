@@ -16,10 +16,9 @@ class CoreConnection(threading.Thread):
         self.logger=logging.getLogger(__name__) 
         self.running=1
         self.blockedTime=0
-        
         self.syncQueue=Queue.Queue()
         self.inQueue=Queue.Queue()
-        self.coreDataobj=coreProtokoll.code(self.__arg['user'],self.__arg['password'])
+        self.coreDataobj=coreProtokoll.code(self.__arg['user'],self.__arg['password'],self.__arg['aes'])
         self.sync=False
         
         self.logger.debug("build  "+__name__+" instance")
@@ -49,48 +48,32 @@ class CoreConnection(threading.Thread):
     def workQueue(self):
         if not self.syncQueue.empty():
             try:
-                self.__workSyncQueue()
+                while not self.syncQueue.empty():
+                    queue=self.syncQueue.get() 
+                    self.__workJob(queue['calling'], queue['arg']) 
             except:
-                self.logger.error("can not sync core %s"%(self.__arg['hostName']))
+                self.logger.error("can not working for sync queue to core %s"%(self.__arg['hostName']))
                 raise
         if not self.inQueue.empty():
             try:
-                self.__workQueue()
+                while not self.inQueue.empty():
+                    queue=self.inQueue.get()
+                    self.__workJob(queue['calling'], queue['arg'])
             except:
-                self.logger.error("can not sync core %s"%(self.__arg['hostName']))
+                self.logger.error("can not working for work queue to core %s"%(self.__arg['hostName']))
                 raise
-            
-    def __workSyncQueue(self):
-        self.logger.info("work sync queue with %i items, for core %s"%(self.syncQueue.qsize(),self.__arg['hostName']))        
-        try:
-            while not self.syncQueue.empty():
-                queue=self.syncQueue.get() 
-                self.__workJob(queue['calling'], queue['arg']) 
-        except:
-            self.logger.error("can not sync core %s"%(self.__arg['hostName']))
-            raise
-                
-    def __workQueue(self):
-        self.logger.info("work  queue with %i items, for core %s"%(self.inQueue.qsize(),self.__arg['hostName'])) 
-        try:
-            while not self.inQueue.empty():
-                queue=self.inQueue.get()
-                self.__workJob(queue['calling'], queue['arg']) 
-        except:
-            self.logger.error("can not clear work queue for core %s"%(self.__arg['hostName']))
-            raise
         
     def __workJob(self,calling,args):
-        #file = open('send.txt','a') 
+        #file = open('log/send.txt','a') 
         #file.write('%i %s %s\n'%(self.sendNR,calling,args)) 
         #file.close() 
         #self.sendNR=self.sendNR+1
         try:
             coreSocket=socket.socket(socket.AF_INET, socket.SOCK_STREAM)
             coreSocket.connect((self.__arg['ip'],int(self.__arg['port'])))
-            self.logger.info("connect to Core %s:%s"%(self.__arg['ip'],self.__arg['port']))
+            self.logger.info("connect to Core %s:%s"%(self.__arg['ip'],self.__arg['port'])) 
         except:
-            self.logger.error("can not connect to Core %s:%s , socket error"%(self.__arg['ip'],self.__arg['port']),exc_info=True)
+            self.logger.error("can not connect to Core %s:%s , socket error"%(self.__arg['ip'],self.__arg['port']))
             self.__blockClient()
             raise 
             '''
@@ -98,11 +81,15 @@ class CoreConnection(threading.Thread):
             '''
         try:
             corData=self.coreDataobj.decrypt(calling,args)
-            self.logger.debug("send:%s"%(corData))
+            #self.logger.debug("send:%s"%(corData))
             self.logger.debug("send message to core")
             coreSocket.sendall(corData)
             self.__unblockClient()
             self.logger.debug("send message success")
+        
+        except socket.error:
+            self.logger.error("socket error")
+            raise
         except:
             self.logger.error("can not send message to core, sending error",exc_info=True)
             self.__blockClient()
@@ -142,7 +129,7 @@ class CoreConnection(threading.Thread):
                 self.logger.error("some error in client communication",exc_info=True) 
                 self.logger.debug("close client connection")
     
-    def __syncCore(self,deviceID,calling,*arg):
+    def __syncCore(self,deviceID,calling,arg):
         self.logger.info("putting job for deviceID %s into sync queue"%(deviceID))
         queueID="%s%s"%(deviceID,calling)
         updateObj={
@@ -151,7 +138,7 @@ class CoreConnection(threading.Thread):
                     'arg':arg}
         self.syncQueue[queueID]=updateObj           
                    
-    def updateCore(self,deviceID,calling,*arg):
+    def updateCore(self,deviceID,calling,arg):
         self.logger.info("putting job for deviceID %s calling %s into queue"%(deviceID,calling))
         updateObj={
                     'deviceID':deviceID,
@@ -180,6 +167,12 @@ class CoreConnection(threading.Thread):
             self.__unblockClient()
             self.logger.info("finish sync to core %s"%(self.__arg['hostName']))
             lock.release()
+        except socket.error:
+            self.logger.error("socket error,can not sync to core %s"%(self.__arg['hostName']))
+            self.__blockClient()
+            self.sync=False
+            lock.release() 
+            
         except:
             self.logger.error("can not sync to core %s"%(self.__arg['hostName']),exc_info=True)
             self.__blockClient()
@@ -194,10 +187,11 @@ class CoreConnection(threading.Thread):
                     continue
                 self.logger.info("sync DevicesID %s to core %s"%(deviceID,self.__arg['hostName']))
                 device=self.__core.devices[deviceID].getConfiguration()
+                args=(device['device'],device['channels'])
                 updateObj={
                     'deviceID':deviceID,
                     'calling':'updateDevice',
-                    'arg':device}
+                    'arg':args}
                 self.syncQueue.put(updateObj)
         except:
             self.logger.error("can not sync Devices to core %s"%(self.__arg['hostName']),exc_info=True)

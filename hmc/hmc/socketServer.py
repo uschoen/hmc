@@ -24,7 +24,7 @@ class server(threading.Thread):
         self.args=params
         self.running=1
         self.socket=False
-        self.coreDataobj=coreProtokoll.code(self.args['user'],self.args['password'])
+        self.coreDataobj=coreProtokoll.code(self.args['user'],self.args['password'],self.args['aes'])
         self.logger.debug("build socket Server")
         self.sendNR=0
             
@@ -43,17 +43,20 @@ class server(threading.Thread):
                 sleep(self.args['timeout'])
                 
     def listenToClient(self, client, address):
-        size = 8192
+        size = 81920
         while True:
             try:
+                lock=threading.Lock()
+                lock.acquire()
                 data = client.recv(size)
                 if data:
                     try:
-                        self.logger.debug("recive:%s"%(data))
+                        #self.logger.debug("recive:%s"%(data))
                         self.logger.debug("get message try to decode")
                         (user,password,calling,args)=self.coreDataobj.uncrypt(data)
                         self.logger.debug("calling function:%s user:%s"%(calling,user))
-                        #file = open('recive.txt','a') 
+                        lock.release() 
+                        #file = open('log/recive.txt','a') 
                         #file.write('%i %s %s\n'%(self.sendNR,calling,args)) 
                         #file.close() 
                         #self.sendNR=self.sendNR+1
@@ -65,13 +68,16 @@ class server(threading.Thread):
                         self.logger.error("get error back from core",exc_info=True)
                         client.sendall(self.coreDataobj.decrypt('result',{'result':"error"}))
                         self.logger.debug("send result error")
+                        lock.release() 
                 else:
                     self.logger.debug("client disconnected")
+                    lock.release() 
                     break
             except:
                 self.logger.error("some error for lissen to the client",exc_info=True)
                 self.logger.debug("close client connection")
                 client.close()
+                lock.release() 
                 return False
             
     def buildSocket(self):
