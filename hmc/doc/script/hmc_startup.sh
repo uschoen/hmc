@@ -11,13 +11,9 @@
 ### END INIT INFO
 
 # Change the next 3 lines to suit where you install your script and what you want to call it
-DIR=
-DAEMON=python
+DAEMON='python /usr/local/bin/hmc/hmy.py --config /usr/local/bin/hmc/etc/rasp-heizung/config-json'
 DAEMON_NAME=hmc
-
-# Add any command line options for your daemon here
-DAEMON_DIR="/usr/local/bin/hmc/"
-DAEMON_OPTS="hmc.py"
+DAEMON_ARGS='--config /usr/local/bin/hmc/etc/rasp-heizung/config-json'
 
 # This next line determines what user the script runs as.
 # Root generally not recommended but necessary if you are using the Raspberry Pi GPIO from Python.
@@ -32,7 +28,7 @@ PIDFILE=/var/run/$DAEMON_NAME.pid
 
 do_start () {
     log_daemon_msg "Starting system $DAEMON_NAME daemon"
-    start-stop-daemon --start --background --pidfile $PIDFILE --make-pidfile --user $DAEMON_USER --chuid $DAEMON_USER --startas $DAEMON -- $DAEMON_OPTS
+    start-stop-daemon --start --background --pidfile $PIDFILE --make-pidfile --user $DAEMON_USER --chuid $DAEMON_USER --exec $DAEMON -- $DAEMON_ARGS
     log_end_msg $?
 }
 do_stop () {
