@@ -124,7 +124,8 @@ class hmc_rpc_callback:
                         "type":"string"},
                     }
                 }
-            self.__core.addDevice(device)
+            channel={}
+            self.__core.addDevice(device,channel)
         except:
             self.logger.error("can not add deviceID: %s"%(deviceID), exc_info=True) 
                             

@@ -3,7 +3,7 @@ Created on 05.12.2016
 
 @author: uschoen
 '''
-__version__ = "3.0"
+__version__ = "3.1"
 
 import logging,serial,threading,time
 from  fs20 import fs20device
@@ -36,7 +36,15 @@ class sensor(threading.Thread,fs20device,ws300device):
         try:
             self.log.info("%s  start"%(__name__))
             self.__openUSB()
-            self.__initCUL()        
+            self.__initCUL() 
+            time.sleep(0.3)   
+            self.log.info("init:%s"%(self.__readResult()))
+            self.__sendCommand("V") 
+            time.sleep(0.3)     
+            self.log.info("version:%s"%(self.__readResult()))
+            self.__sendCommand("VH") 
+            time.sleep(0.3)   
+            self.log.info("hadrware:%s"%(self.__readResult()))
             self.__readBudget()
             while self.running:
                 if not self.__USBport:
@@ -51,7 +59,7 @@ class sensor(threading.Thread,fs20device,ws300device):
                         self.log.info("wait 2 min and try again")
                         time.sleep(120)    
                         self.__initCUL()
-                        self.__readBudget()
+                        self.__readBudget() 
                 read_line = self.__readResult()
                 if read_line is not None:
                     if read_line.startswith("21  "):
@@ -101,7 +109,6 @@ class sensor(threading.Thread,fs20device,ws300device):
         '''
         try:
             device={
-                "device":{
                     "gateway":{
                         "value":"%s"%(self.config['gateway']),
                         "type":"string"},
@@ -124,13 +131,13 @@ class sensor(threading.Thread,fs20device,ws300device):
                         "value":self.config['package'],
                         "type":"string"},
                     }
-                }
+            channel={}
             if self.core.ifDeviceExists(deviceID):
                 self.log.info("deviceID %s is existing, update core"%(deviceID))
-                self.core.updateDevice(device)
+                self.core.updateDevice(device,channel)
             else:
                 self.log.info("add deviceID %s to core"%(deviceID))
-                self.core.addDevice(device)
+                self.core.addDevice(device,channel)
         except:
             self.log.error("can not add new deviceID %s to core"%(deviceID), exc_info=True)
             raise Exception
@@ -219,20 +226,19 @@ class sensor(threading.Thread,fs20device,ws300device):
         
         raise Exception 
         '''
-        self.log.info("send command:%s"%(command))
+        self.log.debug("send command:%s"%(command))
         if not self.__USBport:
-            self.log.info("usb is not open")
+            self.log.error("usb is not open")
             if not self.__openUSB():
                 raise Exception
             self.__initCUL()
             self.__readBudget()
-            if command.startswith("Zs"):
-                try:
-                    self.__USBport.write(command + "\r\n")
-                    self.__budget = 0
-                except:
-                    self.log.error("can not send command")
-                    raise Exception
+        try:
+            self.__USBport.write("%s\r\n"%(command))
+            self.__budget = 0
+        except:
+            self.log.error("can not send command")
+            raise Exception
     
     def __readResult(self):
         '''

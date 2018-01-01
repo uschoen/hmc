@@ -3,7 +3,7 @@ Created on 23.12.2017
 
 @author: uschoen
 '''
-
+__verion__=3.0
 class fs20device(object):
     '''
     classdocs
