@@ -175,7 +175,7 @@ class sensor(threading.Thread):
         self.logger.info("add new sensorID %s with deviceID %s"%(sensorID,deviceID))
         try:
             device={
-                "device":{
+                
                     "gateway":{
                         "value":"%s"%(self.__args['gateway']),
                         "type":"string"},
@@ -198,7 +198,6 @@ class sensor(threading.Thread):
                         "value":self.__args['package'],
                         "type":"string"},
                     }
-                }
             channel={}
             self.__connectedSensors[sensorID]={}
             if self.__core.ifDeviceExists(deviceID):
