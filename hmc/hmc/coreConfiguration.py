@@ -46,6 +46,9 @@ class coreConfiguration():
             
             
     def loadCoreClientsFile(self,filename):
+        '''
+        ' load the core Clients file
+        '''
         self.logger.info("reading configuration database devices %s"%(filename)) 
         try:
             coreClientsCFG=self.loadJSON(filename)
@@ -54,6 +57,7 @@ class coreConfiguration():
             return
         except:
             self.logger.error("can not reading core clients file", exc_info=True)
+            return
         if len(coreClientsCFG)>0:
             for coreClient in coreClientsCFG:
                 self.logger.info("restore core sync client: %s"%(coreClientsCFG[coreClient]['hostName']))

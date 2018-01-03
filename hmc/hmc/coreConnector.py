@@ -13,24 +13,40 @@ from hmc import socketClient
 
 class coreConnector(object):
     
-    
-    
-    
+    def updateCoreClient(self,coreName,args):
+        self.logger.info("try to update core sync server")
+        if coreName in self.coreClientsCFG:
+            self.logger.info("%s core is exsiting,stopping end delte"%(coreName))
+            if args['enable']:
+                if args['hostName']==self.args['global']['host']:
+                    self.ConnectorServer[coreName].shutdown() 
+                    del self.ConnectorServer[coreName]
+                else:
+                    self.CoreClientsConnections[coreName].shutdown()
+                    del self.CoreClientsConnections[coreName]
+            '''delte configuration'''
+            del self.coreClientsCFG[coreName] 
+        ''' add core client '''
+        self.addCoreClient(coreName,args)    
+        
     def addCoreClient(self,coreName,args):
-        self.logger.info("try to add core sync server")
+        self.logger.info("try to add core sync server %s"%(coreName))
         try:
             if args['enable']:
                 if args['hostName']==self.args['global']['host']:
                     '''
                     start core Server
                     '''
-                    self.ConnectorServer= socketServer.server(args,self)
-                    self.ConnectorServer.daemon=True
-                    self.ConnectorServer.start()        
+                    self.logger.info("core %s is sync server "%(coreName))
+        
+                    self.ConnectorServer[coreName]=socketServer.server(args,self)
+                    self.ConnectorServer[coreName].daemon=True
+                    self.ConnectorServer[coreName].start()        
                 else:
                     '''
                     start core Client
-                    '''  
+                    '''
+                    self.logger.info("core %s is sync client "%(coreName))  
                     self.CoreClientsConnections[coreName]=socketClient.CoreConnection(args,self)
                     self.CoreClientsConnections[coreName].daemon=True
                     self.CoreClientsConnections[coreName].start()   
