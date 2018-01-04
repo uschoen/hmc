@@ -4,9 +4,7 @@ Created on 23.09.2017
 @author: uschoen
 '''
 
-__version__ = "2.0"
-
-import re,os,sys
+__version__ = "3.0"
 
 class coreEventHandler():
     '''
@@ -29,6 +27,11 @@ class coreEventHandler():
         for eventhandler in self.eventHandler:
             self.logger.critical("shutdown Eventhandler %s"%(eventhandler))
             self.eventHandler[eventhandler].shutdown()
+    
+    
+    def updateEventHandler(self,eventhandlerName,eventhandlerCFG):
+            pass
+        
         
     def addEventHandler(self,eventhandlerName,eventhandlerCFG):
         '''
@@ -41,9 +44,7 @@ class coreEventHandler():
         return: nothing
         exception: none
         '''
-        if not re.match('.*@.*',eventhandlerName):
-            self.logger.erroro("eventHandler %s have wrong format"%(eventhandlerName))    
-            return
+        
         #if not self.eventHome(eventhandlerName):
         #    self.log("error","eventHandler %s is not at this core home"%(eventhandlerName))    
         #    return
