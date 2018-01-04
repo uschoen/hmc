@@ -3,12 +3,18 @@ Created on 18.10.2017
 
 @author: uschoen
 '''
-from time import sleep
+
 import socket
 import threading,logging
 import coreProtocol
 
 BUFFER=8192
+
+'''
+TODO
+check user and password and cleint ip
+insert to check the startmarker
+'''
 
 class server(threading.Thread):
     '''
@@ -68,8 +74,7 @@ class server(threading.Thread):
                         self.logger.debug("calling function:%s user:%s"%(calling,user))
                     except:
                         self.logger.error("get error uncryt message",exc_info=True)
-                        resultMSG=self.coreDataobj.decrypt('result',{'result':"error"})+self.ENDMARKER     
-                        clientsocket.sendall(resultMSG)
+                        clientsocket.sendall(self.coreDataobj.decrypt('result',{'result':"error"})+self.ENDMARKER )
                         self.logger.debug("send result error")
                         clientsocket.close()
                         break
@@ -81,15 +86,13 @@ class server(threading.Thread):
                     try:     
                         method_to_call = getattr(self.core,calling)
                         method_to_call(*args)
-                        resultMSG=self.coreDataobj.decrypt('result',{'result':"success"})+self.ENDMARKER
-                        clientsocket.sendall(resultMSG)
+                        clientsocket.sendall(self.coreDataobj.decrypt('result',{'result':"success"})+self.ENDMARKER)
                         clientsocket.close()
                         self.logger.debug("send result success")
                         break
                     except:
                         self.logger.error("get error from core, for function:%s"%(calling),exc_info=True)
-                        resultMSG=self.coreDataobj.decrypt('result',{'result':"error"})+self.ENDMARKER
-                        clientsocket.sendall(resultMSG)
+                        clientsocket.sendall(self.coreDataobj.decrypt('result',{'result':"error"})+self.ENDMARKER)
                         self.logger.debug("send result error")
                         clientsocket.close()
                         break
@@ -103,6 +106,13 @@ class server(threading.Thread):
                 return False
     
     def __readClientData (self,clientsocket):
+        '''
+        read the data from a socket and check if the endmarker set
+        
+        clientsocket: network socket of the communication
+        
+        exception: raise a exception if a error in the communication
+        '''
         revData=self.__lastMSG
         try:
             while True:

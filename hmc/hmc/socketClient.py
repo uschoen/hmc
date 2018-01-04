@@ -11,6 +11,12 @@ import coreProtocol
 
 BUFFER=8192
 
+'''
+TODO: 
+insert the STARTMARKER to check ! for cleint and server
+check user and password
+'''
+
 class CoreConnection(threading.Thread): 
     
     
@@ -86,7 +92,21 @@ class CoreConnection(threading.Thread):
             self.logger.error("core client block for %i s"%(self.__blockedTime-int(time.time())))
             time.sleep(self.__blockedTime-int(time.time()))
         self.logger.error("core client to core %s stop"%(__name__))
-           
+    
+    def getSyncStatus(self):
+        '''
+        return if core client sync
+        '''
+        return self.__isCoreSync
+    
+    def setSyncStatus(self,syncStatus):
+        ''' 
+        set the core sync status
+        '''
+        if syncStatus==True or syncStatus==False:
+            self.logger.debug("set core client %s sync status to %s"%(__name__),syncStatus)
+            self.__isCoreSync=syncStatus
+            
     def updateCore(self,deviceID,calling,arg):
         '''
         ' put a job in the work queue
@@ -153,6 +173,13 @@ class CoreConnection(threading.Thread):
             raise Exception
         
     def __readClientData (self,clientsocket):
+        '''
+        read the data from a socket and check if the endmarker set
+        
+        clientsocket: network socket of the communication
+        
+        exception: raise a exception if a error in the communication
+        '''
         revData=self.__lastMSG
         try:
             while True:
