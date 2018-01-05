@@ -6,7 +6,9 @@ Created on 28.01.2017
 __version__ = "2.0"
 
 
-import hashlib,logging,os
+import hashlib
+import logging
+import os
 from Crypto.Cipher import AES
 import logging.config
 import cPickle
@@ -28,7 +30,7 @@ class code(object):
         self.__AESmode = AES.MODE_CBC
         self.__BS = 16
         self.__aes=aes
-        self.logger.info("corProtokoll build")
+        self.logger.info("%s is build"%(__name__))
     
     def __olddecode(self,calling,args):
         self.logger.error( "old function decode, use derypt",exc_info=True)
