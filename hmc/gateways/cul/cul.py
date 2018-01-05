@@ -3,7 +3,7 @@ Created on 05.12.2016
 
 @author: uschoen
 '''
-__version__ = "3.1"
+__version__ = 3.1
 
 import logging
 import serial                   #@UnresolvedImport
