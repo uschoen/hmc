@@ -7,7 +7,7 @@ __verion__=3.0
 class fs20device(object):
     '''
     classdocs
-    TODO: change all changes on device over the core, not himself
+    
     '''
 
 
