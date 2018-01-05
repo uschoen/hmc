@@ -14,7 +14,10 @@ BUFFER=8192
 '''
 TODO: 
 insert the STARTMARKER to check ! for cleint and server
+TODO:
 check user and password
+TODO:
+Change to a HMC Gateway, not as inkuludet funktion
 '''
 
 class CoreConnection(threading.Thread): 
@@ -80,17 +83,17 @@ class CoreConnection(threading.Thread):
         '''
         self.logger.info("%s start"%(__name__))
         while self.running:
-            self.__coreSync()
-            while self.__isCoreSync:
-                if not self.__coreQueue.empty():
-                    try:
-                        self.__workJob(self.__coreQueue.get())
-                    except:
-                        self.logger.error("can not finish coreQueue to core %s"%(self.__arg['hostName'])) 
-                        self.__blockClient()   
-                time.sleep(0.2)
-            self.logger.error("core client block for %i s"%(self.__blockedTime-int(time.time())))
-            time.sleep(self.__blockedTime-int(time.time()))
+            time.sleep(0.1)
+            if self.__blockedTime<int(time.time()):
+                self.__coreSync()
+                while self.__isCoreSync and self.running:
+                    if not self.__coreQueue.empty():
+                        try:
+                            self.__workJob(self.__coreQueue.get())
+                        except:
+                            self.logger.error("can not finish coreQueue to core %s"%(self.__arg['hostName'])) 
+                            self.__blockClient()
+                time.sleep(0.1)   
         self.logger.error("core client to core %s stop"%(__name__))
     
     def getSyncStatus(self):
@@ -104,7 +107,7 @@ class CoreConnection(threading.Thread):
         set the core sync status
         '''
         if syncStatus==True or syncStatus==False:
-            self.logger.debug("set core client %s sync status to %s"%(__name__),syncStatus)
+            self.logger.debug("set core client %s sync status to %s"%(self.__arg['hostName'],syncStatus))
             self.__isCoreSync=syncStatus
             
     def updateCore(self,deviceID,calling,arg):
@@ -117,6 +120,8 @@ class CoreConnection(threading.Thread):
                     'calling':calling,
                     'arg':arg}
         self.__coreQueue.put(updateObj)
+        if self.__blockedTime<int(time.time()):
+            self.logger.info("core client block for %i s"%(self.__blockedTime-int(time.time())))
     
     def __workJob(self,syncJob):
         '''

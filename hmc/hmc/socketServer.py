@@ -5,15 +5,20 @@ Created on 18.10.2017
 '''
 
 import socket
-import threading,logging
+import threading
+import logging
+import time
 import coreProtocol
 
 BUFFER=8192
 
 '''
-TODO
+TODO:
 check user and password and cleint ip
+TODO:
 insert to check the startmarker
+TODO:
+Change to a HMC Gateway, not as inkuludet funktion
 '''
 
 class server(threading.Thread):
@@ -59,7 +64,8 @@ class server(threading.Thread):
                 threading.Thread(target=self.listenToClient,args = (con,addr)).start()
                 self.logger.debug("start new client thread:%s"%(con))
             except :
-                self.logger.error("socket error",exc_info=True)
+                self.logger.error("socket error, wait 60 sec",exc_info=True)
+                time.sleep(60)
                 
                 
     def listenToClient(self, clientsocket, address):

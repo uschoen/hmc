@@ -28,24 +28,32 @@ class coreConnector(object):
                     "timeout":50}
         syncStatus true/fals if true it set the status to the core to is sync
         '''
-        self.logger.info("try to update core sync server")
-        syncStatus=False
-        if coreName in self.coreClientsCFG:
-            self.logger.info("%s core is exsiting,stopping end delte"%(coreName))
-            if args['enable']:
-                if args['hostName']==self.args['global']['host']:
-                    self.ConnectorServer[coreName].shutdown() 
-                    del self.ConnectorServer[coreName]
-                else:
-                    syncStatus=self.CoreClientsConnections[coreName].getSyncStatus()
-                    self.CoreClientsConnections[coreName].shutdown()
-                    del self.CoreClientsConnections[coreName]
-            '''delte configuration'''
-            del self.coreClientsCFG[coreName] 
-        ''' add core client '''
-        self.addCoreClient(coreName,args,syncStatus)    
-        
-    def addCoreClient(self,coreName,args,syncStatus=False):
+        try:
+            self.logger.info("try to update core sync server")
+            syncStatus=False
+            if coreName in self.coreClientsCFG:
+                self.logger.info("%s core is exsiting,stopping end delete"%(coreName))
+                if args['enable']:
+                    if args['hostName']==self.args['global']['host']:
+                        self.ConnectorServer[coreName].shutdown() 
+                        del self.ConnectorServer[coreName]
+                    else:
+                        syncStatus=self.CoreClientsConnections[coreName].getSyncStatus()
+                        self.CoreClientsConnections[coreName].shutdown()
+                        self.logger.info("waiting for shutdown core %s is success"%(coreName))
+                        self.CoreClientsConnections[coreName].join()
+                        self.logger.info("delete core %s"%(coreName))
+                        del self.CoreClientsConnections[coreName]
+                '''delete configuration'''
+                del self.coreClientsCFG[coreName] 
+            ''' add core client '''
+            self.__buildCoreClient(coreName,args,syncStatus)
+            self.updateRemoteCore(False,coreName,'updateCoreClient',args,syncStatus)
+        except:
+            self.logger.error("can not update core sync server",exc_info=True)
+            raise     
+    
+    def restoreCoreClient(self,coreName,args,syncStatus=False):
         '''
         add a core connector as server or client
         corename=the corename of the client (name@hostname)
@@ -57,11 +65,52 @@ class coreConnector(object):
                     "ip":"127.0.0.1",
                     "port":5090,
                     "timeout":50}
-        syncStatus true/fals if true it set the status to the core to is sync
+        syncStatus true/false if true it set the status to the core to is sync
+        '''
+        try:
+            self.__buildCoreClient(coreName,args)
+        except:
+            self.logger.error("can not restore core sync server %s"%(coreName),exc_info=True)
+            raise
+    
+    def addCoreClient(self,coreName,args):
+        '''
+        add a core connector as server or client
+        corename=the corename of the client (name@hostname)
+        args:{
+                    "hostName":"raspberry1",
+                    "enable":true,
+                    "user":"user1",
+                    "password":"password12345",
+                    "ip":"127.0.0.1",
+                    "port":5090,
+                    "timeout":50}
+        syncStatus true/false if true it set the status to the core to is sync
+        '''
+        try:
+            self.__buildCoreClient(coreName,args)
+            self.updateRemoteCore(False,coreName,'addCoreClient',args)
+        except:
+            self.logger.error("can not restore core sync server %s"%(coreName),exc_info=True)
+            raise           
+        
+    def __buildCoreClient(self,coreName,args,syncStatus=False):
+        '''
+        add a core connector as server or client
+        corename=the corename of the client (name@hostname)
+        args:{
+                    "hostName":"raspberry1",
+                    "enable":true,
+                    "user":"user1",
+                    "password":"password12345",
+                    "ip":"127.0.0.1",
+                    "port":5090,
+                    "timeout":50}
+        syncStatus true/false if true it set the status to the core to is sync
         '''
         self.logger.info("try to add core sync server %s"%(coreName))
         try:
-            if args['enable']:
+            if args['enable']==True:
                 if args['hostName']==self.args['global']['host']:
                     '''
                     start core Server
@@ -84,9 +133,9 @@ class coreConnector(object):
             else:
                 self.logger.info("core Client %s is disable"%(args['hostName']))  
         except:
-            self.logger.error("can not start core %s"%(args['hostName']),exc_info=True)
+            self.logger.error("can not start core",exc_info=True)
         self.coreClientsCFG[coreName]=args  
-        self.updateRemoteCore(False,coreName,'addCoreClient',args,syncStatus)
+        
         
     def updateRemoteCore(self,force,deviceID,calling,*args): 
         if not force:
