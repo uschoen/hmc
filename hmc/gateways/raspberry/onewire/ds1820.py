@@ -6,16 +6,19 @@ Created on 21.10.2016
 sudo apt-get install rrdtool python-rrdtool
 
 '''
-import threading,os,re
-from time import sleep
+import threading
+import os
+import re
+import time
 import logging
 
-__version__="3.0"
+__version__=3.0
 
 class sensor(threading.Thread): 
     def __init__(self, params,core):
         threading.Thread.__init__(self)
         self.__core=core
+        ''' configuration '''
         self.__args={
                         "gateway": "unkown", 
                         "host": "unkown", 
@@ -26,9 +29,13 @@ class sensor(threading.Thread):
                         "devicetype": "ds1820"
                         }
         self.__args.update(params)
+        ''' waiting time for next scann '''
+        self.__waiting=0
+        ''' logger instance '''
         self.logger=logging.getLogger(__name__)
         self.__connectedSensors={}
-        self.running=self.__checkoneWire()
+        ''' running flag '''
+        self.__running=self.__checkoneWire()
         self.logger.debug("build  %s instance with version %s"%(__name__,__version__))
         
     def run(self):
@@ -36,44 +43,49 @@ class sensor(threading.Thread):
         gateway main loop
         '''
         self.logger.info("%s start in 5 sec."%(__name__))
-        sleep(5)
-        while self.running:
-            self.__checkConnectedSensors()
-            for sensorID in self.__connectedSensors:
-                try:
-                    deviceID=self.__deviceID(sensorID)
-                    '''
-                    check if sensor connected to onewire bus
-                    '''                    
-                    if  self.__connectedSensors[sensorID]["connected"]==False:
-                        self.logger.info("sensor id %s is disconnected"%(sensorID))
-                        continue
-                    '''
-                    check if sensor enable in core
-                    '''
-                    if not self.__core.ifDeviceEnable(deviceID):
-                        self.logger.info("sensor id %s is disconnected"%(sensorID))
-                        continue 
-                    '''
-                    check if sensor in core exists
-                    '''
-                    if not self.__core.ifDeviceExists(deviceID):
-                        self.__addNewSensor(sensorID)
-                    '''
-                    check if channel temperature exists
-                    '''
-                    if not self.__core.ifDeviceChannelExist(deviceID,"temperature"):
-                        self.__addChannel(sensorID,"temperature")
-                    '''
-                    read temperature from sensor
-                    '''   
-                    self.logger.debug("read sensorID %s"%(sensorID))
-                    path=self.__args["path"]+sensorID+"/w1_slave"
-                    self.__updateSensorID(sensorID,self.__readSensor(path))
-                except:
-                    self.logger.error("can not read/update sensorID %s"%(sensorID))
-            self.logger.info("wait %i s for next scan"%(self.__args["interval"])) 
-            sleep(self.__args["interval"])
+        time.sleep(5)
+        while self.__running:
+            if self.__waiting<int(time()):
+                self.__waiting=int(time())+self.__args['interval']
+                if not self.__checkoneWire():
+                    self.__running=0
+                    self.logger.info("stopping %s, no onewire path"%(__name__))
+                    break 
+                self.__checkConnectedSensors()
+                for sensorID in self.__connectedSensors:
+                    try:
+                        deviceID=self.__deviceID(sensorID)
+                        '''
+                        check if sensor connected to onewire bus
+                        '''                    
+                        if  self.__connectedSensors[sensorID]["connected"]==False:
+                            self.logger.info("sensor id %s is disconnected"%(sensorID))
+                            continue
+                        '''
+                        check if sensor enable in core
+                        '''
+                        if not self.__core.ifDeviceEnable(deviceID):
+                            self.logger.info("sensor id %s is disconnected"%(sensorID))
+                            continue 
+                        '''
+                        check if sensor in core exists
+                        '''
+                        if not self.__core.ifDeviceExists(deviceID):
+                            self.__addNewSensor(sensorID)
+                        '''
+                        check if channel temperature exists
+                        '''
+                        if not self.__core.ifDeviceChannelExist(deviceID,"temperature"):
+                            self.__addChannel(sensorID,"temperature")
+                        '''
+                        read temperature from sensor
+                        '''   
+                        self.logger.debug("read sensorID %s"%(sensorID))
+                        path=self.__args["path"]+sensorID+"/w1_slave"
+                        self.__updateSensorID(sensorID,self.__readSensor(path))
+                    except:
+                        self.logger.error("can not read/update sensorID %s"%(sensorID))
+            time.sleep(0.1)
         self.logger.info("%s stop:"%(__name__))
     
     def __updateSensorID(self,sensorID,value):
@@ -234,7 +246,7 @@ class sensor(threading.Thread):
         '''
         shutdown the gateway
         '''
-        self.running=0
+        self.__running=0
         self.logger.critical("stop %s thread"%(__name__))
     
     def __checkoneWire(self):
