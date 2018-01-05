@@ -74,11 +74,11 @@ class coreGateways():
             self.gatewaysInstance[gatewayName]['status']="stop"
     def shutdownAllGateways(self):
         for gatewayName in self.gatewaysInstance:   
-                self.logger.critical("shutdown gateways %s"%(gatewayName))
                 self.stopGateway(gatewayName)
     def stopGateway(self,gatewayName):
-        self.gatewaysInstance[gatewayName]['instance'].running=0
+        self.logger.critical("shutdown gateways %s and wait 5 sec."%(gatewayName))
         self.gatewaysInstance[gatewayName]['instance'].shutdown()
+        self.gatewaysInstance[gatewayName]['instance'].join(5)
         self.gatewaysInstance[gatewayName]['status']="stop"
         pass
     
