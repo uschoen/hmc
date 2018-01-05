@@ -78,7 +78,8 @@ class coreGateways():
     def stopGateway(self,gatewayName):
         self.logger.critical("shutdown gateways %s and wait 5 sec."%(gatewayName))
         self.gatewaysInstance[gatewayName]['instance'].shutdown()
-        self.gatewaysInstance[gatewayName]['instance'].join(5)
+        if self.gatewaysInstance[gatewayName]['instance'].isAlive():
+            self.gatewaysInstance[gatewayName]['instance'].join(5)
         self.gatewaysInstance[gatewayName]['status']="stop"
         pass
     
