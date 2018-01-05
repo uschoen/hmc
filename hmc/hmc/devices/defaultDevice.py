@@ -29,9 +29,6 @@ class device(object):
                              "package":{
                                 "value":"hmc.devices",
                                 "type":"string"},
-                             "rssi":{        
-                                 "value":"0",
-                                "type":"int"},
                              "name":{
                                  "value":"unknown",
                                  "type":"string"},
@@ -171,7 +168,6 @@ class device(object):
         '''
         add a new channel
         '''
-        print (channelValues)
         channelName=str(channelName)
         channelName=channelName.lower()
         self.logger.info("add channel %s"%(channelName))
@@ -279,9 +275,11 @@ class device(object):
         channel={
             "value":{
                 "value":defaultVar,
-                "type":varType
-                },
+                "type":varType},
             "name":{        
+                "value":channelName,
+                "type":"string"},
+            "channelID":{        
                 "value":channelName,
                 "type":"string"},
             "lastchange":{
@@ -293,7 +291,7 @@ class device(object):
                 "type":"int",
                 "hidden":False},
             "create":{
-                "value":"0",
+                "value":int(time()),
                 "type":"int"},
             "enable":{
                 "value":True,
