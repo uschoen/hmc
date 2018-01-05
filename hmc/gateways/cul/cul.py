@@ -5,15 +5,20 @@ Created on 05.12.2016
 '''
 __version__ = "3.1"
 
-import logging,serial,threading,time
+import logging
+import serial                   #@UnresolvedImport
+import threading
+import time
 from  fs20 import fs20device
 from ws300 import ws300device
 
-
+'''
+TODO:
+remove sleeping property from config file
+'''
 class sensor(threading.Thread,fs20device,ws300device):
-    '''
-    classdocs
-    '''
+
+
     def __init__(self,parms,core):
         threading.Thread.__init__(self)
         self.core=core
@@ -21,8 +26,8 @@ class sensor(threading.Thread,fs20device,ws300device):
         self.config={
             'usbport':"/dev/ttyUSB0",
             'baudrate':"9600",
-            'timeout':1,
-            'sleeping':0.5}
+            'timeout':1
+            }
         self.config.update(parms)
 
         self.__budget=0
@@ -73,8 +78,8 @@ class sensor(threading.Thread,fs20device,ws300device):
                         self.decodeFS20((read_line.lstrip("F")))
                     else:
                         self.log.warning("get unknown response from CUL: '%s'" % read_line)
-                time.sleep(self.config['sleeping'])
-            self.log.warning("%s  pause"%(__name__))
+                time.sleep(0.1)
+            self.log.warning("%s  stop"%(__name__))
         except:
             self.log.critical("cul is stopped", exc_info=True)
     
