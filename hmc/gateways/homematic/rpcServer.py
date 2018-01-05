@@ -5,6 +5,8 @@ Created on 22.10.2016
 install :
 apt-get install python-xmltodict
 
+TODO:
+rebuild script and class
 '''
 
 __version__= "3.0"
@@ -232,7 +234,7 @@ class server(threading.Thread):
             self.__rpc_server.start()
             self.logger.info("rpc Server Start")
             return True
-        except Exception as e:
+        except:
             self.logger.error("can not start rpc server", exc_info=True)
             server=False
             return False
@@ -240,9 +242,13 @@ class server(threading.Thread):
     shutdown
     '''
     def shutdown(self):
+        self.running=False
         self.logger.critical("rpc Server stop")
-        self.__RPC_connect()
-        self.__RPC_stop()
+        try:
+            self.__RPC_connect()
+            self.__RPC_stop()
+        except:
+            self.logger.critical("error stopping rpc connection")
         self.logger.critical("rpc Server is stop")
     '''
     Logging Intance
