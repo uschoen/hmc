@@ -13,11 +13,8 @@ __version__= "3.0"
 
 import threading
 import xmlrpclib                                            #@UnresolvedImport
-import socket
 from SimpleXMLRPCServer import SimpleXMLRPCServer           #@UnresolvedImport
-#TDOD:
-#check if SimpleXMLRPCRequestHandler need
-#from SimpleXMLRPCServer import SimpleXMLRPCRequestHandler   #@UnresolvedImport
+from SimpleXMLRPCServer import SimpleXMLRPCRequestHandler   #@UnresolvedImport @UnusedImport
 import urllib2                                              #@UnresolvedImport
 import xmltodict                                            #@UnresolvedImport
 from random import randint
