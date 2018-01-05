@@ -7,14 +7,17 @@ apt-get install python-xmltodict
 
 '''
 
-__version__= "1.9"
+__version__= "3.0"
 
 import threading
-
-import xmlrpclib,socket
-from SimpleXMLRPCServer import SimpleXMLRPCServer
-from SimpleXMLRPCServer import SimpleXMLRPCRequestHandler
-import urllib2,xmltodict
+import xmlrpclib                                            #@UnresolvedImport
+import socket
+from SimpleXMLRPCServer import SimpleXMLRPCServer           #@UnresolvedImport
+#TDOD:
+#check if SimpleXMLRPCRequestHandler need
+from SimpleXMLRPCServer import SimpleXMLRPCRequestHandler   #@UnresolvedImport
+import urllib2                                              #@UnresolvedImport
+import xmltodict                                            #@UnresolvedImport
 from random import randint
 import logging
 
@@ -100,7 +103,6 @@ class hmc_rpc_callback:
             self.logger.info("add  new devicesID:%s"%(deviceID))
             devicetype=device['TYPE'].replace("-","_")
             device={
-                "device":{
                     "gateway":{
                         "value":"%s"%(self.__config['gateway']),
                         "type":"string"},
@@ -123,7 +125,7 @@ class hmc_rpc_callback:
                         "value":self.__config['package'],
                         "type":"string"},
                     }
-                }
+                
             channel={}
             self.__core.addDevice(device,channel)
         except:
@@ -146,7 +148,16 @@ class server(threading.Thread):
         self.__core=core
         self.__timer=int(time())
         self.__timeoutnow=False
-        self.__config=self.__defaultConfig()
+        self.__config={
+                    "autoAttribut":True,
+                    "name":"hmc_rpc_rf_default",
+                    "hm_ip":"127.0.0.1",
+                    "hm_port":"2000",
+                    "hm_interface_id":randint(100,999),
+                    "rpc_port":5050+randint(0,100),
+                    "rpc_ip":"127.0.0.0",
+                    "gateway":"hmc_rpc_rf",
+                    "timeout":280}
         self.__config.update(params)
         self.__config['host']=str(socket.gethostbyaddr(socket.gethostname())[0])
         self.logger=logging.getLogger(__name__) 
@@ -175,20 +186,6 @@ class server(threading.Thread):
                     self.resetTimer()
             sleep(1) 
         self.logger.warning("thread %s stop"%(__name__))
-    
-    def __defaultConfig(self):
-        attribute={
-            "autoAttribut":True,
-            "name":"hmc_rpc_rf_default",
-            "hm_ip":"127.0.0.1",
-            "hm_port":"2000",
-            "hm_interface_id":randint(100,999),
-            "rpc_port":5050+randint(0,100),
-            "rpc_ip":"127.0.0.0",
-            "gateway":"hmc_rpc_rf",
-            "timeout":280}
-        
-        return attribute
        
     def __sendcommand(self):
         self.logger.error("send messages to homematic")
