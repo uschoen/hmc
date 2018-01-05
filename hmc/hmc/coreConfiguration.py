@@ -61,7 +61,7 @@ class coreConfiguration():
         if len(coreClientsCFG)>0:
             for coreClient in coreClientsCFG:
                 self.logger.info("restore core sync client: %s"%(coreClientsCFG[coreClient]['hostName']))
-                self.addCoreClient(coreClient,coreClientsCFG[coreClient])
+                self.restoreCoreClient(coreClient,coreClientsCFG[coreClient])
         else:
             self.logger.info("coreClient file is empty")
         self.logger.info("restore coreClient success")
