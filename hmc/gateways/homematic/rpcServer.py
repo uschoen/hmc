@@ -15,7 +15,7 @@ import socket
 from SimpleXMLRPCServer import SimpleXMLRPCServer           #@UnresolvedImport
 #TDOD:
 #check if SimpleXMLRPCRequestHandler need
-from SimpleXMLRPCServer import SimpleXMLRPCRequestHandler   #@UnresolvedImport
+#from SimpleXMLRPCServer import SimpleXMLRPCRequestHandler   #@UnresolvedImport
 import urllib2                                              #@UnresolvedImport
 import xmltodict                                            #@UnresolvedImport
 from random import randint
@@ -156,10 +156,10 @@ class server(threading.Thread):
                     "hm_interface_id":randint(100,999),
                     "rpc_port":5050+randint(0,100),
                     "rpc_ip":"127.0.0.0",
-                    "gateway":"hmc_rpc_rf",
+                    "gateway":"unkown",
+                    "host":"unkown",
                     "timeout":280}
         self.__config.update(params)
-        self.__config['host']=str(socket.gethostbyaddr(socket.gethostname())[0])
         self.logger=logging.getLogger(__name__) 
         self.logger.debug("build  %s instance"%(__name__))
     
@@ -184,7 +184,7 @@ class server(threading.Thread):
                     sleep(1)
                     self.__RPC_Init()
                     self.resetTimer()
-            sleep(1) 
+            sleep(0.1) 
         self.logger.warning("thread %s stop"%(__name__))
        
     def __sendcommand(self):
