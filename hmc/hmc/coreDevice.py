@@ -7,7 +7,10 @@ Created on 08.10.2017
 '''
 __version__ = "3.0"
 
-import importlib,copy,time,os
+import importlib
+import copy
+import time
+import os
 import py_compile
 
 class coreDevices ():
