@@ -6,12 +6,11 @@ Created on 21.10.2016
 
 
 '''
+
 import threading
-from time import localtime, strftime
-from datetime import datetime
 import logging
 
-__version__="2.0"
+__version__="3.0"
 
 class sensor(threading.Thread): 
     def __init__(self, params,core):
@@ -32,17 +31,7 @@ class sensor(threading.Thread):
         self.running=0
         self.logger.critical("stop %s thread"%(__name__))
         
-               
-    def __log (self,level="unkown",messages="no messages"):
-        if self.__logger:
-            dt = datetime.now()
-            conf={}
-            conf['package']=__name__
-            conf['level']=level
-            conf['messages']=str(messages)
-            conf['time']=strftime("%d.%b %H:%M:%S", localtime())
-            conf['microsecond']=dt.microsecond
-            self.__logger.write(conf)
+
     
     
             
