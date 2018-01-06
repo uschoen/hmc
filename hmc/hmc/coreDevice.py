@@ -94,9 +94,23 @@ class coreDevices ():
             self.logger.error("can not set channel %s for device id %s value %s"%(channelName,deviceID,value),exc_info=True)
             raise  
     
+    def getDeviceChannelKey(self,deviceID,channelName,field):
+        '''
+        get a value for a device channel field
+        '''
+        channelName=channelName.lower()
+        try: 
+            if deviceID not in self.devices:
+                self.logger.error("object id %s not existing"%(deviceID))
+                raise Exception
+            return self.devices[deviceID].getChannelKey(channelName,field)
+        except:
+            self.logger.error("can not get channel %s and field:%s for deviceID %s"%(channelName,field,deviceID),exc_info=True)
+            raise 
+        
     def getDeviceChannelValue(self,deviceID,channelName):
         '''
-        get a value for a device channel
+        get a value for a device channel value
         '''
         channelName=channelName.lower()
         try: 
@@ -186,14 +200,27 @@ class coreDevices ():
         '''
         try:
             deviceID=device['deviceID']['value']
+            newDevice={}
+            oldDevice={}
+            newDevice=copy.deepcopy(device)
+            newChannels={}
+            oldChannels={}
+            newChannels=copy.deepcopy(channels)
             self.logger.debug("update device %s"%(deviceID))
             if deviceID in self.devices:
+                ''' get old  values '''
+                currentHoleDevice={}
+                currentHoleDevice=copy.deepcopy(self.devices[deviceID].getConfiguration())
+                oldDevice=currentHoleDevice['device']
+                oldChannels=currentHoleDevice['channels']
                 del self.devices[deviceID]
-            newDevice={}
-            newDevice['device']=copy.deepcopy(device)
-            newDevice['channels']=copy.deepcopy(channels)
-            self.__buildDevice(newDevice,False)
-            self.updateRemoteCore(False,deviceID,'updateDevice',device,channels)
+            newChannels.update(oldChannels)
+            newDevice.update(oldDevice)    
+            addDevice={}
+            addDevice['device']=newDevice
+            addDevice['channels']=newChannels
+            self.__buildDevice(addDevice,False)
+            self.updateRemoteCore(False,deviceID,'updateDevice',newDevice,newChannels)
         except:
             self.logger.error("can not update device %s"%(device),exc_info=True)  
             raise Exception

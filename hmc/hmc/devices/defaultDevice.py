@@ -4,10 +4,12 @@ Created on 09.12.2017
 @author: uschoen
 '''
 
-__version__="2.0"
+__version__="3.0"
 
-from time import time
-import json,os,logging
+import time
+import json
+import os
+import logging
 
 
 class device(object):
@@ -37,7 +39,7 @@ class device(object):
                                  "value":"unknown",
                                  "type":"int"},
                              "create":{
-                                 "value":"unknown",
+                                 "value":int(time.time()),
                                  "type":"int"},
                              "lastupdate":{
                                  "value":"unknown",
@@ -102,13 +104,9 @@ class device(object):
         except:
             self.logger.error("can not load channels, %s can not build"%(self._name_()))
             raise
-        
         '''
         gateway instance of the device
         '''
-        
-        
-        
         self.logger.debug("build %s instance"%(self._name_()))
         if adding:
             self._callEvent('oncreate_event', 'device')
@@ -184,13 +182,30 @@ class device(object):
         except:
             self.logger.error("can not add new channel to devicID %s"%(self._device['deviceID']['value']), exc_info=True)
             raise   
+        
+    def getChannelKey(self,channelName,field):
+        '''
+        get value of channel
+        public function
+        '''    
+        self.logger.debug("get value for channel:%s"%(channelName))
+        try:
+            if not channelName in self._channels:
+                self.logger.error("channel %s is not exist"%(channelName))
+                raise Exception
+            if not field in self._channels[channelName]:
+                self.logger.error("field %s in channel %s is not exist"%(field,channelName))
+                raise Exception
+            return self._channels[channelName][field]['value']
+        except:
+            self.logger.error("unknown error in getChannelKey")
+            raise 
     
     def getChannelValue(self,channelName):
         '''
         get value of channel
         public function
         '''    
-    
         self.logger.debug("get value for channel:%s"%(channelName))
         try:
             if not channelName in self._channels:
@@ -291,7 +306,7 @@ class device(object):
                 "type":"int",
                 "hidden":False},
             "create":{
-                "value":int(time()),
+                "value":int(time.time()),
                 "type":"int"},
             "enable":{
                 "value":True,
@@ -353,30 +368,39 @@ class device(object):
         
     def _onchange_event(self,channel):
         self.logger.debug("onchange_event: %s for channel: %s"%(self._device['deviceID']['value'],channel))
-        self._channels[channel]['lastchange']['value']=int(time())
-        self._device['lastchange']['value']=int(time())
+        self._channels[channel]['lastchange']['value']=int(time.time())
+        self._device['lastchange']['value']=int(time.time())
     
     def _onrefresh_event(self,channel):
         self.logger.debug("onrefresh_event: %s for channel: %s"%(self._device['deviceID']['value'],channel))
-        self._channels[channel]['lastupdate']['value']=int(time())
-        self._device['lastupdate']['value']=int(time())
+        self._channels[channel]['lastupdate']['value']=int(time.time())
+        self._device['lastupdate']['value']=int(time.time())
         
     def _onboot_event(self,channel):
         self.logger.debug("onboot_event: %s for channel: %s"%(self._device['deviceID']['value'],channel))
         
     def _oncreate_event(self,channel):
         self.logger.debug("oncreate_event: %s for channel: %s"%(self._device['deviceID']['value'],channel))
-        self._channels[channel]['create']['value']=int(time())
+        self._channels[channel]['create']['value']=int(time.time())
         
     def _ondelete_event(self,channel):
         self.logger.debug("ondelete_event: %s for channel: %s"%(self._device['deviceID']['value'],channel))
         
-    def _runEvent(self,eventTyp,channel,eventList):
-        for eventName in eventList:
+    def _runEvent(self,eventTyp,channel,eventHandlerList):
+        for eventName in eventHandlerList:
+            if not self._core.eventHome(eventName):
+                continue
             self.logger.debug("channel %s calling: %s event handler"%(channel,eventName))
-            self._eventHandlerList[eventName].callback(self,eventTyp,channel)
+            try:
+                self._eventHandlerList[eventName].callback(self._device['deviceID']['value'],eventTyp,channel)
+            except:
+                self.logger.debug("error at calling: %s event handler"%(eventName),exc_info=True)
     
     def _name_(self):
+        '''
+        return the modul name
+        TODO: check if need
+        '''
         return "defaultDevice"
     
     def _writeJSON(self,filename,data={}):
