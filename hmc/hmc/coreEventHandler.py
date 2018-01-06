@@ -43,7 +43,7 @@ class coreEventHandler():
         if eventhandlerName in self.eventHandler:
             self.logger.info("eventHandler %s is existing, delte old eventhandler"%(eventhandlerName))
             del self.eventHandler[eventhandlerName]
-        self.__addEventHandler(self,eventhandlerName,eventhandlerCFG)
+        self.__addEventHandler(eventhandlerName,eventhandlerCFG)
         self.updateRemoteCore(False,eventhandlerName,'updateEventHandler',eventhandlerName,eventhandlerCFG)
     
     def addEventHandler(self,eventhandlerName,eventhandlerCFG):
@@ -60,7 +60,7 @@ class coreEventHandler():
         if eventhandlerName in self.eventHandler:
             self.logger.error("eventHandler %s is existing"%(eventhandlerName))
             return
-        self.__addEventHandler(self,eventhandlerName,eventhandlerCFG)
+        self.__addEventHandler(eventhandlerName,eventhandlerCFG)
         self.updateRemoteCore(False,eventhandlerName,'addEventHandler',eventhandlerName,eventhandlerCFG)
                 
     def __addEventHandler(self,eventhandlerName,eventhandlerCFG):
@@ -74,13 +74,16 @@ class coreEventHandler():
         return: nothing
         exception: none
         '''
-        self.logger.info("add new eventHandler: %s"%(eventhandlerName))
         self.eventHandlerCFG[eventhandlerName]=eventhandlerCFG
-        try:
-            self.eventHandler[eventhandlerName]=self.loadModul("eventhandler",eventhandlerName,eventhandlerCFG)
-            self.logger.info("add new eventhandlerName: %s successful"%(eventhandlerName)) 
-        except:
-            self.logger.error("can not add event handler Name: %s"%(eventhandlerName),exc_info=True)  
+        if self.eventHome(eventhandlerName):
+            self.logger.info("add new eventHandler: %s"%(eventhandlerName))
+            try:
+                self.eventHandler[eventhandlerName]=self.loadModul("eventhandler",eventhandlerName,eventhandlerCFG)
+                self.logger.info("add new eventhandlerName: %s successful"%(eventhandlerName)) 
+            except:
+                self.logger.error("can not add event handler Name: %s"%(eventhandlerName),exc_info=True)  
+        else:
+            self.logger.info("eventHandler: %s not on this host"%(eventhandlerName))
             
     
     
