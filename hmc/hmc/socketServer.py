@@ -16,9 +16,9 @@ BUFFER=8192
 TODO:
 check user and password and cleint ip
 TODO:
-insert to check the startmarker
+insert to check the start marker
 TODO:
-Change to a HMC Gateway, not as inkuludet funktion
+Change to a HMC Gateway, not as includet function
 '''
 
 class server(threading.Thread):
@@ -74,7 +74,6 @@ class server(threading.Thread):
                 data = self.__readClientData(clientsocket)
                 if data:
                     try:
-                        #self.logger.debug("recive:%s"%(data))
                         self.logger.debug("get message try to decode")
                         (user,password,calling,args)=self.coreDataobj.uncrypt(data)
                         self.logger.debug("calling function:%s user:%s"%(calling,user))
@@ -84,11 +83,13 @@ class server(threading.Thread):
                         self.logger.debug("send result error")
                         clientsocket.close()
                         break
-                    #file = open('log/recive.txt','a') 
-                    #file.write('%i %s %s\n'%(self.sendNR,calling,args)) 
-                    #file.close() 
-                    #self.sendNR=self.sendNR+1
-                     
+                    ''' only debuging
+                    self.logger.debug("recive:%s"%(data))
+                    file = open('log/recive.txt','a') 
+                    file.write('%i %s %s\n'%(self.sendNR,calling,args)) 
+                    file.close() 
+                    self.sendNR=self.sendNR+1
+                    ''' 
                     try:     
                         method_to_call = getattr(self.core,calling)
                         method_to_call(*args)

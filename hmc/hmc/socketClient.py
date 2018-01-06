@@ -6,7 +6,11 @@ Created on 19.10.2017
 __version__=3.0
 
 
-import threading,logging,Queue,time,socket
+import threading
+import logging
+import Queue                    #@UnresolvedImport
+import time
+import socket
 import coreProtocol
 
 BUFFER=8192
@@ -17,7 +21,7 @@ insert the STARTMARKER to check ! for cleint and server
 TODO:
 check user and password
 TODO:
-Change to a HMC Gateway, not as inkuludet funktion
+Change to a HMC Gateway, not as inculudet function
 '''
 
 class CoreConnection(threading.Thread): 
@@ -76,7 +80,7 @@ class CoreConnection(threading.Thread):
         '''
         self.logger=logging.getLogger(__name__) 
         self.logger.debug("build  "+__name__+" instance")
-    
+        self.sendNR=0
     def run(self):
         '''
         client loop
@@ -149,9 +153,15 @@ class CoreConnection(threading.Thread):
         '''
         convert command to core protocol
         '''
-        try:    
+        try:
             socketDataString="%s%s"%(self.__encodeCoreProtocol.decrypt(syncJob['calling'],syncJob['arg']),self.ENDMARKER)
-            #self.logger.debug("send:%s"%(corData))
+            '''  only for debug
+            file = open('log/send.txt','a') 
+            file.write('%i %s %s\n'%(self.sendNR,syncJob['calling'],syncJob['arg'])) 
+            file.close() 
+            self.sendNR=self.sendNR+1 
+            self.logger.debug("send:%s"%(corData))
+            '''
             self.logger.debug("send message to core")
             clientsocket.sendall(socketDataString)
         except:
