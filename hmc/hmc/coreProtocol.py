@@ -9,7 +9,7 @@ __version__ = "2.0"
 import hashlib
 import logging
 import os
-from Crypto.Cipher import AES
+from Crypto.Cipher import AES       #@UnresolvedImport
 import logging.config
 import cPickle
 
@@ -142,13 +142,13 @@ class code(object):
     
     def __serialData(self,data):
         self.logger.debug("serial data")
-        serial_data=cPickle.dumps(data)
+        serial_data=cPickle.dumps(data)                                 #@UndefinedVariable
         return serial_data
     
     def __unserialData(self,data):
         self.logger.debug("un-serial data")
         try:
-            jsonData=cPickle.loads(data)
+            jsonData=cPickle.loads(data)                                #@UndefinedVariable
             return jsonData
         except:
             self.logger.error( "can not covert to json string")
@@ -216,53 +216,3 @@ class code(object):
 
 
 
-if __name__ == "__main__":
-    logger={
-    "version": 1,
-    "disable_existing_loggers": False,
-    "formatters": {
-        "simple": {
-            "format": "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
-        }
-    },
-    "handlers": {
-        "console": {
-            "class": "logging.StreamHandler",
-            "level": "DEBUG",
-            "formatter": "simple",
-            "stream": "ext://sys.stdout"
-        }
-    },
-    "loggers": {
-        "my_module": {
-            "level": "DEBUG",
-            "handlers": ["console"],
-            "propagate": "no"
-        }
-    },
-    "root": {
-        "level": "DEBUG",
-        "handlers": ["console"]
-    }}
-    
-    user="test"
-    password="testpw"
-    args={
-        'deviceID':"defggf@fdde.de",
-        'test':'tedd',
-        'demo':{'testzzz':"hhhhh"}
-    }
-    
-    log=logging.getLogger(__name__)  
-    logging.config.dictConfig(logger)
-    core=code(user,password)
-    calling="addDevice"
-   
-    log.debug("user:%s password:%s"%(user,password)) 
-    log.debug ("calling:%s args:%s"%(calling,args))  
-   
-    decodeString=core.decrypt(calling, args)
-    log.debug ("decode string %s"%(decodeString))
-    
-    user,password,calling,args=core.uncrypt(decodeString) 
-    log.debug ("user:%s password:%s calling:%s args:%s"%(user,password,calling,args))
