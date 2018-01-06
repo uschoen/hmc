@@ -397,10 +397,6 @@ class device(object):
                 self.logger.debug("error at calling: %s event handler"%(eventName),exc_info=True)
     
     def _name_(self):
-        '''
-        return the modul name
-        TODO: check if need
-        '''
         return "defaultDevice"
     
     def _writeJSON(self,filename,data={}):
