@@ -5,7 +5,10 @@ Created on 23.09.2017
 '''
 __version__=2.1
 
-
+'''
+TODO:
+write config only if entry exist
+'''
 class coreConfiguration():
     
     def loadAllConfiguration(self):
