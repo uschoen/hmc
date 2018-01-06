@@ -3,142 +3,139 @@ Created on 18.12.2016
 
 @author: uschoen
 '''
-__version__ = "2.0"
+__version__ = "3.0"
 
 
-from time import sleep
-import MySQLdb
+import MySQLdb          #@UnresolvedImport
 import logging
 
 class server(object):
     '''
-    classdocs
-    '''
-
-
+    install the python mysql libery 
+    sudo apt-get install python-mysqldb
+    ''' 
     def __init__(self,parms,core):
-        '''
-        Constructor
-         '''
+        '''core instance'''
         self.__core=core
-        self.__config={}
-        self.__config.update(self.__loadDefaultArgs())
+        '''default configuration'''
+        self.__config={
+                     "host":"127.0.0.1",
+                     "user":"SQLUSER",
+                     "password":"",
+                     "db":"hmc",
+                     "table":"statistic",
+                     "mapping":[]
+                }
         self.__config.update(parms)
-        self.__logger=logging.getLogger(__name__)  
+        ''' logger instance '''
+        self.__log=logging.getLogger(__name__) 
+        ''' db connection '''  
         self.__dbConnection=False
-        self.__log("debug","build  %s instance"%(__name__))
+        
+        self.__log.info("build  %s instance"%(__name__))
     
-    def callback(self,device):
-        if not self.__dbConnection:
-            self.__dbConnect()
-        if not self.__dbConnection.open:
-            self.__dbConnect()
-            if not self.__dbConnection.open:
-                self.__log("error","can not open mysql connection")
-                return
-        self.__log.debug("callback from device id %s"%(device.getAttributeValue('deviceID')))
-        fieldstring=""
-        valuestring=""
-        secound=False
-        
-        for fields in self.__config['mapping']:
-            for key in fields:
-                if secound:
-                    fieldstring+=","
-                    valuestring+=","
-                secound=True
-                fieldstring+=("`%s`"%(key))
-                valuestring+=("'%s'"%(device.getAttributeValue(fields[key])))
-        sql=("INSERT INTO `%s` (%s) VALUES (%s)"%(self.__config['table'],fieldstring,valuestring))
-        self.__log.debug("build sql string:%s"%(sql))
-        
+    def callback(self,deviceID,eventTyp,channelName):
+        self.__log.debug("callback from deviceID:%s eventTyp:%s channel:%s"%(deviceID,eventTyp,channelName))
         try:
-            with self.__dbConnection:
-                cur = self.__dbConnection.cursor()
-                cur.execute(sql)
-        except MySQLdb.ProgrammingError as e:
-            self.__log("error","ProgrammingError"%(e))
-        except MySQLdb.OperationalError as e:
-            self.__log("error","OperationalError%s"%(e))
-            self.__dbConnect()
+            self.__dbConnect(self.__config.get('host'), self.__config.get('db'), self.__config.get('user'), self.__config.get('password')) 
+            self.__mapping(deviceID, channelName)
+        except:
+            self.__log.error("can not work for deviceID:%s eventTyp:%s channel:%s"%(deviceID,eventTyp,channelName),exc_info=True)
+        
+    def __mapping(self,deviceID,channel):    
+        fieldString=""
+        valueString=""
+        sql=""
+        secound=False
+        try:
+            for fields in self.__config['mapping']:
+                for key in fields:
+                    if secound:
+                        fieldString+=","
+                        valueString+=","
+                    secound=True
+                    fieldString+=("`%s`"%(key))
+                    value=""
+                    if key=="deviceID":
+                        value=deviceID
+                    else:
+                        value=self.__core.getDeviceChannelKey(deviceID,channel,fields.get(key))
+                    valueString+=("'%s'"%(value))
+            sql=("INSERT INTO `%s` (%s) VALUES (%s)"%(self.__config.get('table'),fieldString,valueString))
+            self.__excQuery(sql)
+            self.__dbClose()
         except :
-            self.__log("error","unkown Error sql:%s"%(sql))    
+            self.__log.error("unknown Error at mapping sql:%s"%(sql),exc_info=True)    
+        self.__dbClose()
+
+        
+    def __excQuery(self,sql):
+        '''
+        excequed a sql string
+        
+        sql: sql string
+        
+        return exception if sql query faild
+        '''
+        try:   
+            self.__dbConnect(self.__config.get('host'),self.__config.get('db'),self.__config.get('user'),self.__config.get('password'))
+            cur = self.__dbConnection.cursor()
+            self.__log.debug("sql:%s"%(sql))
+            cur.execute(sql)
+            self.__dbConnection.commit()
+        except:
+            self.__log.error("error in sql query",exc_info=True)
+            raise Exception
     
-    def __dbConnect(self):
-        self.__log.info("try connect to host:%s with user:%s table:%s"%(self.__config['host'],self.__config['user'],self.__config['db']))
+    def __dbConnect(self,host,db,user,password):
+        '''
+        connect to the database
+        host: hostname
+        db: database name
+        user: username of the databse
+        password: password of the user
+        
+        raise exeption 
+        '''
+        if self.__dbConnection:
+            return
+        self.__log.info("try connect to host:%s with user:%s table:%s"%(host,user,db))
         try:
             self.__dbConnection = MySQLdb.connect(
-                                                  host=self.__config['host'],
-                                                  db=self.__config['db'],
-                                                  user=self.__config['user'], 
-                                                  passwd=self.__config['password']
+                                                  host=host,
+                                                  db=db,
+                                                  user=user, 
+                                                  passwd=password
                                                   )
             self.__dbConnection.apilevel = "2.0"
             self.__dbConnection.threadsafety = 2
             self.__dbConnection.paramstyle = "format" 
-            self.__log.info("connect succecfull")
+            self.__log.info("connect to %s:%s succecfull"%(host,db))
             return
-        except MySQLdb.DataError as e:
-            print("DataError"%(e))
-            print(e)
-         
-        except MySQLdb.InternalError as e:
-            self.__log("InternalError"%(e))
-        except MySQLdb.IntegrityError as e:
-            self.__log("IntegrityError"%(e))
-        except MySQLdb.OperationalError as e:
-            self.__log("error","OperationalError%s"%(e))
-        except MySQLdb.NotSupportedError as e:
-            self.__log("error","NotSupportedError"%(e))
-        except MySQLdb.ProgrammingError as e:
-            self.__log("error","ProgrammingError"%(e))
-        except:
-            self.__log("error","Unknown error occurred")
+        except :
+            self.__dbConnection=False
+            self.__log.info("DB DataError to %s:%s"%(host,db),exc_info=True)
+            raise Exception
                 
     def __dbClose(self):
-        if self.__dbConnection:
-            self.__log.info("close database")
-            self.__dbConnection.close()    
+        '''
+        close the db connection
+        
+        fetch the exception
+        '''
+        try:
+            if self.__dbConnection:
+                self.__log.info("close db connection to %s"%(self.__config.get('host')))
+                self.__dbConnection.close()  
+            self.__dbConnection=False
+        except:
+            self.__log.warning("error at close db connection to host %s"%(self.__config.get('host')),exc_info=True)
+            self.__dbConnection=False
     
-    def __loadDefaultArgs(self):
-        args={"host":"127.0.0.1",
-             "user":"SQLUSER",
-             "password":"",
-             "db":"hmc",
-             "table":"statistic",
-             "mapping":[]
-             }
-        return args 
-            
     def shutdown(self):
-        self.logger.critical("%s is shutdown"%(__name__))
+        '''
+        shutdown
+        '''
+        self.__log.critical("%s is shutdown"%(__name__))
         self.__dbClose()       
-        self.logger.critical("%s is down"%(__name__))    
-            
-if __name__ == "__main__":            
-    class logger(object):
-        def write(self,arg):
-            print arg['messages']
-    
-    
-    args={"host":"192.168.3.100",
-             "user":"hmceasy",
-             "password":"test1",
-             "db":"hmc",
-             "table":"statistic",
-             "mapping":
-               [
-                 {"value":"value"},
-                 {"deviceid":"device"},
-                 {"lastchange":"timestamp"}
-               ] }
-    core=False
-    mapper = server(args,core,logger())
-    print("start")
-    print("mysql mapper  build")
-    while True:
-        print("main wait 10 sec")
-        sleep(10) 
-'''
-sudo apt-get install python-mysqldb
-'''        
+        self.__log.critical("%s is down"%(__name__))    
