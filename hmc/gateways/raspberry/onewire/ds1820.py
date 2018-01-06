@@ -45,8 +45,8 @@ class sensor(threading.Thread):
         self.logger.info("%s start in 5 sec."%(__name__))
         time.sleep(5)
         while self.__running:
-            if self.__waiting<int(time()):
-                self.__waiting=int(time())+self.__args['interval']
+            if self.__waiting<int(time.time()):
+                self.__waiting=int(time.time())+self.__args['interval']
                 if not self.__checkoneWire():
                     self.__running=0
                     self.logger.info("stopping %s, no onewire path"%(__name__))
@@ -120,9 +120,9 @@ class sensor(threading.Thread):
             channelValues[channelName]={
                 "value":{
                         "value":"unkown",
-                        "type":"string"},
+                        "type":"int"},
                 "name":{        
-                        "value":"unkown",
+                        "value":sensorID,
                         "type":"string"},
                     }
             self.__core.addDeviceChannel(deviceID,channelName,channelValues)
@@ -191,12 +191,18 @@ class sensor(threading.Thread):
                     "gateway":{
                         "value":"%s"%(self.__args['gateway']),
                         "type":"string"},
+                    "name":{
+                        "value":sensorID,
+                        "type":"string"},
                     "deviceID":{
                         "value":deviceID,
                         "type":"string"},
                     "enable":{
                         "value":True,
                         "type":"bool"},
+                    "create":{
+                        "value":int(time.time()),
+                        "type":"int"},
                     "connected":{
                         "value":True,
                         "type":"bool"},

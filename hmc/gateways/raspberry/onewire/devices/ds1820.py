@@ -5,7 +5,7 @@ Created on 23.12.2017
 '''
 from hmc.devices.defaultDevice import device
 
-__version__="2.0"
+__version__="3.0"
 
 
 class device(device):

@@ -31,7 +31,7 @@
                 "value": "unkown"
             }, 
             "value": {
-                "type": "string", 
+                "type": "int", 
                 "value": "unkown"
             }
         }
