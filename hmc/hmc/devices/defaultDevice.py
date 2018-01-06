@@ -390,6 +390,9 @@ class device(object):
         for eventName in eventHandlerList:
             if not self._core.eventHome(eventName):
                 continue
+            if not eventName in self._eventHandlerList:
+                self.logger.error("event handler does not exsists"%(eventName))
+                continue
             self.logger.debug("channel %s calling: %s event handler"%(channel,eventName))
             try:
                 self._eventHandlerList[eventName].callback(self._device['deviceID']['value'],eventTyp,channel)
