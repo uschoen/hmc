@@ -88,26 +88,38 @@ class coreBase():
             raise         
     
     def eventHome(self,pattern):
+        '''
+        check is deviceId on this host
+        
+        check to parts of pattern
+        
+        1:
+        *@*.*  deviceID@gateway.host
+        2:
+        *@*    name@host
+        
+        return true is host on thos host, else false
+        '''
         try:
             if re.match('.*@.*\..*',pattern):
                 self.logger.debug("find device pattern: %s"%(pattern))
                 (event,gatewayHost)=pattern.split("@")
                 (gateway,host)=gatewayHost.split(".")
                 if host == self.args['global']['host']:
-                    self.logger.debug("device %s is on gateway: %s host: %s"%(event,gateway,host))
+                    self.logger.debug("device %s is on gateway: %s host: %s"%(pattern,gateway,self.args['global']['host']))
                     return True
                 else:
-                    self.logger.debug("device %s is not on host: %s"%(event,host))
+                    self.logger.debug("device %s is not on host: %s"%(pattern,self.args['global']['host']))
                     return False
             
             if re.match('.*@.*',pattern):
                 self.logger.debug("find eventObject pattern: %s"%(pattern))
                 (event,host)=pattern.split("@")
                 if host == self.args['global']['host']:
-                    self.logger.debug("event %s  is on host: %s"%(event,host))
+                    self.logger.debug("event %s  is on host: %s"%(pattern,self.args['global']['host']))
                     return True
                 else:
-                    self.logger.debug("event %s is not on host: %s"%(event,host))
+                    self.logger.debug("event %s is not on host: %s"%(pattern,self.args['global']['host']))
                     return False
             self.logger.error("unkown pattern:%s"%(pattern))       
             return False
