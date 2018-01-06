@@ -30,10 +30,6 @@ class coreEventHandler():
     
     
     def updateEventHandler(self,eventhandlerName,eventhandlerCFG):
-            pass
-        
-        
-    def addEventHandler(self,eventhandlerName,eventhandlerCFG):
         '''
          add a Event handler 
         
@@ -44,21 +40,45 @@ class coreEventHandler():
         return: nothing
         exception: none
         '''
+        if eventhandlerName in self.eventHandler:
+            self.logger.info("eventHandler %s is existing, delte old eventhandler"%(eventhandlerName))
+            del self.eventHandler[eventhandlerName]
+        self.__addEventHandler(self,eventhandlerName,eventhandlerCFG)
+        self.updateRemoteCore(False,eventhandlerName,'updateEventHandler',eventhandlerName,eventhandlerCFG)
+    
+    def addEventHandler(self,eventhandlerName,eventhandlerCFG):
+        '''
+        add a Event handler 
         
-        #if not self.eventHome(eventhandlerName):
-        #    self.log("error","eventHandler %s is not at this core home"%(eventhandlerName))    
-        #    return
+        Keyword arguments:
+        event handler -- the name of the event handler typ:strg
+        eventhandlerCFG -- configuration of the eventhandlerCFG typ:dictionary
+        
+        return: nothing
+        exception: none
+        '''
         if eventhandlerName in self.eventHandler:
             self.logger.error("eventHandler %s is existing"%(eventhandlerName))
             return
-        self.logger.info("add new eventHandler: %s"%(eventhandlerName))
+        self.__addEventHandler(self,eventhandlerName,eventhandlerCFG)
+        self.updateRemoteCore(False,eventhandlerName,'addEventHandler',eventhandlerName,eventhandlerCFG)
+                
+    def __addEventHandler(self,eventhandlerName,eventhandlerCFG):
+        '''
+         add a Event handler 
         
-        try:  
+        Keyword arguments:
+        event handler -- the name of the event handler typ:strg
+        eventhandlerCFG -- configuration of the eventhandlerCFG typ:dictionary
+        
+        return: nothing
+        exception: none
+        '''
+        self.logger.info("add new eventHandler: %s"%(eventhandlerName))
+        self.eventHandlerCFG[eventhandlerName]=eventhandlerCFG
+        try:
             self.eventHandler[eventhandlerName]=self.loadModul("eventhandler",eventhandlerName,eventhandlerCFG)
             self.logger.info("add new eventhandlerName: %s successful"%(eventhandlerName)) 
-            self.eventHandlerCFG[eventhandlerName]=eventhandlerCFG
-            self.updateRemoteCore(False,eventhandlerName,'addEventHandler',eventhandlerName,eventhandlerCFG)
-        
         except:
             self.logger.error("can not add event handler Name: %s"%(eventhandlerName),exc_info=True)  
             
