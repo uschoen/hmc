@@ -129,9 +129,12 @@ class server(threading.Thread):
         while self.running:
             try:
                 data = self.__readClientData(clientsocket)
-                (function,args,resultStatus)=self.__webProtocol.decode(data)
+                (function,args,userStatus)=self.__webProtocol.decode(data)
             except:
                 self.__sendAnwser(clientsocket,self.__webProtocol.encode("result",{"message":"error in json data"},"0"))
+                break
+            if not userStatus:
+                self.__sendAnwser(clientsocket,self.__webProtocol.encode("result",{"message":"user or password error"},"0"))
                 break
             try:
                 if function in self.__allowFunktions:

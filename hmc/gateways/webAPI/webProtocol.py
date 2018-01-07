@@ -10,7 +10,7 @@ import json
 class web(object):
     '''
     classdocs
-    TODO: write and define Protocol
+    
     '''
 
 
@@ -49,13 +49,16 @@ class web(object):
                 "resultStatus":0
                 }
             dicVar.update(sendDicVar)
-            '''
-            TODO: User and password check
-            '''
+            userStatus=False
+            if dicVar.get('user')==self.__params.get('user') and dicVar.get('password')==self.__params.get('user'):
+                userStatus=False
+                self.__log.info("request from user:%s ,check user and password is ok"%(self.__params.get('user')))
+            else:
+                self.__log.warning("request from user:%s ,check user and password is faild"%(self.__params.get('user')))
             functionName=dicVar.get('function')
             args=dicVar.get('args')
-            resultStatus=dicVar.get('resultStatus')
-            return (functionName,args,resultStatus)
+            
+            return (functionName,args,userStatus)
         except:
             self.__log.error("some error to decode")
             raise Exception
