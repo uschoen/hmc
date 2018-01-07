@@ -1,0 +1,17 @@
+{
+"webAPI@hostname": {
+        "class": "server", 
+        "config": { 
+            		"hostName": "hostname", 
+                    "ip": "127.0.0.1", 
+                    "password": "password", 
+                    "port": 9090, 
+                    "timeout": 50, 
+                    "user": "user"
+                    
+        }, 
+        "enable": false, 
+        "modul": "APIServer", 
+        "package": "webAPI"
+    }
+}
