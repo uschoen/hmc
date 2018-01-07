@@ -11,6 +11,15 @@ import importlib,sys,os
 class coreGateways():
     '''
     classdocs
+    self.gatewaysInstance:
+    {
+        "gatewayName":{                       # name of the gateways
+                        "instance": class,    # class/object/instance of the gateway
+                        "status": stop/start, # is thread running or not
+                        "enable": True/False  # is gateway enable or not
+                        "name": name          # name of the gateways
+                     }
+    }          
     '''
     def getGatewaysName(self):
         gateways=[]
@@ -34,6 +43,7 @@ class coreGateways():
            
     def addGateway(self,gatewayName,config):
         self.logger.info("add gateway %s"%(gatewayName))
+        self.gatewaysCFG[gatewayName]=config 
         if self.eventHome(gatewayName): 
             pakage="gateways.%s.%s"%(config['package'],config['modul'])
             self.logger.info("try to load gateway: %s  with package: %s"%(gatewayName,pakage))
@@ -56,7 +66,6 @@ class coreGateways():
                 else:
                     self.logger.info("gateway %s is disable"%(gatewayName)) 
                 self.updateRemoteCore(False,gatewayName,'addGateway',gatewayName,config)
-                self.gatewaysCFG[gatewayName]=config 
             except :
                 self.logger.critical("can not build gateways %s"%(gatewayName),exc_info=True)
                 self.gatewaysCFG[gatewayName]=config
@@ -73,15 +82,38 @@ class coreGateways():
             self.logger.error("can not start gateways%s "%(gatewayName),exc_info=True)
             self.gatewaysInstance[gatewayName]['status']="stop"
     def shutdownAllGateways(self):
+        '''
+        shutdown all gateways
+        '''
         for gatewayName in self.gatewaysInstance:   
-                self.stopGateway(gatewayName)
-    def stopGateway(self,gatewayName):
-        self.logger.critical("shutdown gateways %s and wait 5 sec."%(gatewayName))
-        self.gatewaysInstance[gatewayName]['instance'].shutdown()
-        if self.gatewaysInstance[gatewayName]['instance'].isAlive():
-            self.gatewaysInstance[gatewayName]['instance'].join(5)
-        self.gatewaysInstance[gatewayName]['status']="stop"
-        pass
+            try:
+                self.logger.critical("shutdown gateways %s and wait 5 sec."%(gatewayName))
+                self.stopGateway(self.gatewaysInstance.get(gatewayName))
+            except:
+                self.logger.critical("get some error to stop gateway %s"%(gatewayName))
+                
+    
+    def stopGateway(self,gatewaysInstance):
+        '''
+        stop a gateway
+        
+        gatewayInstance: the gateway instance
+        raise exceptions
+        '''
+        try:
+            if gatewaysInstance.get('status')=="stop" and gatewaysInstance.get('instance').isAlive():
+                self.logger.info("gateways %s is already stop"%(gatewaysInstance.get('name')))
+                return
+            self.logger.critical("call shutdown gateways %s"%(gatewaysInstance.get('name')))
+            gatewaysInstance.get('instance').shutdown()
+            if gatewaysInstance.get('instance').isAlive():
+                gatewaysInstance.get('instance').join(5)
+            gatewaysInstance['status']="stop"
+        except:
+            self.logger.error("get some error to stop gateway %"%(gatewaysInstance.get('name')),exc_info=True)
+            raise
+            
+        
     
     
     
