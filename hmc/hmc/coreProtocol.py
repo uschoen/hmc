@@ -7,10 +7,10 @@ __version__ = "2.0"
 
 
 import hashlib
-import logging
 import os
 from Crypto.Cipher import AES       #@UnresolvedImport
-import logging.config
+import logging.config               #@UnusedImport
+import logging                      #@UnusedImport
 import cPickle
 
 
