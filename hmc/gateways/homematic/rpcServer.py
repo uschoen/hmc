@@ -41,12 +41,12 @@ class hmcRPCcallback:
     def event(self,interfaceID,deviceNumber,channelName,value,*unkown):
         '''
         only for logging
-        '''
+        ''
         self.__resetTimer()
         file = open('log/channels.txt','a') 
         file.write('%s %s %s %s\n'%(deviceNumber,channelName,value,unkown))
         file.close() 
-        
+        '''
         deviceID=("%s@%s.%s"%(deviceNumber,self.__config.get('gateway'),self.__config.get('host')))  
         channelName=channelName.lower()
         
@@ -72,10 +72,11 @@ class hmcRPCcallback:
         for device in allDevices:
             '''
             only for debug
-            '''
+            
             file = open('log/devices.txt','a') 
             file.write('%s\n'%(device))
             file.close() 
+            '''
             if not device['PARENT']=="":
                 deviceID="%s@%s.%s"%(device['ADDRESS'],self.__config.get('gateway'),self.__config.get('host'))
                 try:
