@@ -69,6 +69,8 @@ class coreGateways():
             except :
                 self.logger.critical("can not build gateways %s"%(gatewayName),exc_info=True)
                 self.gatewaysCFG[gatewayName]=config
+                self.gatewaysInstance[gatewayName]['enable']=False
+                
                 raise Exception
         else:
             self.logger.info("gateways %s is not on this host"%(gatewayName))
@@ -81,6 +83,7 @@ class coreGateways():
         except:
             self.logger.error("can not start gateways%s "%(gatewayName),exc_info=True)
             self.gatewaysInstance[gatewayName]['status']="stop"
+            self.gatewaysInstance[gatewayName]['enable']=False
     def shutdownAllGateways(self):
         '''
         shutdown all gateways
