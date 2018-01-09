@@ -234,6 +234,45 @@
                 "value": 0
             }
         }, 
+        "humidity": {
+            "channelID": {
+                "type": "string", 
+                "value": "unknown"
+            }, 
+            "create": {
+                "type": "int", 
+                "value": 1515524642
+            }, 
+            "enable": {
+                "type": "bool", 
+                "value": true
+            }, 
+            "events": {
+                "onboot_event": [], 
+                "onchange_event": [], 
+                "oncreate_event": [], 
+                "ondelete_event": [], 
+                "onrefresh_event": []
+            }, 
+            "lastchange": {
+                "hidden": false, 
+                "type": "int", 
+                "value": "0"
+            }, 
+            "lastupdate": {
+                "hidden": false, 
+                "type": "int", 
+                "value": "0"
+            }, 
+            "name": {
+                "type": "string", 
+                "value": "unkown"
+            }, 
+            "value": {
+                "type": "string", 
+                "value": "unkown"
+            }
+        }, 
         "lowbat_reporting": {
             "channelID": {
                 "type": "string", 
@@ -661,6 +700,45 @@
             "value": {
                 "type": "string", 
                 "value": 17.0
+            }
+        }, 
+        "temperature": {
+            "channelID": {
+                "type": "string", 
+                "value": "unknown"
+            }, 
+            "create": {
+                "type": "int", 
+                "value": 1515524642
+            }, 
+            "enable": {
+                "type": "bool", 
+                "value": true
+            }, 
+            "events": {
+                "onboot_event": [], 
+                "onchange_event": [], 
+                "oncreate_event": [], 
+                "ondelete_event": [], 
+                "onrefresh_event": []
+            }, 
+            "lastchange": {
+                "hidden": false, 
+                "type": "int", 
+                "value": 1515524642
+            }, 
+            "lastupdate": {
+                "hidden": false, 
+                "type": "int", 
+                "value": 1515524642
+            }, 
+            "name": {
+                "type": "string", 
+                "value": "unkown"
+            }, 
+            "value": {
+                "type": "string", 
+                "value": 20.7
             }
         }, 
         "window_open_reporting": {
