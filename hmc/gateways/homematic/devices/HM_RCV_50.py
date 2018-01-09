@@ -1,11 +1,11 @@
 '''
-Created on 23.12.2017
+Created on 09.01.2018
 @author: uschoen
 
 '''
 from hmc.devices.defaultDevice import device
 
-__version__="2.0"
+__version__="3.0"
 
 
 class device(device):

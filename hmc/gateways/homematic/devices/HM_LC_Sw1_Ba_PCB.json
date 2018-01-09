@@ -1,9 +1,13 @@
 {
     "channels": {
         "unreach": {
+            "channelID": {
+                "type": "string", 
+                "value": "unknown"
+            }, 
             "create": {
                 "type": "int", 
-                "value": "0"
+                "value": 1515500748
             }, 
             "enable": {
                 "type": "bool", 

@@ -1,9 +1,13 @@
 {
     "channels": {
         "actual_temperature": {
+            "channelID": {
+                "type": "string", 
+                "value": "unknown"
+            }, 
             "create": {
                 "type": "int", 
-                "value": "0"
+                "value": 1515500769
             }, 
             "enable": {
                 "type": "bool", 
@@ -19,12 +23,12 @@
             "lastchange": {
                 "hidden": false, 
                 "type": "int", 
-                "value": 1514045319
+                "value": 1515500769
             }, 
             "lastupdate": {
                 "hidden": false, 
                 "type": "int", 
-                "value": 1514045319
+                "value": 1515500769
             }, 
             "name": {
                 "type": "string", 
@@ -36,9 +40,13 @@
             }
         }, 
         "battery_state": {
+            "channelID": {
+                "type": "string", 
+                "value": "unknown"
+            }, 
             "create": {
                 "type": "int", 
-                "value": "0"
+                "value": 1515500769
             }, 
             "enable": {
                 "type": "bool", 
@@ -54,12 +62,12 @@
             "lastchange": {
                 "hidden": false, 
                 "type": "int", 
-                "value": 1514045319
+                "value": 1515500769
             }, 
             "lastupdate": {
                 "hidden": false, 
                 "type": "int", 
-                "value": 1514045319
+                "value": 1515500769
             }, 
             "name": {
                 "type": "string", 
@@ -71,9 +79,13 @@
             }
         }, 
         "boost_state": {
+            "channelID": {
+                "type": "string", 
+                "value": "unknown"
+            }, 
             "create": {
                 "type": "int", 
-                "value": "0"
+                "value": 1515500769
             }, 
             "enable": {
                 "type": "bool", 
@@ -89,12 +101,12 @@
             "lastchange": {
                 "hidden": false, 
                 "type": "int", 
-                "value": 1514045319
+                "value": 1515500769
             }, 
             "lastupdate": {
                 "hidden": false, 
                 "type": "int", 
-                "value": 1514045319
+                "value": 1515500769
             }, 
             "name": {
                 "type": "string", 
@@ -106,9 +118,13 @@
             }
         }, 
         "control_mode": {
+            "channelID": {
+                "type": "string", 
+                "value": "unknown"
+            }, 
             "create": {
                 "type": "int", 
-                "value": "0"
+                "value": 1515500769
             }, 
             "enable": {
                 "type": "bool", 
@@ -124,12 +140,12 @@
             "lastchange": {
                 "hidden": false, 
                 "type": "int", 
-                "value": 1514045319
+                "value": 1515500769
             }, 
             "lastupdate": {
                 "hidden": false, 
                 "type": "int", 
-                "value": 1514045319
+                "value": 1515500769
             }, 
             "name": {
                 "type": "string", 
@@ -141,9 +157,13 @@
             }
         }, 
         "fault_reporting": {
+            "channelID": {
+                "type": "string", 
+                "value": "unknown"
+            }, 
             "create": {
                 "type": "int", 
-                "value": "0"
+                "value": 1515500769
             }, 
             "enable": {
                 "type": "bool", 
@@ -159,12 +179,12 @@
             "lastchange": {
                 "hidden": false, 
                 "type": "int", 
-                "value": 1514045319
+                "value": 1515500769
             }, 
             "lastupdate": {
                 "hidden": false, 
                 "type": "int", 
-                "value": 1514045319
+                "value": 1515500769
             }, 
             "name": {
                 "type": "string", 
@@ -176,9 +196,13 @@
             }
         }, 
         "party_start_day": {
+            "channelID": {
+                "type": "string", 
+                "value": "unknown"
+            }, 
             "create": {
                 "type": "int", 
-                "value": "0"
+                "value": 1515500770
             }, 
             "enable": {
                 "type": "bool", 
@@ -194,12 +218,12 @@
             "lastchange": {
                 "hidden": false, 
                 "type": "int", 
-                "value": 1514045320
+                "value": 1515500770
             }, 
             "lastupdate": {
                 "hidden": false, 
                 "type": "int", 
-                "value": 1514045320
+                "value": 1515500770
             }, 
             "name": {
                 "type": "string", 
@@ -211,9 +235,13 @@
             }
         }, 
         "party_start_month": {
+            "channelID": {
+                "type": "string", 
+                "value": "unknown"
+            }, 
             "create": {
                 "type": "int", 
-                "value": "0"
+                "value": 1515500770
             }, 
             "enable": {
                 "type": "bool", 
@@ -229,12 +257,12 @@
             "lastchange": {
                 "hidden": false, 
                 "type": "int", 
-                "value": 1514045320
+                "value": 1515500770
             }, 
             "lastupdate": {
                 "hidden": false, 
                 "type": "int", 
-                "value": 1514045320
+                "value": 1515500770
             }, 
             "name": {
                 "type": "string", 
@@ -246,9 +274,13 @@
             }
         }, 
         "party_start_time": {
+            "channelID": {
+                "type": "string", 
+                "value": "unknown"
+            }, 
             "create": {
                 "type": "int", 
-                "value": "0"
+                "value": 1515500770
             }, 
             "enable": {
                 "type": "bool", 
@@ -264,12 +296,12 @@
             "lastchange": {
                 "hidden": false, 
                 "type": "int", 
-                "value": 1514045320
+                "value": 1515500770
             }, 
             "lastupdate": {
                 "hidden": false, 
                 "type": "int", 
-                "value": 1514045320
+                "value": 1515500770
             }, 
             "name": {
                 "type": "string", 
@@ -281,9 +313,13 @@
             }
         }, 
         "party_start_year": {
+            "channelID": {
+                "type": "string", 
+                "value": "unknown"
+            }, 
             "create": {
                 "type": "int", 
-                "value": "0"
+                "value": 1515500770
             }, 
             "enable": {
                 "type": "bool", 
@@ -299,12 +335,12 @@
             "lastchange": {
                 "hidden": false, 
                 "type": "int", 
-                "value": 1514045320
+                "value": 1515500770
             }, 
             "lastupdate": {
                 "hidden": false, 
                 "type": "int", 
-                "value": 1514045320
+                "value": 1515500770
             }, 
             "name": {
                 "type": "string", 
@@ -316,9 +352,13 @@
             }
         }, 
         "party_stop_day": {
+            "channelID": {
+                "type": "string", 
+                "value": "unknown"
+            }, 
             "create": {
                 "type": "int", 
-                "value": "0"
+                "value": 1515500771
             }, 
             "enable": {
                 "type": "bool", 
@@ -334,12 +374,12 @@
             "lastchange": {
                 "hidden": false, 
                 "type": "int", 
-                "value": 1514045320
+                "value": 1515500771
             }, 
             "lastupdate": {
                 "hidden": false, 
                 "type": "int", 
-                "value": 1514045320
+                "value": 1515500771
             }, 
             "name": {
                 "type": "string", 
@@ -351,9 +391,13 @@
             }
         }, 
         "party_stop_month": {
+            "channelID": {
+                "type": "string", 
+                "value": "unknown"
+            }, 
             "create": {
                 "type": "int", 
-                "value": "0"
+                "value": 1515500771
             }, 
             "enable": {
                 "type": "bool", 
@@ -369,12 +413,12 @@
             "lastchange": {
                 "hidden": false, 
                 "type": "int", 
-                "value": 1514045320
+                "value": 1515500771
             }, 
             "lastupdate": {
                 "hidden": false, 
                 "type": "int", 
-                "value": 1514045320
+                "value": 1515500771
             }, 
             "name": {
                 "type": "string", 
@@ -386,9 +430,13 @@
             }
         }, 
         "party_stop_time": {
+            "channelID": {
+                "type": "string", 
+                "value": "unknown"
+            }, 
             "create": {
                 "type": "int", 
-                "value": "0"
+                "value": 1515500770
             }, 
             "enable": {
                 "type": "bool", 
@@ -404,12 +452,12 @@
             "lastchange": {
                 "hidden": false, 
                 "type": "int", 
-                "value": 1514045320
+                "value": 1515500770
             }, 
             "lastupdate": {
                 "hidden": false, 
                 "type": "int", 
-                "value": 1514045320
+                "value": 1515500770
             }, 
             "name": {
                 "type": "string", 
@@ -421,9 +469,13 @@
             }
         }, 
         "party_stop_year": {
+            "channelID": {
+                "type": "string", 
+                "value": "unknown"
+            }, 
             "create": {
                 "type": "int", 
-                "value": "0"
+                "value": 1515500771
             }, 
             "enable": {
                 "type": "bool", 
@@ -456,9 +508,13 @@
             }
         }, 
         "party_temperature": {
+            "channelID": {
+                "type": "string", 
+                "value": "unknown"
+            }, 
             "create": {
                 "type": "int", 
-                "value": "0"
+                "value": 1515500770
             }, 
             "enable": {
                 "type": "bool", 
@@ -474,12 +530,12 @@
             "lastchange": {
                 "hidden": false, 
                 "type": "int", 
-                "value": 1514045319
+                "value": 1515500770
             }, 
             "lastupdate": {
                 "hidden": false, 
                 "type": "int", 
-                "value": 1514045319
+                "value": 1515500770
             }, 
             "name": {
                 "type": "string", 
@@ -491,9 +547,13 @@
             }
         }, 
         "set_temperature": {
+            "channelID": {
+                "type": "string", 
+                "value": "unknown"
+            }, 
             "create": {
                 "type": "int", 
-                "value": "0"
+                "value": 1515500769
             }, 
             "enable": {
                 "type": "bool", 
@@ -509,12 +569,12 @@
             "lastchange": {
                 "hidden": false, 
                 "type": "int", 
-                "value": 1514045319
+                "value": 1515500770
             }, 
             "lastupdate": {
                 "hidden": false, 
                 "type": "int", 
-                "value": 1514045319
+                "value": 1515500770
             }, 
             "name": {
                 "type": "string", 
@@ -522,48 +582,17 @@
             }, 
             "value": {
                 "type": "string", 
-                "value": 22.0
-            }
-        }, 
-        "sticky_unreach": {
-            "create": {
-                "type": "int", 
-                "value": "0"
-            }, 
-            "enable": {
-                "type": "bool", 
-                "value": true
-            }, 
-            "events": {
-                "onboot_event": [], 
-                "onchange_event": [], 
-                "oncreate_event": [], 
-                "ondelete_event": [], 
-                "onrefresh_event": []
-            }, 
-            "lastchange": {
-                "hidden": false, 
-                "type": "int", 
-                "value": "0"
-            }, 
-            "lastupdate": {
-                "hidden": false, 
-                "type": "int", 
-                "value": "0"
-            }, 
-            "name": {
-                "type": "string", 
-                "value": "unkown"
-            }, 
-            "value": {
-                "type": "string", 
-                "value": "unkown"
+                "value": 18.0
             }
         }, 
         "valve_state": {
+            "channelID": {
+                "type": "string", 
+                "value": "unknown"
+            }, 
             "create": {
                 "type": "int", 
-                "value": "0"
+                "value": 1515500769
             }, 
             "enable": {
                 "type": "bool", 
@@ -579,12 +608,12 @@
             "lastchange": {
                 "hidden": false, 
                 "type": "int", 
-                "value": 1514045319
+                "value": 1515500769
             }, 
             "lastupdate": {
                 "hidden": false, 
                 "type": "int", 
-                "value": 1514045319
+                "value": 1515500769
             }, 
             "name": {
                 "type": "string", 
@@ -592,7 +621,7 @@
             }, 
             "value": {
                 "type": "string", 
-                "value": 99
+                "value": 0
             }
         }
     }, 
