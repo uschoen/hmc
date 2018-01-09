@@ -282,7 +282,7 @@ class coreDevices ():
                 if classModul.__version__<__version__:
                     self.logger.warning("Version of %s is %s and can by to low"%(devicePackage,classModul.__version__))
                 else:
-                    self.logger.info( "Version of %s is %s"%(devicePackage,classModul.__version__))
+                    self.logger.debug( "Version of %s is %s"%(devicePackage,classModul.__version__))
             else:
                 self.logger.warning("package %s has no version Info"%(devicePackage))
         except:
