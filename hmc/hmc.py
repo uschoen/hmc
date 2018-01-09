@@ -171,7 +171,7 @@ if __name__ == '__main__':
         while 1:
             for gatewayName in coreInstance.getGatewaysName():
                 try:
-                    logger.info("check gateway %s"%(gatewayName['name']))
+                    logger.debug("check gateway %s"%(gatewayName['name']))
                     gatewayobj=coreInstance.getGatewaysInstance(gatewayName['name'])
                     if not gatewayName['enable']:
                         logger.info("gateway %s is disable"%(gatewayName['name']))
