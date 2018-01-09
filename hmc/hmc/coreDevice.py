@@ -68,7 +68,7 @@ class coreDevices ():
         check if a channel exist
         '''
         channelName=channelName.lower()
-        self.logger.info("check if channel %s for deviceID %s available"%(channelName,deviceID))
+        self.logger.debug("check if channel %s for deviceID %s available"%(channelName,deviceID))
         try:
             if not deviceID in self.devices:
                 self.logger.error("device id %s not existing"%(deviceID))
