@@ -251,7 +251,7 @@ class coreDevices ():
         '''
         build a new device object
         '''
-        self.logger.info("add new device type %s"%(device['device']['devicetype']['value']))
+        self.logger.debug("add new device type %s"%(device['device']['devicetype']['value']))
         classModul=False
         DEFAULTDEVICE="hmc.devices.defaultDevice"
         argumente=(device,self,self.eventHandler,adding)
