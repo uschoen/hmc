@@ -14,6 +14,8 @@ import threading
 import logging
 import time
 from random import randint
+import xmltodict                                            #@UnresolvedImport
+import urllib2                                              #@UnresolvedImport
 import xmlrpclib                                            #@UnresolvedImport
 from SimpleXMLRPCServer import SimpleXMLRPCServer           #@UnresolvedImport
 from SimpleXMLRPCServer import SimpleXMLRPCRequestHandler   #@UnresolvedImport @UnusedImport
@@ -30,7 +32,7 @@ class hmcRPCcallback:
         ''' configuration parameter  '''
         self.__config={
                         "gateway":"unknown",
-                        "host":"unknown"
+                        "host":"unknown"                        
                       }
         self.__config=parms
         ''' reset timer function '''
@@ -49,7 +51,7 @@ class hmcRPCcallback:
         '''
         deviceID=("%s@%s.%s"%(deviceNumber,self.__config.get('gateway'),self.__config.get('host')))  
         channelName=channelName.lower()
-        
+        self.__resetTimer()
         try:
             self.__log.debug("event: deviceID: %s, channel name = %s, value = %s" % (deviceID,channelName,value))
             if not self.__core.ifDeviceExists(deviceID):
@@ -169,7 +171,11 @@ class server(threading.Thread):
                     "gateway":"unknown",
                     "host":"unknown",
                     "blockRPCServer":60,
-                    "MSGtimeout":60}
+                    "MSGtimeout":60,
+                    "HomeMaticURL":"http://192.168.3.90/config/xmlapi/statechange.cgi",
+                    "iseID":"1028",
+                    "iseIDValue":0
+                }    
         self.__config.update(params)
         '''    logger instance    '''
         self.__log=logging.getLogger(__name__) 
@@ -177,12 +183,16 @@ class server(threading.Thread):
         self.running=1
         '''    core instance   '''
         self.__core=core
-        '''    timeout         '''
+        '''    message timeout in sec        '''
         self.__lastMSG=0
+        '''    message timeout 2nd level in sec        '''
+        self.__lastMSG2nd=0
         '''    timeout for server '''
         self.__blockTime=0
         '''    rpc Server Instance '''
         self.__rpcServer=False
+        ''' firstrun flag '''
+        self.__firstrun=True
         
         self.__log.debug("build  %s instance"%(__name__))
     
@@ -192,13 +202,13 @@ class server(threading.Thread):
             while self.running:
                 self.__buildRPCServer()
                 if self.__blockTime<int(time.time()):
-                    if self.__lastMSG<int(time.time()):
-                        self.__log.warning("message timeout, get no message since %i sec."%(self.__config.get('MSGtimeout')))
+                    if self.__firstrun:
                         try:
                             self.__startInitRequest()
+                            self.__firstrun=False
                         except:
-                            self.__log.warning("can not request a RPC INIT")
-                            self.__blockServer() 
+                            self.__firstrun=False
+                    self.__ifTimeOut()
                 time.sleep(0.1)    
             self.__log.critical("%s normally stop:"%(__name__))
         except:
@@ -217,6 +227,57 @@ class server(threading.Thread):
         except:
             self.__log.critical("error stopping RPC connection")
         self.__log.critical("RPC Server is stop")
+    
+    def __ifTimeOut(self):
+        '''
+        check if time out an no messagewill be recived for a time x
+        
+        after x sec send a wake up request to get new message
+        after x+10 reinit the rpc rquest
+        '''
+        if self.__lastMSG2nd<int(time.time()):
+            try:
+                self.__startInitRequest()
+                self.__resetTimer()
+                self.__unblockServer()
+                return
+            except:
+                self.__blockServer()
+                self.__log.error("can not startInitRequest", exc_info=True) 
+                return         
+        if self.__lastMSG<int(time.time()):
+            self.__log.warning("message timeout, detected. no message since %s sec"%(self.__config.get('MSGtimeout')))
+            self.__sendXMLwakupCMD(self.__config.get('HomeMaticURL'),self.__config.get('iseID'),self.__config.get('iseIDValue'))     
+        
+    def __sendXMLwakupCMD(self,hmURL,iseID,iseValue):
+        '''
+        set a value in the homematic for a device to get a message back
+        '''
+        self.__log.error("send messages to homematic to wake up for gateway %s"%(self.__config.get('gateway')))
+        url=("%s?ise_id=%s&new_value=%s"%(hmURL,iseID,iseValue))
+        self.__log.debug("url is %s "%(url))
+        self.__lastMSG=self.__config.get('MSGtimeout')+int(time.time())
+        try:
+            response = urllib2.urlopen(url)
+            httcode=response.getcode()
+            self.__log.debug("http response code %s"%(httcode))
+            if  httcode<>200:
+                self.__log.error("can not send request to url") 
+                return
+            xml=response.read()
+            self.__log.debug("xml response %s"%(xml))
+            HMresponse=xmltodict.parse(xml)
+            if "result" in HMresponse:
+                if "changed" in HMresponse['result']: 
+                    self.__log.debug("value successful change")
+                elif "not_found" in HMresponse['result']: 
+                    self.__log.error("can not found iseID %s"%(iseID))
+                else:
+                    self.__log.warning("get some unknown answer %s"%(xml))
+            else:
+                self.__log.warning("get some unknown answer %s"%(xml))  
+        except :
+            self.__log.critical("something going wrong !!!", exc_info=True) 
     
     def __startInitRequest(self):
         '''
@@ -302,21 +363,22 @@ class server(threading.Thread):
     
     def __resetTimer(self):
         ''' reset timer '''
-        self.__log.debug("reset MSG timeout")
-        self.__lastMSG=self.__config.get('MSGtimeout')+int(time.time())  
+        self.__log.debug("reset MSG timeout for gateway %s"%(self.__config.get('gateway')))
+        self.__lastMSG=self.__config.get('MSGtimeout')+int(time.time()) 
+        self.__lastMSG2nd=self.__config.get('MSGtimeout')+int(time.time())+5
         
     def __unblockServer(self):
         '''
         unblock the server for new connections
         '''
-        self.__log.info("unblock server in 2 sec.")
-        self.__blockTime=2+int(time.time()) 
+        self.__log.info("unblock server %s in 2 sec."%(self.__config.get('gateway')))
+        self.__blockTime=2+int(time.time())
         
     def __blockServer(self):
         '''
         block the server for new connections
         '''
-        self.__log.error("block server for %i sec"%(self.__config.get('blockRPCServer')))
+        self.__log.error("block server % for %i sec"%(self.__config.get('gateway'),self.__config.get('blockRPCServer')))
         self.__blockTime=self.__config.get('blockRPCServer')+int(time.time())    
         
         
