@@ -170,16 +170,19 @@ if __name__ == '__main__':
         coreInstance=coreManager(getConfiguration('core'))
         while 1:
             for gatewayName in coreInstance.getGatewaysName():
-                logger.info("check gateway %s"%(gatewayName['name']))
-                gatewayobj=coreInstance.getGatewaysInstance(gatewayName['name'])
-                if not gatewayName['enable']:
-                    logger.info("gateway %s is disable"%(gatewayName['name']))
-                    continue
-                if gatewayobj.isAlive():
-                    logger.info("gateway %s is alive"%(gatewayName['name']))
-                else:
-                    logger.error("gateway %s is not alive"%(gatewayName['name'])) 
-                    coreInstance.startGateway(gatewayName['instance'])
+                try:
+                    logger.info("check gateway %s"%(gatewayName['name']))
+                    gatewayobj=coreInstance.getGatewaysInstance(gatewayName['name'])
+                    if not gatewayName['enable']:
+                        logger.info("gateway %s is disable"%(gatewayName['name']))
+                        continue
+                    if gatewayobj.isAlive():
+                        logger.info("gateway %s is alive"%(gatewayName['name']))
+                    else:
+                        logger.error("gateway %s is not alive"%(gatewayName['name'])) 
+                        coreInstance.startGateway(gatewayName['instance'])
+                except:
+                    logger.error("can not check gateway %s"%(gatewayName))
             logger.info("EasyHMC wait %s sec for next check"%(configuration['checkgatewaysintervall']))
             time.sleep(configuration['checkgatewaysintervall'])    
     except (SystemExit, KeyboardInterrupt):
