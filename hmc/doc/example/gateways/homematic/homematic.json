@@ -13,7 +13,11 @@
 			"rpc_ip":"192.168.x.x",
 			"gateway":"hmc_rpc_rf",
 			"blockRPCServer":60,
-            "MSGtimeout":60}
+            "MSGtimeout":60,
+            "HomeMaticURL":"http://192.168.x.x/config/xmlapi/statechange.cgi",
+            "iseID":"1028",
+            "iseIDValue":0
+            }
 },
 "hmc_rpc_wired@hostname":{
  		"enable":true,
@@ -29,6 +33,9 @@
 			"rpc_ip":"192.168.x.x",
 			"gateway":"hmc_rpc_wired",
 			"blockRPCServer":60,
-            "MSGtimeout":60}
+            "MSGtimeout":60,
+            "HomeMaticURL":"http://192.168.x.x/config/xmlapi/statechange.cgi",
+            "iseID":"1028",
+            "iseIDValue":0}
 			}
 }
