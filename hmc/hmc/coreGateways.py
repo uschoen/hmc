@@ -71,7 +71,7 @@ class coreGateways():
                 self.gatewaysCFG[gatewayName]=config
                 raise Exception
         else:
-            self.logger.error("no right pattern for Gateways %s"%(gatewayName))
+            self.logger.info("gateways %s is not on this host"%(gatewayName))
             self.gatewaysCFG[gatewayName]=config 
             
     def startGateway(self,gatewayName):
