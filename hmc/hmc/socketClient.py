@@ -125,7 +125,7 @@ class CoreConnection(threading.Thread):
                     'arg':arg}
         self.__coreQueue.put(updateObj)
         if self.__blockedTime<int(time.time()):
-            self.logger.info("core client block for %i s"%(self.__blockedTime-int(time.time())))
+            self.logger.info("core client block for %i s"%(self.__blockedTime))
     
     def __workJob(self,syncJob):
         '''
@@ -136,7 +136,7 @@ class CoreConnection(threading.Thread):
                     arg: <<arguments>>
                 }
         '''
-        self.logger.info("work job for deviceID %s calling %s"%(syncJob['deviceID'],syncJob['calling']))
+        self.logger.info("work job for deviceID %s calling %s"%(syncJob.get('deviceID'),syncJob.get('calling')))
         '''
         network connect to core
         '''
@@ -340,9 +340,9 @@ class CoreConnection(threading.Thread):
         and set sync to false
         ''' 
         if not timer:
-            timer=self.__arg['timeout']
-        self.logger.info("block core client to core %s for %i s"%(self.__arg['hostName'],timer))
-        self.__blockedTime=int(time.time()+timer)
+            timer=self.__arg.get('timeout')
+        self.logger.info("block core client to core %s for %i s"%(self.__arg.get('hostName'),timer))
+        self.__blockedTime=int(time.time())+timer
         self.__isCoreSync=False
         
     def __unblockClient(self):
