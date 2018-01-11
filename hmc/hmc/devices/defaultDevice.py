@@ -93,11 +93,16 @@ class device(object):
             self.logger.error("can not load channels, %s can not build"%(self._name_()))
             raise
         '''
-        gateway instance of the device
+        call a private init function of the child class, if exists 
         '''
         if  hasattr(self,"privateInit"):
             self.privatInit()
+            
         self.logger.debug("build %s instance"%(self._name_()))
+        
+        '''
+        call oncreation event, if add the device
+        '''
         if adding:
             self._callEvent('oncreate_event', 'device')
     
