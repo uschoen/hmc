@@ -80,9 +80,10 @@ class coreConfiguration():
             self.logger.error("can not reading device configuration file", exc_info=True)
             return
         if len(devicesCFG)>0:
+            self.logger.info("start to restore %s devices"%(len(devicesCFG)))
             for deviceID in devicesCFG:
                 try:
-                    self.logger.info("restore deviceID: %s with typ %s  "%(deviceID,devicesCFG[deviceID]['device']['devicetype']['value']))
+                    self.logger.debug("restore deviceID: %s with typ %s  "%(deviceID,devicesCFG[deviceID]['device']['devicetype']['value']))
                     newDevice=devicesCFG[deviceID]
                     device=newDevice['device']
                     channel=newDevice['channels']
