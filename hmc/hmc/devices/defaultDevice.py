@@ -11,6 +11,9 @@ import json
 import os
 import logging
 
+'''
+TODO: check if all channel name convert to lower letters
+'''
 
 class device(object):
     
@@ -96,7 +99,7 @@ class device(object):
         call a private init function of the child class, if exists 
         '''
         if  hasattr(self,"privateInit"):
-            self.privatInit()
+            self.privateInit()
             
         self.logger.debug("build %s instance"%(self._name_()))
         
