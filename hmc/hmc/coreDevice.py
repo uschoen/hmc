@@ -83,7 +83,7 @@ class coreDevices ():
         set a channel value for a dive
         '''
         channelName=channelName.lower()
-        self.logger.info("set channel %s for device id %s value %s"%(channelName,deviceID,value))
+        self.logger.info("set channel %s for deviceID %s value %s"%(channelName,deviceID,value))
         try:
             if not deviceID in self.devices:
                 self.logger.error("device id %s not existing"%(deviceID))
