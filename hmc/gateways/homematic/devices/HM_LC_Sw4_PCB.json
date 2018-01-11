@@ -1,4 +1,83 @@
 {
-    "channels": {}, 
+    "channels": {
+        "state": {
+            "channelID": {
+                "type": "string", 
+                "value": "unknown"
+            }, 
+            "create": {
+                "type": "int", 
+                "value": 1515695337
+            }, 
+            "enable": {
+                "type": "bool", 
+                "value": true
+            }, 
+            "events": {
+                "onboot_event": [], 
+                "onchange_event": [], 
+                "oncreate_event": [], 
+                "ondelete_event": [], 
+                "onrefresh_event": []
+            }, 
+            "lastchange": {
+                "hidden": false, 
+                "type": "int", 
+                "value": 1515695337
+            }, 
+            "lastupdate": {
+                "hidden": false, 
+                "type": "int", 
+                "value": 1515695337
+            }, 
+            "name": {
+                "type": "string", 
+                "value": "unkown"
+            }, 
+            "value": {
+                "type": "string", 
+                "value": true
+            }
+        }, 
+        "working": {
+            "channelID": {
+                "type": "string", 
+                "value": "unknown"
+            }, 
+            "create": {
+                "type": "int", 
+                "value": 1515695337
+            }, 
+            "enable": {
+                "type": "bool", 
+                "value": true
+            }, 
+            "events": {
+                "onboot_event": [], 
+                "onchange_event": [], 
+                "oncreate_event": [], 
+                "ondelete_event": [], 
+                "onrefresh_event": []
+            }, 
+            "lastchange": {
+                "hidden": false, 
+                "type": "int", 
+                "value": "0"
+            }, 
+            "lastupdate": {
+                "hidden": false, 
+                "type": "int", 
+                "value": "0"
+            }, 
+            "name": {
+                "type": "string", 
+                "value": "unkown"
+            }, 
+            "value": {
+                "type": "string", 
+                "value": "unkown"
+            }
+        }
+    }, 
     "device": {}
 }
