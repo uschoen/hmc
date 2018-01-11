@@ -4,7 +4,7 @@ Created on 09.12.2017
 @author: uschoen
 '''
 
-__version__="3.0"
+__version__="3.1"
 
 import time
 import json
@@ -85,28 +85,18 @@ class device(object):
             self._configurationFile="core/hmc/devices/defaultDevice.json"
         try:         
             packageConfiguration=self._loadJSON(self._configurationFile)
-            
-            if 'device' in packageConfiguration:
-                self._device.update(packageConfiguration['device'])
-            else:
-                self.logger.info("configuration file: %s has no device attribute"%(self._configurationFile))
-            
-            if 'channels' in packageConfiguration:
-                self._channels.update(packageConfiguration['channels'])
-            else:
-                self.logger.info("configuration file: %s has no channels attribute"%(self._configurationFile))
-            
-            if 'channels' in arg:
-                self._channels.update(arg['channels'])
-            
-            if 'device' in arg:   
-                self._device.update(arg['device'])
+            self._channels.update(packageConfiguration.get('channels',{}))
+            self._channels.update(arg.get('channels',{}))
+            self._device.update(packageConfiguration.get('device',{}))
+            self._device.update(arg.get('device',{}))
         except:
             self.logger.error("can not load channels, %s can not build"%(self._name_()))
             raise
         '''
         gateway instance of the device
         '''
+        if  hasattr(self,"privateInit"):
+            self.privatInit()
         self.logger.debug("build %s instance"%(self._name_()))
         if adding:
             self._callEvent('oncreate_event', 'device')
