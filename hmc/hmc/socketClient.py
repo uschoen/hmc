@@ -124,7 +124,7 @@ class CoreConnection(threading.Thread):
                     'calling':calling,
                     'arg':arg}
         self.__coreQueue.put(updateObj)
-        if self.__blockedTime<int(time.time()):
+        if self.__blockedTime>int(time.time()):
             self.logger.info("core client block for %i s"%(self.__blockedTime))
     
     def __workJob(self,syncJob):
