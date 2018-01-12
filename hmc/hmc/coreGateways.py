@@ -6,7 +6,7 @@ Created on 23.09.2017
 __version__=0.2
 
 from gateways import *
-import importlib,sys,os
+import importlib
 
 class coreGateways():
     '''
