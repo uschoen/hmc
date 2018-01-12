@@ -193,6 +193,8 @@ class server(threading.Thread):
         self.__rpcServer=False
         ''' firstrun flag '''
         self.__firstrun=True
+        ''' is init request send to hmc '''
+        self.__isHMCinit=False
         
         self.__log.debug("build  %s instance"%(__name__))
     
@@ -290,8 +292,10 @@ class server(threading.Thread):
             self.__log.info("send a RPC INIT Request at:(http://%s:%s)"%(self.__config.get("rpc_ip"),self.__config.get("rpc_port")))
             proxy.init("http://%s:%s"%(self.__config.get("rpc_ip"), self.__config.get("rpc_port")),self.__config.get("hm_interface_id"))
             self.__log.debug("send a RPC INIT Request finish")
+            self.__isHMCinit=True
         except:
             self.__log.error("can not start send a start INIT request",exc_info=True)
+            self.__isHMCinit=False
             raise Exception
    
     def __stopInitRequest(self):
@@ -301,12 +305,16 @@ class server(threading.Thread):
         raise exception on failed
         '''
         try:
+            if not self.__isHMCinit:
+                return
             proxy=self.__proxyInstance()
             self.__log.info("stop RPC Request at:http://%s:%s"%(self.__config.get("rpc_ip"),self.__config.get("rpc_port")))
             proxy.init("http://%s:%s"%(self.__config["rpc_ip"], int(self.__config["rpc_port"])))
             self.__log.debug("stopped RPC data from homematic")
+            self.__isHMCinit=False
         except:
             self.__log.error("can not send a stop INIT request",exc_info=True)
+            self.__isHMCinit=False
             raise Exception
             
     def __proxyInstance(self):
