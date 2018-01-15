@@ -33,7 +33,7 @@ class code(object):
         self.logger.info("%s is build"%(__name__))
     
     def __olddecode(self,calling,args):
-        self.logger.error( "old function decode, use derypt",exc_info=True)
+        self.logger.error( "old function decode, use decrypt",exc_info=True)
         self.decrypt(calling, args)   
         
     def decrypt(self,calling,args):
@@ -151,7 +151,7 @@ class code(object):
             jsonData=cPickle.loads(data)                                #@UndefinedVariable
             return jsonData
         except:
-            self.logger.error( "can not covert to json string")
+            self.logger.error( "can not convert to json string:%s"%(data))
             raise Exception
     
     def __strgrjust(self,string):

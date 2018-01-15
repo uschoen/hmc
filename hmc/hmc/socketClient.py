@@ -16,12 +16,7 @@ import coreProtocol
 BUFFER=8192
 
 '''
-TODO: 
-insert the STARTMARKER to check ! for cleint and server
-TODO:
-check user and password
-TODO:
-Change to a HMC Gateway, not as inculudet function
+NOTE:
 '''
 
 class CoreConnection(threading.Thread): 
@@ -30,8 +25,8 @@ class CoreConnection(threading.Thread):
     def __init__(self,params,core):
         threading.Thread.__init__(self)
         
-        self.STARTMARKER="!!!<<<start>>>"
-        self.ENDMARKER="<<<end>>>!!!"
+        ''' end marker for a job '''
+        self.__ENDMARKER="<<<end>>>!!!"
         
         self.__lastMSG=""
         '''
@@ -53,7 +48,8 @@ class CoreConnection(threading.Thread):
                     "password": "password", 
                     "port": 5091, 
                     "timeout": 50, 
-                    "user": "user"}
+                    "user": "user",
+                    "socketTimeout":4}
         self.__arg.update(params)
         '''
         if core sync false/true
@@ -71,6 +67,18 @@ class CoreConnection(threading.Thread):
         block time to block the client
         '''
         self.__blockedTime=0
+        '''
+        socket object
+        '''
+        
+        '''
+        socket timer 
+        '''
+        self._socketTimer=0
+        '''
+        socket status, if true when socket is connect
+        '''
+        self.__socketConnect=False
         '''
         class to build core protocol
         '''
@@ -91,12 +99,15 @@ class CoreConnection(threading.Thread):
             if self.__blockedTime<int(time.time()):
                 self.__coreSync()
                 while self.__isCoreSync and self.running:
+                    if self._socketTimer<int(time.time()) and self.__socketConnect:
+                        self.__socketClose()
                     if not self.__coreQueue.empty():
                         try:
-                            self.__workJob(self.__coreQueue.get())
+                            self.__workingQueue(self.__coreQueue)
                         except:
                             self.logger.error("can not finish coreQueue to core %s"%(self.__arg['hostName'])) 
                             self.__blockClient()
+                            self.__socketClose()
                 time.sleep(0.1)   
         self.logger.error("core client to core %s stop"%(__name__))
     
@@ -125,9 +136,57 @@ class CoreConnection(threading.Thread):
                     'arg':arg}
         self.__coreQueue.put(updateObj)
         if self.__blockedTime>int(time.time()):
-            self.logger.info("core client block for %i s"%(self.__blockedTime))
+            self.logger.info("core client block for %i s"%(self.__blockedTime-int(time.time())))
     
-    def __workJob(self,syncJob):
+    def __workingQueue(self,queueList):
+        '''
+        working a job from a Queue object
+        '''
+        if queueList.empty():
+            ''' nothing do to list is empty '''
+            return
+        if not self.__socketConnect:
+            ''' try to connect '''
+            try:
+                self.__connectToClient()
+            except:
+                raise Exception
+        ''' working queue list '''
+        if queueList.empty():
+            return
+        try:
+            while not queueList.empty():
+                self.__sendJob(queueList.get())
+            self.__setSocketTimer() 
+        except:
+            self.logger.info("error in queue",exc_info=True)
+            raise Exception        
+    
+    def __connectToClient(self):
+        if self.__socketConnect:
+            ''' client is connect '''
+            return
+        try:
+            self.logger.info("try connect to Core %s:%s"%(self.__arg.get('ip'),self.__arg.get('port')))
+            self.__clientSocket=socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+            self.__clientSocket.connect((self.__arg.get('ip'),int(self.__arg.get('port'))))
+            self.__socketConnect=True
+            self.__setSocketTimer()
+        except socket.error:
+            self.__socketConnect=False
+            self.logger.error("socket error, can not connect to Core %s:%s"%(self.__arg.get('ip'),self.__arg.get('port')))
+            raise Exception
+        except:
+            self.__socketConnect=False
+            self.logger.error("can not connect to Core %s:%s"%(self.__arg.get('ip'),self.__arg.get('port')),exc_info=True)
+            raise Exception
+     
+    def __setSocketTimer(self):
+        self.logger.debug("set socket timer")
+        self._socketTimer=self.__arg.get("socketTimeout")+int(time.time())
+     
+            
+    def __sendJob(self,syncJob):
         '''
         send a job to an other core
         syncJob={
@@ -138,89 +197,100 @@ class CoreConnection(threading.Thread):
         '''
         self.logger.info("work job for deviceID %s calling %s"%(syncJob.get('deviceID'),syncJob.get('calling')))
         '''
-        network connect to core
-        '''
-        try:
-            clientsocket=socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-            clientsocket.connect((self.__arg['ip'],int(self.__arg['port'])))
-            self.logger.info("connect to Core %s:%s"%(self.__arg['ip'],self.__arg['port']))
-        except socket.error:
-            self.logger.error("socket error, can not connect to Core %s:%s"%(self.__arg['ip'],self.__arg['port']))
-            raise Exception
-        except:
-            self.logger.error("can not connect to Core %s:%s"%(self.__arg['ip'],self.__arg['port']),exc_info=True)
-            raise Exception
-        '''
         convert command to core protocol
         '''
         try:
-            socketDataString="%s%s"%(self.__encodeCoreProtocol.decrypt(syncJob['calling'],syncJob['arg']),self.ENDMARKER)
+            socketDataString="%s%s"%(self.__encodeCoreProtocol.decrypt(syncJob['calling'],syncJob['arg']),self.__ENDMARKER)
             '''  only for debug
             file = open('log/send.txt','a') 
             file.write('%i %s %s\n'%(self.sendNR,syncJob['calling'],syncJob['arg'])) 
             file.close() 
             self.sendNR=self.sendNR+1 
-            self.logger.debug("send:%s"%(corData))
+            self.logger.debug("send:%s"%(socketDataString))
             '''
             self.logger.debug("send message to core")
-            clientsocket.sendall(socketDataString)
+            self.__clientSocket.sendall(socketDataString)
         except:
-            self.logger.error("can not send message to core, sending error",exc_info=True)
-            clientsocket.close()
+            self.logger.error("can not send error message to core",exc_info=True)
             raise Exception
         '''
-        wait for answer from core client
+        wait for answer from core client 
         '''
-        try:  
-            coreClientAnswer=self.__readClientData(clientsocket)
-            clientsocket.close()
-            (user,password,calling,args)=self.__encodeCoreProtocol.uncrypt(coreClientAnswer)
-            self.logger.debug("calling function:%s user:%s"%(calling,user))
-            if args['result']=="success":
-                self.logger.debug("result was success")
-                return
-            else:
-                self.logger.info("result was not success") 
-                raise Exception    
-        except:
-            self.logger.error("error in answer from core %s"%(self.__arg['hostName']),exc_info=True) 
-            clientsocket.close()
-            raise Exception
-        
-    def __readClientData (self,clientsocket):
+        lastMSG=""
+        while self.running:
+            ''' read client data '''
+            try:
+                (data,lastMSG,finish) = self.__readClientData(self.__clientSocket,lastMSG)
+                if not data and finish:
+                    break
+            except:
+                self.logger.error("error while fetching data",exc_info=True)
+                raise Exception
+            ''' decode client data '''
+            try:
+                (user,password,calling,args)=self.__encodeCoreProtocol.uncrypt(data)
+                if args['result']=="success":
+                    self.logger.debug("result was success")
+                    return
+                else:
+                    self.logger.info("result was not success") 
+                    raise Exception
+            except:
+                self.logger.error("can not uncrypt data from core",exc_info=True)
+                raise Exception
+            if finish:
+                break                    
+    
+    def __readClientData (self,clientsocket,lastMSG):
         '''
         read the data from a socket and check if the endmarker set
         
-        clientsocket: network socket of the communication
+        client socket: network socket of the communication
         
         exception: raise a exception if a error in the communication
         '''
-        revData=self.__lastMSG
+        revData=lastMSG
         try:
+            finish=False
             while True:
                 data = clientsocket.recv(BUFFER)
                 revData=revData+data
-                if self.ENDMARKER in revData or not data:
-                    if revData.endswith(self.ENDMARKER):
-                        self.__lastMSG=""
-                        revData=revData.replace(self.ENDMARKER,"")
+                if self.__ENDMARKER in revData or not data:
+                    if revData.endswith(self.__ENDMARKER):
+                        lastMSG=""
+                        revData=revData.replace(self.__ENDMARKER,"")
                         break   
-                    if self.ENDMARKER in revData:
-                        (revData,self.__lastMSG)=revData.split(self.ENDMARKER)
+                    if self.__ENDMARKER in revData:
+                        (revData,lastMSG)=revData.split(self.__ENDMARKER)
                         break
                     if not data:
-                        self.logger.error("receive no %s data from core %s %s"%(self.ENDMARKER,self.__arg['hostName'],revData))
-                        raise Exception
-            return revData
-        except: 
-            self.logger.error("error to receive answer from core %s"%(self.__arg['hostName']),exc_info=True) 
-            raise Exception       
-                           
+                        finish=True
+                        break
+            return (revData,lastMSG,finish)
+        except:
+            self.__log.error("error to receive answer from core %s"%(self.__args.get('hostName')),exc_info=True) 
+            raise Exception
+              
+    def __socketClose(self):
+        '''
+        close the socket to the client
+        
+        fetch the exception
+        '''
+        self.logger.debug("close socket and socketconnect to false")
+        try:
+            self.__clientSocket.close()
+        except:
+            pass
+        self.__socketTimer=0 
+        self.__socketConnect=False  
+                          
     def shutdown(self):
         '''
         shutdown client connection
         '''
-        self.running=0  
+        self.running=0 
+        self.__socketClose() 
         self.logger.critical("shutdown core connection to %s"%(self.__arg['hostName']))
     
     def __clearSyncQueue(self):
@@ -255,12 +325,15 @@ class CoreConnection(threading.Thread):
                 self.__isCoreSync=True
                 break
             try:
-                self.__workJob(self.__syncQueue.get())
+                self.__workingQueue(self.__syncQueue)
+                self.__socketClose()
+                self.__unblockClient()
             except:
                 self.logger.error("can not sync to core %s"%(self.__arg['hostName']))
                 self.__blockClient()  
+                self.__socketClose()
                 return
-        self.__unblockClient()
+        
            
     
     def __syncCoreDevices(self):
@@ -341,6 +414,7 @@ class CoreConnection(threading.Thread):
         ''' 
         if not timer:
             timer=self.__arg.get('timeout')
+            self.__socketClose()
         self.logger.info("block core client to core %s for %i s"%(self.__arg.get('hostName'),timer))
         self.__blockedTime=int(time.time())+timer
         self.__isCoreSync=False
@@ -353,3 +427,4 @@ class CoreConnection(threading.Thread):
             return
         self.logger.info("unblock core Client to client %s"%(self.__arg['hostName']))
         self.__blockedTime=0
+        
