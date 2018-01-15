@@ -99,8 +99,8 @@ class coreGateways():
      
     def updateGateway(self,gatewayName,config):
         ''' 
-        update a Gateway, the gateway name have to be unique can be exsisting.
-        If a Gateway exsiting it will be stop and delete.
+        update a Gateway, the gateway name have to be unique can be existing.
+        If a Gateway existing it will be stop and delete.
         after update its update the other core server
         
         gatewayName: name of the gateway 
@@ -144,7 +144,7 @@ class coreGateways():
             raise Exception
         if self.gatewaysInstance['status']<>"stop":
             try:
-                self.stopGateway(self.gatewaysInstance['instance'])
+                self.stopGateway(gatewayName)
             except:
                 pass
         del self.gatewaysInstance[gatewayName]
@@ -241,29 +241,32 @@ class coreGateways():
         for gatewayName in self.gatewaysInstance:   
             try:
                 self.logger.critical("shutdown gateways %s and wait 5 sec."%(gatewayName))
-                self.stopGateway(self.gatewaysInstance.get(gatewayName))
+                self.stopGateway(gatewayName)
             except:
                 self.logger.critical("get some error to stop gateway %s"%(gatewayName))
                 
     
-    def stopGateway(self,gatewaysInstance):
+    def stopGateway(self,gatewayName):
         '''
         stop a gateway
         
         gatewayInstance: the gateway instance
         raise exceptions
         '''
+        if gatewayName not in self.gatewaysInstance:
+            self.logger.warning("gateway %s does not existing"%(gatewayName))
+            raise Exception
         try:
-            if gatewaysInstance.get('status')=="stop" and gatewaysInstance.get('instance').isAlive():
-                self.logger.info("gateways %s is already stop"%(gatewaysInstance.get('name')))
+            if self.gatewaysInstance[gatewayName].get('status')=="stop" and self.gatewaysInstance[gatewayName]['instance'].isAlive():
+                self.logger.info("gateways %s is already stop"%(self.gatewaysInstance[gatewayName].get('name')))
                 return
-            self.logger.critical("call shutdown gateways %s"%(gatewaysInstance.get('name')))
-            gatewaysInstance.get('instance').shutdown()
-            if gatewaysInstance.get('instance').isAlive():
-                gatewaysInstance.get('instance').join(5)
-            gatewaysInstance['status']="stop"
+            self.logger.critical("call shutdown gateways %s"%(self.gatewaysInstance[gatewayName].get('name')))
+            self.gatewaysInstance[gatewayName]['instance'].shutdown()
+            if self.gatewaysInstance[gatewayName]['instance'].isAlive():
+                self.gatewaysInstance[gatewayName]['instance'].join(5)
+            self.gatewaysInstance[gatewayName]['status']="stop"
         except:
-            self.logger.error("get some error to stop gateway %"%(gatewaysInstance.get('name')),exc_info=True)
+            self.logger.error("get some error to stop gateway %"%(self.gatewaysInstance[gatewayName]['name']),exc_info=True)
             raise
             
         
