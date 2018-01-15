@@ -41,7 +41,7 @@ class coreConfiguration():
             gatewaysCFG=self.loadJSON(filename)
             for gatewayName in gatewaysCFG:
                 try:
-                    self.addGateway(gatewayName,gatewaysCFG[gatewayName])
+                    self.restoreGateway(gatewayName,gatewaysCFG[gatewayName])
                 except:
                     self.logger.error("can not add gateway: %s"%(gatewayName), exc_info=True)
         except:
