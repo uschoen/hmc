@@ -229,15 +229,16 @@ class CoreConnection(threading.Thread):
             ''' decode client data '''
             try:
                 (user,password,calling,args)=self.__encodeCoreProtocol.uncrypt(data)
-                if args['result']=="success":
-                    self.logger.debug("result was success")
-                    return
-                else:
-                    self.logger.info("result was not success") 
-                    raise Exception
             except:
-                self.logger.error("can not uncrypt data or result not success from core",exc_info=True)
+                self.logger.error("can not uncrypt data from core")
                 raise Exception
+            if args['result']=="success":
+                self.logger.debug("result was success")
+                return
+            else:
+                self.logger.info("result was not success") 
+                raise Exception
+            
             if finish:
                 break                    
     

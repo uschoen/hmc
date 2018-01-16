@@ -116,17 +116,20 @@ class coreGateways():
         
         raise exception on failure
         '''
-        self.logger.info("restore gateway %s"%(gatewayName))
+        self.logger.info("update gateway %s"%(gatewayName))
         try:
             if config==self.gatewaysCFG.get(gatewayName,{}):
                 self.logger.info("no update need, %s gateway have same setting"%(gatewayName))
                 return
             self.deleteGateway(gatewayName)
             self.__buildGateway(gatewayName,config)
-            self.startGateway(gatewayName)
+            try:
+                self.startGateway(gatewayName)
+            except:
+                pass
             self.updateRemoteCore(False,gatewayName,'updateGateway',gatewayName,config)
         except:
-            self.logger.debug("can not restore gateway %s"%(gatewayName))
+            self.logger.debug("can not update gateway %s"%(gatewayName),exc_info=True)
             raise Exception
     
     
@@ -139,15 +142,14 @@ class coreGateways():
         raise all exceptions
         '''
         self.logger.debug("delete gateway %s"%(gatewayName))
-        if gatewayName not in self.gatewaysInstance:
-            self.logger.error("gateway %s is not existing"%(gatewayName))
-            raise Exception
-        if self.gatewaysInstance['status']<>"stop":
-            try:
-                self.stopGateway(gatewayName)
-            except:
-                pass
-        del self.gatewaysInstance[gatewayName]
+        if gatewayName in self.gatewaysInstance:
+            self.logger.error("gateway %s existing, try to stop"%(gatewayName))
+            if self.gatewaysInstance[gatewayName]['status']<>"stop":
+                try:
+                    self.stopGateway(gatewayName)
+                except:
+                    pass
+            del self.gatewaysInstance[gatewayName]
         if  gatewayName in self.gatewaysCFG:  
             del self.gatewaysCFG[gatewayName]     
                   
@@ -223,7 +225,7 @@ class coreGateways():
         raise a exception
         '''
         if gatewayName not in self.gatewaysInstance:
-            self.logger.error("gateways %s is not excisting"%(gatewayName))
+            self.logger.error("gateways %s is not existing"%(gatewayName))
             raise Exception
         if not self.gatewaysInstance[gatewayName]['enable']:
             self.logger.error("gateways %s is not enable"%(gatewayName))
