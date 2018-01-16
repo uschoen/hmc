@@ -59,15 +59,15 @@ class coreGateways():
             "host": host name on wich is running the gateway
             }
         
-        raise exception on failure
+        raise no exception 
         '''
         self.logger.info("restore gateway %s"%(gatewayName))
         try:
             self.__buildGateway(gatewayName,config)
             self.startGateway(gatewayName)  
         except:
-            self.logger.info("can not add gateway %s"%(gatewayName))
-            raise Exception
+            pass
+            
         
     def addGateway(self,gatewayName,config):
         ''' 
@@ -225,6 +225,9 @@ class coreGateways():
         if gatewayName not in self.gatewaysInstance:
             self.logger.error("gateways %s is not excisting"%(gatewayName))
             raise Exception
+        if not self.gatewaysInstance[gatewayName]['enable']:
+            self.logger.error("gateways %s is not enable"%(gatewayName))
+            raise Exception  
         try:
             self.gatewaysInstance[gatewayName]['instance'].start()
             self.gatewaysInstance[gatewayName]['status']="start"

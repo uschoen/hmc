@@ -358,7 +358,13 @@ class CoreConnection(threading.Thread):
         sync all gateways events from this host
         '''
         self.logger.info("sync Gateways to core %s"%(self.__arg['hostName']))
-        self.logger.info("sync Gateways not implement")
+        for gatewayName in self.__core.gatewaysCFG:
+            updateObj={
+                    'deviceID':gatewayName,
+                    'calling':'updateGateway',
+                    'arg':self.__core.gatewaysCFG.get(gatewayName)}
+            self.__syncQueue.put(updateObj)
+        
         
     def __syncCoreEventHandler(self):
         '''

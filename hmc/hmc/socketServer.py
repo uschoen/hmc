@@ -40,7 +40,12 @@ class server(threading.Thread):
             "updateDevice",
             "updateEventHandler",
             "setDeviceChannelValue",
-            "addDevice"
+            "addDevice",
+            "updateGateway",
+            "addGateway",
+            "deleteGateway",
+            "startGateway",
+            "stopGateway"
             ]
         ''' logger instance '''
         self.__log=logging.getLogger(__name__) 
