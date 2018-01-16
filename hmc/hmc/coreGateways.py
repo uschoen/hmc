@@ -69,7 +69,7 @@ class coreGateways():
             pass
             
         
-    def addGateway(self,gatewayName,config):
+    def addGateway(self,gatewayName,config,forceUpdate=False):
         ''' 
         add a Gateway, the gateway name have to be unique an not exsisting
         after add its update the other core server
@@ -91,13 +91,13 @@ class coreGateways():
         try:
             self.__buildGateway(gatewayName,config)  
             self.startGateway(gatewayName)      
-            self.updateRemoteCore(False,gatewayName,'addGateway',gatewayName,config)
+            self.updateRemoteCore(forceUpdate,gatewayName,'addGateway',gatewayName,config)
         except:
             self.logger.info("can not add gateway %s"%(gatewayName))
             raise Exception
         
      
-    def updateGateway(self,gatewayName,config):
+    def updateGateway(self,gatewayName,config,forceUpdate=False):
         ''' 
         update a Gateway, the gateway name have to be unique can be existing.
         If a Gateway existing it will be stop and delete.
@@ -127,7 +127,7 @@ class coreGateways():
                 self.startGateway(gatewayName)
             except:
                 pass
-            self.updateRemoteCore(False,gatewayName,'updateGateway',gatewayName,config)
+            self.updateRemoteCore(forceUpdate,gatewayName,'updateGateway',gatewayName,config)
         except:
             self.logger.debug("can not update gateway %s"%(gatewayName),exc_info=True)
             raise Exception
