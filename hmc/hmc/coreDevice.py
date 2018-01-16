@@ -47,7 +47,7 @@ class coreDevices ():
             self.logger.error("can not restore device:%s"%(device),exc_info=True)
             raise Exception
         
-    def addDeviceChannel(self,deviceID,channelName,Values):
+    def addDeviceChannel(self,deviceID,channelName,Values,forceUpdate=False):
         '''
         add a new channel to a device
         '''
@@ -58,7 +58,7 @@ class coreDevices ():
                 self.logger.error("device id %s not existing"%(deviceID))
                 raise
             self.devices[deviceID].addChannel(channelName,channelValues)
-            self.updateRemoteCore(False,deviceID,'addDeviceChannel',deviceID,channelName,Values)
+            self.updateRemoteCore(forceUpdate,deviceID,'addDeviceChannel',deviceID,channelName,Values)
         except:
             self.logger.error("can not add channel %s for deviceID %s"%(channelName,deviceID))
             raise
@@ -78,7 +78,7 @@ class coreDevices ():
             self.logger.error("can not check if channel %s for device id %s available"%(channelName,deviceID),exc_info=True)
             raise
         
-    def setDeviceChannelValue(self,deviceID,channelName,value):
+    def setDeviceChannelValue(self,deviceID,channelName,value,forceUpdate=False):
         '''
         set a channel value for a dive
         '''
@@ -89,7 +89,7 @@ class coreDevices ():
                 self.logger.error("device id %s not existing"%(deviceID))
                 raise Exception
             self.devices[deviceID].setChannelValue(channelName,value)
-            self.updateRemoteCore(False,deviceID,'setDeviceChannelValue',deviceID,channelName,value)
+            self.updateRemoteCore(forceUpdate,deviceID,'setDeviceChannelValue',deviceID,channelName,value)
         except:
             self.logger.error("can not set channel %s for device id %s value %s"%(channelName,deviceID,value),exc_info=True)
             raise  
@@ -122,7 +122,7 @@ class coreDevices ():
             self.logger.error("can not get channel %s for device id %s"%(channelName,deviceID),exc_info=True)
             raise 
     
-    def addDevice(self,device,channels):
+    def addDevice(self,device,channels,forceUpdate=False):
         '''
         add a new device
         '''
@@ -138,7 +138,7 @@ class coreDevices ():
             newDevice['device']=copy.deepcopy(device)
             newDevice['channels']=copy.deepcopy(channels)
             self.__buildDevice(newDevice,True)
-            self.updateRemoteCore(False,device['deviceID']['value'],'addDevice',device,channels)
+            self.updateRemoteCore(forceUpdate,device['deviceID']['value'],'addDevice',device,channels)
             #todo: add the event on create
         except:
             self.logger.error("can not add device id %s"%(device['deviceID']['value']),exc_info=True)
@@ -158,7 +158,7 @@ class coreDevices ():
             raise Exception
         return self.devices[deviceID].ifEnable()
     
-    def deviceDisable(self,deviceID): 
+    def deviceDisable(self,deviceID,forceUpdate=False): 
         '''
         disable device
                 
@@ -169,9 +169,9 @@ class coreDevices ():
             self.logger.error("object id %s not existing"%(deviceID))
             raise Exception
         self.devices[deviceID].disable()
-        self.updateRemoteCore(False,deviceID,'deviceDisable',deviceID)
+        self.updateRemoteCore(forceUpdate,deviceID,'deviceDisable',deviceID)
         
-    def deviceEnable(self,deviceID): 
+    def deviceEnable(self,deviceID,forceUpdate=False): 
         '''
         enable device
                 
@@ -182,7 +182,7 @@ class coreDevices ():
             self.logger.error("object id %s not existing"%(deviceID))
             raise Exception
         self.devices[deviceID].enable()
-        self.updateRemoteCore(False,deviceID,'deviceEnable',deviceID)
+        self.updateRemoteCore(forceUpdate,deviceID,'deviceEnable',deviceID)
       
     def ifDeviceExists(self,deviceID): 
         '''
@@ -194,7 +194,7 @@ class coreDevices ():
         self.logger.debug("device %s is not exists"%(deviceID))
         return False   
     
-    def updateDevice(self,device,channels):
+    def updateDevice(self,device,channels,forceUpdate=False):
         '''
         update a exist device to a new one
         '''
@@ -220,7 +220,7 @@ class coreDevices ():
             addDevice['device']=newDevice
             addDevice['channels']=newChannels
             self.__buildDevice(addDevice,False)
-            self.updateRemoteCore(False,deviceID,'updateDevice',newDevice,newChannels)
+            self.updateRemoteCore(forceUpdate,deviceID,'updateDevice',newDevice,newChannels)
         except:
             self.logger.error("can not update device %s"%(device),exc_info=True)  
             raise Exception
