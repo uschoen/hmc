@@ -236,7 +236,7 @@ class CoreConnection(threading.Thread):
                     self.logger.info("result was not success") 
                     raise Exception
             except:
-                self.logger.error("can not uncrypt data from core",exc_info=True)
+                self.logger.error("can not uncrypt data or result not success from core",exc_info=True)
                 raise Exception
             if finish:
                 break                    
@@ -362,7 +362,7 @@ class CoreConnection(threading.Thread):
             updateObj={
                     'deviceID':gatewayName,
                     'calling':'updateGateway',
-                    'arg':self.__core.gatewaysCFG.get(gatewayName)}
+                    'arg':(gatewayName,self.__core.gatewaysCFG[gatewayName])}
             self.__syncQueue.put(updateObj)
         
         
