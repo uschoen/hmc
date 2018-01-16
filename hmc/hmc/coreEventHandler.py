@@ -11,7 +11,7 @@ class coreEventHandler():
     classdocs
     '''
  
-    def addDefaultEventhandler(self,eventTyp,eventHandlerName):
+    def addDefaultEventhandler(self,eventTyp,eventHandlerName,forceUpdate=False):
         if eventTyp not in self.defaultEventHandler:
             self.logger.error("can not find event type %s"%(eventTyp))
             return
@@ -20,7 +20,7 @@ class coreEventHandler():
             return
         self.logger.info("add event Handler %s for event: %s"%(eventHandlerName,eventTyp))
         self.defaultEventHandler[eventTyp].append(eventHandlerName)
-        self.updateRemoteCore(False,eventHandlerName,'addDefaultEventhandler',eventTyp,eventHandlerName)
+        self.updateRemoteCore(forceUpdate,eventHandlerName,'addDefaultEventhandler',eventTyp,eventHandlerName)
     
     def shutdownAllEventhadnler(self):
         self.logger.critical("shutdown all Eventhandler")
@@ -29,7 +29,7 @@ class coreEventHandler():
             self.eventHandler[eventhandler].shutdown()
     
     
-    def updateEventHandler(self,eventhandlerName,eventhandlerCFG):
+    def updateEventHandler(self,eventhandlerName,eventhandlerCFG,forceUpdate=False):
         '''
          add a Event handler 
         
@@ -44,9 +44,9 @@ class coreEventHandler():
             self.logger.info("eventHandler %s is existing, delte old eventhandler"%(eventhandlerName))
             del self.eventHandler[eventhandlerName]
         self.__addEventHandler(eventhandlerName,eventhandlerCFG)
-        self.updateRemoteCore(False,eventhandlerName,'updateEventHandler',eventhandlerName,eventhandlerCFG)
+        self.updateRemoteCore(forceUpdate,eventhandlerName,'updateEventHandler',eventhandlerName,eventhandlerCFG)
     
-    def addEventHandler(self,eventhandlerName,eventhandlerCFG):
+    def addEventHandler(self,eventhandlerName,eventhandlerCFG,forceUpdate=False):
         '''
         add a Event handler 
         
@@ -61,7 +61,7 @@ class coreEventHandler():
             self.logger.error("eventHandler %s is existing"%(eventhandlerName))
             return
         self.__addEventHandler(eventhandlerName,eventhandlerCFG)
-        self.updateRemoteCore(False,eventhandlerName,'addEventHandler',eventhandlerName,eventhandlerCFG)
+        self.updateRemoteCore(forceUpdate,eventhandlerName,'addEventHandler',eventhandlerName,eventhandlerCFG)
                 
     def __addEventHandler(self,eventhandlerName,eventhandlerCFG):
         '''
