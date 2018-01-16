@@ -5,8 +5,7 @@ Created on 22.10.2016
 install :
 apt-get install python-xmltodict
 
-TODO:
-rebuild script and class
+
 '''
 
 __version__= "3.0"

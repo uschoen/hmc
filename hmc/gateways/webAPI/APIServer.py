@@ -50,9 +50,6 @@ class server(threading.Thread):
         self.__socket=False
         ''' recvied msg '''
         self.__lastMSG=""
-        ''' MSG Start marker 
-        TODO: implement the STARTMARKER in to the protocol'''
-        self.__STARTMARKER="!!!<<<start>>>"
         ''' MSG End marker '''
         self.__ENDMARKER="<<<end>>>!!!"
         ''' webProtocol class '''
@@ -161,7 +158,6 @@ class server(threading.Thread):
     
     def __sendAnwser(self,clientsocket,MSGstring):
         try:
-            '''TODO: insert start marker'''
             clientsocket.sendall(MSGstring+self.__ENDMARKER)
         except:
             self.__log.error("can not send message",exc_info=True)
