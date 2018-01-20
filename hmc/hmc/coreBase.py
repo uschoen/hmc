@@ -11,6 +11,7 @@ import os
 import re
 import importlib
 import logging
+from hmc.programPraraphser import praraphser
 
 class coreBase():
     '''
@@ -34,8 +35,11 @@ class coreBase():
                                                 #                     }
         self.gatewaysCFG={}                     # gateway threads configuration
         self.devices={}                         # Device objects
-        self.eventHandler={}                    # hold the event handler object
-        self.eventHandlerCFG={}                 # hold the event handler configuration
+        
+        self.scheduleJobs={}                       # schedule Jobs from program
+        self.program={}
+        self.programPraraphser=praraphser(self,self.scheduleJobs ) # program praraphser
+        
              
         self.defaultEventHandler={              #list with default event handler and event typs
                     "onboot_event": [], 
