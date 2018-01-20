@@ -3,7 +3,7 @@ Created on 19.10.2017
 
 @author: uschoen
 '''
-__version__=3.0
+__version__=3.1
 
 
 import threading

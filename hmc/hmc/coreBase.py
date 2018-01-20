@@ -3,7 +3,7 @@ Created on 23.09.2017
 
 @author: uschoen
 '''
-__version__=2.0
+__version__=3.1
 
 
 import json

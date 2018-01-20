@@ -5,7 +5,7 @@ Created on 08.10.2017
 
 
 '''
-__version__ = "3.0"
+__version__ = 3.1
 
 import importlib
 import copy

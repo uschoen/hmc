@@ -5,6 +5,8 @@ Created on 16.01.2018
 '''
 
 
+__version__ = 3.1
+
 class coreProgram:
     '''
     classdocs

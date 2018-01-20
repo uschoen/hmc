@@ -4,6 +4,8 @@ Created on 20.01.2018
 @author: uschoen
 '''
 
+__version__ = 3.1
+
 import logging
 import time
 import threading
