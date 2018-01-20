@@ -13,9 +13,12 @@ class praraphser(threading.Thread):
     '''
     classdocs
     '''
-    def __init__(self,core,scheduleJobs):
+    def __init__(self,core):
         threading.Thread.__init__(self)
-        self.__scheduleJobs=scheduleJobs
+        self.__scheduleJobs={}
+        self.__conf={
+            'maxProgramDeep':10
+            }
         self.__core=core
         self.__CMD={
                     "condition":self.__condition,
@@ -46,29 +49,28 @@ class praraphser(threading.Thread):
                  }   
         self.__log=logging.getLogger(__name__)
         
-    def praraphseProgramm(self,deviceID,channelName,eventTyp,program):
-        self.__log.debug("start programm for deviceID %s channel %s eventTyp %s"%(deviceID,channelName,eventTyp))
-        try:
-            threading.Thread(target=self.__listenToClient,args = (clientSocket,addr[0])).start()
-        except:
-            self.__log.error("can not start program")                 
-     
-                
-    def run(self,deviceID,channelName,eventTyp,programName,programDeep=0):
-        
-        if programName not in self.__prog:
-            self.__log.error("program %s not exsiting"%(programName))
-            raise Exception
+    def parsingProgram(self,deviceID,channelName,eventTyp,programName,program,programDeep=0):
+        self.__log.debug("start programm %s for deviceID %s channel %s eventTyp %s"%(programName,deviceID,channelName,eventTyp))
         self.__callerValues={
                 'deviceID':deviceID,
                 'channelName':channelName,
                 'eventTyp':eventTyp,
                 'programName':programName,
-                'programDeep':programDeep}
+                'programDeep':programDeep
+                }
+        if programDeep>self.__conf.get('maxProgramDeep',10):
+            self.__log.error("maximum program deep (%s) is reached"%(programDeep)) 
+            raise Exception
         try:
-            self.__build(self.__prog[programName])
+            threading.Thread(target=self.__run,args = (program)).start()
         except:
-            self.__log.error("some error in program %s"%(programName))
+            self.__log.error("can not start program")                 
+     
+    def __run(self,program):
+        try:
+            self.__build(program)
+        except:
+            self.__log.error("some error in program %s"%(self.__callerValues.get('programName')))
             raise Exception        
     
     def __build(self,prog):

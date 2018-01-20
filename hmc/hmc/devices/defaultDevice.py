@@ -17,7 +17,7 @@ TODO: check if all channel name convert to lower letters
 
 class device(object):
     
-    def __init__ (self,arg,core,eventHandlerList,adding=False):
+    def __init__ (self,arg,core,adding=False):
         
         '''
         class vars
@@ -53,7 +53,7 @@ class device(object):
                              "enable":{
                                  "value":"unknown",
                                  "type":"string"},
-                             "events":{
+                             "program":{
                                 "onchange_event":[],
                                 "onrefresh_event":[],
                                 "onboot_event":[],
@@ -72,10 +72,6 @@ class device(object):
         logger object
         '''                            
         self.logger=logging.getLogger(__name__)             
-        '''
-        eventhandler object
-        '''
-        self._eventHandlerList=eventHandlerList
         '''
         default parameter
         '''
@@ -245,27 +241,28 @@ class device(object):
         configuration['channels']=self._channels
         return configuration
     
-    def registerEventHandler(self,eventTyp,eventName,channelName):
+    def addProgramEvent(self,eventTyp,programName,channelName):
         '''
+        registerEventHandler old name
         register new event handler for channel or device
         '''
-        self.logger.debug("register new event handler %s for event %s on channel %s"%(eventTyp,eventName,channelName))
+        self.logger.debug("register new program %s for event %s on channel %s"%(eventTyp,programName,channelName))
         if channelName=='device':
             '''
             for device events
             '''
-            if eventName in self._deviece['events'][eventTyp]:
-                self.logger.warning("event handler %s for event %s is all ready registerd"%(eventTyp,eventName))
+            if programName in self._device['program'][eventTyp]:
+                self.logger.warning("event handler %s for program %s is all ready registerd"%(eventTyp,programName))
                 return
-            self._device['events'][eventTyp].append(eventName)
+            self._device['program'][eventTyp].append(programName)
         else:
             '''
             for channel events
             ''' 
-            if eventName in  self._channels[channelName]['event'][eventTyp]:
-                self.logger.warning("event handler %s for event %s is all ready registerd"%(eventTyp,eventName))
+            if programName in  self._channels[channelName]['program'][eventTyp]:
+                self.logger.warning("event handler %s for program %s is all ready registerd"%(eventTyp,programName))
                 return
-            self._channel[channelName]['events'].append(eventName)
+            self._channel[channelName]['program'].append(programName)
         
     
     def ifChannelExist(self,channelName):
@@ -309,7 +306,7 @@ class device(object):
             "enable":{
                 "value":True,
                 "type":"bool"},
-            "events":{
+            "program":{
                         "onchange_event":[],
                         "onrefresh_event":[],
                         "onboot_event":[],
@@ -357,11 +354,11 @@ class device(object):
             '''
             update channel
             '''
-            self._runEvent(eventTyp,channel,self._channels[channel]['events'][eventTyp]) 
+            self._runProgram(eventTyp,channel,self._channels[channel]['program'][eventTyp]) 
         '''
         update device
         '''
-        self._runEvent(eventTyp,'device',self._device['events'][eventTyp])
+        self._runProgram(eventTyp,'device',self._device['program'][eventTyp])
         
         
     def _onchange_event(self,channel):
@@ -384,18 +381,16 @@ class device(object):
     def _ondelete_event(self,channel):
         self.logger.debug("ondelete_event: %s for channel: %s"%(self._device['deviceID']['value'],channel))
         
-    def _runEvent(self,eventTyp,channel,eventHandlerList):
-        for eventName in eventHandlerList:
-            if not self._core.eventHome(eventName):
+    def _runProgram(self,eventTyp,channelName,programList):
+        for programName in programList:
+            if programName not in self.program:
+                self.logger.warning("can not found program: %s"%(programName))
                 continue
-            if not eventName in self._eventHandlerList:
-                self.logger.error("event handler does not exsists"%(eventName))
-                continue
-            self.logger.debug("channel %s calling: %s event handler"%(channel,eventName))
+            self.logger.debug("channel %s calling program: %s"%(channelName,programName))
             try:
-                self._eventHandlerList[eventName].callback(self._device['deviceID']['value'],eventTyp,channel)
+                self.runProgram(self._device['deviceID']['value'],channelName,eventTyp,programName)
             except:
-                self.logger.debug("error at calling: %s event handler"%(eventName),exc_info=True)
+                self.logger.debug("error at calling: %s event handler"%(programName),exc_info=True)
     
     def _name_(self):
         return "defaultDevice"

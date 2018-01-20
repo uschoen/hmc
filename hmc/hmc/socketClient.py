@@ -315,8 +315,7 @@ class CoreConnection(threading.Thread):
         self.logger.info("start sync to core %s"%(self.__arg['hostName']))
         self.__clearSyncQueue()
         self.__clearCoreQueue()
-        self.__syncCoreEventHandler()
-        self.__syncCoreDefaultEventHandler()
+        self.__syncCoreProgram()
         self.__syncCoreDevices()
         self.__syncCoreGateways()
         self.__syncCoreClients()
@@ -367,28 +366,20 @@ class CoreConnection(threading.Thread):
             self.__syncQueue.put(updateObj)
         
         
-    def __syncCoreEventHandler(self):
+    def __syncCoreProgram(self):
         '''
-        sync all eventHandler from this host
+        sync all program from this host
         '''
-        self.logger.info("sync EventHandler to core %s"%(self.__arg['hostName']))
-        self.logger.info("sync EventHandler not implement")
-        for eventHandlerName in self.__core.eventHandlerCFG:
-            if not self.__core.eventHome(eventHandlerName):
+        self.logger.info("sync program to core %s"%(self.__arg['hostName']))
+        for programName in self.__core.program:
+            if not self.__core.eventHome(programName):
                 continue
-            args=(eventHandlerName,self.__core.eventHandlerCFG[eventHandlerName])
+            args=(programName,self.__core.program[programName])
             updateObj={
-                        'deviceID':eventHandlerName,
-                        'calling':'updateEventHandler',
+                        'deviceID':programName,
+                        'calling':'updateProgram',
                         'arg':args}
             self.__syncQueue.put(updateObj)
-    
-    def __syncCoreDefaultEventHandler(self):
-        '''
-        sync all default eventshandler from this host
-        '''
-        self.logger.info("sync DefaultEventHandler to core %s"%(self.__arg['hostName']))
-        self.logger.info("sync DefaultEventHandler not implement")
         
     def __syncCoreClients(self):
         '''

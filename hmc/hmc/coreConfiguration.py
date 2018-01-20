@@ -17,11 +17,7 @@ class coreConfiguration():
         '''
         event handler
         '''
-        self.loadEventHandlerFile(path+self.args['confFile']['eventHandler'])
-        '''
-        default events
-        '''
-        self.loadDefaultEventFile(path+self.args['confFile']['defaultEvent'])
+        self.loadProgramFile(path+self.args['confFile']['program'])
         ''' 
         devices
         '''
@@ -94,48 +90,37 @@ class coreConfiguration():
             self.logger.info("device file is empty")
         self.logger.info("restore devices success")
                    
-    def loadDefaultEventFile(self,filename):
-        self.logger.info("reading configuration database default event handler %s"%(filename))
+    def loadProgramFile(self,filename):
+        self.logger.info("load programs from file %s"%(filename))
         try:    
-            self.defaultEventHandlerCFG=self.loadJSON(filename)
-            for eventTyp in self.defaultEventHandlerCFG:
-                for eventHandlerName in self.defaultEventHandlerCFG[eventTyp]:
-                    self.logger.info("try to add default event handler %s for event %s"%(eventHandlerName,eventTyp))
-                    self.addDefaultEventhandler(eventTyp,eventHandlerName)
+            self.program=self.loadJSON(filename)
+            for programName in self.program:
+                self.logger.info("try to add program %"%(programName))
+                self.restoreProgramm(programName,self.program[programName])
         except:
-            self.logger.error("can not reading configuration database eventHandler, no eventHandler add")  
+            self.logger.error("can not add program")  
             return
-
-    def loadEventHandlerFile(self,filename):
-        self.logger.info("reading configuration database event handler %s"%(filename))
-        try:
-            eventHandlerCFG=self.loadJSON(filename)
-            for eventhandler in eventHandlerCFG:
-                self.addEventHandler(eventhandler,eventHandlerCFG[eventhandler]) 
-        except:
-            self.logger.error("can not reading configuration database eventHandler, no eventHandler add",exc_info=True)
     '''
     writing Configuration
     '''
     def writeAllConfiguration(self):
         path="%s%s/%s"%(self.args['confFile']['basePath'],self.args['global']['host'],self.args['confFile']['filePath'])
         self.logger.info("write configuration")
-        self.writeEventHandlerFile(path+self.args['confFile']['eventHandler'])
+        self.writeProgramFile(path+self.args['confFile']['program'])
         if self.args['confFile']['gatewaysWrite']:
             self.writeGatewayFile(path+self.args['confFile']['gateways'])
-        self.writeDefaultEventHandlerFile(path+self.args['confFile']['defaultEvent'])
         self.writeDevicesFile(path+self.args['confFile']['devices'])
         self.CoreClientsFile(path+self.args['confFile']['remoteCore'])
         
-    def writeEventHandlerFile(self,filename=False):
-        if len(self.eventHandlerCFG)==0:
-            self.logger.warning("can not write event handler, lenght is 0")
+    def writeProgramFile(self,filename=False):
+        if len(self.eprogram)==0:
+            self.logger.warning("can not write program, lenght is 0")
             return
         if not filename:
             path="%s%s/%s"%(self.args['confFile']['basePath'],self.args['global']['host'],self.args['confFile']['filePath'])
-            filename=path+self.args['confFile']['eventHandler']
-        self.logger.info("write event handler configuration to %s"%(filename))
-        self.writeJSON(filename,self.eventHandlerCFG)
+            filename=path+self.args['confFile']['program']
+        self.logger.info("write program configuration to %s"%(filename))
+        self.writeJSON(filename,self.program)
         
     
     def writeGatewayFile(self,filename=False):
@@ -157,17 +142,6 @@ class coreConfiguration():
             filename=path+self.args['confFile']['remoteCore']
         self.logger.info("write gateway configuration to %s"%(filename))
         self.writeJSON(filename,self.coreClientsCFG)
-    
-    def writeDefaultEventHandlerFile(self,filename=False):
-        if len(self.defaultEventHandler)==0:
-            self.logger.warning("can not write default event handler, lenght is 0")
-            return
-        if not filename:
-            path="%s%s/%s"%(self.args['confFile']['basePath'],self.args['global']['host'],self.args['confFile']['filePath'])
-            filename=path+self.args['confFile']['defaultEvent']
-        self.logger.info("write default event handler configuration to %s"%(filename))
-        self.writeJSON(filename,self.defaultEventHandler)
-        
     
     def writeDevicesFile(self,filename=False):
         if not filename:
