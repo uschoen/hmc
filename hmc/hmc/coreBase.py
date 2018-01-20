@@ -36,9 +36,8 @@ class coreBase():
         self.gatewaysCFG={}                     # gateway threads configuration
         self.devices={}                         # Device objects
         
-        self.scheduleJobs={}                       # schedule Jobs from program
-        self.program={}
-        self.programPraraphser=praraphser(self,self.scheduleJobs ) # program praraphser
+        self.program={}                         #store all programs
+        self.programPraraphser=praraphser(self) # program praraphser
         
              
         self.defaultEventHandler={              #list with default event handler and event typs

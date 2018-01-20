@@ -4,10 +4,9 @@
  	"confFile":{
  		"basePath":"etc/",
  		"filePath":"database/",
- 		"defaultEvent":"defaultEvents.json",
  		"devices":"devices.json",
  		"gateways":"gateways.json",
- 		"eventHandler":"eventHandler.json",
+ 		"program":"program.json",
  		"remoteCore":"coreServer.json"}},
  "logging":
  	{
