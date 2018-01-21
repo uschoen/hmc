@@ -224,10 +224,13 @@ class device(object):
             self.logger.debug("set channel %s to %s"%(channelName,value))
             oldValue=self._channels[channelName]['value']['value']
             self._channels[channelName]['value']['value']=value
-            if oldValue<>value:
-                self._callEvent('onchange_event',channelName)
-            self._callEvent('onrefresh_event',channelName)
-            
+            try:
+                if oldValue<>value:
+                    self._callEvent('onchange_event',channelName)
+                self._callEvent('onrefresh_event',channelName)
+            except:
+                self.logger.error("can not excequet events")
+                raise Exception
         except:
             self.logger.error("can not set channel %s to %s"%(channelName,value))
             raise Exception
@@ -324,42 +327,45 @@ class device(object):
         oncreate_event
         ondelete_event
         '''
-        self.logger.debug("call event: %s for channel: %s, for deviceID:%s"%(eventTyp,channel,self._device['deviceID']['value']))
-        if channel not in self._channels and not channel=='device':
+        try:
+            self.logger.debug("call event: %s for channel: %s, for deviceID:%s"%(eventTyp,channel,self._device['deviceID']['value']))
+            if channel not in self._channels and not channel=='device':
+                '''
+                check if channel exist
+                '''
+                self.logger.warning("channel %s not exists in deviceID %s"%(channel,self._device['deviceID']['value']))
+                return 
+            
+            if not channel=='device':
+                '''
+                select event type
+                '''
+                if eventTyp=='onchange_event':
+                    self._onchange_event(channel)
+                elif eventTyp=='onrefresh_event':
+                    self._onrefresh_event(channel)
+                elif eventTyp=='onboot_event':
+                    self._onboot_event(channel)
+                elif eventTyp=='oncreate_event':
+                    self._oncreate_event(channel)
+                elif eventTyp=='ondelete_event':   
+                    self._ondelete_event(channel)
+                else:
+                    self.logger.warning("event type %s is unknown"%(eventTyp))
+                    return     
+            
+            if not channel=='device':
+                '''
+                update channel
+                '''
+                self._runProgram(eventTyp,channel,self._channels[channel]['program'][eventTyp]) 
             '''
-            check if channel exist
+            update device
             '''
-            self.logger.warning("channel %s not exists in deviceID %s"%(channel,self._device['deviceID']['value']))
-            return 
-        
-        if not channel=='device':
-            '''
-            select event type
-            '''
-            if eventTyp=='onchange_event':
-                self._onchange_event(channel)
-            elif eventTyp=='onrefresh_event':
-                self._onrefresh_event(channel)
-            elif eventTyp=='onboot_event':
-                self._onboot_event(channel)
-            elif eventTyp=='oncreate_event':
-                self._oncreate_event(channel)
-            elif eventTyp=='ondelete_event':   
-                self._ondelete_event(channel)
-            else:
-                self.logger.warning("event type %s is unknown"%(eventTyp))
-                return     
-        
-        if not channel=='device':
-            '''
-            update channel
-            '''
-            self._runProgram(eventTyp,channel,self._channels[channel]['program'][eventTyp]) 
-        '''
-        update device
-        '''
-        self._runProgram(eventTyp,'device',self._device['program'][eventTyp])
-        
+            self._runProgram(eventTyp,'device',self._device['program'][eventTyp])
+        except:
+            self.logger.error("can not excequed event",exc_info=True)
+            raise Exception
         
     def _onchange_event(self,channel):
         self.logger.debug("onchange_event: %s for channel: %s"%(self._device['deviceID']['value'],channel))

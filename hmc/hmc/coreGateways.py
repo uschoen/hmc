@@ -9,6 +9,7 @@ from gateways import *
 import importlib
 
 
+
 class coreGateways():
     '''
     classdocs
@@ -187,6 +188,13 @@ class coreGateways():
         defaultGatewayCFG.update(self.args.get('global'))
         if not defaultGatewayCFG['enable']:
             defaultGatewayCFG['config']['enable']=False
+        
+        defaultConfig={
+            'host':defaultGatewayCFG.get('host'),
+            'package':defaultGatewayCFG.get('package'),
+            'gateway':"%s.%s"%(defaultGatewayCFG.get('package'),defaultGatewayCFG.get('host'))}
+        defaultConfig.update(defaultGatewayCFG['config'])
+        defaultGatewayCFG['config']=defaultConfig
         self.gatewaysCFG[gatewayName]=defaultGatewayCFG
         '''
         try to build the gateway instance '''         

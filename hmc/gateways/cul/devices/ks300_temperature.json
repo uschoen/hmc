@@ -9,7 +9,7 @@
                 "type": "bool", 
                 "value": true
             }, 
-            "events": {
+            "program": {
                 "onboot_event": [], 
                 "onchange_event": [], 
                 "oncreate_event": [], 
@@ -47,7 +47,7 @@
                 "type": "bool", 
                 "value": true
             }, 
-            "events": {
+            "program": {
                 "onboot_event": [], 
                 "onchange_event": [], 
                 "oncreate_event": [], 
@@ -82,7 +82,7 @@
                 "type": "bool", 
                 "value": true
             }, 
-            "events": {
+            "program": {
                 "onboot_event": [], 
                 "onchange_event": [], 
                 "oncreate_event": [], 
@@ -117,7 +117,7 @@
                 "type": "bool", 
                 "value": true
             }, 
-            "events": {
+            "program": {
                 "onboot_event": [], 
                 "onchange_event": [], 
                 "oncreate_event": [], 
@@ -152,7 +152,7 @@
                 "type": "bool", 
                 "value": true
             }, 
-            "events": {
+            "program": {
                 "onboot_event": [], 
                 "onchange_event": [], 
                 "oncreate_event": [], 

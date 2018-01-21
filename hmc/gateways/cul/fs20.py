@@ -14,7 +14,7 @@ class fs20device(object):
     def decodeFS20(self,msg):
         self.log.debug("fs20 get code %s"%(msg))
         try:
-            deviceID="%s@%s.%s"%(msg[0:6],self.config['gateway'],self.config['host'])
+            deviceID="%s@%s"%(msg[0:6],self.config['gateway'])
             rssi=self.rssi(int(msg[8:9],16))
             value=str(msg[6:8])
             self.log.debug("fs20 device code is %s"%(deviceID))
