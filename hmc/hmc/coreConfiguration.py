@@ -113,7 +113,7 @@ class coreConfiguration():
         self.CoreClientsFile(path+self.args['confFile']['remoteCore'])
         
     def writeProgramFile(self,filename=False):
-        if len(self.eprogram)==0:
+        if len(self.program)==0:
             self.logger.warning("can not write program, lenght is 0")
             return
         if not filename:
