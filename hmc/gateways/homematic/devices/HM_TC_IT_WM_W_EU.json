@@ -1,435 +1,100 @@
 {
     "channels": {
         "actual_humidity": {
-            "channelID": {
-                "type": "string", 
-                "value": "unknown"
-            }, 
-            "create": {
-                "type": "int", 
-                "value": 1515500749
-            }, 
-            "enable": {
-                "type": "bool", 
-                "value": true
-            }, 
-            "events": {
+            "create": 1517162943, 
+            "devicegroupe": [], 
+            "enable": true, 
+            "lastchange": 0, 
+            "lastupdate": 0, 
+            "name": "actual_humidity", 
+            "program": {
                 "onboot_event": [], 
                 "onchange_event": [], 
                 "oncreate_event": [], 
                 "ondelete_event": [], 
                 "onrefresh_event": []
             }, 
-            "lastchange": {
-                "hidden": false, 
-                "type": "int", 
-                "value": 1515691291
-            }, 
-            "lastupdate": {
-                "hidden": false, 
-                "type": "int", 
-                "value": 1515691417
-            }, 
-            "name": {
-                "type": "string", 
-                "value": "unkown"
-            }, 
-            "value": {
-                "type": "string", 
-                "value": 43.0
-            }
+            "value": 0
         }, 
         "actual_temperature": {
-            "channelID": {
-                "type": "string", 
-                "value": "unknown"
-            }, 
-            "create": {
-                "type": "int", 
-                "value": 1515500748
-            }, 
-            "enable": {
-                "type": "bool", 
-                "value": true
-            }, 
-            "events": {
+            "create": 1517162943, 
+            "devicegroupe": [], 
+            "enable": true, 
+            "lastchange": 0, 
+            "lastupdate": 0, 
+            "name": "actual_temperature", 
+            "program": {
                 "onboot_event": [], 
                 "onchange_event": [], 
                 "oncreate_event": [], 
                 "ondelete_event": [], 
                 "onrefresh_event": []
             }, 
-            "lastchange": {
-                "hidden": false, 
-                "type": "int", 
-                "value": 1515694981
-            }, 
-            "lastupdate": {
-                "hidden": false, 
-                "type": "int", 
-                "value": 1515694981
-            }, 
-            "name": {
-                "type": "string", 
-                "value": "unkown"
-            }, 
-            "value": {
-                "type": "string", 
-                "value": 21.3
-            }
-        }, 
-        "battery_state": {
-            "channelID": {
-                "type": "string", 
-                "value": "unknown"
-            }, 
-            "create": {
-                "type": "int", 
-                "value": 1515501187
-            }, 
-            "enable": {
-                "type": "bool", 
-                "value": true
-            }, 
-            "events": {
-                "onboot_event": [], 
-                "onchange_event": [], 
-                "oncreate_event": [], 
-                "ondelete_event": [], 
-                "onrefresh_event": []
-            }, 
-            "lastchange": {
-                "hidden": false, 
-                "type": "int", 
-                "value": 1515694981
-            }, 
-            "lastupdate": {
-                "hidden": false, 
-                "type": "int", 
-                "value": 1515694981
-            }, 
-            "name": {
-                "type": "string", 
-                "value": "unkown"
-            }, 
-            "value": {
-                "type": "string", 
-                "value": 2.5
-            }
-        }, 
-        "boost_state": {
-            "channelID": {
-                "type": "string", 
-                "value": "unknown"
-            }, 
-            "create": {
-                "type": "int", 
-                "value": 1515501187
-            }, 
-            "enable": {
-                "type": "bool", 
-                "value": true
-            }, 
-            "events": {
-                "onboot_event": [], 
-                "onchange_event": [], 
-                "oncreate_event": [], 
-                "ondelete_event": [], 
-                "onrefresh_event": []
-            }, 
-            "lastchange": {
-                "hidden": false, 
-                "type": "int", 
-                "value": 1515501187
-            }, 
-            "lastupdate": {
-                "hidden": false, 
-                "type": "int", 
-                "value": 1515694981
-            }, 
-            "name": {
-                "type": "string", 
-                "value": "unkown"
-            }, 
-            "value": {
-                "type": "string", 
-                "value": 0
-            }
-        }, 
-        "communication_reporting": {
-            "channelID": {
-                "type": "string", 
-                "value": "unknown"
-            }, 
-            "create": {
-                "type": "int", 
-                "value": 1515501187
-            }, 
-            "enable": {
-                "type": "bool", 
-                "value": true
-            }, 
-            "events": {
-                "onboot_event": [], 
-                "onchange_event": [], 
-                "oncreate_event": [], 
-                "ondelete_event": [], 
-                "onrefresh_event": []
-            }, 
-            "lastchange": {
-                "hidden": false, 
-                "type": "int", 
-                "value": 1515501187
-            }, 
-            "lastupdate": {
-                "hidden": false, 
-                "type": "int", 
-                "value": 1515694980
-            }, 
-            "name": {
-                "type": "string", 
-                "value": "unkown"
-            }, 
-            "value": {
-                "type": "string", 
-                "value": false
-            }
-        }, 
-        "control_mode": {
-            "channelID": {
-                "type": "string", 
-                "value": "unknown"
-            }, 
-            "create": {
-                "type": "int", 
-                "value": 1515501186
-            }, 
-            "enable": {
-                "type": "bool", 
-                "value": true
-            }, 
-            "events": {
-                "onboot_event": [], 
-                "onchange_event": [], 
-                "oncreate_event": [], 
-                "ondelete_event": [], 
-                "onrefresh_event": []
-            }, 
-            "lastchange": {
-                "hidden": false, 
-                "type": "int", 
-                "value": 1515501186
-            }, 
-            "lastupdate": {
-                "hidden": false, 
-                "type": "int", 
-                "value": 1515694980
-            }, 
-            "name": {
-                "type": "string", 
-                "value": "unkown"
-            }, 
-            "value": {
-                "type": "string", 
-                "value": 0
-            }
+            "value": 0
         }, 
         "humidity": {
-            "channelID": {
-                "type": "string", 
-                "value": "unknown"
-            }, 
-            "create": {
-                "type": "int", 
-                "value": 1515524642
-            }, 
-            "enable": {
-                "type": "bool", 
-                "value": true
-            }, 
-            "events": {
+            "create": 1517162943, 
+            "devicegroupe": [], 
+            "enable": true, 
+            "lastchange": 0, 
+            "lastupdate": 0, 
+            "name": "humidity", 
+            "program": {
                 "onboot_event": [], 
                 "onchange_event": [], 
                 "oncreate_event": [], 
                 "ondelete_event": [], 
                 "onrefresh_event": []
             }, 
-            "lastchange": {
-                "hidden": false, 
-                "type": "int", 
-                "value": "0"
-            }, 
-            "lastupdate": {
-                "hidden": false, 
-                "type": "int", 
-                "value": "0"
-            }, 
-            "name": {
-                "type": "string", 
-                "value": "unkown"
-            }, 
-            "value": {
-                "type": "string", 
-                "value": "unkown"
-            }
+            "value": 0
         }, 
-        "lowbat_reporting": {
-            "channelID": {
-                "type": "string", 
-                "value": "unknown"
-            }, 
-            "create": {
-                "type": "int", 
-                "value": 1515501186
-            }, 
-            "enable": {
-                "type": "bool", 
-                "value": true
-            }, 
-            "events": {
+        "lowbat": {
+            "create": 1517162944, 
+            "devicegroupe": [], 
+            "enable": true, 
+            "lastchange": 0, 
+            "lastupdate": 0, 
+            "name": "lowbat", 
+            "program": {
                 "onboot_event": [], 
                 "onchange_event": [], 
                 "oncreate_event": [], 
                 "ondelete_event": [], 
                 "onrefresh_event": []
             }, 
-            "lastchange": {
-                "hidden": false, 
-                "type": "int", 
-                "value": 1515501187
-            }, 
-            "lastupdate": {
-                "hidden": false, 
-                "type": "int", 
-                "value": 1515694980
-            }, 
-            "name": {
-                "type": "string", 
-                "value": "unkown"
-            }, 
-            "value": {
-                "type": "string", 
-                "value": false
-            }
+            "value": 0
         }, 
-      
         "set_temperature": {
-            "channelID": {
-                "type": "string", 
-                "value": "unknown"
-            }, 
-            "create": {
-                "type": "int", 
-                "value": 1515500749
-            }, 
-            "enable": {
-                "type": "bool", 
-                "value": true
-            }, 
-            "events": {
+            "create": 1517162943, 
+            "devicegroupe": [], 
+            "enable": true, 
+            "lastchange": 0, 
+            "lastupdate": 0, 
+            "name": "set_temperature", 
+            "program": {
                 "onboot_event": [], 
                 "onchange_event": [], 
                 "oncreate_event": [], 
                 "ondelete_event": [], 
                 "onrefresh_event": []
             }, 
-            "lastchange": {
-                "hidden": false, 
-                "type": "int", 
-                "value": 1515691291
-            }, 
-            "lastupdate": {
-                "hidden": false, 
-                "type": "int", 
-                "value": 1515694981
-            }, 
-            "name": {
-                "type": "string", 
-                "value": "unkown"
-            }, 
-            "value": {
-                "type": "string", 
-                "value": 18.0
-            }
+            "value": 0
         }, 
         "temperature": {
-            "channelID": {
-                "type": "string", 
-                "value": "unknown"
-            }, 
-            "create": {
-                "type": "int", 
-                "value": 1515524642
-            }, 
-            "enable": {
-                "type": "bool", 
-                "value": true
-            }, 
-            "events": {
+            "create": 1517162943, 
+            "devicegroupe": [], 
+            "enable": true, 
+            "lastchange": 0, 
+            "lastupdate": 0, 
+            "name": "temperature", 
+            "program": {
                 "onboot_event": [], 
                 "onchange_event": [], 
                 "oncreate_event": [], 
                 "ondelete_event": [], 
                 "onrefresh_event": []
             }, 
-            "lastchange": {
-                "hidden": false, 
-                "type": "int", 
-                "value": 1515524642
-            }, 
-            "lastupdate": {
-                "hidden": false, 
-                "type": "int", 
-                "value": 1515524642
-            }, 
-            "name": {
-                "type": "string", 
-                "value": "unkown"
-            }, 
-            "value": {
-                "type": "string", 
-                "value": 20.7
-            }
-        }, 
-        "window_open_reporting": {
-            "channelID": {
-                "type": "string", 
-                "value": "unknown"
-            }, 
-            "create": {
-                "type": "int", 
-                "value": 1515501187
-            }, 
-            "enable": {
-                "type": "bool", 
-                "value": true
-            }, 
-            "events": {
-                "onboot_event": [], 
-                "onchange_event": [], 
-                "oncreate_event": [], 
-                "ondelete_event": [], 
-                "onrefresh_event": []
-            }, 
-            "lastchange": {
-                "hidden": false, 
-                "type": "int", 
-                "value": 1515501187
-            }, 
-            "lastupdate": {
-                "hidden": false, 
-                "type": "int", 
-                "value": 1515694980
-            }, 
-            "name": {
-                "type": "string", 
-                "value": "unkown"
-            }, 
-            "value": {
-                "type": "string", 
-                "value": false
-            }
+            "value": 0
         }
-    }, 
-    "device": {}
+    }
 }

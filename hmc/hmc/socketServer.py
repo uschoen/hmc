@@ -45,7 +45,9 @@ class server(threading.Thread):
             "addGateway",
             "deleteGateway",
             "startGateway",
-            "stopGateway"
+            "stopGateway",
+            "updateProgram",
+            "addDeviceChannel"
             ]
         ''' logger instance '''
         self.__log=logging.getLogger(__name__) 
@@ -156,7 +158,7 @@ class server(threading.Thread):
             try:
                 method_to_call = getattr(self.__core,calling)
                 funcArgs=method_to_call(*args)
-                self.__log.debug("send suscces")
+                self.__log.debug("send success")
                 self.__sendAnwser(clientsocket,self.__coreProtocol.decrypt('result',{'result':"success"}))
             except:
                 self.__log.error("error function: %s"%(calling),exc_info=True)

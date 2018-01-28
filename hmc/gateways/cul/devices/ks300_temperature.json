@@ -1,14 +1,12 @@
 {
     "channels": {
         "lasttemperature": {
-            "create": {
-                "type": "int", 
-                "value": "0"
-            }, 
-            "enable": {
-                "type": "bool", 
-                "value": true
-            }, 
+            "create": 1517174130, 
+            "devicegroupe": [], 
+            "enable": true, 
+            "lastchange": 0, 
+            "lastupdate": 0, 
+            "name": "unknown", 
             "program": {
                 "onboot_event": [], 
                 "onchange_event": [], 
@@ -16,37 +14,15 @@
                 "ondelete_event": [], 
                 "onrefresh_event": []
             }, 
-            "lastchange": {
-                "hidden": false, 
-                "type": "int", 
-                "value": "0"
-            }, 
-            "lastupdate": {
-                "hidden": false, 
-                "type": "int", 
-                "value": "0"
-            }, 
-            "name": {
-                "type": "string", 
-                "value": "lasttemperature"
-            }, 
-            "value": {
-                "type": "array", 
-                "value": {
-                    "27272772": 8.1, 
-                    "27272777": 8.2
-                }
-            }
+            "value": {}
         }, 
         "rssi": {
-            "create": {
-                "type": "int", 
-                "value": "0"
-            }, 
-            "enable": {
-                "type": "bool", 
-                "value": true
-            }, 
+            "create": 1517174130, 
+            "devicegroupe": [], 
+            "enable": true, 
+            "lastchange": 0, 
+            "lastupdate": 0, 
+            "name": "rssi", 
             "program": {
                 "onboot_event": [], 
                 "onchange_event": [], 
@@ -54,34 +30,15 @@
                 "ondelete_event": [], 
                 "onrefresh_event": []
             }, 
-            "lastchange": {
-                "hidden": false, 
-                "type": "int", 
-                "value": 1514322242
-            }, 
-            "lastupdate": {
-                "hidden": false, 
-                "type": "int", 
-                "value": 1514322292
-            }, 
-            "name": {
-                "type": "string", 
-                "value": "unkown"
-            }, 
-            "value": {
-                "type": "string", 
-                "value": -89
-            }
+            "value": 0
         }, 
         "temperature": {
-            "create": {
-                "type": "int", 
-                "value": "0"
-            }, 
-            "enable": {
-                "type": "bool", 
-                "value": true
-            }, 
+            "create": 1517174130, 
+            "devicegroupe": [], 
+            "enable": true, 
+            "lastchange": 0, 
+            "lastupdate": 0, 
+            "name": "temperature", 
             "program": {
                 "onboot_event": [], 
                 "onchange_event": [], 
@@ -89,34 +46,15 @@
                 "ondelete_event": [], 
                 "onrefresh_event": []
             }, 
-            "lastchange": {
-                "hidden": false, 
-                "type": "int", 
-                "value": 1514322445
-            }, 
-            "lastupdate": {
-                "hidden": false, 
-                "type": "int", 
-                "value": 1514322292
-            }, 
-            "name": {
-                "type": "string", 
-                "value": "unkown"
-            }, 
-            "value": {
-                "type": "string", 
-                "value": 4.2
-            }
+            "value": 0
         }, 
         "tempmax24h": {
-            "create": {
-                "type": "int", 
-                "value": "0"
-            }, 
-            "enable": {
-                "type": "bool", 
-                "value": true
-            }, 
+            "create": 1517174130, 
+            "devicegroupe": [], 
+            "enable": true, 
+            "lastchange": 0, 
+            "lastupdate": 0, 
+            "name": "unknown", 
             "program": {
                 "onboot_event": [], 
                 "onchange_event": [], 
@@ -124,34 +62,15 @@
                 "ondelete_event": [], 
                 "onrefresh_event": []
             }, 
-            "lastchange": {
-                "hidden": false, 
-                "type": "int", 
-                "value": "0"
-            }, 
-            "lastupdate": {
-                "hidden": false, 
-                "type": "int", 
-                "value": "0"
-            }, 
-            "name": {
-                "type": "string", 
-                "value": "tempmax24h"
-            }, 
-            "value": {
-                "type": "int", 
-                "value": 0
-            }
+            "value": 0
         }, 
         "tempmin24h": {
-            "create": {
-                "type": "int", 
-                "value": "0"
-            }, 
-            "enable": {
-                "type": "bool", 
-                "value": true
-            }, 
+            "create": 1517174130, 
+            "devicegroupe": [], 
+            "enable": true, 
+            "lastchange": 0, 
+            "lastupdate": 0, 
+            "name": "unknown", 
             "program": {
                 "onboot_event": [], 
                 "onchange_event": [], 
@@ -159,25 +78,7 @@
                 "ondelete_event": [], 
                 "onrefresh_event": []
             }, 
-            "lastchange": {
-                "hidden": false, 
-                "type": "int", 
-                "value": "0"
-            }, 
-            "lastupdate": {
-                "hidden": false, 
-                "type": "int", 
-                "value": "0"
-            }, 
-            "name": {
-                "type": "string", 
-                "value": "tempmin24h"
-            }, 
-            "value": {
-                "type": "int", 
-                "value": 0
-            }
+            "value": 0
         }
-    }, 
-    "device": {}
+    }
 }

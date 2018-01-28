@@ -9,6 +9,7 @@ __version__ = 3.1
 import logging
 import time
 import threading
+from smtpd import program
 
 
 class praraphser(threading.Thread):
@@ -34,18 +35,18 @@ class praraphser(threading.Thread):
                     "<>":self.__isUnequal,
                     "<=":self.__isLessOrEqual,
                     ">=":self.__isGraderOrEqual,
-                    "setDeviceChannel":self.__setDeviceChannel,
+                    "changeDeviceChannel":self.__changeDeviceChannel,
                     "getDeviceChannel":self.__getDeviceChannel
                     
                     }
         self.__allowedCMD={
-                    "build":['role','setDeviceChannel'],
+                    "build":['role','changeDeviceChannel'],
                     "role":['condition'],
                     "condition":['sourceA','sourceB','comparison','true','false'],
                     "sourceAB":['value','condition','callerValue','getDeviceValue','dateTimeNow'],
                     "comparison":["=","<",">","<>","<=",">="],
                     "truefalse":["setDeviceChannel"],
-                    "setDeviceChannel":["deviceID","channelName","value"],
+                    "changeDeviceChannel":["deviceID","channelName","value"],
                     "getDeviceChannel":["deviceID","channelName"],
                     "callerValue":["deviceID","channelName","eventTyp","programName","programDeep"]
                  }   
@@ -66,7 +67,7 @@ class praraphser(threading.Thread):
         try:
             threading.Thread(target=self.__run,args = (program)).start()
         except:
-            self.__log.error("can not start program")                 
+            self.__log.error("can not start program",exc_info=True)             
      
     def __run(self,program):
         try:
@@ -76,27 +77,34 @@ class praraphser(threading.Thread):
             raise Exception        
     
     def __build(self,prog):
-        for field in prog:
-            (field,value)=(field.keys()[0],field.values()[0])
-            if field not in self.__allowedCMD['build']:
-                self.__log.error("function %s is not supported in build"%(field))
-                raise Exception 
-            self.__log.debug("call function %s value:%s"%(field,value))
-            value=self.__CMD[field](value)
+       
+        try:
+            for field in prog:
+                (field,value)=(prog.keys()[0],prog.values()[0])
+                if field not in self.__allowedCMD['build']:
+                    self.__log.error("function %s is not supported in build"%(field))
+                    raise Exception 
+                self.__log.debug("call function %s value:%s"%(field,value))
+                value=self.__CMD[field](value)
+        except:
+            self.__log.error("build function has error: %s"%(prog),exc_info=True)
     
     def __role(self,strg):
         '''
         role function
         '''
-        self.__log.debug("call role function")
-        for role in strg:
-            if role not in self.__allowedCMD['role']:
-                self.__log.error("function %s is not supported in role"%(role))
-                raise Exception
-            (field,value)=(strg.keys()[0],strg.values()[0])
-            self.__log.debug("call function %s value:%s"%(field,value))
-            value=self.__CMD[field](value)
-                
+        try:
+            self.__log.debug("call role function")
+            for role in strg:
+                if role not in self.__allowedCMD['role']:
+                    self.__log.error("function %s is not supported in role"%(role))
+                    raise Exception
+                (field,value)=(strg.keys()[0],strg.values()[0])
+                self.__log.debug("call function %s value:%s"%(field,value))
+                value=self.__CMD[field](value)
+        except:
+            self.__log.error("role function has error: %s"%(strg),exc_info=True)
+            
             
     def __condition(self,strg):        
         self.__log.debug("call condition function") 
@@ -239,20 +247,20 @@ class praraphser(threading.Thread):
         self.__log.debug("call value function") 
         return strg
     
-    def __setDeviceChannel(self,strg):
+    def __changeDeviceChannel(self,strg):
         '''
         set a device Channel
         '''
-        self.__log.debug("call setDeviceChannel function")
-        if not set(self.__allowedCMD['setDeviceChannel']) <= set(strg):
-            self.__log.error("setDeviceChannel function miss some atribute %s"%(strg.keys()))
+        self.__log.debug("call changeDeviceChannel function")
+        if not set(self.__allowedCMD['changeDeviceChannel']) <= set(strg):
+            self.__log.error("changeDeviceChannel function miss some atribute %s"%(strg.keys()))
             raise Exception
         (deviceID,channelName,value)=(strg.get('deviceID'),strg.get('channelName'),strg.get('value'))
-        self.__log.debug("call function setDeviceChannel %s and channelName %s to value: %s"%(deviceID,channelName,value))
+        self.__log.debug("call function changeDeviceChannel %s and channelName %s to value: %s"%(deviceID,channelName,value))
         try:
-            self.__core.setDeviceChannel(deviceID,channelName,value)
+            self.__core.changeDeviceChannel(deviceID,channelName,value)
         except:
-            self.__log.error("can not set deviceID %s and channelName %s to value: %s"%(deviceID,channelName,value),exc_info=True)
+            self.__log.error("can not change deviceID %s and channelName %s to value: %s"%(deviceID,channelName,value),exc_info=True)
             raise Exception
         
     def __callerValue(self,strg):

@@ -52,12 +52,12 @@ class device(device,partyChannel):
             if channelName in self._partyChannels:
                 self._addParty(channelName,value)
                 return
-            if not channelName in self._channels:
+            if not channelName in self._device['channels']:
                 self.logger.error("channel %s is not exist"%(channelName))
                 raise Exception
             self.logger.debug("set channel %s to %s"%(channelName,value))
-            oldValue=self._channels[channelName]['value']['value']
-            self._channels[channelName]['value']['value']=value           
+            oldValue=self._device['channels'][channelName]['value']
+            self._device['channels'][channelName]['value']=value           
             if oldValue<>value:
                 self._callEvent('onchange_event',channelName)        
             self._callEvent('onrefresh_event',channelName)
@@ -75,14 +75,17 @@ class device(device,partyChannel):
         '''
         try:
             sysChannels={
-                        "partystarttime":"int",
-                        "partystoptime":"int"}
+                        "partystarttime":0,
+                        "partystoptime":0}
+            channelValues={}
             for channelName in sysChannels:
                 if not self.ifChannelExist(channelName):
                     self.logger.info("add new channel %s"%(channelName))
-                    channel={}
-                    channel[channelName]=self._channelDefaults(channelName,sysChannels[channelName])
-                    self._core.addDeviceChannel(self.deviceID,channelName,channel)
+                    channelValues[channelName]={
+                        "value":sysChannels[channelName],
+                        "name":channelName
+                    }
+                    self._core.addDeviceChannel(self.deviceID,channelName,channelValues)
         except:
             self.logger.error("can not add sys channel to temperature device")
             raise  

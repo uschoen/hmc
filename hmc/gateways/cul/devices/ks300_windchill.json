@@ -1,14 +1,12 @@
 {
     "channels": {
         "rssi": {
-            "create": {
-                "type": "int", 
-                "value": "0"
-            }, 
-            "enable": {
-                "type": "bool", 
-                "value": true
-            }, 
+            "create": 1517174136, 
+            "devicegroupe": [], 
+            "enable": true, 
+            "lastchange": 0, 
+            "lastupdate": 0, 
+            "name": "rssi", 
             "program": {
                 "onboot_event": [], 
                 "onchange_event": [], 
@@ -16,34 +14,15 @@
                 "ondelete_event": [], 
                 "onrefresh_event": []
             }, 
-            "lastchange": {
-                "hidden": false, 
-                "type": "int", 
-                "value": "0"
-            }, 
-            "lastupdate": {
-                "hidden": false, 
-                "type": "int", 
-                "value": "0"
-            }, 
-            "name": {
-                "type": "string", 
-                "value": "unkown"
-            }, 
-            "value": {
-                "type": "string", 
-                "value": "unkown"
-            }
+            "value": 0
         }, 
         "windchill": {
-            "create": {
-                "type": "int", 
-                "value": "0"
-            }, 
-            "enable": {
-                "type": "bool", 
-                "value": true
-            }, 
+            "create": 1517174136, 
+            "devicegroupe": [], 
+            "enable": true, 
+            "lastchange": 0, 
+            "lastupdate": 0, 
+            "name": "windchill", 
             "program": {
                 "onboot_event": [], 
                 "onchange_event": [], 
@@ -51,25 +30,7 @@
                 "ondelete_event": [], 
                 "onrefresh_event": []
             }, 
-            "lastchange": {
-                "hidden": false, 
-                "type": "int", 
-                "value": 1514123793
-            }, 
-            "lastupdate": {
-                "hidden": false, 
-                "type": "int", 
-                "value": 1514123793
-            }, 
-            "name": {
-                "type": "string", 
-                "value": "unkown"
-            }, 
-            "value": {
-                "type": "string", 
-                "value": 1
-            }
+            "value": 0
         }
-    }, 
-    "device": {}
+    }
 }

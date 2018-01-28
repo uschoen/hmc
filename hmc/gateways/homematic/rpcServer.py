@@ -105,12 +105,8 @@ class hmcRPCcallback:
         '''
         channelValues={}
         channelValues[channelName]={
-                "value":{
-                        "value":"unkown",
-                        "type":"string"},
-                "name":{        
-                        "value":"unkown",
-                        "type":"string"},
+                "value":0,
+                "name":channelName
                     }
         return channelValues
     
@@ -122,32 +118,16 @@ class hmcRPCcallback:
             deviceID="%s@%s.%s"%(device['ADDRESS'],self.__config['gateway'],self.__config['host'])
             self.__log.info("add  new devicesID:%s"%(deviceID))
             devicetype=device['PARENT_TYPE'].replace("-","_")
-            device={
-                    "gateway":{
-                        "value":"%s"%(self.__config['gateway']),
-                        "type":"string"},
-                    "deviceID":{
-                        "value":"%s"%(deviceID),
-                        "type":"string"},
-                    "enable":{
-                        "value":True,
-                        "type":"bool"},
-                    "connected":{
-                        "value":True,
-                        "type":"bool"},
-                    "devicetype":{
-                        "value":"%s"%(devicetype),
-                        "type":"string"},
-                    "host":{
-                        "value":self.__config['host'],
-                        "type":"string"},
-                    "package":{
-                        "value":self.__config['package'],
-                        "type":"string"},
+            deviceCFG={
+                    "gateway":"%s"%(self.__config['gateway']),
+                    "deviceID":"%s"%(deviceID),
+                    "enable":True,
+                    "connected":True,
+                    "devicetype":"%s"%(devicetype),
+                    "host":self.__config['host'],
+                    "package":self.__config['package'],
                     }
-                
-            channel={}
-            self.__core.addDevice(device,channel)
+            self.__core.addDevice(deviceID,deviceCFG)
         except:
             self.__log.error("can not add deviceID: %s"%(deviceID), exc_info=True) 
                             

@@ -48,7 +48,7 @@ class ws300device(object):
             ''' 
             temperature 
             '''
-            deviceID="ks300_temperature@%s"%(self.config['gateway'])
+            deviceID="ks300_temperature@%s.%s"%(self.config['package'],self.config['host'])
             value=float(splitMsg[5]+splitMsg[2]+"."+splitMsg[3])
             if splitMsg[0] >="8":
                 value=value*(-1)
@@ -56,22 +56,22 @@ class ws300device(object):
             '''
             humidity
             '''
-            deviceID="ks300_humidity@%s"%(self.config['gateway'])
+            deviceID="ks300_humidity@%s.%s"%(self.config['package'],self.config['host'])
             value=int(splitMsg[7]+splitMsg[4])
             self._addWS300(deviceID,'ks300_humidity','humidity',value,rssi)
                 
             ''' wind '''
-            deviceID="ks300_wind@%s"%(self.config['gateway'])
+            deviceID="ks300_wind@%s.%s"%(self.config['package'],self.config['host'])
             value=int(splitMsg[8]+splitMsg[9]+splitMsg[6])/10
             self._addWS300(deviceID,'ks300_wind','wind',value,rssi)
             
             ''' windchill '''
-            deviceID="ks300_windchill@%s"%(self.config['gateway'])
+            deviceID="ks300_windchill@%s.%s"%(self.config['package'],self.config['host'])
             value=int(splitMsg[8]+splitMsg[9]+splitMsg[6])/10
             self._addWS300(deviceID,'ks300_windchill','windchill',value,rssi)
             
             ''' rain '''
-            deviceID="ks300_rain@%s"%(self.config['gateway'])
+            deviceID="ks300_rain@%s.%s"%(self.config['package'],self.config['host'])
             value=int(splitMsg[13]+splitMsg[10]+splitMsg[11],16)
             self._addWS300(deviceID,'ks300_rain','rain',value,rssi)
             

@@ -118,13 +118,9 @@ class sensor(threading.Thread):
         try:
             channelValues={}
             channelValues[channelName]={
-                "value":{
-                        "value":"unkown",
-                        "type":"int"},
-                "name":{        
-                        "value":sensorID,
-                        "type":"string"},
-                    }
+                "value":0,
+                "name":sensorID
+                }
             self.__core.addDeviceChannel(deviceID,channelName,channelValues)
             self.__connectedSensors[sensorID]["channels"]=channelValues
         except:    
@@ -188,42 +184,23 @@ class sensor(threading.Thread):
         try:
             device={
                 
-                    "gateway":{
-                        "value":"%s"%(self.__args['gateway']),
-                        "type":"string"},
-                    "name":{
-                        "value":sensorID,
-                        "type":"string"},
-                    "deviceID":{
-                        "value":deviceID,
-                        "type":"string"},
-                    "enable":{
-                        "value":True,
-                        "type":"bool"},
-                    "create":{
-                        "value":int(time.time()),
-                        "type":"int"},
-                    "connected":{
-                        "value":True,
-                        "type":"bool"},
-                    "devicetype":{
-                        "value":"%s"%(self.__args['devicetype']),
-                        "type":"string"},
-                    "host":{
-                        "value":self.__args['host'],
-                        "type":"string"},
-                    "package":{
-                        "value":self.__args['package'],
-                        "type":"string"},
+                    "gateway":"%s"%(self.__args['gateway']),
+                    "name":sensorID,
+                    "deviceID":deviceID,
+                    "enable":True,
+                    "create":int(time.time()),
+                    "connected":True,
+                    "devicetype":"%s"%(self.__args['devicetype']),
+                    "host":self.__args['host'],
+                    "package":self.__args['package']
                     }
-            channel={}
             self.__connectedSensors[sensorID]={}
             if self.__core.ifDeviceExists(deviceID):
                 self.logger.info("deviceID %s is existing, update core"%(deviceID))
-                self.__core.updateDevice(device,channel)
+                self.__core.updateDevice(deviceID,device)
             else:
                 self.logger.info("add deviceID %s to core"%(deviceID))
-                self.__core.addDevice(device,channel)
+                self.__core.addDevice(deviceID,device)
             self.__connectedSensors[sensorID]["connected"]=True
         except:
             self.logger.error("can not add new deviceID %s to core"%(deviceID), exc_info=True)

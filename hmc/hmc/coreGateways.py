@@ -188,11 +188,11 @@ class coreGateways():
         defaultGatewayCFG.update(self.args.get('global'))
         if not defaultGatewayCFG['enable']:
             defaultGatewayCFG['config']['enable']=False
-        
         defaultConfig={
             'host':defaultGatewayCFG.get('host'),
             'package':defaultGatewayCFG.get('package'),
-            'gateway':"%s.%s"%(defaultGatewayCFG.get('package'),defaultGatewayCFG.get('host'))}
+            'gateway':gatewayName,
+            'modul':defaultGatewayCFG.get('modul')}
         defaultConfig.update(defaultGatewayCFG['config'])
         defaultGatewayCFG['config']=defaultConfig
         self.gatewaysCFG[gatewayName]=defaultGatewayCFG

@@ -79,11 +79,9 @@ class coreConfiguration():
             self.logger.info("start to restore %s devices"%(len(devicesCFG)))
             for deviceID in devicesCFG:
                 try:
-                    self.logger.debug("restore deviceID: %s with typ %s  "%(deviceID,devicesCFG[deviceID]['device']['devicetype']['value']))
-                    newDevice=devicesCFG[deviceID]
-                    device=newDevice['device']
-                    channel=newDevice['channels']
-                    self.restoreDevice(device,channel)
+                    self.logger.debug("restore deviceID: %s with typ %s  "%(deviceID,devicesCFG[deviceID]['devicetype']))
+                    deviceCFG=devicesCFG[deviceID]
+                    self.restoreDevice(deviceID,deviceCFG)
                 except:
                     self.logger.error("can not import deviceID %s"%(deviceID), exc_info=True)
         else:
@@ -95,10 +93,10 @@ class coreConfiguration():
         try:    
             self.program=self.loadJSON(filename)
             for programName in self.program:
-                self.logger.info("try to add program %"%(programName))
-                self.restoreProgramm(programName,self.program[programName])
+                self.logger.info("try to add program %s"%(programName))
+                self.restoreProgram(programName,self.program[programName])
         except:
-            self.logger.error("can not add program")  
+            self.logger.error("can not add program",exc_info=True)  
             return
     '''
     writing Configuration

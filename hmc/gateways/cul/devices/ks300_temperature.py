@@ -20,12 +20,9 @@ class device(device):
         channelName=str(channelName)
         channelName=channelName.lower()
         try:
-            if not channelName in self._channels:
-                self.logger.error("channel %s is not exist"%(channelName))
-                raise Exception
             self.logger.debug("set channel %s to %s"%(channelName,value))
-            oldValue=self._channels[channelName]['value']['value']
-            self._channels[channelName]['value']['value']=value
+            oldValue=self._device['channels'][channelName]['value']
+            self._device['channels'][channelName]['value']=value
             if channelName=='lasttemperature':
                 return
             if oldValue<>value:
@@ -48,15 +45,16 @@ class device(device):
         '''
         try:
             sysChannels={
-                        "tempmin24h":"int",
-                        "tempmax24h":"int",
-                        "lasttemperature":"array"}
+                        "tempmin24h":"0",
+                        "tempmax24h":"0",
+                        "lasttemperature":{}}
             for channelName in sysChannels:
                 if not self._core.ifDeviceChannelExist(self.deviceID,channelName):
                     self.logger.info("add new channel %s"%(channelName))
-                    channel={}
-                    channel[channelName]=self._channelDefaults(channelName,sysChannels[channelName])
-                    self._core.addDeviceChannel(self.deviceID,channelName,channel)
+                    channelValues={
+                        'name':channelName,
+                        'value':sysChannels[channelName]}
+                    self._core.addDeviceChannel(self.deviceID,channelName,channelValues)
         except:
             self.logger.error("can not add sys channel to temperature device")
             raise 
@@ -85,6 +83,8 @@ class device(device):
         timebefor24=int(time())-86400
         lastTemperature={}
         lastTemperature=self.getChannelValue('lasttemperature')
+        if not lastTemperature:
+            return
         self.logger.info("clear last 24h temperature data where older then %s"%(timebefor24))
         for rainTimeStamp in lastTemperature.copy():
             if rainTimeStamp<timebefor24:

@@ -10,6 +10,7 @@ import time
 import json
 import os
 import logging
+import copy
 
 '''
 TODO: check if all channel name convert to lower letters
@@ -17,13 +18,15 @@ TODO: check if all channel name convert to lower letters
 
 class device(object):
     
-    def __init__ (self,arg,core,adding=False):
+    def __init__ (self,deviceID,deviceCFG,core,adding=False):
         
         '''
         class vars
         '''
+        self._device={}
         # list of device configuration
-        self._device={      "deviceID":"unknown@unknown.unknown",
+        self._defaultDevice={      
+                            "deviceID":deviceID,
                             "devicetype":"defaultDevice",
                             "package":"hmc.devices",
                             "name":"unknown",
@@ -49,7 +52,6 @@ class device(object):
                             "lastchange":0,
                             "create":int(time.time()),
                             "lastupdate":0,
-                            "gateway":"unknown",
                             "enable":True,
                             "program":{
                                 "onchange_event":[],
@@ -58,6 +60,13 @@ class device(object):
                                 "oncreate_event":[],
                                 "ondelete_event":[]
                                         }
+                            }
+        self._defaultEventTyp={
+                            "onchange_event":self._onchange_event,
+                            "onrefresh_event":self._onrefresh_event,
+                            "onboot_event":self._onboot_event,
+                            "oncreate_event":self._oncreate_event,
+                            "ondelete_event":self._ondelete_event
                             }
         '''
         core objects
@@ -70,16 +79,22 @@ class device(object):
         '''
         default parameter
         '''
-        self.deviceID=arg.get('deviceID',"unknown@unknown.unknown")        
-        self.packageName=arg.get('package')
+        self.deviceID=deviceID        
+        self.packageName=deviceCFG.get('package')
         
         
-        deviceConfigPath="gateways/%s/devices/%s.json"%(self._packageName.replace(".", "/"),self._name_())
+        self._deviceConfigPath="gateways/%s/devices/%s.json"%(self.packageName.replace(".", "/"),self._name_())
         if self._name_()=="defaultDevice":
-            deviceConfigPath="core/hmc/devices/defaultDevice.json"
-        try:         
-            deviceConfiguration=self._loadJSON(deviceConfigPath)
-            self._device.update(deviceConfiguration,{})
+            self._deviceConfigPath="core/hmc/devices/defaultDevice.json"
+        try:
+            deviceConfiguration={}       
+            try:
+                deviceConfiguration=self._loadJSON(self._deviceConfigPath)
+            except:
+                self.logger.error("can not load device json file, ignore file configuration")
+            deviceConfiguration.update(self._defaultDevice)
+            deviceConfiguration.update(deviceCFG)
+            self._device=deviceConfiguration
         except:
             self.logger.error("can not load device configuration, %s can not build"%(self._name_()))
             raise Exception
@@ -89,7 +104,7 @@ class device(object):
         if  hasattr(self,"privateInit"):
             self.privateInit()
         
-        self.gateway=self._core.getGatewaysInstance(self._device.get('gateway',None))  
+        self.gateway=self._core.getGatewaysInstance 
         
         self.logger.debug("build %s instance"%(self._name_()))
         
@@ -109,10 +124,8 @@ class device(object):
         return self._device.get('enable',False)
     
     def changeChannelValue(self,channelName,value):
-        channelName=str(channelName)
-        channelName=channelName.lower()
         try:
-            if not channelName in self._channels:
+            if not channelName in self._device.get('channels',{}):
                 self.logger.error("channel %s is not exist"%(channelName))
                 raise Exception
             self.logger.info("device has no change channel function") 
@@ -133,14 +146,13 @@ class device(object):
         self.logger.info("disable deviceID %s"%(self.deviceID))   
         self._device['enable']=False
         
-    def delete(self):
+    def delete(self,callEvents=True):
         '''
         delete function of the device
         '''
-        
         self.logger.info("delete device %s"%(self.deviceID))    
-        self.logger.warning("delete device not implemented")       
-        self._callEvent('ondelete_event','device')
+        if callEvents:
+            self._callEvent('ondelete_event','device')
     
     def getAllChannel(self):
         '''
@@ -153,19 +165,25 @@ class device(object):
         '''
         add a new channel
         '''
-        channelName=str(channelName)
-        channelName=channelName.lower()
         self.logger.info("add channel %s"%(channelName))
-        if channelName in self._channels:
+        if channelName in self._device['channels']:
             self.logger.error("channel: %s is exist"%(channelName))
             raise Exception
         try:
-            newChannel=self._defaultChannel
+            newChannel=copy.deepcopy(self._defaultChannel)
             newChannel.update(channelValues.get(channelName,{}))
             self._device['channels'][channelName]=newChannel
-            self._writeJSON(self._configurationFile,self._device)
+            
+            jsonDeviceConfig={
+                'channels':{}}
+            try:
+                jsonDeviceConfig.update(self._loadJSON(self._deviceConfigPath))
+            except:
+                self.logger.error("can not load device json file. ignore devicefile configuration and add new one")
+            jsonDeviceConfig['channels'][channelName]=newChannel
+            self._writeJSON(self._deviceConfigPath,jsonDeviceConfig)
         except:
-            self.logger.error("can not add new channel to devicID %s"%(self.deviceID), exc_info=True)
+            self.logger.error("can not add new channel to deviceID %s"%(self.deviceID), exc_info=True)
             raise   
     
     def getChannelKey(self,channelName,key):
@@ -175,7 +193,7 @@ class device(object):
         '''    
         self.logger.debug("get value for channel:%s"%(channelName))
         try:
-            if not channelName in self._device['channels']:
+            if not channelName in self._device.get('channels',{}):
                 self.logger.error("channel %s is not exist"%(channelName))
                 raise Exception
             if not key in self._device['channels'][channelName]:
@@ -193,10 +211,10 @@ class device(object):
         '''    
         self.logger.debug("get value for channel:%s"%(channelName))
         try:
-            if not channelName in self._devices['channels']:
+            if not channelName in self._device.get('channels',{}):
                 self.logger.error("channel %s is not exist"%(channelName))
                 raise Exception
-            return self._devices['channels'][channelName]['value']
+            return self._device['channels'][channelName]['value']
         except:
             self.logger.error("unknown error in getChannelValue")
             raise 
@@ -205,17 +223,14 @@ class device(object):
         '''
         set value of channel
         ''' 
-        channelName=str(channelName)
-        channelName=channelName.lower()
         try:
-            if not channelName in self._device['channels']:
+            if not channelName in self._device.get('channels',{}):
                 self.logger.error("channel %s is not exist"%(channelName))
                 raise Exception
             self.logger.debug("set channel %s to %s"%(channelName,value))
-            oldValue=self._device['channels'][channelName]['value']
-            self._device['channels'][channelName]['value']=value
             try:
-                if oldValue<>value:
+                if value<>self._device['channels'][channelName]['value']:
+                    self._device['channels'][channelName]['value']=value 
                     self._callEvent('onchange_event',channelName)
                 self._callEvent('onrefresh_event',channelName)
             except:
@@ -235,6 +250,9 @@ class device(object):
         registerEventHandler old name
         register new event handler for channel or device
         '''
+        if eventTyp not in self._defaultEventTyp:
+            self.logger.error("unknown eventTyp %s for channelName %s"%(eventTyp,channelName))
+            return
         self.logger.debug("register new program %s for event %s on channel %s"%(eventTyp,programName,channelName))
         if channelName=='device':
             '''
@@ -251,15 +269,13 @@ class device(object):
             if programName in  self._device['channels'][channelName]['program'][eventTyp]:
                 self.logger.warning("event handler %s for program %s is all ready registerd"%(eventTyp,programName))
                 return
-            self._device['channels'][channelName]['program'].append(programName)
+            self._device['channels'][channelName]['program'][eventTyp].append(programName)
         
     def ifChannelExist(self,channelName):
         '''
         return true if channel exists
         '''
-        channelName=str(channelName)
-        channelName=channelName.lower()
-        if channelName in self._device['channels']:
+        if channelName in self._device.get('channels',{}):
             return True
         return False
     
@@ -273,8 +289,12 @@ class device(object):
         ondelete_event
         '''
         try:
+            if eventTyp not in self._defaultEventTyp:
+                self.logger.error("unknown eventTyp %s for channelName %s"%(eventTyp,channelName))
+                return
+        
             self.logger.debug("call event: %s for channel: %s, for deviceID:%s"%(eventTyp,channelName,self.deviceID))
-            if channelName not in self._device['channels'] and not channelName=='device':
+            if channelName not in self._device.get('channels',{}) and not channelName=='device':
                 '''
                 check if channel exist
                 '''
@@ -285,51 +305,33 @@ class device(object):
                 '''
                 select event type
                 '''
-                if eventTyp=='onchange_event':
-                    self._onchange_event(channelName)
-                elif eventTyp=='onrefresh_event':
-                    self._onrefresh_event(channelName)
-                elif eventTyp=='onboot_event':
-                    self._onboot_event(channelName)
-                elif eventTyp=='oncreate_event':
-                    self._oncreate_event(channelName)
-                elif eventTyp=='ondelete_event':   
-                    self._ondelete_event(channelName)
-                else:
-                    self.logger.warning("event type %s is unknown"%(eventTyp))
-                    return     
-            
-            if not channelName=='device':
-                '''
-                update channel
-                '''
+                self._defaultEventTyp.get(eventTyp)(channelName,self._device['channels'][channelName])    
                 self._runProgram(eventTyp,channelName,self._device['channels'][channelName]['program'][eventTyp]) 
             '''
             update device
             '''
+            self._defaultEventTyp.get(eventTyp)('device',self._device)
             self._runProgram(eventTyp,'device',self._device['program'][eventTyp])
         except:
             self.logger.error("can not excequed event",exc_info=True)
             raise Exception
        
-    def _onchange_event(self,channelName):
+    def _onchange_event(self,channelName,channel):
         self.logger.debug("onchange_event: %s for channel: %s"%(self.deviceID,channelName))
-        self._device['channels'][channelName]['lastchange']=int(time.time())
-        self._device['lastchange']=int(time.time())
-    
-    def _onrefresh_event(self,channelName):
-        self.logger.debug("onrefresh_event: %s for channel: %s"%(self.deviceID,channelName))
-        self._device['channels'][channelName]['lastupdate']=int(time.time())
-        self._device['lastupdate']=int(time.time())
+        channel['lastchange']=int(time.time())
         
-    def _onboot_event(self,channelName):
+    def _onrefresh_event(self,channelName,channel):
+        self.logger.debug("onrefresh_event: %s for channel: %s"%(self.deviceID,channelName))
+        channel['lastupdate']=int(time.time())
+        
+    def _onboot_event(self,channelName,channel):
         self.logger.debug("onboot_event: %s for channel: %s"%(self.deviceID,channelName))
         
-    def _oncreate_event(self,channelName):
+    def _oncreate_event(self,channelName,channel):
         self.logger.debug("oncreate_event: %s for channel: %s"%(self.deviceID,channelName))
-        self._device['channels'][channelName]['create']['value']=int(time.time())
+        channel['create']=int(time.time())
         
-    def _ondelete_event(self,channelName):
+    def _ondelete_event(self,channelName,channel):
         self.logger.debug("ondelete_event: %s for channel: %s"%(self.deviceID,channelName))
         
     def _runProgram(self,eventTyp,channelName,programList):
@@ -372,11 +374,11 @@ class device(object):
             return dateFile 
         except IOError:
             self.logger.error("can not find file: %s "%(os.path.normpath(filename)), exc_info=True)
-            raise
+            raise Exception
         except ValueError:
             self.logger.error("error in file: %s "%(os.path.normpath(filename)), exc_info=True)
-            raise
+            raise Exception
         except:
             self.logger.error("unknown error",exc_info=True)
-            raise 
+            raise Exception
     

@@ -44,9 +44,9 @@ class coreProgram:
             raise Exception
         try:
             program=self.program.get(programName)
-            self.programPraraphser.parsingProgram(self,deviceID,channelName,eventTyp,programName,program,programDeep)
+            self.programPraraphser.parsingProgram(deviceID,channelName,eventTyp,programName,program,programDeep)
         except:
-            self.logger.error("can not strat program %s"%programName)
-
+            self.logger.error("can not strat program %s"%(programName),exc_info=True)
+            raise Exception
     
     

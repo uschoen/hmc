@@ -1,278 +1,292 @@
 {
     "channels": {
         "actual_temperature": {
-            "channelID": {
-                "type": "string", 
-                "value": "unknown"
-            }, 
-            "create": {
-                "type": "int", 
-                "value": 1515500769
-            }, 
-            "enable": {
-                "type": "bool", 
-                "value": true
-            }, 
-            "events": {
+            "create": 1517169632, 
+            "devicegroupe": [], 
+            "enable": true, 
+            "lastchange": 0, 
+            "lastupdate": 0, 
+            "name": "actual_temperature", 
+            "program": {
                 "onboot_event": [], 
                 "onchange_event": [], 
                 "oncreate_event": [], 
                 "ondelete_event": [], 
                 "onrefresh_event": []
             }, 
-            "lastchange": {
-                "hidden": false, 
-                "type": "int", 
-                "value": 1515691334
-            }, 
-            "lastupdate": {
-                "hidden": false, 
-                "type": "int", 
-                "value": 1515691960
-            }, 
-            "name": {
-                "type": "string", 
-                "value": "unkown"
-            }, 
-            "value": {
-                "type": "string", 
-                "value": 21.1
-            }
+            "value": 0
         }, 
         "battery_state": {
-            "channelID": {
-                "type": "string", 
-                "value": "unknown"
-            }, 
-            "create": {
-                "type": "int", 
-                "value": 1515500769
-            }, 
-            "enable": {
-                "type": "bool", 
-                "value": true
-            }, 
-            "events": {
+            "create": 1517169632, 
+            "devicegroupe": [], 
+            "enable": true, 
+            "lastchange": 0, 
+            "lastupdate": 0, 
+            "name": "battery_state", 
+            "program": {
                 "onboot_event": [], 
                 "onchange_event": [], 
                 "oncreate_event": [], 
                 "ondelete_event": [], 
                 "onrefresh_event": []
             }, 
-            "lastchange": {
-                "hidden": false, 
-                "type": "int", 
-                "value": 1515671462
-            }, 
-            "lastupdate": {
-                "hidden": false, 
-                "type": "int", 
-                "value": 1515691959
-            }, 
-            "name": {
-                "type": "string", 
-                "value": "unkown"
-            }, 
-            "value": {
-                "type": "string", 
-                "value": 2.6
-            }
+            "value": 0
         }, 
         "boost_state": {
-            "channelID": {
-                "type": "string", 
-                "value": "unknown"
-            }, 
-            "create": {
-                "type": "int", 
-                "value": 1515500769
-            }, 
-            "enable": {
-                "type": "bool", 
-                "value": true
-            }, 
-            "events": {
+            "create": 1517169632, 
+            "devicegroupe": [], 
+            "enable": true, 
+            "lastchange": 0, 
+            "lastupdate": 0, 
+            "name": "boost_state", 
+            "program": {
                 "onboot_event": [], 
                 "onchange_event": [], 
                 "oncreate_event": [], 
                 "ondelete_event": [], 
                 "onrefresh_event": []
             }, 
-            "lastchange": {
-                "hidden": false, 
-                "type": "int", 
-                "value": 1515500769
-            }, 
-            "lastupdate": {
-                "hidden": false, 
-                "type": "int", 
-                "value": 1515691960
-            }, 
-            "name": {
-                "type": "string", 
-                "value": "unkown"
-            }, 
-            "value": {
-                "type": "string", 
-                "value": 0
-            }
+            "value": 0
         }, 
         "control_mode": {
-            "channelID": {
-                "type": "string", 
-                "value": "unknown"
-            }, 
-            "create": {
-                "type": "int", 
-                "value": 1515500769
-            }, 
-            "enable": {
-                "type": "bool", 
-                "value": true
-            }, 
-            "events": {
+            "create": 1517169632, 
+            "devicegroupe": [], 
+            "enable": true, 
+            "lastchange": 0, 
+            "lastupdate": 0, 
+            "name": "control_mode", 
+            "program": {
                 "onboot_event": [], 
                 "onchange_event": [], 
                 "oncreate_event": [], 
                 "ondelete_event": [], 
                 "onrefresh_event": []
             }, 
-            "lastchange": {
-                "hidden": false, 
-                "type": "int", 
-                "value": 1515500769
-            }, 
-            "lastupdate": {
-                "hidden": false, 
-                "type": "int", 
-                "value": 1515691959
-            }, 
-            "name": {
-                "type": "string", 
-                "value": "unkown"
-            }, 
-            "value": {
-                "type": "string", 
-                "value": 0
-            }
+            "value": 0
         }, 
         "fault_reporting": {
-            "channelID": {
-                "type": "string", 
-                "value": "unknown"
-            }, 
-            "create": {
-                "type": "int", 
-                "value": 1515500769
-            }, 
-            "enable": {
-                "type": "bool", 
-                "value": true
-            }, 
-            "events": {
+            "create": 1517169632, 
+            "devicegroupe": [], 
+            "enable": true, 
+            "lastchange": 0, 
+            "lastupdate": 0, 
+            "name": "fault_reporting", 
+            "program": {
                 "onboot_event": [], 
                 "onchange_event": [], 
                 "oncreate_event": [], 
                 "ondelete_event": [], 
                 "onrefresh_event": []
             }, 
-            "lastchange": {
-                "hidden": false, 
-                "type": "int", 
-                "value": 1515500769
+            "value": 0
+        }, 
+        "party_start_day": {
+            "create": 1517169632, 
+            "devicegroupe": [], 
+            "enable": true, 
+            "lastchange": 0, 
+            "lastupdate": 0, 
+            "name": "party_start_day", 
+            "program": {
+                "onboot_event": [], 
+                "onchange_event": [], 
+                "oncreate_event": [], 
+                "ondelete_event": [], 
+                "onrefresh_event": []
             }, 
-            "lastupdate": {
-                "hidden": false, 
-                "type": "int", 
-                "value": 1515691959
+            "value": 0
+        }, 
+        "party_start_month": {
+            "create": 1517169632, 
+            "devicegroupe": [], 
+            "enable": true, 
+            "lastchange": 0, 
+            "lastupdate": 0, 
+            "name": "party_start_month", 
+            "program": {
+                "onboot_event": [], 
+                "onchange_event": [], 
+                "oncreate_event": [], 
+                "ondelete_event": [], 
+                "onrefresh_event": []
             }, 
-            "name": {
-                "type": "string", 
-                "value": "unkown"
+            "value": 0
+        }, 
+        "party_start_time": {
+            "create": 1517169632, 
+            "devicegroupe": [], 
+            "enable": true, 
+            "lastchange": 0, 
+            "lastupdate": 0, 
+            "name": "party_start_time", 
+            "program": {
+                "onboot_event": [], 
+                "onchange_event": [], 
+                "oncreate_event": [], 
+                "ondelete_event": [], 
+                "onrefresh_event": []
             }, 
-            "value": {
-                "type": "string", 
-                "value": 0
-            }
+            "value": 0
+        }, 
+        "party_start_year": {
+            "create": 1517169632, 
+            "devicegroupe": [], 
+            "enable": true, 
+            "lastchange": 0, 
+            "lastupdate": 0, 
+            "name": "party_start_year", 
+            "program": {
+                "onboot_event": [], 
+                "onchange_event": [], 
+                "oncreate_event": [], 
+                "ondelete_event": [], 
+                "onrefresh_event": []
+            }, 
+            "value": 0
+        }, 
+        "party_stop_day": {
+            "create": 1517169632, 
+            "devicegroupe": [], 
+            "enable": true, 
+            "lastchange": 0, 
+            "lastupdate": 0, 
+            "name": "party_stop_day", 
+            "program": {
+                "onboot_event": [], 
+                "onchange_event": [], 
+                "oncreate_event": [], 
+                "ondelete_event": [], 
+                "onrefresh_event": []
+            }, 
+            "value": 0
+        }, 
+        "party_stop_month": {
+            "create": 1517169632, 
+            "devicegroupe": [], 
+            "enable": true, 
+            "lastchange": 0, 
+            "lastupdate": 0, 
+            "name": "party_stop_month", 
+            "program": {
+                "onboot_event": [], 
+                "onchange_event": [], 
+                "oncreate_event": [], 
+                "ondelete_event": [], 
+                "onrefresh_event": []
+            }, 
+            "value": 0
+        }, 
+        "party_stop_time": {
+            "create": 1517169632, 
+            "devicegroupe": [], 
+            "enable": true, 
+            "lastchange": 0, 
+            "lastupdate": 0, 
+            "name": "party_stop_time", 
+            "program": {
+                "onboot_event": [], 
+                "onchange_event": [], 
+                "oncreate_event": [], 
+                "ondelete_event": [], 
+                "onrefresh_event": []
+            }, 
+            "value": 0
+        }, 
+        "party_stop_year": {
+            "create": 1517169632, 
+            "devicegroupe": [], 
+            "enable": true, 
+            "lastchange": 0, 
+            "lastupdate": 0, 
+            "name": "party_stop_year", 
+            "program": {
+                "onboot_event": [], 
+                "onchange_event": [], 
+                "oncreate_event": [], 
+                "ondelete_event": [], 
+                "onrefresh_event": []
+            }, 
+            "value": 0
+        }, 
+        "party_temperature": {
+            "create": 1517169632, 
+            "devicegroupe": [], 
+            "enable": true, 
+            "lastchange": 0, 
+            "lastupdate": 0, 
+            "name": "party_temperature", 
+            "program": {
+                "onboot_event": [], 
+                "onchange_event": [], 
+                "oncreate_event": [], 
+                "ondelete_event": [], 
+                "onrefresh_event": []
+            }, 
+            "value": 0
+        }, 
+        "partystarttime": {
+            "create": 1517169632, 
+            "devicegroupe": [], 
+            "enable": true, 
+            "lastchange": 0, 
+            "lastupdate": 0, 
+            "name": "partystarttime", 
+            "program": {
+                "onboot_event": [], 
+                "onchange_event": [], 
+                "oncreate_event": [], 
+                "ondelete_event": [], 
+                "onrefresh_event": []
+            }, 
+            "value": 0
+        }, 
+        "partystoptime": {
+            "create": 1517169632, 
+            "devicegroupe": [], 
+            "enable": true, 
+            "lastchange": 0, 
+            "lastupdate": 0, 
+            "name": "partystoptime", 
+            "program": {
+                "onboot_event": [], 
+                "onchange_event": [], 
+                "oncreate_event": [], 
+                "ondelete_event": [], 
+                "onrefresh_event": []
+            }, 
+            "value": 0
         }, 
         "set_temperature": {
-            "channelID": {
-                "type": "string", 
-                "value": "unknown"
-            }, 
-            "create": {
-                "type": "int", 
-                "value": 1515500769
-            }, 
-            "enable": {
-                "type": "bool", 
-                "value": true
-            }, 
-            "events": {
+            "create": 1517169632, 
+            "devicegroupe": [], 
+            "enable": true, 
+            "lastchange": 0, 
+            "lastupdate": 0, 
+            "name": "set_temperature", 
+            "program": {
                 "onboot_event": [], 
                 "onchange_event": [], 
                 "oncreate_event": [], 
                 "ondelete_event": [], 
                 "onrefresh_event": []
             }, 
-            "lastchange": {
-                "hidden": false, 
-                "type": "int", 
-                "value": 1515691335
-            }, 
-            "lastupdate": {
-                "hidden": false, 
-                "type": "int", 
-                "value": 1515691961
-            }, 
-            "name": {
-                "type": "string", 
-                "value": "unkown"
-            }, 
-            "value": {
-                "type": "string", 
-                "value": 21.0
-            }
+            "value": 0
         }, 
         "valve_state": {
-            "channelID": {
-                "type": "string", 
-                "value": "unknown"
-            }, 
-            "create": {
-                "type": "int", 
-                "value": 1515500769
-            }, 
-            "enable": {
-                "type": "bool", 
-                "value": true
-            }, 
-            "events": {
+            "create": 1517169632, 
+            "devicegroupe": [], 
+            "enable": true, 
+            "lastchange": 0, 
+            "lastupdate": 0, 
+            "name": "valve_state", 
+            "program": {
                 "onboot_event": [], 
                 "onchange_event": [], 
                 "oncreate_event": [], 
                 "ondelete_event": [], 
                 "onrefresh_event": []
             }, 
-            "lastchange": {
-                "hidden": false, 
-                "type": "int", 
-                "value": 1515500769
-            }, 
-            "lastupdate": {
-                "hidden": false, 
-                "type": "int", 
-                "value": 1515691960
-            }, 
-            "name": {
-                "type": "string", 
-                "value": "unkown"
-            }, 
-            "value": {
-                "type": "string", 
-                "value": 0
-            }
+            "value": 0
         }
-    }, 
-    "device": {}
+    }
 }

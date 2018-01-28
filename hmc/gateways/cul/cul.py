@@ -49,7 +49,7 @@ class sensor(threading.Thread,fs20device,ws300device):
             self.log.info("version:%s"%(self.__readResult()))
             self.__sendCommand("VH") 
             time.sleep(0.3)   
-            self.log.info("hadrware:%s"%(self.__readResult()))
+            self.log.info("hardware:%s"%(self.__readResult()))
             self.__readBudget()
             while self.running:
                 if not self.__USBport:
@@ -83,7 +83,7 @@ class sensor(threading.Thread,fs20device,ws300device):
         except:
             self.log.critical("cul is stopped", exc_info=True)
     
-    def addChannel(self,deviceID,channelName):
+    def addChannel(self,deviceID,channelName,value=0):
         '''
         add new channel to device core
         '''
@@ -91,13 +91,9 @@ class sensor(threading.Thread,fs20device,ws300device):
         try:
             channelValues={}
             channelValues[channelName]={
-                "value":{
-                        "value":"unkown",
-                        "type":"string"},
-                "name":{        
-                        "value":"unkown",
-                        "type":"string"},
-                    }
+                "value":value,
+                "name":channelName
+                }
             self.core.addDeviceChannel(deviceID,channelName,channelValues)
         except:    
             self.log.error("can not add channel %s for deviceID %s "%(channelName,deviceID),exc_info=True) 
@@ -112,37 +108,23 @@ class sensor(threading.Thread,fs20device,ws300device):
         
         raise exception
         '''
+        
         try:
             device={
-                    "gateway":{
-                        "value":"%s"%(self.config['gateway']),
-                        "type":"string"},
-                    "deviceID":{
-                        "value":deviceID,
-                        "type":"string"},
-                    "enable":{
-                        "value":True,
-                        "type":"bool"},
-                    "connected":{
-                        "value":True,
-                        "type":"bool"},
-                    "devicetype":{
-                        "value":"%s"%(devicetype),
-                        "type":"string"},
-                    "host":{
-                        "value":self.config['host'],
-                        "type":"string"},
-                    "package":{
-                        "value":self.config['package'],
-                        "type":"string"},
+                    "gateway":"%s"%(self.config['gateway']),
+                    "deviceID":deviceID,
+                    "enable":True,
+                    "connected":True,
+                    "devicetype":"%s"%(devicetype),
+                    "host":self.config['host'],
+                    "package":self.config['package'],
                     }
-            channel={}
             if self.core.ifDeviceExists(deviceID):
                 self.log.info("deviceID %s is existing, update core"%(deviceID))
-                self.core.updateDevice(device,channel)
+                self.core.updateDevice(deviceID,device)
             else:
                 self.log.info("add deviceID %s to core"%(deviceID))
-                self.core.addDevice(device,channel)
+                self.core.addDevice(deviceID,device)
         except:
             self.log.error("can not add new deviceID %s to core"%(deviceID), exc_info=True)
             raise Exception
@@ -224,8 +206,11 @@ class sensor(threading.Thread,fs20device,ws300device):
         except:
             self.log.error("can not init cul stick")
             raise Exception        
+    
+    def send(self,command):
+        self.__sendCommand(command)
          
-    def __sendCommand(self, command):
+    def __sendCommand(self,command):
         '''
         send a command
         

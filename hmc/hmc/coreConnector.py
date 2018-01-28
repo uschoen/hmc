@@ -34,7 +34,7 @@ class coreConnector(object):
             if coreName in self.coreClientsCFG:
                 self.logger.info("%s core is exsiting,stopping end delete"%(coreName))
                 if args['enable']:
-                    if args['hostName']==self.args['global']['host']:
+                    if  self.eventHome(coreName):
                         self.ConnectorServer[coreName].shutdown() 
                         del self.ConnectorServer[coreName]
                     else:
@@ -111,7 +111,7 @@ class coreConnector(object):
         self.logger.info("try to add core sync server %s"%(coreName))
         try:
             if args['enable']==True:
-                if args['hostName']==self.args['global']['host']:
+                if self.eventHome(coreName):
                     '''
                     start core Server
                     '''
@@ -142,10 +142,9 @@ class coreConnector(object):
             if not self.eventHome(deviceID):
                 return           
         for coreName in self.CoreClientsConnections:
-            ("debug","try to update remote Core: %s"%(coreName))            
             try:
                 self.CoreClientsConnections[coreName].updateCore(deviceID,calling,args)
-                self.logger.debug("update remote Core: %s success"%(coreName))
+                self.logger.debug("store in remote Core queue: %s success"%(coreName))
             except:
-                self.logger.error("can not update remote Core: %s"%(coreName),exc_info=True)          
+                self.logger.error("can not store remote Core queue: %s"%(coreName),exc_info=True)          
 

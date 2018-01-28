@@ -1,14 +1,12 @@
 {
     "channels": {
         "humidity": {
-            "create": {
-                "type": "int", 
-                "value": "0"
-            }, 
-            "enable": {
-                "type": "bool", 
-                "value": true
-            }, 
+            "create": 1517174133, 
+            "devicegroupe": [], 
+            "enable": true, 
+            "lastchange": 0, 
+            "lastupdate": 0, 
+            "name": "humidity", 
             "program": {
                 "onboot_event": [], 
                 "onchange_event": [], 
@@ -16,60 +14,23 @@
                 "ondelete_event": [], 
                 "onrefresh_event": []
             }, 
-            "lastchange": {
-                "hidden": false, 
-                "type": "int", 
-                "value": 1514123792
-            }, 
-            "lastupdate": {
-                "hidden": false, 
-                "type": "int", 
-                "value": 1514123792
-            }, 
-            "name": {
-                "type": "string", 
-                "value": "unkown"
-            }, 
-            "value": {
-                "type": "string", 
-                "value": 90
-            }
+            "value": 0
         }, 
         "rssi": {
-            "create": {
-                "type": "int", 
-                "value": "0"
-            }, 
-            "enable": {
-                "type": "bool", 
-                "value": true
-            }, 
-            "programm": {
+            "create": 1517174133, 
+            "devicegroupe": [], 
+            "enable": true, 
+            "lastchange": 0, 
+            "lastupdate": 0, 
+            "name": "rssi", 
+            "program": {
                 "onboot_event": [], 
                 "onchange_event": [], 
                 "oncreate_event": [], 
                 "ondelete_event": [], 
                 "onrefresh_event": []
             }, 
-            "lastchange": {
-                "hidden": false, 
-                "type": "int", 
-                "value": "0"
-            }, 
-            "lastupdate": {
-                "hidden": false, 
-                "type": "int", 
-                "value": "0"
-            }, 
-            "name": {
-                "type": "string", 
-                "value": "unkown"
-            }, 
-            "value": {
-                "type": "string", 
-                "value": "unkown"
-            }
+            "value": 0
         }
-    }, 
-    "device": {}
+    }
 }

@@ -346,7 +346,7 @@ class CoreConnection(threading.Thread):
                 continue
             self.logger.info("sync devicesID %s to core %s"%(deviceID,self.__arg['hostName']))
             device=self.__core.devices[deviceID].getConfiguration()
-            args=(device['device'],device['channels'])
+            args=(deviceID,device)
             updateObj={
                     'deviceID':deviceID,
                     'calling':'updateDevice',

@@ -24,20 +24,21 @@ class device(device):
         channelName=str(channelName)
         channelName=channelName.lower()
         try:
-            if not channelName in self._channels:
-                self.logger.error("channel %s is not exist"%(channelName))
-                raise Exception
+            if not self.ifChannelExist(channelName):
+                channelValues={
+                        'name':channelName
+                        }
+                self._core.addDeviceChannel(self.deviceID,channelName,channelValues)
             if channelName=='windchill':
                 value=self.__WeatherWindChill(value)
             self.logger.debug("set channel %s to %s"%(channelName,value))
-            oldValue=self._channels[channelName]['value']['value']
-            self._channels[channelName]['value']['value']=value
+            oldValue=self._device['channels'][channelName]['value']
+            self._device['channels'][channelName]['value']=value
             if oldValue<>value:
                 self._callEvent('onchange_event',channelName)
             self._callEvent('onrefresh_event',channelName)
-            
         except:
-            self.logger.error("can not set channel %s to %s"%(channelName,value))
+            self.logger.error("can not set channel %s to %s"%(channelName,value),exc_info=True)
             raise Exception
         
     def __WeatherWindChill(self,wind):
