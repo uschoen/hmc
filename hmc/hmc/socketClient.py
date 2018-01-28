@@ -49,7 +49,7 @@ class CoreConnection(threading.Thread):
                     "port": 5091, 
                     "timeout": 50, 
                     "user": "user",
-                    "socketTimeout":4}
+                    "socketTimeout":8}
         self.__arg.update(params)
         '''
         if core sync false/true
@@ -313,6 +313,13 @@ class CoreConnection(threading.Thread):
         sync core to client
         '''
         self.logger.info("start sync to core %s"%(self.__arg['hostName']))
+        try:
+            self.__connectToClient()
+        except:
+            self.logger.error("can not sync to core %s, no connect"%(self.__arg['hostName']))
+            self.__blockClient()  
+            self.__socketClose()
+            return
         self.__clearSyncQueue()
         self.__clearCoreQueue()
         self.__syncCoreProgram()

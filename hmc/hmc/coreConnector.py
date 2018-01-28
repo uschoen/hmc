@@ -100,6 +100,7 @@ class coreConnector(object):
         corename=the corename of the client (name@hostname)
         args:{
                     "hostName":"raspberry1",
+                    "socketTimeout":8
                     "enable":true,
                     "user":"user1",
                     "password":"password12345",
@@ -109,6 +110,7 @@ class coreConnector(object):
         syncStatus true/false if true it set the status to the core to is sync
         '''
         self.logger.info("try to add core sync server %s"%(coreName))
+        args['hostName']=coreName
         try:
             if args['enable']==True:
                 if self.eventHome(coreName):
