@@ -32,10 +32,6 @@ class code(object):
         self.__aes=aes
         self.logger.info("%s is build"%(__name__))
     
-    def __olddecode(self,calling,args):
-        self.logger.error( "old function decode, use decrypt",exc_info=True)
-        self.decrypt(calling, args)   
-        
     def decrypt(self,calling,args):
         """
         give back a string with decode information. The messages
@@ -51,7 +47,6 @@ class code(object):
         Returns:
             a string
         """
-        self.logger.debug( "start decode message")
         try:
             body=self.__decryptBody(calling, args, self.__password)
             string=self.__decryptHeader(self.__user,body)
@@ -61,10 +56,6 @@ class code(object):
             self.logger.error( "can not decode message",exc_info=True)
             raise Exception 
     
-    def __oldencode(self,string):
-        self.logger.error( "old function encode, use unrypt",exc_info=True)
-        self.uncrypt(string)
-        
     def uncrypt(self,string):
         """
         encode a string with core protocol format .
@@ -89,7 +80,7 @@ class code(object):
             return (user,password,calling,args)
         except:
             self.logger.error( "can not encode message",exc_info=True)
-            raise   
+            raise Exception   
     
     def __encryptHeader(self,header):
         self.logger.debug( "read header")
@@ -97,36 +88,36 @@ class code(object):
             encodeHeader=self.__unserialData(header)
             if not 'user' in encodeHeader and not 'body' in encodeHeader:    
                 self.logger.error( "no user and / or body found in header")
-                raise 
+                raise Exception 
             return (encodeHeader['user'],encodeHeader['body'])          
         except:
             self.logger.error( "can not read header",exc_info=True)
-            raise 
+            raise Exception 
     
     def __encryptBody(self,body):
-        self.logger.debug( "read body")
         try:
             unserialBody=self.__encrypt(body)            
             unserialBody=self.__unserialData(unserialBody)
             if 'calling' in unserialBody and 'args' in unserialBody and 'password' in unserialBody:
-                self.logger.debug( "return args, calling,password")
                 return (unserialBody['calling'],unserialBody['args'],unserialBody['password'])
             self.logger.error( "body mismatch")
-            raise 
+            raise Exception
         except:
             self.logger.error( "can not read body")
-            raise 
+            raise Exception
         
     def __decryptHeader(self,user,body):
-        self.logger.debug( "write header")
-        header={
-                'user':user,
-                'version':self.verion,
-                'body':body}
-        return self.__serialData(header)
+        try:
+            header={
+                    'user':user,
+                    'version':self.verion,
+                    'body':body}
+            return self.__serialData(header)
+        except:
+            self.logger.error( "can not decrypt header")
+            raise Exception
     
     def __decryptBody(self,calling,args,password):
-        self.logger.debug( "write body")
         try:
             body={      
                         'calling':calling,
@@ -138,15 +129,17 @@ class code(object):
             return body
         except:
             self.logger.error( "can not write body", exc_info=True)
-            raise
+            raise Exception
     
     def __serialData(self,data):
-        self.logger.debug("serial data")
-        serial_data=cPickle.dumps(data)                                 #@UndefinedVariable
-        return serial_data
+        try:
+            serial_data=cPickle.dumps(data)                                 #@UndefinedVariable
+            return serial_data
+        except:
+            self.logger.debug("can not serial data")
+            raise Exception
     
-    def __unserialData(self,data):
-        self.logger.debug("un-serial data")
+    def __unserialData(self,data):        
         try:
             jsonData=cPickle.loads(data)                                #@UndefinedVariable
             return jsonData
@@ -169,7 +162,6 @@ class code(object):
         if not self.__aes:
             self.logger.debug( "decrypt is disable")
             return string
-        self.logger.debug( "decrypt message")
         try:
             iv=self.__IVKey()
             decryption_suite = AES.new(self.__md5decode(self.__password), self.__AESmode,iv)
@@ -177,7 +169,7 @@ class code(object):
             return plain_text
         except:
             self.logger.error( "can not decrypt message", exc_info=True)
-            raise
+            raise Exception
         
     def __IVKey(self):
         return (os.urandom(128)[:self.__BS])
@@ -190,9 +182,9 @@ class code(object):
         ' return: an encryptet string
         '''
         if not self.__aes:
-            self.logger.info("encrypt is disable")
+            self.logger.debug("encrypt is disable")
             return  cryptstring 
-        self.logger.debug( "encrypt message")
+
         try:
             iv=cryptstring[:self.__BS]
             cryptstring=cryptstring[self.__BS:]
@@ -201,7 +193,7 @@ class code(object):
             return plaintext
         except:
             self.logger.error( "can not encrypt message", exc_info=True)
-            raise
+            raise Exception
           
     def __md5decode(self,key):
         ''' 
