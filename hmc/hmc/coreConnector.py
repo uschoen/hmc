@@ -12,7 +12,7 @@ from hmc import socketClient
 
 class coreConnector(object):
     
-    def updateCoreClient(self,coreName,args):
+    def updateCoreClient(self,coreName,coreCFG):
         '''
         update a core connector as server or client. if the client
         exists it will be stop and delete. the sync status is save 
@@ -32,8 +32,11 @@ class coreConnector(object):
             self.logger.info("try to update core sync server")
             syncStatus=False
             if coreName in self.coreClientsCFG:
+                if self.coreClientsCFG.get(coreName)==coreCFG:
+                    self.logger.info("%s core have same config, nothing to do"%(coreName))
+                    return
                 self.logger.info("%s core is exsiting,stopping end delete"%(coreName))
-                if args['enable']:
+                if coreCFG.get('enable',False):
                     if  self.eventHome(coreName):
                         self.ConnectorServer[coreName].shutdown() 
                         del self.ConnectorServer[coreName]
@@ -47,8 +50,8 @@ class coreConnector(object):
                 '''delete configuration'''
                 del self.coreClientsCFG[coreName] 
             ''' add core client '''
-            self.__buildCoreClient(coreName,args,syncStatus)
-            self.updateRemoteCore(False,coreName,'updateCoreClient',args,syncStatus)
+            self.__buildCoreClient(coreName,coreCFG,syncStatus)
+            self.updateRemoteCore(False,coreName,'updateCoreClient',coreCFG,syncStatus)
         except:
             self.logger.error("can not update core sync server",exc_info=True)
             raise     
