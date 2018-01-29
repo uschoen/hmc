@@ -129,14 +129,16 @@ class CoreConnection(threading.Thread):
         '''
         ' put a job in the work queue
         '''
-        self.logger.info("putting job for deviceID:%s calling:%s into queue"%(deviceID,calling))
+        if self.__blockedTime>int(time.time()):
+            self.logger.debug("core client block for %i s"%(self.__blockedTime-int(time.time())))
+            return
+        self.logger.debug("putting job for deviceID:%s calling:%s into queue"%(deviceID,calling))
         updateObj={
                     'deviceID':deviceID,
                     'calling':calling,
                     'arg':arg}
         self.__coreQueue.put(updateObj)
-        if self.__blockedTime>int(time.time()):
-            self.logger.info("core client block for %i s"%(self.__blockedTime-int(time.time())))
+        
     
     def __workingQueue(self,queueList):
         '''
@@ -167,7 +169,7 @@ class CoreConnection(threading.Thread):
             ''' client is connect '''
             return
         try:
-            self.logger.info("try connect to Core %s:%s"%(self.__arg.get('ip'),self.__arg.get('port')))
+            self.logger.debug("try connect to Core %s:%s"%(self.__arg.get('ip'),self.__arg.get('port')))
             self.__clientSocket=socket.socket(socket.AF_INET, socket.SOCK_STREAM)
             self.__clientSocket.connect((self.__arg.get('ip'),int(self.__arg.get('port'))))
             self.__socketConnect=True
@@ -195,7 +197,7 @@ class CoreConnection(threading.Thread):
                     arg: <<arguments>>
                 }
         '''
-        self.logger.info("work job for deviceID %s calling %s"%(syncJob.get('deviceID'),syncJob.get('calling')))
+        self.logger.debug("work job for deviceID %s calling %s"%(syncJob.get('deviceID'),syncJob.get('calling')))
         '''
         convert command to core protocol
         '''
