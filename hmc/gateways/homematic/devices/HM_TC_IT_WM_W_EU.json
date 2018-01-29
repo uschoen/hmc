@@ -1,12 +1,12 @@
 {
     "channels": {
-        "actual_humidity": {
-            "create": 1517162943, 
+        "party_start_day": {
+            "create": 1517249193, 
             "devicegroupe": [], 
             "enable": true, 
             "lastchange": 0, 
             "lastupdate": 0, 
-            "name": "actual_humidity", 
+            "name": "party_start_day", 
             "program": {
                 "onboot_event": [], 
                 "onchange_event": [], 
@@ -16,13 +16,13 @@
             }, 
             "value": 0
         }, 
-        "actual_temperature": {
-            "create": 1517162943, 
+        "party_start_month": {
+            "create": 1517249193, 
             "devicegroupe": [], 
             "enable": true, 
             "lastchange": 0, 
             "lastupdate": 0, 
-            "name": "actual_temperature", 
+            "name": "party_start_month", 
             "program": {
                 "onboot_event": [], 
                 "onchange_event": [], 
@@ -32,13 +32,13 @@
             }, 
             "value": 0
         }, 
-        "humidity": {
-            "create": 1517162943, 
+        "party_start_time": {
+            "create": 1517249193, 
             "devicegroupe": [], 
             "enable": true, 
             "lastchange": 0, 
             "lastupdate": 0, 
-            "name": "humidity", 
+            "name": "party_start_time", 
             "program": {
                 "onboot_event": [], 
                 "onchange_event": [], 
@@ -48,13 +48,13 @@
             }, 
             "value": 0
         }, 
-        "lowbat": {
-            "create": 1517162944, 
+        "party_start_year": {
+            "create": 1517249193, 
             "devicegroupe": [], 
             "enable": true, 
             "lastchange": 0, 
             "lastupdate": 0, 
-            "name": "lowbat", 
+            "name": "party_start_year", 
             "program": {
                 "onboot_event": [], 
                 "onchange_event": [], 
@@ -64,13 +64,13 @@
             }, 
             "value": 0
         }, 
-        "set_temperature": {
-            "create": 1517162943, 
+        "party_stop_day": {
+            "create": 1517249193, 
             "devicegroupe": [], 
             "enable": true, 
             "lastchange": 0, 
             "lastupdate": 0, 
-            "name": "set_temperature", 
+            "name": "party_stop_day", 
             "program": {
                 "onboot_event": [], 
                 "onchange_event": [], 
@@ -80,13 +80,93 @@
             }, 
             "value": 0
         }, 
-        "temperature": {
-            "create": 1517162943, 
+        "party_stop_month": {
+            "create": 1517249193, 
             "devicegroupe": [], 
             "enable": true, 
             "lastchange": 0, 
             "lastupdate": 0, 
-            "name": "temperature", 
+            "name": "party_stop_month", 
+            "program": {
+                "onboot_event": [], 
+                "onchange_event": [], 
+                "oncreate_event": [], 
+                "ondelete_event": [], 
+                "onrefresh_event": []
+            }, 
+            "value": 0
+        }, 
+        "party_stop_time": {
+            "create": 1517249193, 
+            "devicegroupe": [], 
+            "enable": true, 
+            "lastchange": 0, 
+            "lastupdate": 0, 
+            "name": "party_stop_time", 
+            "program": {
+                "onboot_event": [], 
+                "onchange_event": [], 
+                "oncreate_event": [], 
+                "ondelete_event": [], 
+                "onrefresh_event": []
+            }, 
+            "value": 0
+        }, 
+        "party_stop_year": {
+            "create": 1517249193, 
+            "devicegroupe": [], 
+            "enable": true, 
+            "lastchange": 0, 
+            "lastupdate": 0, 
+            "name": "party_stop_year", 
+            "program": {
+                "onboot_event": [], 
+                "onchange_event": [], 
+                "oncreate_event": [], 
+                "ondelete_event": [], 
+                "onrefresh_event": []
+            }, 
+            "value": 0
+        }, 
+        "party_temperature": {
+            "create": 1517249193, 
+            "devicegroupe": [], 
+            "enable": true, 
+            "lastchange": 0, 
+            "lastupdate": 0, 
+            "name": "party_temperature", 
+            "program": {
+                "onboot_event": [], 
+                "onchange_event": [], 
+                "oncreate_event": [], 
+                "ondelete_event": [], 
+                "onrefresh_event": []
+            }, 
+            "value": 0
+        }, 
+        "partystarttime": {
+            "create": 1517249193, 
+            "devicegroupe": [], 
+            "enable": true, 
+            "lastchange": 0, 
+            "lastupdate": 0, 
+            "name": "partystarttime", 
+            "program": {
+                "onboot_event": [], 
+                "onchange_event": [], 
+                "oncreate_event": [], 
+                "ondelete_event": [], 
+                "onrefresh_event": []
+            }, 
+            "value": 0
+        }, 
+        "partystoptime": {
+            "create": 1517249193, 
+            "devicegroupe": [], 
+            "enable": true, 
+            "lastchange": 0, 
+            "lastupdate": 0, 
+            "name": "partystoptime", 
             "program": {
                 "onboot_event": [], 
                 "onchange_event": [], 

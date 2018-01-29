@@ -1,1 +1,20 @@
-{}
+{
+    "channels": {
+        "sticky_unreach": {
+            "create": 1517243006, 
+            "devicegroupe": [], 
+            "enable": true, 
+            "lastchange": 0, 
+            "lastupdate": 0, 
+            "name": "sticky_unreach", 
+            "program": {
+                "onboot_event": [], 
+                "onchange_event": [], 
+                "oncreate_event": [], 
+                "ondelete_event": [], 
+                "onrefresh_event": []
+            }, 
+            "value": 0
+        }
+    }
+}

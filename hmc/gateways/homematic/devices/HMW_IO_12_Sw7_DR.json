@@ -1,1 +1,52 @@
-{}
+{
+    "channels": {
+        "press_long": {
+            "create": 1517242999, 
+            "devicegroupe": [], 
+            "enable": true, 
+            "lastchange": 0, 
+            "lastupdate": 0, 
+            "name": "press_long", 
+            "program": {
+                "onboot_event": [], 
+                "onchange_event": [], 
+                "oncreate_event": [], 
+                "ondelete_event": [], 
+                "onrefresh_event": []
+            }, 
+            "value": 0
+        }, 
+        "state": {
+            "create": 1517243003, 
+            "devicegroupe": [], 
+            "enable": true, 
+            "lastchange": 0, 
+            "lastupdate": 0, 
+            "name": "state", 
+            "program": {
+                "onboot_event": [], 
+                "onchange_event": [], 
+                "oncreate_event": [], 
+                "ondelete_event": [], 
+                "onrefresh_event": []
+            }, 
+            "value": 0
+        }, 
+        "working": {
+            "create": 1517243003, 
+            "devicegroupe": [], 
+            "enable": true, 
+            "lastchange": 0, 
+            "lastupdate": 0, 
+            "name": "working", 
+            "program": {
+                "onboot_event": [], 
+                "onchange_event": [], 
+                "oncreate_event": [], 
+                "ondelete_event": [], 
+                "onrefresh_event": []
+            }, 
+            "value": 0
+        }
+    }
+}

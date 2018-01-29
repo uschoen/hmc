@@ -1,7 +1,7 @@
 {
     "channels": {
         "lasttemperature": {
-            "create": 1517174130, 
+            "create": 1517248859, 
             "devicegroupe": [], 
             "enable": true, 
             "lastchange": 0, 
@@ -14,10 +14,10 @@
                 "ondelete_event": [], 
                 "onrefresh_event": []
             }, 
-            "value": {}
+            "value": 0
         }, 
         "rssi": {
-            "create": 1517174130, 
+            "create": 1517248859, 
             "devicegroupe": [], 
             "enable": true, 
             "lastchange": 0, 
@@ -33,7 +33,7 @@
             "value": 0
         }, 
         "temperature": {
-            "create": 1517174130, 
+            "create": 1517248859, 
             "devicegroupe": [], 
             "enable": true, 
             "lastchange": 0, 
@@ -49,7 +49,7 @@
             "value": 0
         }, 
         "tempmax24h": {
-            "create": 1517174130, 
+            "create": 1517248859, 
             "devicegroupe": [], 
             "enable": true, 
             "lastchange": 0, 
@@ -65,7 +65,7 @@
             "value": 0
         }, 
         "tempmin24h": {
-            "create": 1517174130, 
+            "create": 1517248859, 
             "devicegroupe": [], 
             "enable": true, 
             "lastchange": 0, 
