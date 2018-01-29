@@ -366,6 +366,8 @@ class CoreConnection(threading.Thread):
         '''
         self.logger.info("sync Gateways to core %s"%(self.__arg['hostName']))
         for gatewayName in self.__core.gatewaysCFG:
+            if not self.__core.eventHome(gatewayName):
+                continue
             updateObj={
                     'deviceID':gatewayName,
                     'calling':'updateGateway',
@@ -402,13 +404,6 @@ class CoreConnection(threading.Thread):
                         'calling':'updateCoreClient',
                         'arg':args}
             self.__syncQueue.put(updateObj)
-        
-    def __syncCoreDefaultEvent(self):
-        '''
-        sync all default events from this host
-        '''
-        self.logger.info("sync DefaultEvent to core %s"%(self.__arg['hostName']))
-        self.logger.info("sync DefaultEvent not implement")
     
     def __blockClient(self,timer=False):
         '''

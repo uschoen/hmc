@@ -38,7 +38,6 @@ class server(threading.Thread):
         self.__allowFunktions=[
             "updateCoreClient",
             "updateDevice",
-            "updateEventHandler",
             "setDeviceChannelValue",
             "addDevice",
             "updateGateway",
