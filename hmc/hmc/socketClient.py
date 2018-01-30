@@ -68,9 +68,9 @@ class CoreConnection(threading.Thread):
         '''
         self.__blockedTime=0
         '''
-        socket object
+        busy out client
         '''
-        
+        self._busyoutClient=False
         '''
         socket timer 
         '''
@@ -96,7 +96,7 @@ class CoreConnection(threading.Thread):
         self.logger.info("%s start"%(__name__))
         while self.running:
             time.sleep(0.1)
-            if self.__blockedTime<int(time.time()):
+            if self.__blockedTime<int(time.time()) or not self._busyoutClient:
                 self.__coreSync()
                 while self.__isCoreSync and self.running:
                     if self._socketTimer<int(time.time()) and self.__socketConnect:
@@ -109,8 +109,24 @@ class CoreConnection(threading.Thread):
                             self.__blockClient()
                             self.__socketClose()
                 time.sleep(0.1)   
-        self.logger.error("core client to core %s stop"%(__name__))
+        self.logger.error("core client to core %s stop"%(self.__arg.get('hostName')))
     
+    def shutdown(self):
+        '''
+        shutdown client connection
+        '''
+        self.running=0 
+        self.__socketClose() 
+        self.logger.critical("shutdown core connection to %s"%(self.__arg['hostName']))
+        
+    def busyoutClient(self):
+        self.logger.info("set busyout socket client %s"%(self.__arg.get('hostName')))
+        self._busyoutClient=True
+        self.running=False
+        while not self.__socketConnect:
+            time.sleep(1)
+        self.logger.info("socket client %s is busyout"%(self.__arg.get('hostName')))
+        
     def getSyncStatus(self):
         '''
         return if core client sync
@@ -288,14 +304,6 @@ class CoreConnection(threading.Thread):
         self.__socketTimer=0 
         self.__socketConnect=False  
                           
-    def shutdown(self):
-        '''
-        shutdown client connection
-        '''
-        self.running=0 
-        self.__socketClose() 
-        self.logger.critical("shutdown core connection to %s"%(self.__arg['hostName']))
-    
     def __clearSyncQueue(self):
         '''
         ' clear the sync Queue

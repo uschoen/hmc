@@ -9,10 +9,11 @@ __version__ = "3.0"
 
 from hmc import socketServer
 from hmc import socketClient
+import threading
 
 class coreConnector(object):
     
-    def updateCoreClient(self,coreName,coreCFG):
+    def updateCoreClient(self,coreName,coreCFG,forceUpdate=False):
         '''
         update a core connector as server or client. if the client
         exists it will be stop and delete. the sync status is save 
@@ -30,31 +31,49 @@ class coreConnector(object):
         '''
         try:
             self.logger.info("try to update core sync server")
-            syncStatus=False
             if coreName in self.coreClientsCFG:
                 if self.coreClientsCFG.get(coreName)==coreCFG:
                     self.logger.info("%s core have same config, nothing to do"%(coreName))
                     return
-                self.logger.info("%s core is exsiting,stopping end delete"%(coreName))
                 if coreCFG.get('enable',False):
-                    if  self.eventHome(coreName):
-                        self.ConnectorServer[coreName].shutdown() 
-                        del self.ConnectorServer[coreName]
-                    else:
-                        syncStatus=self.CoreClientsConnections[coreName].getSyncStatus()
-                        self.CoreClientsConnections[coreName].shutdown()
-                        self.logger.info("waiting for shutdown core %s is success"%(coreName))
-                        self.CoreClientsConnections[coreName].join()
-                        self.logger.info("delete core %s"%(coreName))
-                        del self.CoreClientsConnections[coreName]
-                '''delete configuration'''
-                del self.coreClientsCFG[coreName] 
-            ''' add core client '''
-            self.__buildCoreClient(coreName,coreCFG,syncStatus)
-            self.updateRemoteCore(False,coreName,'updateCoreClient',coreCFG,syncStatus)
+                    threading.Thread(target=self.__stopAndDeleteClient,args = (coreName,coreCFG,forceUpdate)).start()
         except:
             self.logger.error("can not update core sync server",exc_info=True)
             raise     
+    
+    def __stopAndDeleteClient(self,coreName,coreCFG,forceUpdate=False):
+        try:
+            syncStatus=False
+            if  self.eventHome(coreName):
+                '''
+                coreServer
+                '''
+                self.deleteCoreClient(coreName,forceUpdate)  
+            else:
+                '''
+                coreClient
+                '''
+                syncStatus=self.CoreClientsConnections[coreName].getSyncStatus()
+                self.CoreClientsConnections[coreName].busyoutClient()
+                self.deleteCoreClient(coreName,forceUpdate)   
+            self.__buildCoreClient(coreName,coreCFG,syncStatus)
+            self.updateRemoteCore(forceUpdate,coreName,'updateCoreClient',coreName,coreCFG)
+        except:
+            self.logger.error("can not update remote core %s"%(coreName))    
+    
+    def deleteCoreClient(self,coreName,forceUpdate=False):
+        try:
+            self.logger.error("delete core %s"%(coreName)) 
+            if  self.eventHome(coreName):
+                self.ConnectorServer[coreName].shutdown() 
+                del self.ConnectorServer[coreName] 
+            else:
+                self.CoreClientsConnections[coreName].shutdown()
+                del self.CoreClientsConnections[coreName]
+            del self.coreClientsCFG[coreName]
+            self.updateRemoteCore(forceUpdate,coreName,'deleteCoreClient',coreName)       
+        except:
+            self.logger.error("can not delete remote core %s"%(coreName)) 
     
     def restoreCoreClient(self,coreName,args,syncStatus=False):
         '''
@@ -74,7 +93,7 @@ class coreConnector(object):
             self.__buildCoreClient(coreName,args)
         except:
             self.logger.error("can not restore core sync server %s"%(coreName),exc_info=True)
-            raise
+            raise Exception
     
     def addCoreClient(self,coreName,args):
         '''
@@ -95,7 +114,7 @@ class coreConnector(object):
             self.updateRemoteCore(False,coreName,'addCoreClient',args)
         except:
             self.logger.error("can not restore core sync server %s"%(coreName),exc_info=True)
-            raise           
+            raise Exception          
         
     def __buildCoreClient(self,coreName,args,syncStatus=False):
         '''

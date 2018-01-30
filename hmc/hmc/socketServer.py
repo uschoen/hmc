@@ -16,6 +16,7 @@ __version__="3.1"
 BUFFER=1024
 
 class server(threading.Thread): 
+    
     def __init__(self, params,core):
         threading.Thread.__init__(self)
         ''' core instance '''
