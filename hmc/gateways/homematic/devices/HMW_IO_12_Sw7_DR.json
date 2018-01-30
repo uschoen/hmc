@@ -16,8 +16,24 @@
             }, 
             "value": 0
         }, 
+        "press_short": {
+            "create": 1517259087, 
+            "devicegroupe": [], 
+            "enable": true, 
+            "lastchange": 0, 
+            "lastupdate": 0, 
+            "name": "press_short", 
+            "program": {
+                "onboot_event": [], 
+                "onchange_event": [], 
+                "oncreate_event": [], 
+                "ondelete_event": [], 
+                "onrefresh_event": []
+            }, 
+            "value": 0
+        }, 
         "state": {
-            "create": 1517243003, 
+            "create": 1517259126, 
             "devicegroupe": [], 
             "enable": true, 
             "lastchange": 0, 
@@ -33,7 +49,7 @@
             "value": 0
         }, 
         "working": {
-            "create": 1517243003, 
+            "create": 1517259126, 
             "devicegroupe": [], 
             "enable": true, 
             "lastchange": 0, 
