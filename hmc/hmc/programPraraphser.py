@@ -40,12 +40,12 @@ class praraphser(threading.Thread):
                     
                     }
         self.__allowedCMD={
-                    "build":['role','changeDeviceChannel'],
+                    "root":['role','changeDeviceChannel'],
                     "role":['condition'],
                     "condition":['sourceA','sourceB','comparison','true','false'],
                     "sourceAB":['value','condition','callerValue','getDeviceValue','dateTimeNow'],
                     "comparison":["=","<",">","<>","<=",">="],
-                    "truefalse":["setDeviceChannel"],
+                    "truefalse":["changeDeviceChannel"],
                     "changeDeviceChannel":["deviceID","channelName","value"],
                     "getDeviceChannel":["deviceID","channelName"],
                     "callerValue":["deviceID","channelName","eventTyp","programName","programDeep"]
@@ -76,68 +76,78 @@ class praraphser(threading.Thread):
             self.__log.error("some error in program %s"%(self.__callerValues.get('programName')))
             raise Exception        
     
-    def __build(self,prog):
+    def __root(self,prog,cmd="root"):
        
         try:
             for field in prog:
                 (field,value)=(prog.keys()[0],prog.values()[0])
-                if field not in self.__allowedCMD['build']:
-                    self.__log.error("function %s is not supported in build"%(field))
+                if field not in self.__allowedCMD[cmd]:
+                    self.__log.error("function %s is not supported in %s"%(field,cmd))
                     raise Exception 
                 self.__log.debug("call function %s value:%s"%(field,value))
                 value=self.__CMD[field](value)
+                return value
         except:
             self.__log.error("build function has error: %s"%(prog),exc_info=True)
     
-    def __role(self,strg):
+    def __role(self,strg,cmd="role"):
         '''
-        role function
+        role function [LIST]
         '''
         try:
-            self.__log.debug("call role function")
+            self.__log.debug("call %s function"%(cmd))
             for role in strg:
-                if role not in self.__allowedCMD['role']:
-                    self.__log.error("function %s is not supported in role"%(role))
+                if role not in self.__allowedCMD[cmd]:
+                    self.__log.error("function %s is not supported in %s"%(role,cmd))
                     raise Exception
                 (field,value)=(strg.keys()[0],strg.values()[0])
                 self.__log.debug("call function %s value:%s"%(field,value))
                 value=self.__CMD[field](value)
+                return value
         except:
-            self.__log.error("role function has error: %s"%(strg),exc_info=True)
+            self.__log.error("%s function has error: %s"%(cmd,strg),exc_info=True)
             
-            
-    def __condition(self,strg):        
-        self.__log.debug("call condition function") 
-        if not set(self.__allowedCMD['condition']) <= set(strg):
-            self.__log.error("role function miss some atribute %s"%(strg.keys()))
-            raise Exception
-        if strg['comparison'] not in self.__allowedCMD['comparison']:
-            self.__log.error("comparison: %s not allowed"%(strg['comparison']))
-            raise Exception
-        valueA=self.__sourceAB(strg['sourceA'])
-        valueB=self.__sourceAB(strg['sourceB'])
-        self.__log.debug("A is: %s B is: %s"%(valueA,valueB))
-        value=self.__CMD[strg['comparison']](valueA,valueB)
-        self.__log.debug("comparison A and B is: %s"%(value))
-        if value:
-            strg=strg['true'] 
-        else:
-            strg=strg['false'] 
-        self.__isTrueFalse(strg)
-        
-    def __isTrueFalse(self,strg):
+    def __isTrueFalse(self,strg,cmd="truefalse"):
         '''
-        is true ore false
+        is true ore false {dic}
         ''' 
-        self.__log.debug("call truefalse function")
-        for job in strg:
-            (field,value)=(job.keys()[0],job.values()[0])
-            if field not in self.__allowedCMD['truefalse']:
-                self.__log.error("function %s is not supported in role"%(field))
+        try:
+            self.__log.debug("call %s function"%(cmd))
+            for job in strg:
+                (field,value)=(job.keys()[0],job.values()[0])
+                if field not in self.__allowedCMD[cmd]:
+                    self.__log.error("function %s is not supported in %s"%(field,cmd))
+                    raise Exception
+                self.__log.debug("call function %s value:%s"%(field,value))
+                value=self.__CMD[field](value)
+                return value
+        except:
+            self.__log.error("%s function has error: %s"%(cmd,strg),exc_info=True)
+                
+    
+    def __condition(self,strg,cmd='comparison'): 
+        try:       
+            self.__log.debug("call %s function"%(cmd)) 
+            if not set(self.__allowedCMD[cmd]) <= set(strg):
+                self.__log.error("%s function miss some atribute %s"%(cmd,strg.keys()))
                 raise Exception
-            self.__log.debug("call function %s value:%s"%(field,value))
-            value=self.__CMD[field](value)
-            
+            if strg.get('comparison') not in self.__allowedCMD['comparison']:
+                self.__log.error("comparison: %s not allowed"%(strg.get(cmd)))
+                raise Exception
+            valueA=self.__sourceAB(strg['sourceA'])
+            valueB=self.__sourceAB(strg['sourceB'])
+            self.__log.debug("A is: %s B is: %s"%(valueA,valueB))
+            value=self.__CMD[strg['comparison']](valueA,valueB)
+            self.__log.debug("comparison A and B is: %s"%(value))
+            if value:
+                strg=strg['true'] 
+            else:
+                strg=strg['false'] 
+            value=self.__isTrueFalse(strg)
+            return value
+        except:
+            self.__log.error("%s function has error: %s"%(cmd,strg),exc_info=True)
+        
     def __sourceAB(self,strg): 
         '''
         source AB Function
