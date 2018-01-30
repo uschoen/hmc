@@ -39,111 +39,23 @@ class coreDevices ():
             self.logger.error("can not restore deviceID:%s"%(deviceID),exc_info=True)
             raise Exception
     
-    def deleteDevice(self,deviceID,callEvents=True):
+    def updateDevice(self,deviceID,deviceCFG,forceUpdate=False):
         '''
-        delete a device
+        update a exist device to a new one
         '''
-        if deviceID not in self.devices:
-            self.logger.error("deviceID:%s is not exisit"%(deviceID))
-            return
-        self.devices[deviceID].delete(callEvents)
-        del self.devices[deviceID]
-            
-    def addDeviceChannel(self,deviceID,channelName,channelValues,forceUpdate=False):
-        '''
-        add a new channel to a device
-        '''
-        channelName=str(channelName)
-        channelName=channelName.lower()
-        channelValuesCP=copy.deepcopy(channelValues)
-        self.logger.info("add channel %s for device id %s"%(channelName,deviceID))
+        callEvents=False
+        addDevice=False
         try:
-            if not deviceID in self.devices:
-                self.logger.error("device id %s not existing"%(deviceID))
-                raise Exception
-            self.devices[deviceID].addChannel(channelName,channelValuesCP)
-            self.updateRemoteCore(forceUpdate,deviceID,'addDeviceChannel',deviceID,channelName,channelValuesCP)
+            if deviceID in self.devices:
+                if self.getDeviceConfiguration(deviceID)==deviceCFG:
+                    self.logger.debug("nothing to update deviceID %s is up to date"%(deviceID))
+                    return
+                self.deleteDevice(deviceID,callEvents)
+            self.__buildDevice(deviceCFG,addDevice)
+            self.updateRemoteCore(forceUpdate,deviceID,'updateDevice',deviceID,deviceCFG)
         except:
-            self.logger.error("can not add channel %s for deviceID %s"%(channelName,deviceID))
+            self.logger.error("can not update deviceID %s"%(deviceID),exc_info=True)  
             raise Exception
-           
-    def ifDeviceChannelExist(self,deviceID,channelName):
-        '''
-        check if a channel exist
-        '''
-        channelName=str(channelName)
-        channelName=channelName.lower()
-        self.logger.debug("check if channel %s for deviceID %s available"%(channelName,deviceID))
-        try:
-            if not deviceID in self.devices:
-                self.logger.error("device id %s not existing"%(deviceID))
-                raise Exception
-            return self.devices[deviceID].ifChannelExist(channelName)
-        except:
-            self.logger.error("can not check if channel %s for device id %s available"%(channelName,deviceID),exc_info=True)
-            raise
-        
-    def setDeviceChannelValue(self,deviceID,channelName,value,forceUpdate=False):
-        '''
-        set a channel value for a dive
-        '''
-        channelName=str(channelName)
-        channelName=channelName.lower()
-        self.logger.info("set channel %s for deviceID %s value %s"%(channelName,deviceID,value))
-        try:
-            if not deviceID in self.devices:
-                self.logger.error("device id %s not existing"%(deviceID))
-                raise Exception
-            self.devices[deviceID].setChannelValue(channelName,value)
-            self.updateRemoteCore(forceUpdate,deviceID,'setDeviceChannelValue',deviceID,channelName,value)
-        except:
-            self.logger.error("can not set channel %s for device id %s value %s"%(channelName,deviceID,value),exc_info=True)
-            raise  
-    
-    def getDeviceChannelKey(self,deviceID,channelName,key):
-        '''
-        get a value for a device channel field
-        '''
-        channelName=str(channelName)
-        channelName=channelName.lower()
-        try: 
-            if deviceID not in self.devices:
-                self.logger.error("object id %s not existing"%(deviceID))
-                raise Exception
-            return self.devices[deviceID].getChannelKey(channelName,key)
-        except:
-            self.logger.error("can not get channel %s and key:%s for deviceID %s"%(channelName,key,deviceID),exc_info=True)
-            raise 
-    
-    def changeDeviceChannel(self,deviceID,channelName,value):
-        '''
-        change a device channel
-        '''
-        channelName=str(channelName)
-        channelName=channelName.lower()
-        try: 
-            if deviceID not in self.devices:
-                self.logger.error("deviceID %s not existing"%(deviceID))
-                raise Exception
-            return self.devices[deviceID].changeChannelValue(channelName,value)
-        except:
-            self.logger.error("can not change channel %s for device id %s"%(channelName,deviceID),exc_info=True)
-            raise 
-       
-    def getDeviceChannelValue(self,deviceID,channelName):
-        '''
-        get a value for a device channel value
-        '''
-        channelName=str(channelName)
-        channelName=channelName.lower()
-        try: 
-            if deviceID not in self.devices:
-                self.logger.error("deviceID %s not existing"%(deviceID))
-                raise Exception
-            return self.devices[deviceID].getChannelValue(channelName)
-        except:
-            self.logger.error("can not get channel %s for device id %s"%(channelName,deviceID),exc_info=True)
-            raise 
     
     def addDevice(self,deviceID,deviceCFG,forceUpdate=False):
         '''
@@ -157,27 +69,38 @@ class coreDevices ():
             if not 'devicetype' in deviceCFG:
                 self.logger.error("device has no deviceType deviceID:%s use to defaultdevice"%(deviceID))
                 deviceCFG['devicetype']="defaultdevice"   
-            self.logger.info("add device with device id %s and typ:%s"%(deviceID,deviceCFG['devicetype']))
             self.__buildDevice(copy.deepcopy(deviceCFG),adding)
-            self.updateRemoteCore(forceUpdate,deviceID,'addDevice',deviceID,deviceCFG)
-            #todo: add the event on create
+            self.updateRemoteCore(forceUpdate,deviceID,'updateDevice',deviceID,deviceCFG)
         except:
-            self.logger.error("can not add device id %s"%(deviceID),exc_info=True)
+            self.logger.error("can not add deviceID %s"%(deviceID),exc_info=True)
             raise Exception
     
-    def ifDeviceEnable(self,deviceID): 
+    def addDeviceChannel(self,deviceID,channelName,channelValues,forceUpdate=False):
         '''
-        check if device enable
-        
-        return  true if enable
-                false is disable
-                
-        exception is deviceID not existing
+        add a new channel to a device
+        '''
+        channelName=str(channelName)
+        channelName=channelName.lower()
+        channelValuesCP=copy.deepcopy(channelValues)
+        try:
+            if not deviceID in self.devices:
+                self.logger.error("deviceID %s not existing"%(deviceID))
+                raise Exception
+            self.devices[deviceID].addChannel(channelName,channelValuesCP)
+            self.updateRemoteCore(forceUpdate,deviceID,'addDeviceChannel',deviceID,channelName,channelValuesCP)
+        except:
+            self.logger.error("can not add channel %s for deviceID %s"%(channelName,deviceID))
+            raise Exception
+           
+    def deleteDevice(self,deviceID,callEvents=True):
+        '''
+        delete a device
         '''
         if deviceID not in self.devices:
-            self.logger.error("object id %s not existing"%(deviceID))
-            raise Exception
-        return self.devices[deviceID].ifEnable()
+            self.logger.error("deviceID:%s is not exisit"%(deviceID))
+            return
+        self.devices[deviceID].delete(callEvents)
+        del self.devices[deviceID]
     
     def deviceDisable(self,deviceID,forceUpdate=False): 
         '''
@@ -187,7 +110,7 @@ class coreDevices ():
         update remote core
         '''
         if deviceID not in self.devices:
-            self.logger.error("object id %s not existing"%(deviceID))
+            self.logger.error("deviceID %s not existing"%(deviceID))
             raise Exception
         self.devices[deviceID].disable()
         self.updateRemoteCore(forceUpdate,deviceID,'deviceDisable',deviceID)
@@ -200,39 +123,93 @@ class coreDevices ():
         update remote core
         '''
         if deviceID not in self.devices:
-            self.logger.error("object id %s not existing"%(deviceID))
+            self.logger.error("deviceID %s not existing"%(deviceID))
             raise Exception
         self.devices[deviceID].enable()
         self.updateRemoteCore(forceUpdate,deviceID,'deviceEnable',deviceID)
-      
+    
+    def setDeviceChannelValue(self,deviceID,channelName,value,forceUpdate=False):
+        '''
+        set a channel value for a dive
+        '''
+        channelName=str(channelName)
+        channelName=channelName.lower()
+        try:
+            if not deviceID in self.devices:
+                self.logger.error("deviceID %s not existing"%(deviceID))
+                raise Exception
+            self.devices[deviceID].setChannelValue(channelName,value)
+            self.updateRemoteCore(forceUpdate,deviceID,'setDeviceChannelValue',deviceID,channelName,value)
+        except:
+            self.logger.error("can not set channel %s for deviceID %s value %s"%(channelName,deviceID,value),exc_info=True)
+            raise  
+        
+    def changeDeviceChannelValue(self,deviceID,channelName,value):
+        '''
+        change a device channel
+        '''
+        channelName=str(channelName)
+        channelName=channelName.lower()
+        try: 
+            if deviceID not in self.devices:
+                self.logger.error("deviceID %s not existing"%(deviceID))
+                raise Exception
+            return self.devices[deviceID].changeChannelValue(channelName,value)
+        except:
+            self.logger.error("can not change channel %s for deviceID %s"%(channelName,deviceID),exc_info=True)
+            raise 
+       
+    def ifDeviceChannelExist(self,deviceID,channelName):
+        '''
+        check if a channel exist
+        '''
+        channelName=str(channelName)
+        channelName=channelName.lower()
+        try:
+            if not deviceID in self.devices:
+                self.logger.error("deviceID %s not existing"%(deviceID))
+                raise Exception
+            return self.devices[deviceID].ifChannelExist(channelName)
+        except:
+            self.logger.error("can not check if channel %s for deviceID %s available"%(channelName,deviceID),exc_info=True)
+            raise Exception
     def ifDeviceExists(self,deviceID): 
         '''
         check if device exist
         '''  
         if deviceID in self.devices:
             return True
-        return False   
-    
-    def updateDevice(self,deviceID,deviceCFG,forceUpdate=False):
-        '''
-        update a exist device to a new one
-        '''
-        self.logger.debug("update device %s"%(deviceID))
-        callEvents=False
-        addDevice=True
-        try:
-            if deviceID in self.devices:
-                if self.getDeviceConfiguration(deviceID)==deviceCFG:
-                    self.logger.debug("nothing to update deviceID %s is up to date"%(deviceID))
-                    return
-                self.deleteDevice(deviceID,callEvents)
-                addDevice=False
-            self.__buildDevice(deviceCFG,addDevice)
-            self.updateRemoteCore(forceUpdate,deviceID,'updateDevice',deviceID,deviceCFG)
-        except:
-            self.logger.error("can not update deviceID %s"%(deviceID),exc_info=True)  
-            raise Exception
+        return False  
         
+    def ifDeviceEnable(self,deviceID): 
+        '''
+        check if device enable
+        
+        return  true if enable
+                false is disable
+                
+        exception is deviceID not existing
+        '''
+        if deviceID not in self.devices:
+            self.logger.error("deviceID %s not existing"%(deviceID))
+            raise Exception
+        return self.devices[deviceID].ifEnable()
+    
+    def getDeviceChannelValue(self,deviceID,channelName):
+        '''
+        get a value for a device channel value
+        '''
+        channelName=str(channelName)
+        channelName=channelName.lower()
+        try: 
+            if deviceID not in self.devices:
+                self.logger.error("deviceID %s not existing"%(deviceID))
+                raise Exception
+            return self.devices[deviceID].getChannelValue(channelName)
+        except:
+            self.logger.error("can not get channel %s for deviceID %s"%(channelName,deviceID),exc_info=True)
+            raise
+      
     def getDeviceConfiguration(self,deviceID) :
         '''
         get the device configuration back
@@ -245,7 +222,21 @@ class coreDevices ():
         except:
             self.logger.error("can not get device configuration for deviceID %s"%(deviceID),exc_info=True)  
             raise Exception
-        
+    
+    def getDeviceChannelKey(self,deviceID,channelName,key):
+        '''
+        get a value for a device channel field
+        '''
+        channelName=str(channelName)
+        channelName=channelName.lower()
+        try: 
+            if deviceID not in self.devices:
+                self.logger.error("deviceID %s not existing"%(deviceID))
+                raise Exception
+            return self.devices[deviceID].getChannelKey(channelName,key)
+        except:
+            self.logger.error("can not get channel %s and key:%s for deviceID %s"%(channelName,key,deviceID),exc_info=True)
+            raise Exception 
            
     def getAllDeviceChannel(self,deviceID): 
         '''
