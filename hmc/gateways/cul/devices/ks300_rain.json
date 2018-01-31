@@ -1,7 +1,7 @@
 {
     "channels": {
         "rain": {
-            "create": 1517248882, 
+            "create": 1517349515, 
             "devicegroupe": [], 
             "enable": true, 
             "lastchange": 0, 
@@ -17,7 +17,7 @@
             "value": 0
         }, 
         "rssi": {
-            "create": 1517248882, 
+            "create": 1517349515, 
             "devicegroupe": [], 
             "enable": true, 
             "lastchange": 0, 
