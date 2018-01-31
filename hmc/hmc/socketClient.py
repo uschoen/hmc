@@ -96,9 +96,9 @@ class CoreConnection(threading.Thread):
         self.logger.info("%s start"%(__name__))
         while self.running:
             time.sleep(0.1)
-            if self.__blockedTime<int(time.time()) or not self._busyoutClient:
+            if self.__blockedTime<int(time.time()) and not self._busyoutClient:
                 self.__coreSync()
-                while self.__isCoreSync and self.running:
+                while self.__isCoreSync and self.running and not self._busyoutClient:
                     if self._socketTimer<int(time.time()) and self.__socketConnect:
                         self.__socketClose()
                     if not self.__coreQueue.empty():
