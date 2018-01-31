@@ -170,22 +170,25 @@ class device(object):
             self.logger.error("channel: %s is exist"%(channelName))
             raise Exception
         try:
+            ''' update device config'''
             newChannel=copy.deepcopy(self._defaultChannel)
             newChannel.update(channelValues.get(channelName,{}))
             self._device['channels'][channelName]=newChannel
-            
-            jsonDeviceConfig={
-                'channels':{}}
-            try:
-                jsonDeviceConfig.update(self._loadJSON(self._deviceConfigPath))
-            except:
-                self.logger.error("can not load device json file. ignore devicefile configuration and add new one")
-            jsonDeviceConfig['channels'][channelName]=newChannel
-            self._writeJSON(self._deviceConfigPath,jsonDeviceConfig)
         except:
-            self.logger.error("can not add new channel to deviceID %s"%(self.deviceID), exc_info=True)
-            raise   
-    
+            self.logger.error("can not add new channel: %d fore devicID %s"%(channelName,self.deviceID)) 
+            raise Exception
+        try:
+            ''' update config '''
+            deviceFileConfig=self.__self._loadJSON(self._deviceConfigPath)
+            deviceChannels=deviceFileConfig.get('channels',{})
+            if channelName in deviceChannels:
+                return
+            deviceChannels[channelName]=newChannel
+            deviceFileConfig['channels']=deviceChannels
+            self._writeJSON(self._deviceConfigPath,deviceFileConfig)
+        except:
+            self.logger.error("can not load device json file %s, ignor updae file"%(self._deviceConfigPath))
+            
     def getChannelKey(self,channelName,key):
         '''
         get value of channel
