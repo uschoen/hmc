@@ -76,7 +76,7 @@ class sensor(threading.Thread):
                         check if channel temperature exists
                         '''
                         if not self.__core.ifDeviceChannelExist(deviceID,"temperature"):
-                            self.__addChannel(sensorID,"temperature")
+                            self.__addChannel(deviceID,sensorID,"temperature")
                         '''
                         read temperature from sensor
                         '''   
@@ -109,11 +109,11 @@ class sensor(threading.Thread):
         except:    
             self.logger.error("can not update sensorID %s"%(sensorID),exc_info=True) 
     
-    def __addChannel(self,sensorID,channelName):
+    def __addChannel(self,deviceID,sensorID,channelName):
         '''
         add new channel to device core
         '''
-        deviceID=self.__deviceID(sensorID)
+        
         self.logger.info("add channel:%s"%(channelName))
         try:
             channelValues={}
@@ -195,10 +195,7 @@ class sensor(threading.Thread):
                     "package":self.__args['package']
                     }
             self.__connectedSensors[sensorID]={}
-            if self.__core.ifDeviceExists(deviceID):
-                self.logger.info("deviceID %s is existing, update core"%(deviceID))
-                self.__core.updateDevice(deviceID,device)
-            else:
+            if not self.__core.ifDeviceExists(deviceID):
                 self.logger.info("add deviceID %s to core"%(deviceID))
                 self.__core.addDevice(deviceID,device)
             self.__connectedSensors[sensorID]["connected"]=True

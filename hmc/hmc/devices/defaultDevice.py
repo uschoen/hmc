@@ -25,7 +25,7 @@ class device(object):
         '''
         self._device={}
         # list of device configuration
-        self._defaultDevice={      
+        defaultDevice={      
                             "deviceID":deviceID,
                             "devicetype":"defaultDevice",
                             "package":"hmc.devices",
@@ -86,15 +86,14 @@ class device(object):
         self._deviceConfigPath="gateways/%s/devices/%s.json"%(self.packageName.replace(".", "/"),self._name_())
         if self._name_()=="defaultDevice":
             self._deviceConfigPath="core/hmc/devices/defaultDevice.json"
-        try:
-            deviceConfiguration={}       
+        try: 
             try:
                 deviceConfiguration=self._loadJSON(self._deviceConfigPath)
             except:
                 self.logger.error("can not load device json file, ignore file configuration")
-            deviceConfiguration.update(self._defaultDevice)
-            deviceConfiguration.update(deviceCFG)
-            self._device=deviceConfiguration
+            defaultDevice.update(deviceConfiguration) 
+            defaultDevice.update(deviceCFG)
+            self._device=defaultDevice
         except:
             self.logger.error("can not load device configuration, %s can not build"%(self._name_()))
             raise Exception
@@ -179,7 +178,7 @@ class device(object):
             raise Exception
         try:
             ''' update config '''
-            deviceFileConfig=self.__self._loadJSON(self._deviceConfigPath)
+            deviceFileConfig=self._loadJSON(self._deviceConfigPath)
             deviceChannels=deviceFileConfig.get('channels',{})
             if channelName in deviceChannels:
                 return
@@ -187,7 +186,7 @@ class device(object):
             deviceFileConfig['channels']=deviceChannels
             self._writeJSON(self._deviceConfigPath,deviceFileConfig)
         except:
-            self.logger.error("can not load device json file %s, ignor updae file"%(self._deviceConfigPath))
+            self.logger.error("can not load device json file %s, ignor updae file"%(self._deviceConfigPath), exc_info=True)
             
     def getChannelKey(self,channelName,key):
         '''
