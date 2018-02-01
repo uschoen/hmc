@@ -124,10 +124,11 @@ class coreGateways():
                 return
             self.deleteGateway(gatewayName)
             self.__buildGateway(gatewayName,config)
-            try:
-                self.startGateway(gatewayName)
-            except:
-                pass
+            if self.eventHome(gatewayName):
+                try:
+                    self.startGateway(gatewayName)
+                except:
+                    pass
             self.updateRemoteCore(forceUpdate,gatewayName,'updateGateway',gatewayName,config)
         except:
             self.logger.debug("can not update gateway %s"%(gatewayName),exc_info=True)
@@ -232,6 +233,9 @@ class coreGateways():
         
         raise a exception
         '''
+        if not self.eventHome(gatewayName):
+            self.logger.error("gateways %s is not on this host"%(gatewayName))
+            raise Exception
         if gatewayName not in self.gatewaysInstance:
             self.logger.error("gateways %s is not existing"%(gatewayName))
             raise Exception
