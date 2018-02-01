@@ -234,7 +234,7 @@ class coreGateways():
         raise a exception
         '''
         if not self.eventHome(gatewayName):
-            self.logger.error("gateways %s is not on this host"%(gatewayName))
+            self.logger.debug("gateways %s is not on this host"%(gatewayName))
             raise Exception
         if gatewayName not in self.gatewaysInstance:
             self.logger.error("gateways %s is not existing"%(gatewayName))
