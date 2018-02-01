@@ -261,7 +261,7 @@ class coreDevices ():
         '''
         build a new device object
         '''
-        DEFAULTDEVICE="hmc.devices.defaultDevice"
+        DEFAULTDEVICE="gateways.hmc.devices.defaultDevice"
         devicePackage=DEFAULTDEVICE
         if deviceCFG.get('package'):
             devicePackage="gateways.%s.devices.%s"%(deviceCFG.get('package'),deviceCFG.get('devicetype'))
@@ -331,7 +331,7 @@ class coreDevices ():
                 pythonFile.write("\'\'\'\nCreated on %s\n"%(time.strftime("%d.%m.%Y")))
                 pythonFile.write("@author: uschoen\n\n")
                 pythonFile.write("\'\'\'\n")
-                pythonFile.write("from hmc.devices.defaultDevice import device\n\n")
+                pythonFile.write("from gateways.hmc.devices.defaultDevice import device\n\n")
                 pythonFile.write("__version__=\"%s\"\n\n"%(__version__))
                 pythonFile.write("\n")
                 pythonFile.write("class device(device):\n")

@@ -3,7 +3,7 @@ Created on 09.01.2018
 @author: uschoen
 
 '''
-from hmc.devices.defaultDevice import device
+from gateways.hmc.devices.defaultDevice import device
 from homematicParty import partyChannel
 
 __version__="3.1"
