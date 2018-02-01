@@ -3,7 +3,7 @@ Created on 23.12.2017
 @author: uschoen
 
 '''
-from hmc.devices.defaultDevice import device
+from gateways.hmc.devices.defaultDevice import device  
 
 __version__="3.0"
 
