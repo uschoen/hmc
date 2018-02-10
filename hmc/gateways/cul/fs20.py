@@ -16,6 +16,7 @@ class fs20device(object):
         channelNameDevice="value"
         channelNameRSSI='rssi'
         try:
+            FSID="%s"%(msg[0:6])
             deviceID="%s@%s.%s"%(msg[0:6],self.config['package'],self.config['host'])
             rssi=self.rssi(int(msg[8:9],16))
             value=str(msg[6:8])
@@ -25,7 +26,7 @@ class fs20device(object):
                 '''
                 add device
                 '''
-                self.addNewDevice(deviceID,'fs20')
+                self.addNewDevice(deviceID,'fs20',FSID)
             
             if not self.core.ifDeviceChannelExist(deviceID,channelNameDevice):
                 ''' 

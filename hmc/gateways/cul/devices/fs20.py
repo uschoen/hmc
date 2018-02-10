@@ -16,10 +16,12 @@ class device(device):
         channelName=str(channelName)
         channelName=channelName.lower()
         try:
-            if not channelName in self._channels:
+            if not channelName in self._device['channels']:
                 self.logger.error("channel %s is not exist"%(channelName))
                 raise Exception
             self.logger.info("device has no change channel function") 
-            #self.gateway.send("")
+            sendMSG="F%s%s"%(self._device.get("FSID","000000"),value)
+            gateway=self._core.getGatewaysInstance(self._device.get("gateway"))
+            gateway.send(sendMSG)
         except:
-            self.logger.error("can not change deviceID %s channel:%s to value %s"%(self._device['deviceID']['value'],channelName,value)) 
+            self.logger.error("can not change deviceID %s channel:%s to value %s"%(self._device['deviceID'],channelName,value), exc_info=True) 

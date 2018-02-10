@@ -9,7 +9,7 @@ __version__ = "2.0"
 import hashlib
 import os
 from Crypto.Cipher import AES       #@UnresolvedImport
-import logging.config               #@UnusedImport
+import logging
 import cPickle
 
 

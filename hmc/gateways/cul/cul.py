@@ -99,7 +99,7 @@ class sensor(threading.Thread,fs20device,ws300device):
             self.log.error("can not add channel %s for deviceID %s "%(channelName,deviceID),exc_info=True) 
             raise
            
-    def addNewDevice(self,deviceID,devicetype):
+    def addNewDevice(self,deviceID,devicetype,FSID=False):
         '''
         add a new device to core
         
@@ -108,16 +108,18 @@ class sensor(threading.Thread,fs20device,ws300device):
         
         raise exception
         '''
-        
+        if not FSID:
+            FSID=deviceID
         try:
             device={
-                    "gateway":"%s"%(self.config['gateway']),
+                    "gateway":self.config.get('gateway',"unknown"),
                     "deviceID":deviceID,
                     "enable":True,
                     "connected":True,
                     "devicetype":"%s"%(devicetype),
-                    "host":self.config['host'],
-                    "package":self.config['package'],
+                    "host":self.config.get('host',"unknown"),
+                    "package":self.config.get('package',"unknown"),
+                    "FSID":FSID
                     }
             if self.core.ifDeviceExists(deviceID):
                 self.log.info("deviceID %s is existing, update core"%(deviceID))
@@ -208,8 +210,12 @@ class sensor(threading.Thread,fs20device,ws300device):
             raise Exception        
     
     def send(self,command):
-        self.__sendCommand(command)
-         
+        try:
+            command=command.encode('utf-8')
+            self.__sendCommand(command)
+        except:
+            self.log.error("send command:%s have some error"%(command),exc_info=True)
+             
     def __sendCommand(self,command):
         '''
         send a command
@@ -227,7 +233,7 @@ class sensor(threading.Thread,fs20device,ws300device):
             self.__USBport.write("%s\r\n"%(command))
             self.__budget = 0
         except:
-            self.log.error("can not send command")
+            self.log.error("can not send command",exc_info=True)
             raise Exception
     
     def __readResult(self):

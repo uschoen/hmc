@@ -9,7 +9,7 @@ __version__ = 3.1
 import logging
 import time
 import threading
-from smtpd import program
+
 
 
 class praraphser(threading.Thread):
@@ -71,9 +71,9 @@ class praraphser(threading.Thread):
      
     def __run(self,program):
         try:
-            self.__build(program)
+            self.__root(program)
         except:
-            self.__log.error("some error in program %s"%(self.__callerValues.get('programName')))
+            self.__log.error("some error in program %s"%(self.__callerValues.get('programName')),exc_info=True)
             raise Exception        
     
     def __root(self,prog,cmd="root"):
@@ -268,7 +268,7 @@ class praraphser(threading.Thread):
         (deviceID,channelName,value)=(strg.get('deviceID'),strg.get('channelName'),strg.get('value'))
         self.__log.debug("call function changeDeviceChannel %s and channelName %s to value: %s"%(deviceID,channelName,value))
         try:
-            self.__core.changeDeviceChannel(deviceID,channelName,value)
+            self.__core.changeDeviceChannelValue(deviceID,channelName,value)
         except:
             self.__log.error("can not change deviceID %s and channelName %s to value: %s"%(deviceID,channelName,value),exc_info=True)
             raise Exception

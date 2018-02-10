@@ -102,9 +102,7 @@ class device(object):
         '''
         if  hasattr(self,"privateInit"):
             self.privateInit()
-        
-        self.gateway=self._core.getGatewaysInstance 
-        
+
         self.logger.debug("build %s instance"%(self._name_()))
         
         '''

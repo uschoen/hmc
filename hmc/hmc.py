@@ -33,7 +33,6 @@ import getpass
 import signal
 from hmc.core import manager as coreManager
 import socket
-import logging
 import logging.config
 
 
