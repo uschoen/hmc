@@ -10,7 +10,6 @@ import hashlib
 import os
 from Crypto.Cipher import AES       #@UnresolvedImport
 import logging.config               #@UnusedImport
-import logging                      #@UnusedImport
 import cPickle
 
 
