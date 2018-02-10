@@ -72,6 +72,8 @@ class device(device):
             self._addSysChannels()
             self.__clearOldTemp()
             lastTemperature=self._core.getDeviceChannelValue(self.deviceID,'lasttemperature')
+            if not lastTemperature:
+                lastTemperature={}
             lastTemperature[int(time())]=temperature
             self._core.setDeviceChannelValue(self.deviceID,'lasttemperature',lastTemperature)
             self._core.setDeviceChannelValue(self.deviceID,'tempmin24h', min(lastTemperature.values()))
