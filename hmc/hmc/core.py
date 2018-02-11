@@ -10,10 +10,10 @@ from coreGateways import coreGateways
 from coreConfiguration import coreConfiguration
 from coreEvents import coreEvents
 from coreDevice import coreDevices
-from coreConnector import coreConnector
+from coreClients import coreClients
 from coreProgram import coreProgram
 
-class manager(coreBase,coreGateways,coreEvents,coreConfiguration,coreDevices,coreConnector,coreProgram,object):
+class manager(coreBase,coreGateways,coreEvents,coreConfiguration,coreDevices,coreClients,coreProgram,object):
     '''
     classdocs
     '''
