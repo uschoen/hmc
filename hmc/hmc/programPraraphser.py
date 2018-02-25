@@ -8,6 +8,7 @@ __version__ = 3.1
 
 import logging
 import time
+import datetime
 import threading
 
 
@@ -28,6 +29,7 @@ class praraphser(threading.Thread):
                     "role":self.__role,
                     "value":self.__value,
                     "dateTimeNow":self.__dateTimeNow,
+                    "timeNow":self.__timeNow,
                     "callerValue":self.__callerValue,
                     "=":self.__isEqual,
                     "<":self.__isLess,
@@ -35,17 +37,22 @@ class praraphser(threading.Thread):
                     "<>":self.__isUnequal,
                     "<=":self.__isLessOrEqual,
                     ">=":self.__isGraderOrEqual,
+                    "or":self.__or,
+                    "and":self.__and,
+                    "xor":self.__xor,
                     "changeDeviceChannel":self.__changeDeviceChannel,
-                    "getDeviceChannel":self.__getDeviceChannel
+                    "getDeviceChannel":self.__getDeviceChannel,
+                    "list":self.__list
                     
                     }
         self.__allowedCMD={
                     "root":['role','changeDeviceChannel'],
                     "role":['condition'],
+                    "list":['condition','changeDeviceChannel'],
                     "condition":['sourceA','sourceB','comparison','true','false'],
-                    "sourceAB":['value','condition','callerValue','getDeviceValue','dateTimeNow'],
-                    "comparison":["=","<",">","<>","<=",">="],
-                    "truefalse":["changeDeviceChannel"],
+                    "sourceAB":['value','condition','callerValue','getDeviceValue','dateTimeNow','timeNow'],
+                    "comparison":["=","<",">","<>","<=",">=","or","and","xor"],
+                    "truefalse":['list',"changeDeviceChannel"],
                     "changeDeviceChannel":["deviceID","channelName","value"],
                     "getDeviceChannel":["deviceID","channelName"],
                     "callerValue":["deviceID","channelName","eventTyp","programName","programDeep"]
@@ -89,6 +96,23 @@ class praraphser(threading.Thread):
                 return value
         except:
             self.__log.error("build function has error: %s"%(prog),exc_info=True)
+    
+    def __list(self,strg,cmd="list"):
+        '''
+        list function [LIST]
+        '''
+        try:
+            self.__log.debug("call %s function"%(cmd))
+            for role in strg:
+                if role not in self.__allowedCMD[cmd]:
+                    self.__log.error("function %s is not supported in %s"%(role,cmd))
+                    raise Exception
+                (field,value)=(strg.keys()[0],strg.values()[0])
+                self.__log.debug("call function %s value:%s"%(field,value))
+                self.__CMD[field](value)
+        except:
+            self.__log.error("%s function has error: %s"%(cmd,strg),exc_info=True)
+    
     
     def __role(self,strg,cmd="role"):
         '''
@@ -249,7 +273,52 @@ class praraphser(threading.Thread):
         except:
             self.__log.debug("can not compare isUnequal")
             raise Exception
-        
+    
+    def __or(self,valueA,valueB):
+        '''
+                check if or
+                
+        return true or false
+        '''
+        self.__log.debug("call isUnequal function")
+        try:
+            if valueA or valueB:
+                return True
+            return False
+        except:
+            self.__log.debug("can not compare isUnequal")
+            raise Exception
+    
+    def __and(self,valueA,valueB):
+        '''
+                check if and
+                
+        return true or false
+        '''
+        self.__log.debug("call isUnequal function")
+        try:
+            if valueA and valueB:
+                return True
+            return False
+        except:
+            self.__log.debug("can not compare isUnequal")
+            raise Exception
+    
+    def __xor(self,valueA,valueB):
+        '''
+                check if xor
+                
+        return true or false
+        '''
+        self.__log.debug("call isUnequal function")
+        try:
+            if valueA != valueB:
+                return True
+            return False
+        except:
+            self.__log.debug("can not compare isUnequal")
+            raise Exception
+           
     def __value(self,strg):
         '''
         return a value
@@ -308,7 +377,14 @@ class praraphser(threading.Thread):
         return a time stamp
         '''
         return int(time.time())
-
+    
+    def __timeNow(self,strg=False):
+        '''
+        return secound since midnight
+        '''
+        now = datetime.datetime.now()
+        midnight = datetime.datetime.combine(now.date(), datetime.time())
+        return (now - midnight).seconds
 
 if __name__ == "__main__":
     
