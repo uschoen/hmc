@@ -12,10 +12,12 @@ write config only if entry exist
 class coreConfiguration():
     
     def loadAllConfiguration(self):
-        self.logger.info("load core configuration file")
+        self.logger.info("load all configuration file")
         path="%s%s/%s"%(self.args['confFile']['basePath'],self.args['global']['host'],self.args['confFile']['filePath'])
+        if not self.ifPathExists(path):
+            self.makeDir(path)
         '''
-        event handler
+        program 
         '''
         self.loadProgramFile(path+self.args['confFile']['program'])
         ''' 
@@ -34,6 +36,9 @@ class coreConfiguration():
     def loadGatewayFile(self,filename): 
         self.logger.info("reading configuration database gateways %s"%(filename))      
         try:
+            if not self.ifFileExists(filename):
+                self.logger.info("no file %s, create new one"%(filename))  
+                self.writeJSON(filename,{}) 
             gatewaysCFG=self.loadJSON(filename)
             for gatewayName in gatewaysCFG:
                 try:
@@ -50,10 +55,10 @@ class coreConfiguration():
         '''
         self.logger.info("reading configuration database devices %s"%(filename)) 
         try:
+            if not self.ifFileExists(filename):
+                self.logger.info("no file %s, create new one"%(filename))  
+                self.writeJSON(filename,{}) 
             coreClientsCFG=self.loadJSON(filename)
-        except IOError:
-            self.logger.warning("no core clients file: %s , add new one"%(filename), exc_info=True)
-            return
         except:
             self.logger.error("can not reading core clients file", exc_info=True)
             return
@@ -66,14 +71,14 @@ class coreConfiguration():
         self.logger.info("restore coreClient success")
         
     def loadDeviceFile(self,filename):
-        self.logger.info("reading configuration database devices %s"%(filename)) 
+        self.logger.info("reading configuration devices %s"%(filename)) 
         try:
+            if not self.ifFileExists(filename):
+                self.logger.info("no file %s, create new one"%(filename))  
+                self.writeJSON(filename,{}) 
             devicesCFG=self.loadJSON(filename)
-        except IOError:
-            self.logger.warning("no Device file: %s , add new one"%(filename), exc_info=True)
-            return
         except:
-            self.logger.error("can not reading device configuration file", exc_info=True)
+            self.logger.error("can not reading device configuration  file", exc_info=True)
             return
         if len(devicesCFG)>0:
             self.logger.info("start to restore %s devices"%(len(devicesCFG)))
@@ -91,6 +96,9 @@ class coreConfiguration():
     def loadProgramFile(self,filename):
         self.logger.info("load programs from file %s"%(filename))
         try:    
+            if not self.ifFileExists(filename):
+                self.logger.info("no file %s, create new one"%(filename))  
+                self.writeJSON(filename,{}) 
             self.program=self.loadJSON(filename)
             for programName in self.program:
                 self.logger.info("try to add program %s"%(programName))
@@ -104,9 +112,10 @@ class coreConfiguration():
     def writeAllConfiguration(self):
         path="%s%s/%s"%(self.args['confFile']['basePath'],self.args['global']['host'],self.args['confFile']['filePath'])
         self.logger.info("write configuration")
+        if not self.ifPathExists(path):
+            self.makeDir(path)
         self.writeProgramFile(path+self.args['confFile']['program'])
-        if self.args['confFile']['gatewaysWrite']:
-            self.writeGatewayFile(path+self.args['confFile']['gateways'])
+        self.writeGatewayFile(path+self.args['confFile']['gateways'])
         self.writeDevicesFile(path+self.args['confFile']['devices'])
         self.CoreClientsFile(path+self.args['confFile']['remoteCore'])
         

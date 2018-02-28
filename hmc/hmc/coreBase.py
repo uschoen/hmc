@@ -133,16 +133,24 @@ class coreBase():
             self.logger.error("can not format pattern %s"%(pattern),exc_info=True)
             return False
         
-    def __dirExists(self,dir):
-        self.logger.debug("check if directory %s exists"%(dir))
-        return os.path.isdir(dir)
+    def ifPathExists(self,path):
+        path=os.path.normpath(path)
+        self.logger.debug("check if directory %s exists"%(path))
+        return os.path.isdir(path)
     
-    def _ifFileExists(self,filename):
+    def ifFileExists(self,filename):
+        filename=os.path.normpath(filename)
         self.logger.debug("check if file %s exists"%(filename))
         return (os.path.exists(filename))
     
-    def __makeDir(self,dir):
-        self.logger.debug("add directory %s"%(dir))
+    def makeDir(self,path):
+        path=os.path.normpath(path)
+        self.logger.debug("add directory %s"%(path))
+        try:
+            os.makedirs(path)
+        except:
+            self.logger.error("can not add directory %s"%(path),exc_info=True)
+            raise Exception
         
     def loadModul(self,pakage,modulName,modulCFG):
         """ load python pakage/module
