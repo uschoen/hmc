@@ -143,7 +143,7 @@ class server(threading.Thread):
                         self.__sendAnwser(clientsocket,self.__webProtocol.encode("result",funcArgs,"1"))
                         break
                     except:
-                        self.__log.error("ca not call function: %s"%(function))
+                        self.__log.error("can not call function: %s"%(function),exc_info=True)
                         self.__sendAnwser(clientsocket,self.__webProtocol.encode("result",{"message":"function %s have some error"%(function)},"0"))
                         break
                 else: 
