@@ -113,10 +113,10 @@ if __name__ == '__main__':
     """
     Gloable Variablen
     """
-    configuration=  { 'configfile':'etc/'+socket.gethostname()+'/config.json',
+    configuration=  { 'configfile':"etc/%s/config.json"%(socket.gethostbyaddr(socket.gethostname())[0]),
                       'daemon':False, 
                       'global':{
-                                'host':socket.gethostname()
+                                'host':socket.gethostbyaddr(socket.gethostname())[0]
                                }           
                     }        
     logger=False
