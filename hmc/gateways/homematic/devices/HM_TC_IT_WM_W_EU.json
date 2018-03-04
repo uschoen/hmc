@@ -1,5 +1,133 @@
 {
     "channels": {
+        "actual_humidity": {
+            "create": 1520183632, 
+            "devicegroupe": [], 
+            "enable": true, 
+            "lastchange": 0, 
+            "lastupdate": 0, 
+            "name": "actual_humidity", 
+            "program": {
+                "onboot_event": [], 
+                "onchange_event": [], 
+                "oncreate_event": [], 
+                "ondelete_event": [], 
+                "onrefresh_event": []
+            }, 
+            "value": 0
+        }, 
+        "actual_temperature": {
+            "create": 1520183632, 
+            "devicegroupe": [], 
+            "enable": true, 
+            "lastchange": 0, 
+            "lastupdate": 0, 
+            "name": "actual_temperature", 
+            "program": {
+                "onboot_event": [], 
+                "onchange_event": [], 
+                "oncreate_event": [], 
+                "ondelete_event": [], 
+                "onrefresh_event": []
+            }, 
+            "value": 0
+        }, 
+        "battery_state": {
+            "create": 1520183627, 
+            "devicegroupe": [], 
+            "enable": true, 
+            "lastchange": 0, 
+            "lastupdate": 0, 
+            "name": "battery_state", 
+            "program": {
+                "onboot_event": [], 
+                "onchange_event": [], 
+                "oncreate_event": [], 
+                "ondelete_event": [], 
+                "onrefresh_event": []
+            }, 
+            "value": 0
+        }, 
+        "boost_state": {
+            "create": 1520183627, 
+            "devicegroupe": [], 
+            "enable": true, 
+            "lastchange": 0, 
+            "lastupdate": 0, 
+            "name": "boost_state", 
+            "program": {
+                "onboot_event": [], 
+                "onchange_event": [], 
+                "oncreate_event": [], 
+                "ondelete_event": [], 
+                "onrefresh_event": []
+            }, 
+            "value": 0
+        }, 
+        "communication_reporting": {
+            "create": 1520183627, 
+            "devicegroupe": [], 
+            "enable": true, 
+            "lastchange": 0, 
+            "lastupdate": 0, 
+            "name": "communication_reporting", 
+            "program": {
+                "onboot_event": [], 
+                "onchange_event": [], 
+                "oncreate_event": [], 
+                "ondelete_event": [], 
+                "onrefresh_event": []
+            }, 
+            "value": 0
+        }, 
+        "control_mode": {
+            "create": 1520183627, 
+            "devicegroupe": [], 
+            "enable": true, 
+            "lastchange": 0, 
+            "lastupdate": 0, 
+            "name": "control_mode", 
+            "program": {
+                "onboot_event": [], 
+                "onchange_event": [], 
+                "oncreate_event": [], 
+                "ondelete_event": [], 
+                "onrefresh_event": []
+            }, 
+            "value": 0
+        }, 
+        "humidity": {
+            "create": 1520183632, 
+            "devicegroupe": [], 
+            "enable": true, 
+            "lastchange": 0, 
+            "lastupdate": 0, 
+            "name": "humidity", 
+            "program": {
+                "onboot_event": [], 
+                "onchange_event": [], 
+                "oncreate_event": [], 
+                "ondelete_event": [], 
+                "onrefresh_event": []
+            }, 
+            "value": 0
+        }, 
+        "lowbat_reporting": {
+            "create": 1520183627, 
+            "devicegroupe": [], 
+            "enable": true, 
+            "lastchange": 0, 
+            "lastupdate": 0, 
+            "name": "lowbat_reporting", 
+            "program": {
+                "onboot_event": [], 
+                "onchange_event": [], 
+                "oncreate_event": [], 
+                "ondelete_event": [], 
+                "onrefresh_event": []
+            }, 
+            "value": 0
+        }, 
         "party_start_day": {
             "create": 1517249193, 
             "devicegroupe": [], 
@@ -167,6 +295,70 @@
             "lastchange": 0, 
             "lastupdate": 0, 
             "name": "partystoptime", 
+            "program": {
+                "onboot_event": [], 
+                "onchange_event": [], 
+                "oncreate_event": [], 
+                "ondelete_event": [], 
+                "onrefresh_event": []
+            }, 
+            "value": 0
+        }, 
+        "set_temperature": {
+            "create": 1520183632, 
+            "devicegroupe": [], 
+            "enable": true, 
+            "lastchange": 0, 
+            "lastupdate": 0, 
+            "name": "set_temperature", 
+            "program": {
+                "onboot_event": [], 
+                "onchange_event": [], 
+                "oncreate_event": [], 
+                "ondelete_event": [], 
+                "onrefresh_event": []
+            }, 
+            "value": 0
+        }, 
+        "sticky_unreach": {
+            "create": 1520183631, 
+            "devicegroupe": [], 
+            "enable": true, 
+            "lastchange": 0, 
+            "lastupdate": 0, 
+            "name": "sticky_unreach", 
+            "program": {
+                "onboot_event": [], 
+                "onchange_event": [], 
+                "oncreate_event": [], 
+                "ondelete_event": [], 
+                "onrefresh_event": []
+            }, 
+            "value": 0
+        }, 
+        "temperature": {
+            "create": 1520183632, 
+            "devicegroupe": [], 
+            "enable": true, 
+            "lastchange": 0, 
+            "lastupdate": 0, 
+            "name": "temperature", 
+            "program": {
+                "onboot_event": [], 
+                "onchange_event": [], 
+                "oncreate_event": [], 
+                "ondelete_event": [], 
+                "onrefresh_event": []
+            }, 
+            "value": 0
+        }, 
+        "window_open_reporting": {
+            "create": 1520183627, 
+            "devicegroupe": [], 
+            "enable": true, 
+            "lastchange": 0, 
+            "lastupdate": 0, 
+            "name": "window_open_reporting", 
             "program": {
                 "onboot_event": [], 
                 "onchange_event": [], 

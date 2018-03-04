@@ -272,6 +272,22 @@
             }, 
             "value": 0
         }, 
+        "sticky_unreach": {
+            "create": 1520183622, 
+            "devicegroupe": [], 
+            "enable": true, 
+            "lastchange": 0, 
+            "lastupdate": 0, 
+            "name": "sticky_unreach", 
+            "program": {
+                "onboot_event": [], 
+                "onchange_event": [], 
+                "oncreate_event": [], 
+                "ondelete_event": [], 
+                "onrefresh_event": []
+            }, 
+            "value": 0
+        }, 
         "valve_state": {
             "create": 1517244372, 
             "devicegroupe": [], 

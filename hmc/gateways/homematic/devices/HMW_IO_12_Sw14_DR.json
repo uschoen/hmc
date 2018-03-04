@@ -1,5 +1,21 @@
 {
     "channels": {
+        "state": {
+            "create": 1520183644, 
+            "devicegroupe": [], 
+            "enable": true, 
+            "lastchange": 0, 
+            "lastupdate": 0, 
+            "name": "state", 
+            "program": {
+                "onboot_event": [], 
+                "onchange_event": [], 
+                "oncreate_event": [], 
+                "ondelete_event": [], 
+                "onrefresh_event": []
+            }, 
+            "value": 0
+        }, 
         "value": {
             "create": 1517243013, 
             "devicegroupe": [], 
