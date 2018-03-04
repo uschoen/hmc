@@ -37,6 +37,7 @@ class server(threading.Thread):
         '''
         self.__allowFunktions=[
             "getAllDeviceId",
+            "getAllDeviceChannel",
             "writeAllConfiguration",
             "writeEventHandlerFile",
             "writeDevicesFile"]
