@@ -244,7 +244,7 @@ class coreDevices ():
         '''
         try:
             if deviceID not in self.devices:
-                self.__log("error","deviceID %s not existing"%(deviceID))
+                self.logger("error","deviceID %s not existing"%(deviceID))
                 raise Exception
             return self.devices[deviceID].getAllChannel()
         except:
