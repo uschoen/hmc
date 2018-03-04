@@ -112,7 +112,7 @@ class server(threading.Thread):
                         (revData,self.__lastMSG)=revData.split(self.__ENDMARKER)
                         break
                     if not data:
-                        break
+                        return None
             return revData
         except:
             self.__log.error("error to receive answer from core %s"%(self.__args.get('hostName')),exc_info=True) 
@@ -126,6 +126,8 @@ class server(threading.Thread):
         while self.running:
             try:
                 data = self.__readClientData(clientsocket)
+                if data ==None:
+                    break
                 (function,args,userStatus)=self.__webProtocol.decode(data)
             except:
                 self.__sendAnwser(clientsocket,self.__webProtocol.encode("result",{"message":"error in json data"},"0"))
