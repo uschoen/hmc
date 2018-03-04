@@ -112,8 +112,7 @@ class server(threading.Thread):
                         (revData,self.__lastMSG)=revData.split(self.__ENDMARKER)
                         break
                     if not data:
-                        self.__log.error("receive no %s data from core %s %s"%(self.__ENDMARKER,self.__args.get('hostName'),revData))
-                        raise Exception
+                        break
             return revData
         except:
             self.__log.error("error to receive answer from core %s"%(self.__args.get('hostName')),exc_info=True) 
@@ -141,21 +140,19 @@ class server(threading.Thread):
                         method_to_call = getattr(self.__core,function)
                         funcArgs=method_to_call(*args)
                         self.__sendAnwser(clientsocket,self.__webProtocol.encode("result",funcArgs,"1"))
-                        break
                     except:
                         self.__log.error("can not call function: %s"%(function),exc_info=True)
                         self.__sendAnwser(clientsocket,self.__webProtocol.encode("result",{"message":"function %s have some error"%(function)},"0"))
-                        break
                 else: 
                     self.__log.error("error function: %s i not allow"%(function))
                     self.__sendAnwser(clientsocket,self.__webProtocol.encode("result",{"message":"function_%s not allow"%(function)},"0"))
-                    break
+                    
                      
             except:
                 self.__log.error("error while fetching data from %s"%(address),exc_info=True)
                 self.__sendAnwser(clientsocket,self.__webProtocol.encode("result",{"message":"error in request"},"0"))
-                break
-        self.__closeSocket(clientsocket)       
+                
+              
                 
     
     def __sendAnwser(self,clientsocket,MSGstring):
