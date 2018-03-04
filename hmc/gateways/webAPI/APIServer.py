@@ -86,7 +86,7 @@ class server(threading.Thread):
         shutdown server
         '''
         self.running=0
-        self.__closeSocket()
+        self.__closeSocket(self.__socket)
         self.__log.critical("stop %s thread"%(__name__))
     
     def __readClientData (self,clientsocket):
@@ -142,6 +142,7 @@ class server(threading.Thread):
                         self.__sendAnwser(clientsocket,self.__webProtocol.encode("result",funcArgs,"1"))
                         break
                     except:
+                        self.__log.error("ca not call function: %s"%(function))
                         self.__sendAnwser(clientsocket,self.__webProtocol.encode("result",{"message":"function %s have some error"%(function)},"0"))
                         break
                 else: 
@@ -167,9 +168,9 @@ class server(threading.Thread):
         try:
             if clientsocket:
                 clientsocket.close()
-                self.__log.debug("close socket server")
         except:
-            self.__log.warning("socket is closed")
+            pass
+        self.__log.debug("close socket server")
                 
     
     def __unblockServer(self):

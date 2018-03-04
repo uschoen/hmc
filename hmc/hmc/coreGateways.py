@@ -186,7 +186,6 @@ class coreGateways():
                     "host":"unknown"
                     }
         defaultGatewayCFG.update(config)
-        #defaultGatewayCFG.update(self.args.get('global'))
         if not defaultGatewayCFG['enable']:
             defaultGatewayCFG['config']['enable']=False
         defaultConfig={

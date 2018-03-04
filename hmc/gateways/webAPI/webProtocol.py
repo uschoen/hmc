@@ -50,11 +50,11 @@ class web(object):
                 }
             dicVar.update(sendDicVar)
             userStatus=False
-            if dicVar.get('user')==self.__params.get('user') and dicVar.get('password')==self.__params.get('user'):
-                userStatus=False
+            if dicVar.get('user')==self.__params.get('user') and dicVar.get('password')==self.__params.get('password'):
+                userStatus=True
                 self.__log.info("request from user:%s ,check user and password is ok"%(self.__params.get('user')))
             else:
-                self.__log.warning("request from user:%s ,check user and password is faild"%(self.__params.get('user')))
+                self.__log.warning("request from user:%s ,check user and password  is faild"%(self.__params.get('user')))
             functionName=dicVar.get('function')
             args=dicVar.get('args')
             
